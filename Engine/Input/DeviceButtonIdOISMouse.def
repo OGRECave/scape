@@ -1,0 +1,16 @@
+/**
+ * X-Macro .DEF file for the ScapeEngine::DeviceButtonId::EDeviceButtonId enumeration containing all 
+ * OIS mouse devicebuttonids.
+ * Used by DeviceButtonId.h and DeviceButtonId.cpp.
+ *
+ * Giliam de Carpentier, Copyright (c) 2007. Licensed under the Simplified BSD license. See SCAPE_LICENSE.txt for details. 
+ */
+ 
+ENUMID( MB_Left )
+ENUMID( MB_Right ) 
+ENUMID( MB_Middle )
+ENUMID( MB_Button3 )
+ENUMID( MB_Button4 )
+ENUMID( MB_Button5 )
+ENUMID( MB_Button6 )
+ENUMID( MB_Button7 )

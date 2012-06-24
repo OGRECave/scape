@@ -1,0 +1,23 @@
+/**
+ * Giliam de Carpentier, Copyright (c) 2007. 
+ * Licensed under the Simplified BSD license. 
+ * See Docs/ScapeLicense.txt for details.
+ */
+ 
+material SkyBox
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			depth_write off
+
+			texture_unit tuCube
+			{
+				cubic_texture cloudy_noon.jpg separateUV
+				tex_address_mode clamp
+			}
+		}
+	}
+}

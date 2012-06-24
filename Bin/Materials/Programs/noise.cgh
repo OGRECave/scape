@@ -1,0 +1,303 @@
+/**
+ * Giliam de Carpentier, Copyright (c) 2007. 
+ * Licensed under the Simplified BSD license. 
+ * See Docs/ScapeLicense.txt for details.
+ */
+ 
+float perlinNoise(float2 p, float seed, uniform sampler2D samplerPerlinPerm2D, uniform sampler2D samplerPerlinGrad2D)
+{
+  // Calculate 2D integer coordinates P and fraction p.
+  float2 i = floor(p);
+  float2 f = p - i;
+
+  // Get weights from the coordinate fraction
+  float2 w = f * f * f * (f * (f * 6 - 15) + 10);
+  float4 w4 = float4(1, w.x, w.y, w.x * w.y);
+
+  // Get the four randomly permutated indices from the noise lattice nearest to p
+  // and offset these numbers with the seed number. 
+  float4 perm = tex2D(samplerPerlinPerm2D, i / 256) + seed / 256;
+
+  // Permutate the four offseted indices again and get the 2D gradient for each
+  // of the four permutated coordinates-seed pairs.
+  float4 g1 = tex2D(samplerPerlinGrad2D, perm.xy) * 2 - 1;
+  float4 g2 = tex2D(samplerPerlinGrad2D, perm.zw) * 2 - 1;
+
+  // Evaluate the four lattice gradients at p
+  float a = dot(g1.xy, f);
+  float b = dot(g2.xy, f + float2(-1,  0));
+  float c = dot(g1.zw, f + float2( 0, -1));
+  float d = dot(g2.zw, f + float2(-1, -1));
+
+  // Bi-linearly blend between the gradients, using w4 as blend factors.
+  float4 grads = float4(a, b - a, c - a, a - b - c + d);
+  float n = dot(grads, w4);
+ 
+  // Return the noise value, roughly normalized in the range [-1, 1]
+  return n * 1.5;
+}
+
+/*
+// ----------------------------------------------------------------------------
+float perlinNoise(float2 p, float seed, uniform sampler2D samplerPerlinPerm2D, uniform sampler2D samplerPerlinGrad2D)
+{
+  float2 P = floor(p);
+  p -= P;
+  float2 f = p * p * p * (p * (p * 6 - 15) + 10);
+  float2 df = p * p * (p * (30 * p - 60) + 30);
+  float2 dfp = p * p * p * (p * (36 * p - 75) + 40);
+
+  float4 AA = tex2D(samplerPerlinPerm2D, P / 256) + seed / 256;
+
+  float4 G1 = tex2D(samplerPerlinGrad2D, AA.xy) * 2 - 1;
+  float4 G2 = tex2D(samplerPerlinGrad2D, AA.zw) * 2 - 1;
+
+  float a = dot(G1.xy, p);
+  float b = dot(G2.xy, p + float2(-1,  0));
+  float c = dot(G1.zw, p + float2( 0, -1));
+  float d = dot(G2.zw, p + float2(-1, -1));
+
+  float k0 = a;
+  float k1 = b - a;
+  float k2 = c - a;
+  float k3 = a - b - c + d;
+
+  float n = k0 + k1*f.x + k2*f.y + k3*f.x*f.y;
+
+  return n * 1.5;
+}
+*/
+
+/*
+// ----------------------------------------------------------------------------
+half perlinNoise(float2 p, float seed, uniform sampler2D samplerPerlinPerm2D, uniform sampler2D samplerPerlinGrad2D)
+{
+  float2 P = floor(p);
+  p -= P;
+  half2 f = p * p * p * (p * (p * 6 - 15) + 10);
+  half2 df = p * p * (p * (30 * p - 60) + 30);
+  half2 dfp = p * p * p * (p * (36 * p - 75) + 40);
+
+  half4 AA = tex2D(samplerPerlinPerm2D, P / 256) + seed / 256;
+
+  half4 G1 = tex2D(samplerPerlinGrad2D, AA.xy) * 2 - 1;
+  half4 G2 = tex2D(samplerPerlinGrad2D, AA.zw) * 2 - 1;
+
+  half a = dot(G1.xy, p);
+  half b = dot(G2.xy, p + float2(-1,  0));
+  half c = dot(G1.zw, p + float2( 0, -1));
+  half d = dot(G2.zw, p + float2(-1, -1));
+
+  half k0 = a;
+  half k1 = b - a;
+  half k2 = c - a;
+  half k3 = a - b - c + d;
+
+  half n = k0 + k1*f.x + k2*f.y + k3*f.x*f.y;
+
+  return n * 1.5;
+}
+*/
+
+
+
+// ----------------------------------------------------------------------------
+float billowedNoise(float2 p, float seed, uniform sampler2D samplerPerlinPerm2D, uniform sampler2D samplerPerlinGrad2D)
+{
+  return abs(perlinNoise(p, seed, samplerPerlinPerm2D, samplerPerlinGrad2D));
+}
+
+
+// ----------------------------------------------------------------------------
+float ridgedNoise(float2 p, float seed, uniform sampler2D samplerPerlinPerm2D, uniform sampler2D samplerPerlinGrad2D)
+{
+  return 1.0f - abs(perlinNoise(p, seed, samplerPerlinPerm2D, samplerPerlinGrad2D));
+}
+
+
+// ----------------------------------------------------------------------------
+float3 noise_pseudo_deriv(float2 p, float seed, uniform sampler2D samplerPerlinPerm2D, uniform sampler2D samplerPerlinGrad2D)
+{
+  float2 P = floor(p);
+  p -= P;
+  float2 f = p * p * p * (p * (p * 6 - 15) + 10);
+  float2 df = p * p * (p * (30 * p - 60) + 30);
+
+  float4 AA = tex2D(samplerPerlinPerm2D, P / 256) + seed / 256;
+
+  float4 G1 = tex2D(samplerPerlinGrad2D, AA.xy) * 2 - 1;
+  float4 G2 = tex2D(samplerPerlinGrad2D, AA.zw) * 2 - 1;
+
+  float a = dot(G1.xy, p);
+  float b = dot(G2.xy, p + float2(-1,  0));
+  float c = dot(G1.zw, p + float2( 0, -1));
+  float d = dot(G2.zw, p + float2(-1, -1));
+
+  float k0 = a;
+  float k1 = b - a;
+  float k2 = c - a;
+  float k3 = a - b - c + d;
+
+  float n = k0 + k1*f.x + k2*f.y + k3*f.x*f.y;
+
+  float dx = df.x * (k1 + k3*f.y);
+  float dy = df.y * (k2 + k3*f.x);
+
+  return float3(n, dx, dy) * 1.5;
+}
+
+
+// ----------------------------------------------------------------------------
+float3 noise_deriv(float2 p, float seed, uniform sampler2D samplerPerlinPerm2D, uniform sampler2D samplerPerlinGrad2D)
+{
+  float2 P = floor(p);
+  p -= P;
+  float2 w = p * p * p * (p * (p * 6 - 15) + 10); // 6p^5 - 15p^4 + 10p^3
+  float2 dw = p * p * (p * (p * 30 - 60) + 30); // 30p^4 - 60p^3 + 30p^2
+  float2 dwp = p * p * p * (p * (p * 36 - 75) + 40); // 36p^5 - 75p^4 + 40p^3
+
+  float4 AA = tex2D(samplerPerlinPerm2D, P / 256) + seed / 256;
+  float4 G1 = tex2D(samplerPerlinGrad2D, AA.xy) * 2 - 1;
+  float4 G2 = tex2D(samplerPerlinGrad2D, AA.zw) * 2 - 1;
+
+  float k0 = G1.x*p.x + G1.y*p.y; // a
+  float k1 = (G2.x-G1.x)*p.x + (G2.y-G1.y)*p.y - G2.x; // b - a
+  float k2 = (G1.z-G1.x)*p.x + (G1.w-G1.y)*p.y - G1.w; // c - a
+  float k3 = (G1.x-G2.x-G1.z+G2.z)*p.x + (G1.y-G2.y-G1.w+G2.w)*p.y + G2.x + G1.w - G2.z - G2.w; // a - b - c + d
+
+  float n = k0 + k1*w.x + k2*w.y + k3*w.x*w.y;
+
+  float dx = (G1.x + (G1.z-G1.x)*w.y) + ((G2.y-G1.y)*p.y - G2.x + ((G1.y-G2.y-G1.w+G2.w)*p.y + G2.x + G1.w - G2.z - G2.w)*w.y)*dw.x + ((G2.x-G1.x) + (G1.x-G2.x-G1.z+G2.z)*w.y)*dwp.x;
+  float dy = (G1.y + (G2.y-G1.y)*w.x) + ((G1.z-G1.x)*p.x - G1.w + ((G1.x-G2.x-G1.z+G2.z)*p.x + G2.x + G1.w - G2.z - G2.w)*w.x)*dw.y + ((G1.w-G1.y) + (G1.y-G2.y-G1.w+G2.w)*w.x)*dwp.y;
+
+  return float3(n, dx, dy) * 1.5;
+}
+
+
+// ----------------------------------------------------------------------------
+float3 noise_deriv2(float2 p, float seed, uniform sampler2D samplerPerlinPerm2D, uniform sampler2D samplerPerlinGrad2D)
+{
+  float2 P = floor(p);
+  p -= P;
+  float2 f = p * p * p * (p * (p * 6 - 15) + 10); // 6p^5 - 15p^4 + 10p^3
+  float2 ddf = p * (p * (p * 120 - 180) + 60); // 120p^3 - 180p^2 + 60p
+  float2 ddfp = p * p * (p * (p * 180 - 300) + 120); // 180p^4 - 300p^3 + 120p^2
+
+  float4 AA = tex2D(samplerPerlinPerm2D, P / 256) + seed / 256;
+  float4 G1 = tex2D(samplerPerlinGrad2D, AA.xy) * 2 - 1;
+  float4 G2 = tex2D(samplerPerlinGrad2D, AA.zw) * 2 - 1;
+
+  float k0 = G1.x*p.x + G1.y*p.y; // a
+  float k1 = (G2.x-G1.x)*p.x + (G2.y-G1.y)*p.y - G2.x; // b - a
+  float k2 = (G1.z-G1.x)*p.x + (G1.w-G1.y)*p.y - G1.w; // c - a
+  float k3 = (G1.x-G2.x-G1.z+G2.z)*p.x + (G1.y-G2.y-G1.w+G2.w)*p.y + G2.x + G1.w - G2.z - G2.w; // a - b - c + d
+
+  float n = k0 + k1*f.x + k2*f.y + k3*f.x*f.y;
+
+  float ddx = ((G2.y-G1.y)*p.y - G2.x + ((G1.y-G2.y-G1.w+G2.w)*p.y + G2.x + G1.w - G2.z - G2.w)*f.y)*ddf.x + ((G2.x-G1.x) + (G1.x-G2.x-G1.z+G2.z)*f.y)*ddfp.x;
+  float ddy = ((G1.z-G1.x)*p.x - G1.w + ((G1.x-G2.x-G1.z+G2.z)*p.x + G2.x + G1.w - G2.z - G2.w)*f.x)*ddf.y + ((G1.w-G1.y) + (G1.y-G2.y-G1.w+G2.w)*f.x)*ddfp.y;
+
+  return float3(n, ddx, ddy) * 1.5;
+}
+
+
+// ----------------------------------------------------------------------------
+float transformNoise(float2 p, float seed, float4 transform, uniform sampler2D samplerPerlinPerm2D, uniform sampler2D samplerPerlinGrad2D)
+{
+  return transform.x + transform.y * abs(transform.z + transform.w * perlinNoise(p, seed, samplerPerlinPerm2D, samplerPerlinGrad2D));
+}
+
+// ----------------------------------------------------------------------------
+float turbulence_iq(float2 p, float2 pdistort, int seed, int octaves, float lacunarity = 2.0, float gain = 0.5, uniform sampler2D samplerPerlinPerm2D, uniform sampler2D samplerPerlinGrad2D)
+{
+  float sum = 0.5;
+  float freq = 1.0, amp = 1.0;
+  float2 dsum = float2(0,0);
+  for(int i=0; i < octaves; i++) {
+    float3 n = noise_pseudo_deriv((p+pdistort*amp)*freq, seed + i, samplerPerlinPerm2D, samplerPerlinGrad2D);
+    dsum += n.yz;
+    sum += amp * n.x / (1 + dot(dsum, dsum));
+    freq *= lacunarity;
+    amp *= gain;
+  }
+  
+  return sum;
+}
+
+// ----------------------------------------------------------------------------
+float turbulence_deriv(float2 p, float2 pdistort, int seed, int octaves, float lacunarity = 2.0, float gain = 0.5, uniform sampler2D samplerPerlinPerm2D, uniform sampler2D samplerPerlinGrad2D)
+{
+  float sum = 0.5;
+  float freq = 1.0, amp = 1.0;
+  float2 dsum = float2(0,0);
+  for(int i=0; i < octaves; i++) {
+    float3 n = 0.25 * noise_deriv(p*freq, seed + i, samplerPerlinPerm2D, samplerPerlinGrad2D);
+    sum += amp * n.y * n.z;
+    freq *= lacunarity;
+    amp *= gain;
+  }
+  return sum;
+}
+
+
+// ----------------------------------------------------------------------------
+float turbulence(float2 p, int seed, int octaves, float lacunarity = 2.0, float gain = 0.5, uniform sampler2D samplerPerlinPerm2D, uniform sampler2D samplerPerlinGrad2D)
+{
+  float sum = 0;
+  float freq = 1.0, amp = 1.0;
+  for(int i=0; i < octaves; i++) 
+  {
+    float n = perlinNoise(p*freq, seed + i, samplerPerlinPerm2D, samplerPerlinGrad2D);
+    sum += n*amp;
+    freq *= lacunarity;
+    amp *= gain;
+  }
+  return sum;
+}
+
+
+// ----------------------------------------------------------------------------
+float multiturbulence(float2 p, float2 pdistort, int seed, int octaves, float lacunarity = 2.0, float gain = 0.5, uniform sampler2D samplerPerlinPerm2D, uniform sampler2D samplerPerlinGrad2D)
+{
+  float freq = 1;
+  float amp = 1;
+  float result = 0;
+  float weight = 1;
+
+  gain *= 2.3;
+
+  float signal = 1 / gain;
+
+  for(int i=0; i < octaves; i++)
+  {
+    weight = saturate(signal * gain);
+    signal = perlinNoise((p+pdistort*amp)*freq, seed+i, samplerPerlinPerm2D, samplerPerlinGrad2D);
+    signal = 1 - abs(signal);
+    signal *= signal;
+    signal *= weight;
+    result += signal * amp;
+    freq *= lacunarity;
+    amp *= gain;
+  }
+  result = result * 2 - 1;
+  return result;
+}
+
+
+// ----------------------------------------------------------------------------
+float ridgedturbulence(float2 p, float2 pdistort, int seed, int octaves, float lacunarity = 2.0, float gain = 0.5, uniform sampler2D samplerPerlinPerm2D, uniform sampler2D samplerPerlinGrad2D)
+{
+  float sum = 0;
+  float freq = 1.0, amp = 1.0;
+  float bias = 0;
+  for(int i=0; i < octaves; i++) {
+
+    float n = 0.5 * (1 + ridgednoise((p+pdistort*amp)*freq, seed + i, samplerPerlinPerm2D, samplerPerlinGrad2D));
+    sum += n * amp;
+    bias -= amp;
+    freq *= lacunarity;
+    amp *= gain;
+  }
+  sum += 0.5 * bias;
+  return sum;
+}

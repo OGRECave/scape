@@ -29,7 +29,7 @@ June 9th, 2012</p>
    <li>Download <a href="http://sourceforge.net/projects/wxwindows/files/wxAll/2.8.3/wxWidgets-2.8.3.zip/download">http://sourceforge.net/projects/wxwindows/files/wxAll/2.8.3/wxWidgets-2.8.3.zip/download</a></li>
    <li>Extract the download to <i>&lt;PROJECT&gt;/Dependencies/</i></li>
    <li>Copy <i>&lt;PROJECT&gt;/Dependencies/wxWidgets-2.8.3-overwrite/lib</i> over the <i>&lt;PROJECT&gt;/Dependencies/wxWidgets-2.8.3/lib</i> folder</li>
-   <li>Open <i>&lt;PROJECT&gt;/Dependencies/wxWidgets-2.8.3/build/msw/wx_dll.dsw</i> with Visual Studio and convert all projects</li>
+   <li>Open <i>&lt;PROJECT&gt;/Dependencies/wxWidgets-2.8.3/build/msw/wx_dll.dsw</i> with Visual Studio 2008 (Express) and convert all projects</li>
    <li>Set the current configuration to <i>DLL Debug</i> and only build project <i>aui</i></li>
    <li>Set the current configuration to <i>DLL Release</i> and only build project <i>aui</i></li>
  </ul></li> 
@@ -37,19 +37,19 @@ June 9th, 2012</p>
    <li>Download <a href="http://sourceforge.net/projects/wxpropgrid/files/wxPropertyGrid/1.2.12/wxpropgrid-1.2.12-win.exe/download">http://sourceforge.net/projects/wxpropgrid/files/wxPropertyGrid/1.2.12/wxpropgrid-1.2.12-win.exe/download</a></li>
    <li>Start the installer and set the destination folder to <i>&lt;PROJECT&gt;/Dependencies/wxWidgets-2.8.3</i>.
        (don't worry about a potential windows compatibility warning when the installer is finished)</li>
-   <li>Open <i>&lt;PROJECT&gt;/Dependencies/wxWidgets-2.8.3/contrib/build/propgrid/propgrid.dsw</i> with Visual Studio and convert project</li>
+   <li>Open <i>&lt;PROJECT&gt;/Dependencies/wxWidgets-2.8.3/contrib/build/propgrid/propgrid.dsw</i> with Visual Studio 2008 (Express) and convert project</li>
    <li>Set the current configuration to <i>DLL Debug</i> and build project <i>propgrid</i></li>
    <li>Set the current configuration to <i>DLL Release</i> and build project <i>propgrid</i></li>
    <li>Copy the following 8 built DLLs from <i>&lt;PROJECT&gt;/Dependencies/wxWidgets-2.8.3/lib/vc_dll/</i> to <i>&lt;PROJECT&gt;/Bin/</i> :
        <i>wxbase28_vc_custom.dll, wxmsw28_aui_vc_custom.dll, wxmsw28_core_vc_custom.dll, wxmsw28_propgrid_vc_custom.dll
 	   wxbase28d_vc_custom.dll, wxmsw28d_aui_vc_custom.dll, wxmsw28d_core_vc_custom.dll and wxmsw28d_propgrid_vc_custom.dll</i>
-	   (so, basically everything built in step 2 and 3 except <i>wxmsw28(d)_adv_vc_custom.dll</i>)</li>
+	   (so, basically every DLL built in step 4 and 5 except for <i>wxmsw28(d)_adv_vc_custom.dll</i>)</li>
  </ul></li>
  <li>Install Ogre3D SDK 1.8.0<ul>
    <li>Download <a href="https://sourceforge.net/projects/ogre/files/ogre/1.8/1.8.0/OgreSDK_vc9_v1-8-0.exe/download">https://sourceforge.net/projects/ogre/files/ogre/1.8/1.8.0/OgreSDK_vc9_v1-8-0.exe/download</a></li>
    <li>Start the install and chooise any destination folder (for example, <i>&lt;PROJECT&gt;/Dependencies/OgreSDK</i>). The remainder of this document will call the chosen Ogre destination folder <i>&lt;OGRE_HOME&gt;</i>, after the environment variable <i>OGRE_HOME</i> that will be set automatically by the installer.</li>
-   <li>Copy <i>OIS_d.dll, OgreMain_d.dll, Plugin_CgProgramManager_d.dll, Plugin_OctreeSceneManager_d.dll</i> and <i>RenderSystem_Direct3D9_d.dll</i> from <i>&lt;OGRE_HOME&gt;/bin/debug/</i> to <i>&lt;PROJECT&gt;/Bin/</i></li>
-   <li>Copy <i>cg.dll, OIS.dll, OgreMain.dll, Plugin_CgProgramManager.dll, Plugin_OctreeSceneManager.dll</i> and <i>RenderSystem_Direct3D9.dll</i> from <i>&lt;OGRE_HOME&gt;/bin/release/</i> to <i>&lt;PROJECT&gt;/Bin/</i></li>
+   <li>Copy <i>OIS_d.dll, OgreMain_d.dll, Plugin_CgProgramManager_d.dll, Plugin_OctreeSceneManager_d.dll</i> and <i>RenderSystem_Direct3D9_d.dll</i> from <i>&lt;OGRE_HOME&gt;/bin/Debug/</i> to <i>&lt;PROJECT&gt;/Bin/</i></li>
+   <li>Copy <i>cg.dll, OIS.dll, OgreMain.dll, Plugin_CgProgramManager.dll, Plugin_OctreeSceneManager.dll</i> and <i>RenderSystem_Direct3D9.dll</i> from <i>&lt;OGRE_HOME&gt;/bin/Release/</i> to <i>&lt;PROJECT&gt;/Bin/</i></li>
  </ul></li>
  <li>Build and Run Scape<ul>
    <li>Open <i>&lt;PROJECT&gt;/Scape.sln</i></li>

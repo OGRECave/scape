@@ -79,7 +79,7 @@ RenderView::RenderView(long viewId) :
 	mCamera(NULL),
 	mViewport(NULL),
 	mCameraController(NULL),
-	mOverlay(NULL),
+	//mOverlay(NULL),
 	mDirtyRect(false),
 	mDirtyWireframe(true)
 {
@@ -139,11 +139,11 @@ void RenderView::attach(const string &windowHandle, int left, int top, int width
 	//	mCamera->setFarClipDistance(0);
 	//}
 
-	mOverlay = Ogre::OverlayManager::getSingleton().getByName("DebugOverlay");
-	if (mOverlay)
-	{
-		mOverlay->show();
-	}
+	//mOverlay = Ogre::OverlayManager::getSingleton().getByName("DebugOverlay");
+	//if (mOverlay)
+	//{
+	//	mOverlay->show();
+	//}
 
 	if (mCameraController == NULL)
 	{
@@ -226,6 +226,7 @@ void RenderView::update()
 		mDirtyWireframe = false;
 	}
 
+#if 0
 	if (mRenderDebugInfo)
 	{
 		// update stats when necessary
@@ -249,7 +250,7 @@ void RenderView::update()
 	{
 		mOverlay->hide();
 	}
-
+#endif
 
 	mRenderWindow->update();
 

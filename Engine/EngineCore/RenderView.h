@@ -83,7 +83,7 @@ namespace ScapeEngine
 		// Attached viewport
 		class Ogre::Viewport* mViewport;
 
-		class Ogre::Overlay* mOverlay;
+		//class Ogre::Overlay* mOverlay;
 
 		// Attached camera controller
 		class CameraController* mCameraController;

@@ -14,7 +14,7 @@ using namespace ScapeEngine;
 
 // ----------------------------------------------------------------------------
 HeightfieldBufferPage::HeightfieldBufferPage(HeightfieldBuffer *heightfieldBuffer, int pageColumn, int pageRow)
-: 	_mHeightTexture(NULL),
+: 	//FIXME: _mHeightTexture(NULL),
 	mVersion(Utils::createGUID()),
 	mPageColumn(pageColumn),
 	mPageRow(pageRow)

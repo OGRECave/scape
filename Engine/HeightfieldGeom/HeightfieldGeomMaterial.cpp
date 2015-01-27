@@ -21,7 +21,7 @@ IMPLEMENT_UIELEMENTCONTAINERSIMPLE_CLASS(HeightfieldGeomMaterial)
 // ----------------------------------------------------------------------------
 HeightfieldGeomMaterial::HeightfieldGeomMaterial()
 :	mInitialized(false),
-	mMaterial(0),
+//FIXME: mMaterial(0),
 	mBrush(NULL),
 	mHasDirtySettings(true)
 {

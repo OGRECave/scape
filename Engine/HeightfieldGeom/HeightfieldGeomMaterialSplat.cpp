@@ -267,7 +267,8 @@ void HeightfieldGeomMaterialSplat::onSkySettingsUpdate()
 // ----------------------------------------------------------------------------
 Ogre::MaterialPtr HeightfieldGeomMaterialSplat::createMaterial()
 {
-	Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().load(mMaterialName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+	Ogre::ResourcePtr resource  = Ogre::MaterialManager::getSingleton().load(mMaterialName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+	Ogre::MaterialPtr material = resource.staticCast<Ogre::Material>();
 
 	return material;
 }

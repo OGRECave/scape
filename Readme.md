@@ -4,7 +4,3 @@ This fork of Giliam de Carpentier's [Scape](http://www.decarpentier.nl/scape) te
 
 
 It is also a test-bed for possible integration into [Ogitor](http://www.ogitor.org)
-
-
-Jacob Moen 
-Ogitor Team

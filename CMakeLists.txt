@@ -125,4 +125,5 @@ include_directories( ${OIS_INCLUDE_DIRS}
 )
  
 ADD_SUBDIRECTORY(Engine)
+ADD_SUBDIRECTORY(Editor)
 ADD_SUBDIRECTORY(NewEditor)

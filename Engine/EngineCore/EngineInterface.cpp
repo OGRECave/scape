@@ -114,7 +114,7 @@ bool EngineInterface::onFatalException()
     {
 
 		
-        Ogre::StringUtil::StrStreamType stream;
+        Ogre::StringStream stream;
         stream << _T("A fatal error occured:\n") << e.getFullDescription();
         std::cout << stream.str();
         Ogre::LogManager::getSingleton().logMessage(stream.str());
@@ -124,7 +124,7 @@ bool EngineInterface::onFatalException()
 	}
 	catch ( std::exception &e )
     {
-        Ogre::StringUtil::StrStreamType stream;
+        Ogre::StringStream stream;
         stream << _T("A fatal error occured:\n") << e.what();
         std::cout << stream.str();
         Ogre::LogManager::getSingleton().logMessage(stream.str());

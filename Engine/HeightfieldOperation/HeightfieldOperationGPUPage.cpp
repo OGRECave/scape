@@ -53,7 +53,8 @@ void HeightfieldOperationGPUPage::tickPending()
 // ----------------------------------------------------------------------------
 void HeightfieldOperationGPUPage::tickActive()
 {
-//	HeightfieldBufferPage* page = mHeightfieldBuffer->getPage(mPageCoords.first, mPageCoords.second, HeightfieldBuffer::PAGEACCESSMODE_READWRITE);
+#if 0
+    //	HeightfieldBufferPage* page = mHeightfieldBuffer->getPage(mPageCoords.first, mPageCoords.second, HeightfieldBuffer::PAGEACCESSMODE_READWRITE);
 	HeightfieldBufferPage* inPage = mOperation->getInOutHeightfieldBuffer()->getPage(mPageCoords.first, mPageCoords.second, HeightfieldBuffer::PAGEACCESSMODE_READONLY);
 
 	if (!inPage) return;
@@ -152,6 +153,7 @@ void HeightfieldOperationGPUPage::tickActive()
 		mQuadPtr.setNull();
 
 		mCurrentState = STATE_COMPLETED;
-	}			
+    }
+#endif
 }
 

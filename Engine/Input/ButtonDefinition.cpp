@@ -3,12 +3,12 @@
  */
 
 #include "PCH/stdafx.h"
-#include "DeviceButton.h"
+//#include "DeviceButton.h"
 #include "ButtonDefinition.h"
 
 using namespace ScapeEngine;
 
-
+#if 0
 // ----------------------------------------------------------------------------
 ButtonDefinition::ButtonDefinition(ButtonId::EButtonId buttonId) 
 {
@@ -28,3 +28,4 @@ void ButtonDefinition::addDeviceButton(OIS::KeyCode keyCode)
 {
 	mDeviceButtons.push_front(DeviceButton(keyCode));
 }
+#endif

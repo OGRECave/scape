@@ -24,7 +24,8 @@ FILE(GLOB HeightfieldFileCodecs_SRCS "./HeightfieldFileCodecs/*.cpp")
 FILE(GLOB HeightfieldGeom_SRCS "./HeightfieldGeom/*.cpp")
 FILE(GLOB HeightfieldOperation_SRCS "./HeightfieldOperation/*.cpp")
 FILE(GLOB HeightfieldSerializer_SRCS "./HeightfieldSerializer/*.cpp")
-#FILE(GLOB Input_SRCS "./Input/*.cpp")
+FILE(GLOB Input_SRCS "./Input/*.cpp")
+FILE(GLOB Input_DEFS "./Input/*.def")
 FILE(GLOB Tinyxml_SRCS "./Tinyxml/*.cpp")
 FILE(GLOB Utils_SRCS "./Utils/*.cpp")
 FILE(GLOB Wintab_SRCS "./Wintab/*.cpp")
@@ -39,7 +40,7 @@ FILE(GLOB HeightfieldFileCodecs_HDRS "./HeightfieldFileCodecs/*.h")
 FILE(GLOB HeightfieldGeom_HDRS "./HeightfieldGeom/*.h")
 FILE(GLOB HeightfieldOperation_HDRS "./HeightfieldOperation/*.h")
 FILE(GLOB HeightfieldSerializer_HDRS "./HeightfieldSerializer/*.h")
-#FILE(GLOB Input_HDRS "./Input/*.h")
+FILE(GLOB Input_HDRS "./Input/*.h")
 FILE(GLOB Tinyxml_HDRS "./Tinyxml/*.h")
 FILE(GLOB Utils_HDRS "./Utils/*.h")
 FILE(GLOB Wintab_HDRS "./Wintab/*.h")
@@ -55,7 +56,7 @@ INCLUDE_DIRECTORIES (
    ${CMAKE_CURRENT_SOURCE_DIR}/HeightfieldGeom
    ${CMAKE_CURRENT_SOURCE_DIR}/HeightfieldOperation
    ${CMAKE_CURRENT_SOURCE_DIR}/HeightfieldSerializer
-   #${CMAKE_CURRENT_SOURCE_DIR}/Input
+   ${CMAKE_CURRENT_SOURCE_DIR}/Input
    ${CMAKE_CURRENT_SOURCE_DIR}/PCH
    ${CMAKE_CURRENT_SOURCE_DIR}/Tinyxml
    ${CMAKE_CURRENT_SOURCE_DIR}/Utils
@@ -71,7 +72,8 @@ set (CPP_FILES
     ${HeightfieldGeom_SRCS} 
     ${HeightfieldOperation_SRCS} 
     ${HeightfieldSerializer_SRCS} 
-    #${Input_SRCS} 
+    ${Input_SRCS}
+    ${Input_DEFS}
     ${Tinyxml_SRCS} 
     ${Wintab_SRCS} 
     ${PCH_SRCS}
@@ -86,7 +88,7 @@ set (HPP_FILES
     ${HeightfieldGeom_HDRS} 
     ${HeightfieldOperation_HDRS} 
     ${HeightfieldSerializer_HDRS} 
-    #${Input_HDRS} 
+    ${Input_HDRS}
     ${Tinyxml_HDRS} 
     ${Wintab_HDRS} 
     ${PCH_HDRS}

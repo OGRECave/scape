@@ -14,12 +14,12 @@ using namespace ScapeEngine;
 
 // ----------------------------------------------------------------------------
 HeightfieldBufferPage::HeightfieldBufferPage(HeightfieldBuffer *heightfieldBuffer, int pageColumn, int pageRow)
-: 	//FIXME: _mHeightTexture(NULL),
-	mVersion(Utils::createGUID()),
+    : mVersion(Utils::createGUID()),
 	mPageColumn(pageColumn),
 	mPageRow(pageRow)
 {
-	mHeightfieldBuffers.push_back(heightfieldBuffer);
+    _mHeightTexture.setNull();
+    mHeightfieldBuffers.push_back(heightfieldBuffer);
 	mHeightfieldBufferSet = heightfieldBuffer->getHeightfieldBufferSet();
 	mHeightElementFormat = heightfieldBuffer->getHeightElementFormat();
 }

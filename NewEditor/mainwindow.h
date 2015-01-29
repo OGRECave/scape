@@ -6,6 +6,11 @@
 namespace Ui {
 class MainWindow;
 }
+namespace ScapeEngine
+{
+    class EngineInterface;
+    struct string;
+}
 
 class MainWindow : public QMainWindow
 {
@@ -17,6 +22,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    class ScapeEngine::EngineInterface* mEngineInterface;
 };
 
 #endif // MAINWINDOW_H

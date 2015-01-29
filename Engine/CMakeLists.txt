@@ -75,7 +75,8 @@ set (CPP_FILES
     ${Input_SRCS}
     ${Input_DEFS}
     ${Tinyxml_SRCS} 
-    ${Wintab_SRCS} 
+    ${Utils_SRCS}
+    ${Wintab_SRCS}
     ${PCH_SRCS}
 )
 set (HPP_FILES
@@ -89,7 +90,8 @@ set (HPP_FILES
     ${HeightfieldOperation_HDRS} 
     ${HeightfieldSerializer_HDRS} 
     ${Input_HDRS}
-    ${Tinyxml_HDRS} 
+    ${Utils_HDRS}
+    ${Tinyxml_HDRS}
     ${Wintab_HDRS} 
     ${PCH_HDRS}
 )

@@ -2,6 +2,7 @@
 #include <QApplication>
 #include <QStyleFactory>
 #include <qfile.h>
+#include "EngineCore/EngineInterface.h"
 
 #include <Ogre.h>
 
@@ -10,6 +11,8 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     a.setStyle(QStyleFactory::create("Fusion"));
+
+    ScapeEngine::EngineInterface::openConsole();
 
 //    QPalette darkPalette;
 //    darkPalette.setColor(QPalette::Window, QColor(53,53,53));// rgb(53,53,53)

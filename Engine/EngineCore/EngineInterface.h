@@ -28,10 +28,10 @@
 
 namespace ScapeEngine 
 {
-	typedef std::list<string> StringList;
-	typedef std::map<string, string> StringStringMap;
-	typedef std::map<string, StringList> StringStringListMap;
-	typedef std::map<string, std::pair<string, string>> StringStringStringPairMap;
+    typedef std::list<std::string> StringList;
+    typedef std::map<std::string, std::string> StringStringMap;
+    typedef std::map<std::string, StringList> StringStringListMap;
+    typedef std::map<std::string, std::pair<std::string, std::string>> StringStringStringPairMap;
 
 	// ----------------------------------------------------------------------------
 	enum EScapeUIElementGroupId
@@ -84,44 +84,44 @@ namespace ScapeEngine
 
 		void onRenderViewKillFocus(int viewId);
 
-		void writeAuxiliaryFile(const string& fileName, const void* data, int bytes);
-		std::pair<void*, size_t> readAuxiliaryFile(const string& fileName);
+        void writeAuxiliaryFile(const std::string& fileName, const void* data, int bytes);
+        std::pair<void*, size_t> readAuxiliaryFile(const std::string& fileName);
 
 		StringList			getUIElementNameList(EScapeUIElementGroupId groupId);
-		StringList			getUIElementPropertyNameList(EScapeUIElementGroupId groupId, const string& element);
+        StringList			getUIElementPropertyNameList(EScapeUIElementGroupId groupId, const std::string& element);
 
-		string				getUIElementPresetPropertyValue(EScapeUIElementGroupId groupId, const string& elementName, const string& presetName, const string& propertyName);
-		void				setUIElementPresetPropertyValue(EScapeUIElementGroupId groupId, const string& elementName, const string& presetName, const string& propertyName, const string& value);
+        std::string				getUIElementPresetPropertyValue(EScapeUIElementGroupId groupId, const std::string& elementName, const std::string& presetName, const std::string& propertyName);
+        void				setUIElementPresetPropertyValue(EScapeUIElementGroupId groupId, const std::string& elementName, const std::string& presetName, const std::string& propertyName, const std::string& value);
 
 		StringStringStringPairMap getFileFilterMap(EScapeUIElementGroupId groupId);
 
-		bool				selectOperation(const string& toolName);
+        bool				selectOperation(const std::string& toolName);
 
-		bool				exportImageFile(const string& encoderName, const string& fileName, string* error);
-		bool				importImageFile(const string& decoderName, const string& fileName, string* error);
-		string				getDecoderNameFromExtension(const string& fileName);			
+        bool				exportImageFile(const std::string& encoderName, const std::string& fileName, std::string* error);
+        bool				importImageFile(const std::string& decoderName, const std::string& fileName, std::string* error);
+        std::string				getDecoderNameFromExtension(const std::string& fileName);
 
-		string				getUIElementPropertyField(const string& elementName, const string& propertyName, const string& propertyFieldName);
+        std::string				getUIElementPropertyField(const std::string& elementName, const std::string& propertyName, const std::string& propertyFieldName);
 
-		string				getUIElementPropertyValue(EScapeUIElementGroupId groupId, const string& elementName, const string& propertyName);
-		string				setUIElementPropertyValue(EScapeUIElementGroupId groupId, const string& elementName, const string& propertyName, const string& value);
+        std::string				getUIElementPropertyValue(EScapeUIElementGroupId groupId, const std::string& elementName, const std::string& propertyName);
+        std::string				setUIElementPropertyValue(EScapeUIElementGroupId groupId, const std::string& elementName, const std::string& propertyName, const std::string& value);
 
-		StringStringMap		getUIElementPropertyValueMap(EScapeUIElementGroupId groupId, const string& elementName);
-		StringStringMap		setUIElementPropertyValueMap(EScapeUIElementGroupId groupId, const string& elementName, const StringStringMap& valueMap);
+        StringStringMap		getUIElementPropertyValueMap(EScapeUIElementGroupId groupId, const std::string& elementName);
+        StringStringMap		setUIElementPropertyValueMap(EScapeUIElementGroupId groupId, const std::string& elementName, const StringStringMap& valueMap);
 
-		StringList			getUIElementPresetPropertyNames(EScapeUIElementGroupId groupId, const string& elementName);
+        StringList			getUIElementPresetPropertyNames(EScapeUIElementGroupId groupId, const std::string& elementName);
 
-		StringStringMap		getUIElementPresetPropertyValueMap(EScapeUIElementGroupId groupId, const string& elementName, const string& presetName);
-		void				setUIElementPresetPropertyValueMap(EScapeUIElementGroupId groupId, const string& elementName, const string& presetName, const StringStringMap& valueMap);
+        StringStringMap		getUIElementPresetPropertyValueMap(EScapeUIElementGroupId groupId, const std::string& elementName, const std::string& presetName);
+        void				setUIElementPresetPropertyValueMap(EScapeUIElementGroupId groupId, const std::string& elementName, const std::string& presetName, const StringStringMap& valueMap);
 
-		void				deleteUIElementPreset(EScapeUIElementGroupId groupId, const string& elementName, const string& presetName);
-		string				importUIElementPreset(EScapeUIElementGroupId groupId, const string& elementName, const string& fileName);
-		void				exportUIElementPreset(EScapeUIElementGroupId groupId, const string& elementName, const string& fileName);
+        void				deleteUIElementPreset(EScapeUIElementGroupId groupId, const std::string& elementName, const std::string& presetName);
+        std::string				importUIElementPreset(EScapeUIElementGroupId groupId, const std::string& elementName, const std::string& fileName);
+        void				exportUIElementPreset(EScapeUIElementGroupId groupId, const std::string& elementName, const std::string& fileName);
 
-		string				makeUniquePresetName(EScapeUIElementGroupId groupId, const string& elementName, const string& baseName);
+        std::string				makeUniquePresetName(EScapeUIElementGroupId groupId, const std::string& elementName, const std::string& baseName);
 
 	protected:
-		UIElementContainer* getUIElementContainer(EScapeUIElementGroupId scapeGroupId, const string& elementName);
+        UIElementContainer* getUIElementContainer(EScapeUIElementGroupId scapeGroupId, const std::string& elementName);
 	};
 }
 

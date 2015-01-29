@@ -54,7 +54,7 @@ set(CMAKE_AUTOMOC ON)
 # to always look for includes there:
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-include_directories(${PROJECT_SOURCE_DIR})
+include_directories(${SCAPE_SOURCE_DIR})
 
 set(SRC_FILES
 ./main.cpp
@@ -218,7 +218,7 @@ endif()
 #Akira ADD no need to install because of setting the runtime dir previously
 #install(TARGETS Editor DESTINATION ${CMAKE_INSTALL_PREFIX})
 
-GET_FILENAME_COMPONENT(QT_DLL_DIR ${QT_QMAKE_EXECUTABLE_FINDQT} PATH)
+#GET_FILENAME_COMPONENT(QT_DLL_DIR ${QT_QMAKE_EXECUTABLE_FINDQT} PATH)
 
 if (DEFINED QT_QMAKE_EXECUTABLE_FINDQT)
         SET (QTLIBLIST

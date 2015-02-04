@@ -1,9 +1,11 @@
 PROJECT( WXEditor )
 
-FIND_PACKAGE(wxWidgets COMPONENTS core base aui adv REQUIRED)
-include( "${wxWidgets_USE_FILE}" )
+#set(wxWidgets_LIB_DIR "C:/wxWidgets-2.8.3/lib/vc_lib")
 
-include_directories( "${WXEditor_SOURCE_DIR}" )
+#FIND_PACKAGE(wxWidgets COMPONENTS core base aui adv propgrid REQUIRED)
+#include( "${wxWidgets_USE_FILE}" )
+
+#include_directories( "${WXEditor_SOURCE_DIR}" )
 include_directories(${CMAKE_SOURCE_DIR}/Engine
    ${CMAKE_SOURCE_DIR}/Engine/EngineCore
    ${CMAKE_SOURCE_DIR}/Engine/GPU2DOperation
@@ -62,7 +64,7 @@ if(WIN32)
     set (SOURCE_FILES ${SOURCE_FILES} ${WXEditor_SOURCE_DIR}/Resources/Editor.rc)
 endif()
 
-ADD_EXECUTABLE(WXEditor WIN32 ${HEADER_FILES} ${SOURCE_FILES} )
-TARGET_LINK_LIBRARIES( WXEditor ${wxWidgets_LIBRARIES} )
-TARGET_LINK_LIBRARIES( WXEditor ${OGRE_LIBRARIES} )
-TARGET_LINK_LIBRARIES( WXEditor Engine )
+#ADD_EXECUTABLE(WXEditor WIN32 ${HEADER_FILES} ${SOURCE_FILES} )
+#TARGET_LINK_LIBRARIES( WXEditor ${wxWidgets_LIBRARIES} )
+#TARGET_LINK_LIBRARIES( WXEditor ${OGRE_LIBRARIES} )
+#TARGET_LINK_LIBRARIES( WXEditor Engine )

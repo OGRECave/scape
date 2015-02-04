@@ -233,36 +233,36 @@ if (DEFINED QT_QMAKE_EXECUTABLE_FINDQT)
         ENDFOREACH(qtlib)
 endif(DEFINED QT_QMAKE_EXECUTABLE_FINDQT)
 
-IF (WIN32)
-        SET (QTPLATFORMSLIST
-                qwindows)
-        FOREACH(platform ${QTPLATFORMSLIST})
-                INSTALL(FILES "$ENV{QTDIR}/plugins/platforms/${platform}.dll" DESTINATION ${CMAKE_INSTALL_PREFIX}/platforms/)
-        ENDFOREACH(platform)
-ENDIF (WIN32)
+#IF (WIN32)
+#        SET (QTPLATFORMSLIST
+#                qwindows)
+#        FOREACH(platform ${QTPLATFORMSLIST})
+#                INSTALL(FILES "$ENV{QTDIR}/plugins/platforms/${platform}.dll" DESTINATION ${CMAKE_INSTALL_PREFIX}/platforms/)
+##        ENDFOREACH(platform)
+## ENDIF (WIN32)
 
-SET (OGRELIBLIST
-        OgreMain
-        OIS
-        cg
-        RenderSystem_GL
-        Plugin_OctreeSceneManager
-        Plugin_BSPSceneManager
-        Plugin_CgProgramManager
-        Plugin_ParticleFX
-        Plugin_PCZSceneManager
-        Plugin_OctreeZone
-        OgrePaging
-        OgreProperty
-        OgreTerrain
-        OgreRTShaderSystem
-        OgreVolume
-        OgreOverlay)
-FOREACH(ogrelib ${OGRELIBLIST})
-  IF (WIN32)
-        INSTALL(FILES "$ENV{OGRE_HOME}/bin/Release/${ogrelib}.dll" DESTINATION ${CMAKE_INSTALL_PREFIX})
-  ENDIF (WIN32)
-ENDFOREACH(ogrelib)
+#SET (OGRELIBLIST
+#        OgreMain
+#        OIS
+#        cg
+#        RenderSystem_GL
+#        Plugin_OctreeSceneManager
+#        Plugin_BSPSceneManager
+#        Plugin_CgProgramManager
+#        Plugin_ParticleFX
+#        Plugin_PCZSceneManager
+#        Plugin_OctreeZone
+#        OgrePaging
+#        OgreProperty
+#        OgreTerrain
+#        OgreRTShaderSystem
+#        OgreVolume
+#        OgreOverlay)
+#FOREACH(ogrelib ${OGRELIBLIST})
+#  IF (WIN32)
+#        INSTALL(FILES "$ENV{OGRE_HOME}/bin/Release/${ogrelib}.dll" DESTINATION ${CMAKE_INSTALL_PREFIX})
+##  ENDIF (WIN32)
+##ENDFOREACH(ogrelib)
 
 #Akira ADD
 #install(FILES

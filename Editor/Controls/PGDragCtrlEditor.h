@@ -11,6 +11,8 @@
 #ifndef __PGDDRAGCTRLEDITORD_H__
 #define __PGDDRAGCTRLEDITORD_H__
 
+#include "PCH/stdafx.h"
+
 #include "EngineInterface.h"
 #include <wx/spinbutt.h>
 

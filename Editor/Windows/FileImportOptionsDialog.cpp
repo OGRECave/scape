@@ -42,7 +42,7 @@ FileImportOptionsDialog::FileImportOptionsDialog(wxWindow* parentWindow, wxWindo
    mBigEndianButton(NULL),
    mDirtyValueMap(false)
 {
-	StringStringMap::iterator valueMapIt;
+    ScapeEngine::StringStringMap::iterator valueMapIt;
 
 	wxArrayString integerValidatorIncludes;
 	integerValidatorIncludes.push_back(_T("0"));
@@ -250,7 +250,7 @@ FileImportOptionsDialog::FileImportOptionsDialog(wxWindow* parentWindow, wxWindo
 
 
 // ----------------------------------------------------------------------------
-const StringStringMap& FileImportOptionsDialog::getValueMap()
+const ScapeEngine::StringStringMap& FileImportOptionsDialog::getValueMap()
 {
 	if (mDirtyValueMap)
 	{

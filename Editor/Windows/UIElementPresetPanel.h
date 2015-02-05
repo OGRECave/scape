@@ -12,6 +12,7 @@
 #define __UIELEMENTPRESETPANEL_H__
 
 #include "EngineInterface.h"
+#include <wx/wx.h>
 #include "wx/listctrl.h"
 
 // ----------------------------------------------------------------------------
@@ -42,7 +43,7 @@ namespace ScapeEditor
 	public:
 		UIElementPresetPanel();
 
-		void populate(const StringList& descsMap);
+        void populate(const ScapeEngine::StringList& descsMap);
 
 		void selectPreset(const wxString presetName, bool edit = false);
 

@@ -1,11 +1,13 @@
 PROJECT( WXEditor )
 
-#set(wxWidgets_LIB_DIR "C:/wxWidgets-2.8.3/lib/vc_lib")
+#${CMAKE_SOURCE_DIR}/Dependencies/wxWidgets-2.8.3
+add_definitions(-DWXUSINGDLL)
 
-#FIND_PACKAGE(wxWidgets COMPONENTS core base aui adv propgrid REQUIRED)
-#include( "${wxWidgets_USE_FILE}" )
+include_directories( "${WXEditor_SOURCE_DIR}" )
+include_directories(${CMAKE_SOURCE_DIR}/Dependencies/wxWidgets-2.8.3/include/msvc)
+include_directories(${CMAKE_SOURCE_DIR}/Dependencies/wxWidgets-2.8.3/include)
+include_directories(${CMAKE_SOURCE_DIR}/Dependencies/wxWidgets-2.8.3/contrib/include)
 
-#include_directories( "${WXEditor_SOURCE_DIR}" )
 include_directories(${CMAKE_SOURCE_DIR}/Engine
    ${CMAKE_SOURCE_DIR}/Engine/EngineCore
    ${CMAKE_SOURCE_DIR}/Engine/GPU2DOperation
@@ -59,12 +61,27 @@ set (SOURCE_FILES
    ${Windows_SCRS} 
 )
 
+foreach(src_file ${CPP_FILESa})
+   if (${src_file} MATCHES "stdafx.cpp$")
+       set_source_files_properties(${src_file} PROPERTIES COMPILE_FLAGS "/Ycstdafx.h")
+   else()
+       get_filename_component(basename ${src_file} NAME)
+      set_source_files_properties(${src_file} PROPERTIES COMPILE_FLAGS "/Ycstdafx.h -DDEBUG_CPP_NAME=\"\\\"${basename}\"\\\"")
+   endif()
+endforeach()
+
+
 if(WIN32)
     # add icon
     set (SOURCE_FILES ${SOURCE_FILES} ${WXEditor_SOURCE_DIR}/Resources/Editor.rc)
 endif()
 
-#ADD_EXECUTABLE(WXEditor WIN32 ${HEADER_FILES} ${SOURCE_FILES} )
+ADD_EXECUTABLE(WXEditor WIN32 ${HEADER_FILES} ${SOURCE_FILES} )
+
+set_target_properties(WXEditor PROPERTIES 
+COMPILE_DEFINITIONS __WXMSW__
+)
+
 #TARGET_LINK_LIBRARIES( WXEditor ${wxWidgets_LIBRARIES} )
-#TARGET_LINK_LIBRARIES( WXEditor ${OGRE_LIBRARIES} )
-#TARGET_LINK_LIBRARIES( WXEditor Engine )
+TARGET_LINK_LIBRARIES( WXEditor ${OGRE_LIBRARIES} )
+TARGET_LINK_LIBRARIES( WXEditor Engine )

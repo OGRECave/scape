@@ -423,7 +423,7 @@ void MainFrame::onMenuImportImageFile(wxCommandEvent& event)
 				itemMap[*nameIt] = item;
 			}
 
-			StringStringMap valueMap = mEngineInterface->getUIElementPropertyValueMap(ScapeEngine::SCAPEUIELEMENTGROUPID_FILEIMPORT, decoderName);
+            ScapeEngine::StringStringMap valueMap = mEngineInterface->getUIElementPropertyValueMap(ScapeEngine::SCAPEUIELEMENTGROUPID_FILEIMPORT, decoderName);
 			struct stat fileStat;
 			size_t fileSize = 0;
 			if (stat(fullPath, &fileStat) == 0) fileSize = (size_t)fileStat.st_size;
@@ -568,8 +568,8 @@ void MainFrame::onPresetPanelSelectPreset(const wxString& presetPanelName, const
 // ----------------------------------------------------------------------------
 void MainFrame::onPresetPanelLoadPreset(const wxString& presetPanelName, const wxString& presetName)
 {
-	StringStringMap valueMap = mEngineInterface->getUIElementPresetPropertyValueMap(mSelectedToolElementGroupId, mSelectedToolElementName, string(presetName));
-	StringStringMap correctValueMap =  mEngineInterface->setUIElementPropertyValueMap(mSelectedToolElementGroupId, mSelectedToolElementName, valueMap);
+    ScapeEngine::StringStringMap valueMap = mEngineInterface->getUIElementPresetPropertyValueMap(mSelectedToolElementGroupId, mSelectedToolElementName, string(presetName));
+    ScapeEngine::StringStringMap correctValueMap =  mEngineInterface->setUIElementPropertyValueMap(mSelectedToolElementGroupId, mSelectedToolElementName, valueMap);
 	mPropertyGrid->setValues(correctValueMap);
 }
 
@@ -577,7 +577,7 @@ void MainFrame::onPresetPanelLoadPreset(const wxString& presetPanelName, const w
 // ----------------------------------------------------------------------------
 void MainFrame::onPresetPanelSavePreset(const wxString& presetPanelName, const wxString& presetName)
 {
-	StringStringMap valueMap = mEngineInterface->getUIElementPropertyValueMap(mSelectedToolElementGroupId, mSelectedToolElementName);
+    ScapeEngine::StringStringMap valueMap = mEngineInterface->getUIElementPropertyValueMap(mSelectedToolElementGroupId, mSelectedToolElementName);
 	mEngineInterface->setUIElementPresetPropertyValueMap(mSelectedToolElementGroupId, mSelectedToolElementName, string(presetName), valueMap);
 }
 
@@ -586,7 +586,7 @@ void MainFrame::onPresetPanelSavePreset(const wxString& presetPanelName, const w
 void MainFrame::onPresetPanelAddPreset(const wxString& presetPanelName, const wxString& presetName)
 {
 	string uniquePresetName = mEngineInterface->makeUniquePresetName(mSelectedToolElementGroupId, mSelectedToolElementName, string(presetName));
-	StringStringMap valueMap = mEngineInterface->getUIElementPropertyValueMap(mSelectedToolElementGroupId, mSelectedToolElementName);
+    ScapeEngine::StringStringMap valueMap = mEngineInterface->getUIElementPropertyValueMap(mSelectedToolElementGroupId, mSelectedToolElementName);
 	mEngineInterface->setUIElementPresetPropertyValueMap(mSelectedToolElementGroupId, mSelectedToolElementName, string(uniquePresetName), valueMap);
 	populatePresetPanel(uniquePresetName, true);
 }
@@ -603,7 +603,7 @@ void MainFrame::onPresetPanelDeletePreset(const wxString& presetPanelName, const
 // ----------------------------------------------------------------------------
 void MainFrame::onPresetPanelChangePresetName(const wxString& presetPanelName, const wxString& oldPresetName, const wxString& newPresetName)
 {
-	StringStringMap valueMap = mEngineInterface->getUIElementPresetPropertyValueMap(mSelectedToolElementGroupId, mSelectedToolElementName, string(oldPresetName));
+    ScapeEngine::StringStringMap valueMap = mEngineInterface->getUIElementPresetPropertyValueMap(mSelectedToolElementGroupId, mSelectedToolElementName, string(oldPresetName));
 	mEngineInterface->setUIElementPresetPropertyValueMap(mSelectedToolElementGroupId, mSelectedToolElementName, string(newPresetName), valueMap);
 	mEngineInterface->deleteUIElementPreset(mSelectedToolElementGroupId, mSelectedToolElementName, string(oldPresetName));
 }

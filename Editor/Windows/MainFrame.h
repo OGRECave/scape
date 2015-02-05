@@ -11,10 +11,12 @@
 #ifndef __MAINFRAME_H__
 #define __MAINFRAME_H__
 
+#include <wx/wx.h>
+
 #include "UIElementPropertyGrid.h"
 #include "UIElementToolBar.h"
 #include "UIElementPresetPanel.h"
-
+#include "Utils.h"
 // ----------------------------------------------------------------------------
 namespace ScapeEngine
 {
@@ -98,7 +100,7 @@ namespace ScapeEditor
 
 		void populateMainToolBar();
 		void populatePropertyGrid();
-		void populatePresetPanel(const string& selectedPreset = Utils::emptyString, bool edit = false);
+        void populatePresetPanel(const string& selectedPreset = ScapeEngine::Utils::emptyString, bool edit = false);
 
 		std::map<std::pair<int, wxString>, wxString> mPresetToolSelectedItemMap;
 	};

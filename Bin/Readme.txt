@@ -1,1 +1,0 @@
-The build system will download https://bitbucket.org/ogreaddons/scape/downloads/ScapeMedia.zip and install it into the build directory.

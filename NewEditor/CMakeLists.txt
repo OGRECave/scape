@@ -27,7 +27,6 @@ if(UNIX)
 endif(UNIX)
 
 
-# Akira ADD
 if(CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "debug")
     MESSAGE("DEBUG COMPILATION")
     ADD_DEFINITIONS("-DDEBUG")
@@ -38,7 +37,6 @@ endif()
 set(CMAKE_DEBUG_POSTFIX "_d")
 set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/bin")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY  ${CMAKE_INSTALL_PREFIX})
-#Akira ADD to be cleaned to compil debug & release
 
 set(Editor_VERSION_STRING "\"1.4.6\"")
 
@@ -80,12 +78,9 @@ if(WIN32)
 endif(WIN32)
 
 if(UNIX)
-        # Akira ADD standard installation on Ubuntu for Ogre 1.9.0
         if(EXISTS "/usr/share/OGRE/cmake/modules/")
 
           set(CMAKE_MODULE_PATH "/usr/share/OGRE/cmake/modules/;${CMAKE_MODULE_PATH}")
-          #Akira ADD not required
-          #set(OGRE_SAMPLES_INCLUDEPATH "/usr/local/share/OGRE/samples/Common/include/") # We could just *assume* that developers uses this basepath : /usr/local
 
         elseif(EXISTS "/usr/lib/OGRE/cmake")
 
@@ -149,12 +144,10 @@ set(Qt5Core_DIR "$ENV{QTDIR}/lib/CMake/Qt5Core/")
 set(Qt5Widgets_DIR "$ENV{QTDIR}/lib/CMake/Qt5Widgets/")
 set(Qt5Gui_DIR "$ENV{QTDIR}/lib/CMake/Qt5GUI/")
 
-#find_package(Qt REQUIRED)
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5Gui REQUIRED)
 
-#Akira ADD X11 is required to operate on Linux windows
 if(UNIX)
     set(Qt5X11Extras_DIR "$ENV{QTDIR}/lib/CMake/QtX11Extras/")
     find_package(Qt5X11Extras REQUIRED)
@@ -188,8 +181,6 @@ else()
         )
 endif()
 
-#Akira ADD Qt::GL is no required anymore
-# in addition, X11 is mandatory on Linux
 if(UNIX)
     qt5_use_modules(Editor Core Gui Widgets X11Extras)
     target_link_libraries(Editor
@@ -212,75 +203,3 @@ elseif(WIN32)
     Engine
     )
 endif()
-#Akira ADD
-
-#Install
-#Akira ADD no need to install because of setting the runtime dir previously
-#install(TARGETS Editor DESTINATION ${CMAKE_INSTALL_PREFIX})
-
-#GET_FILENAME_COMPONENT(QT_DLL_DIR ${QT_QMAKE_EXECUTABLE_FINDQT} PATH)
-
-if (DEFINED QT_QMAKE_EXECUTABLE_FINDQT)
-        SET (QTLIBLIST
-        Qt5GUI
-        Qt5Core
-        Qt5Widgets
-        )
-        FOREACH(qtlib ${QTLIBLIST})
-          IF (WIN32)
-                INSTALL(FILES "${QT_DLL_DIR}/${qtlib}.dll" DESTINATION ${CMAKE_INSTALL_PREFIX})
-          ENDIF (WIN32)
-        ENDFOREACH(qtlib)
-endif(DEFINED QT_QMAKE_EXECUTABLE_FINDQT)
-
-#IF (WIN32)
-#        SET (QTPLATFORMSLIST
-#                qwindows)
-#        FOREACH(platform ${QTPLATFORMSLIST})
-#                INSTALL(FILES "$ENV{QTDIR}/plugins/platforms/${platform}.dll" DESTINATION ${CMAKE_INSTALL_PREFIX}/platforms/)
-##        ENDFOREACH(platform)
-## ENDIF (WIN32)
-
-#SET (OGRELIBLIST
-#        OgreMain
-#        OIS
-#        cg
-#        RenderSystem_GL
-#        Plugin_OctreeSceneManager
-#        Plugin_BSPSceneManager
-#        Plugin_CgProgramManager
-#        Plugin_ParticleFX
-#        Plugin_PCZSceneManager
-#        Plugin_OctreeZone
-#        OgrePaging
-#        OgreProperty
-#        OgreTerrain
-#        OgreRTShaderSystem
-#        OgreVolume
-#        OgreOverlay)
-#FOREACH(ogrelib ${OGRELIBLIST})
-#  IF (WIN32)
-#        INSTALL(FILES "$ENV{OGRE_HOME}/bin/Release/${ogrelib}.dll" DESTINATION ${CMAKE_INSTALL_PREFIX})
-##  ENDIF (WIN32)
-##ENDFOREACH(ogrelib)
-
-#Akira ADD
-#install(FILES
-#	${CMAKE_CURRENT_BINARY_DIR}/plugins.cfg
-#	${CMAKE_CURRENT_BINARY_DIR}/resources.cfg
-#	DESTINATION ${CMAKE_INSTALL_PREFIX})
-
-#install(FILES
-#	${CMAKE_CURRENT_BINARY_DIR}/SdkTrays.zip
-#	${CMAKE_CURRENT_BINARY_DIR}/OgreCore.zip
-#	DESTINATION ${CMAKE_INSTALL_PREFIX})
-
-install(FILES
-        plugins.cfg
-        resources.cfg
-        DESTINATION ${CMAKE_INSTALL_PREFIX})
-install(FILES
-        SdkTrays.zip
-        OgreCore.zip
-        DESTINATION ${CMAKE_INSTALL_PREFIX})
-#Akira ADD

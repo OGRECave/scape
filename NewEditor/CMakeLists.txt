@@ -187,6 +187,9 @@ if(UNIX)
     Engine
     )
 elseif(WIN32)
+    set_target_properties(Editor PROPERTIES DEBUG_POSTFIX _d)
+    set_property(TARGET Editor PROPERTY WIN32_EXECUTABLE 0)
+
     qt5_use_modules(Editor Core Gui Widgets)
     target_link_libraries(Editor
     ${Boost_SYSTEM_LIBRARY}

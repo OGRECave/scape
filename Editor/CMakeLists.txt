@@ -1,11 +1,11 @@
-PROJECT( WXEditor )
+PROJECT( wxEditor )
 
 #set(wxWidgets_LIB_DIR "C:/wxWidgets-2.8.3/lib/vc_lib")
 
 #FIND_PACKAGE(wxWidgets COMPONENTS core base aui adv propgrid REQUIRED)
 #include( "${wxWidgets_USE_FILE}" )
 
-#include_directories( "${WXEditor_SOURCE_DIR}" )
+#include_directories( "${wxEditor_SOURCE_DIR}" )
 include_directories(${CMAKE_SOURCE_DIR}/Engine
    ${CMAKE_SOURCE_DIR}/Engine/EngineCore
    ${CMAKE_SOURCE_DIR}/Engine/GPU2DOperation
@@ -61,10 +61,10 @@ set (SOURCE_FILES
 
 if(WIN32)
     # add icon
-    set (SOURCE_FILES ${SOURCE_FILES} ${WXEditor_SOURCE_DIR}/Resources/Editor.rc)
+    set (SOURCE_FILES ${SOURCE_FILES} ${wxEditor_SOURCE_DIR}/Resources/Editor.rc)
 endif()
 
-#ADD_EXECUTABLE(WXEditor WIN32 ${HEADER_FILES} ${SOURCE_FILES} )
-#TARGET_LINK_LIBRARIES( WXEditor ${wxWidgets_LIBRARIES} )
-#TARGET_LINK_LIBRARIES( WXEditor ${OGRE_LIBRARIES} )
-#TARGET_LINK_LIBRARIES( WXEditor Engine )
+#ADD_EXECUTABLE(wxEditor WIN32 ${HEADER_FILES} ${SOURCE_FILES} )
+#TARGET_LINK_LIBRARIES( wxEditor ${wxWidgets_LIBRARIES} )
+#TARGET_LINK_LIBRARIES( wxEditor ${OGRE_LIBRARIES} )
+#TARGET_LINK_LIBRARIES( wxEditor Engine )

@@ -1,4 +1,4 @@
-project(Editor)
+project(qtEditor)
 
 cmake_minimum_required(VERSION 2.8.11)
 
@@ -155,7 +155,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 qt5_wrap_ui(UI_SRCS ${UI_FILES})
 
-qt5_add_resources(RESOURCE_SRCS ./res/editor.qrc)
+qt5_add_resources(RESOURCE_SRCS ./res/Editor.qrc)
 
 if(WIN32)
         file(GLOB RES ./res/*.rc)
@@ -163,14 +163,14 @@ if(WIN32)
 endif(WIN32)
 
 if(WIN32)
-        add_executable(Editor WIN32
+        add_executable(qtEditor WIN32
         ${HEADER_FILES}
         ${SRC_FILES}
         ${RESOURCE_SRCS}
         ${UI_SRCS}
         )
 else()
-        add_executable(Editor
+        add_executable(qtEditor
         ${HEADER_FILES}
         ${SRC_FILES}
         ${RESOURCE_SRCS}
@@ -179,8 +179,8 @@ else()
 endif()
 
 if(UNIX)
-    qt5_use_modules(Editor Core Gui Widgets X11Extras)
-    target_link_libraries(Editor
+    qt5_use_modules(qtEditor Core Gui Widgets X11Extras)
+    target_link_libraries(qtEditor
     ${Boost_SYSTEM_LIBRARY}
     ${OGRE_LIBRARIES}
     Qt5::Gui
@@ -190,11 +190,11 @@ if(UNIX)
     Engine
     )
 elseif(WIN32)
-    set_target_properties(Editor PROPERTIES DEBUG_POSTFIX _d)
-    set_property(TARGET Editor PROPERTY WIN32_EXECUTABLE 0)
+    set_target_properties(qtEditor PROPERTIES DEBUG_POSTFIX _d)
+    set_property(TARGET qtEditor PROPERTY WIN32_EXECUTABLE 0)
 
-    qt5_use_modules(Editor Core Gui Widgets)
-    target_link_libraries(Editor
+    qt5_use_modules(qtEditor Core Gui Widgets)
+    target_link_libraries(qtEditor
     ${Boost_SYSTEM_LIBRARY}
     ${OGRE_LIBRARIES}
     Qt5::Gui

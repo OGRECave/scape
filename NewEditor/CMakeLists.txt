@@ -152,25 +152,25 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 qt5_wrap_ui(UI_SRCS ${UI_FILES})
 
-#qt5_add_resources(RESOURCE_SRCS ./resource.qrc)
+qt5_add_resources(RESOURCE_SRCS ./res/editor.qrc)
 
-##if(WIN32)
-#	file(GLOB RES ./*.rc)
-#	set(RESOURCE_SRCS ${RESOURCE_SRCS} ${RES})
-##endif(WIN32)
+if(WIN32)
+        file(GLOB RES ./res/*.rc)
+        set(RESOURCE_SRCS ${RESOURCE_SRCS} ${RES})
+endif(WIN32)
 
 if(WIN32)
         add_executable(Editor WIN32
         ${HEADER_FILES}
         ${SRC_FILES}
-#	${RESOURCE_SRCS}
+        ${RESOURCE_SRCS}
         ${UI_SRCS}
         )
 else()
         add_executable(Editor
         ${HEADER_FILES}
         ${SRC_FILES}
-#	${RESOURCE_SRCS}
+        ${RESOURCE_SRCS}
         ${UI_SRCS}
         )
 endif()

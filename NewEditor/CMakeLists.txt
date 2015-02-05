@@ -35,14 +35,8 @@ else()
 endif()
 
 set(CMAKE_DEBUG_POSTFIX "_d")
-set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/bin")
+set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/bin")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY  ${CMAKE_INSTALL_PREFIX})
-
-set(Editor_VERSION_STRING "\"1.4.6\"")
-
-add_definitions( -DEditor_VERSION=${Editor_VERSION_STRING} )
-
-message(STATUS "Building Editor version ${Editor_VERSION_STRING}")
 
 enable_language(CXX)
 
@@ -202,4 +196,11 @@ elseif(WIN32)
     Qt5::Widgets
     Engine
     )
+endif()
+
+# Installation
+if(WIN32)
+    include(${CMAKE_CURRENT_SOURCE_DIR}/windows.cmake)
+elseif(UNIX)
+    include(${CMAKE_CURRENT_SOURCE_DIR}/unix.cmake)
 endif()

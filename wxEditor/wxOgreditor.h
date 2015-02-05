@@ -31,7 +31,7 @@
 #define __wxOgreditor_h_
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-#include "../res/resource.h"
+#include "res/resource.h"
 #endif
 
 #include <wx/app.h>

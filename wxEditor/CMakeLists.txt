@@ -3,8 +3,8 @@ PROJECT( wxEditor )
 set(wxWidgets_ROOT_DIR C:/Programming/scape/Dependencies/wxWidgets-2.8.3)
 set(wxWidgets_LIB_DIR C:/Programming/scape/Dependencies/wxWidgets-2.8.3/lib/vc_dll)
 
-set(wxWidgets_CONFIGURATION "mswd")
-SET(wxWidgets_USE_REL_AND_DBG ON)
+#set(wxWidgets_CONFIGURATION "mswd")
+#SET(wxWidgets_USE_REL_AND_DBG ON)
 FIND_PACKAGE(wxWidgets COMPONENTS core base aui adv REQUIRED)
 include( "${wxWidgets_USE_FILE}" )
 

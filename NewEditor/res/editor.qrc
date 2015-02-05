@@ -1,2 +1,17 @@
-<RCC/>
-
+<RCC>
+    <qresource prefix="/icons">
+        <file>icon_export16.bmp</file>
+        <file>icon_import16.bmp</file>
+        <file>icon_plus16.bmp</file>
+        <file>icon_save16.bmp</file>
+        <file>icon_tool_erosion24.bmp</file>
+        <file>icon_tool_ledge24.bmp</file>
+        <file>icon_tool_level24.bmp</file>
+        <file>icon_tool_light24.bmp</file>
+        <file>icon_tool_material24.bmp</file>
+        <file>icon_tool_noise24.bmp</file>
+        <file>icon_tool_pencil24.bmp</file>
+        <file>icon_tool_smooth24.bmp</file>
+        <file>icon_trashcan16.bmp</file>
+    </qresource>
+</RCC>

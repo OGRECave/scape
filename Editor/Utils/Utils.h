@@ -12,8 +12,6 @@
 #ifndef __SCAPEEDITOR_UTILS_H__
 #define __SCAPEEDITOR_UTILS_H__
 
-#include <wx/wx.h>
-
 namespace ScapeEditor
 {
 	typedef std::list<string> StringList;

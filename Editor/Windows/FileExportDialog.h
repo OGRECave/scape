@@ -12,7 +12,6 @@
 #define __FILEEXPORTDIALOG_H__
 
 #include "EngineInterface.h"
-#include <wx/wx.h>
 
 namespace ScapeEditor
 {

@@ -35,6 +35,12 @@
 #include <vector>
 
 typedef std::string string;
+#ifndef _T
+#define _T(x) x
+#endif
+#ifndef _TCHAR
+#define _TCHAR char
+#endif
 
 #include "Utils/Utils.h"
 

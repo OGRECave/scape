@@ -58,7 +58,7 @@ FileExportDialog::FileExportDialog(wxWindow* parentWindow, wxWindowID windowId, 
 	mDescriptionTextCtrl = new wxTextCtrl(
 		this, 
 		wxID_ANY, 
-        ScapeEngine::Utils::emptyString,
+		Utils::emptyString, 
 		wxDefaultPosition, 
 		wxDefaultSize, 
 		//wxSIMPLE_BORDER  | 

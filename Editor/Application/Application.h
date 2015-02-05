@@ -12,7 +12,6 @@
 #ifndef __APPLICATION_H__
 #define __APPLICATION_H__
 
-#include <wx/wx.h>
 namespace ScapeEditor
 {
 	// ----------------------------------------------------------------------------

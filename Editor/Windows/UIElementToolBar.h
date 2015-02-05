@@ -11,8 +11,6 @@
 #ifndef __UIELEMENTTOOLBAR_H__
 #define __UIELEMENTTOOLBAR_H__
 
-#include <wx/wx.h>
-
 //#include "UIElementClasses.h"
 
 // ----------------------------------------------------------------------------

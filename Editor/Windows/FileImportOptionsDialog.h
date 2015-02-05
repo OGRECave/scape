@@ -12,7 +12,6 @@
 #define __FILEIMPORTOPTIONSDIALOG_H__
 
 #include "EngineInterface.h"
-#include "PCH/stdafx.h"
 
 namespace ScapeEditor
 {
@@ -35,7 +34,7 @@ namespace ScapeEditor
 	public:
 		FileImportOptionsDialog(wxWindow* parentWindow, wxWindowID windowId, const wxString& caption, const wxString& fileName, size_t fileSize, const FileImportOptionsDialogItemMap& itemMap, const StringStringMap& valueMap);
 
-        const ScapeEngine::StringStringMap& getValueMap();
+		const StringStringMap& getValueMap();
 
 	protected:
 		wxCheckBox* mFlipXCheckBox;
@@ -47,7 +46,7 @@ namespace ScapeEditor
 		bool mDirtyValueMap;
 
 		FileImportOptionsDialogItemMap mItemMap;
-        ScapeEngine::StringStringMap mValueMap;
+		StringStringMap mValueMap;
 
 		DECLARE_EVENT_TABLE()
 	};

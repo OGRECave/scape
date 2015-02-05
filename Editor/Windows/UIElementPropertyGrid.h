@@ -13,8 +13,7 @@
 
 #include "EngineInterface.h"
 #include <wx/propgrid/propgrid.h>
-#include <wx/wx.h>
-#include <wx/aui/aui.h>
+
 // ----------------------------------------------------------------------------
 namespace ScapeEditor
 {
@@ -57,7 +56,7 @@ namespace ScapeEditor
 		~UIElementPropertyGrid();
 
 		void populate(const UIElementPropertyGridItemList& itemList);
-        void setValues(const ScapeEngine::StringStringMap& valueMap);
+		void setValues(const StringStringMap& valueMap);
 
 	protected:
 		DECLARE_EVENT_TABLE()

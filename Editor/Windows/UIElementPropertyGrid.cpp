@@ -208,9 +208,9 @@ void UIElementPropertyGrid::populate(const UIElementPropertyGridItemList& itemLi
 
 
 // ----------------------------------------------------------------------------
-void UIElementPropertyGrid::setValues(const ScapeEngine::StringStringMap& valueMap)
+void UIElementPropertyGrid::setValues(const StringStringMap& valueMap)
 {
-    ScapeEngine::StringStringMap::const_iterator propertyIt, propertyItEnd = valueMap.end();
+	StringStringMap::const_iterator propertyIt, propertyItEnd = valueMap.end();
 	for (propertyIt = valueMap.begin(); propertyIt != propertyItEnd; ++propertyIt)
 	{
 		wxString value(mListener->onUpdatePropertyGridPropertyValue(mName, propertyIt->first, wxString(propertyIt->second)));

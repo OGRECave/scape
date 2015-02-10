@@ -23,8 +23,6 @@ public:
 
 protected:
     virtual void resizeEvent(QResizeEvent *rEvent);
-    virtual void mousePressEvent(QMouseEvent *event);
-    virtual void mouseMoveEvent(QMouseEvent *event);
 
 private:
     Ui::MainWindow *ui;

@@ -86,14 +86,14 @@ bool OgreditorApp::OnInit()
     wxImage::AddHandler(new wxGIFHandler);
 #endif
 
-#ifndef _DEBUG
-    wxString bmppath = getDataPath() + "Images/OgitorLogo.png";
-    wxSplashScreen* splash = new wxSplashScreen(wxBitmap(bmppath, wxBITMAP_TYPE_PNG),
-        wxSPLASH_CENTRE_ON_SCREEN | wxSPLASH_NO_TIMEOUT,
-        5000, 0, -1, wxDefaultPosition, wxDefaultSize,
-        wxSIMPLE_BORDER | wxFRAME_NO_TASKBAR | wxSTAY_ON_TOP);
-    wxYield();
-#endif
+//#ifndef _DEBUG
+//    wxString bmppath = getDataPath() + "Images/OgitorLogo.png";
+//    wxSplashScreen* splash = new wxSplashScreen(wxBitmap(bmppath, wxBITMAP_TYPE_PNG),
+//        wxSPLASH_CENTRE_ON_SCREEN | wxSPLASH_NO_TIMEOUT,
+//        5000, 0, -1, wxDefaultPosition, wxDefaultSize,
+//        wxSIMPLE_BORDER | wxFRAME_NO_TASKBAR | wxSTAY_ON_TOP);
+//    wxYield();
+//#endif
 
 	mConfig = new wxConfig("wxOgreditor");
 
@@ -110,9 +110,9 @@ bool OgreditorApp::OnInit()
 
     frame->GetRenderPanel()->SetupOgre();
 
-#ifndef _DEBUG
-	splash->Destroy();
-#endif
+//#ifndef _DEBUG
+//	splash->Destroy();
+//#endif
 
 
     // and show it (the frames, unlike simple controls, are not shown when
@@ -140,7 +140,7 @@ bool OgreditorApp::SetupOgre()
     // A list of required plugins
     Ogre::StringVector required_plugins;
     required_plugins.push_back("GL RenderSystem");
-    required_plugins.push_back("Octree & Terrain Scene Manager");
+    required_plugins.push_back("Octree Scene Manager");
 
     // Load the OpenGL RenderSystem and the Octree SceneManager plugins
 #ifdef _DEBUG
@@ -185,10 +185,10 @@ bool OgreditorApp::SetupOgre()
 //-------------------------------------------------------------------------------------
     // setup resources
     // Only add the minimally required resource locations to load up the Ogre head mesh
-    Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../../media/materials/programs", "FileSystem", "General");
-    Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../../media/materials/scripts", "FileSystem", "General");
-    Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../../media/materials/textures", "FileSystem", "General");
-    Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../../media/models", "FileSystem", "General");
+    //Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../../media/materials/programs", "FileSystem", "General");
+    //Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../../media/materials/scripts", "FileSystem", "General");
+    //Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../../media/materials/textures", "FileSystem", "General");
+    //Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../../media/models", "FileSystem", "General");
 
 //-------------------------------------------------------------------------------------
     // configure

@@ -47,7 +47,6 @@ MainFrame::MainFrame(const wxString& title)
     // set the frame icon
     SetIcon(wxICON(sample));
 
-#if wxUSE_MENUS
     // create a menu bar
     wxMenu *fileMenu = new wxMenu;
 
@@ -64,14 +63,12 @@ MainFrame::MainFrame(const wxString& title)
 
     // ... and attach this menu bar to the frame
     SetMenuBar(menuBar);
-#endif // wxUSE_MENUS
 
-#if wxUSE_STATUSBAR
     // create a status bar just for fun (by default with 1 pane only)
     CreateStatusBar(2);
     SetStatusText("Welcome to wxWidgets!");
-#endif // wxUSE_STATUSBAR
-	mRenderPanel = new RenderPanel( this, RenderPanel::ID_RENDERPANEL, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+
+    mRenderPanel = new RenderPanel( this, RenderPanel::ID_RENDERPANEL, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	mRenderPanel->SetBackgroundColour(wxColour(0, 0, 0));
 
     readConfig();

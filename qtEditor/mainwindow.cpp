@@ -38,13 +38,3 @@ void MainWindow::resizeEvent(QResizeEvent *rEvent)
         }
     }
 }
-
-
-void MainWindow::mousePressEvent(QMouseEvent *event)
-{
-}
-
-
-void MainWindow::mouseMoveEvent(QMouseEvent *event)
-{
-}

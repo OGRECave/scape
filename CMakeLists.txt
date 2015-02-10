@@ -137,6 +137,6 @@ include_directories( ${OIS_INCLUDE_DIRS}
  
 ADD_SUBDIRECTORY(Engine)
 ADD_SUBDIRECTORY(Dependencies)
-ADD_SUBDIRECTORY(wxEditor)
+#ADD_SUBDIRECTORY(wxEditor)
 ADD_SUBDIRECTORY(qtEditor)
 #ADD_SUBDIRECTORY(Barebone)

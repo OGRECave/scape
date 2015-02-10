@@ -55,6 +55,7 @@ set(SRC_FILES
 ./main.cpp
 ./mainwindow.cpp
 ./ogrewidget.cpp
+./mainwindow_actions.cpp
 )
 
 set(HEADER_FILES

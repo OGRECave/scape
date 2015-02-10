@@ -14,4 +14,8 @@
         <file>icon_tool_smooth24.bmp</file>
         <file>icon_trashcan16.bmp</file>
     </qresource>
+    <qresource prefix="/images">
+        <file>ScapeLogo.jpg</file>
+        <file>scape_splash.jpg</file>
+    </qresource>
 </RCC>

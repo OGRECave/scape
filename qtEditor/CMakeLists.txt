@@ -56,11 +56,13 @@ set(SRC_FILES
 ./mainwindow.cpp
 ./ogrewidget.cpp
 ./mainwindow_actions.cpp
+./aboutdialog.cpp
 )
 
 set(HEADER_FILES
 ./mainwindow.h
 ./ogrewidget.h
+./aboutdialog.h
 )
 
 file(GLOB UI_FILES ./*.ui)

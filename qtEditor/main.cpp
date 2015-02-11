@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QSplashScreen>
+#include <QtWidgets/QStyleFactory>
 #include "EngineCore/EngineInterface.h"
 
 int main(int argc, char *argv[])
@@ -9,6 +10,7 @@ int main(int argc, char *argv[])
 
     a.setOrganizationName("Scape");
     a.setApplicationName("qtScape");
+    a.setStyle(QStyleFactory::create("Fusion"));
 
     QSplashScreen *splash;
     QPixmap pixmap(":/images/scape_splash.jpg");

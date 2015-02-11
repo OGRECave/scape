@@ -1,7 +1,7 @@
 PROJECT( wxEditor )
 
-set(wxWidgets_ROOT_DIR C:/Programming/scape/Dependencies/wxWidgets-2.8.3)
-set(wxWidgets_LIB_DIR C:/Programming/scape/Dependencies/wxWidgets-2.8.3/lib/vc_dll)
+# Set this if CMake doesn't detect wxWidgets
+set(wxWidgets_LIB_DIR C:/wxWidgets-2.8.12/lib/vc_dll)
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "debug")
     #SET(wxWidgets_USE_REL_AND_DBG ON)

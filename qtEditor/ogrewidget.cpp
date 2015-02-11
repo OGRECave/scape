@@ -1,9 +1,11 @@
 #include "ogrewidget.h"
 #include <sstream>
+#include <QtGui/QFocusEvent>
 
 OgreWidget::OgreWidget(ScapeEngine::EngineInterface *engineInterface, QWidget *parent)
     : mEngineInterface(engineInterface),
-      mHasView(false)
+      mHasView(false),
+      mHasFocus(false)
 {
     if (!parent) {
         throw std::runtime_error("Parent widget supplied was uninitialised!"); // interface requirement
@@ -47,9 +49,28 @@ void OgreWidget::mousePressEvent(QMouseEvent *event)
 {
 }
 
-
 void OgreWidget::mouseMoveEvent(QMouseEvent *event)
 {
+}
+
+void OgreWidget::focusOutEvent(QFocusEvent *evt)
+{
+    if (mHasView)
+    {
+        mEngineInterface->onRenderViewKillFocus(1);
+    }
+    mHasFocus = false;
+    evt->setAccepted(true);
+}
+
+void OgreWidget::focusInEvent(QFocusEvent *evt)
+{
+    if (mHasView)
+    {
+        mEngineInterface->onRenderViewSetFocus(1);
+    }
+    mHasFocus = true;
+    evt->setAccepted(true);
 }
 
 

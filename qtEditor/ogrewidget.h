@@ -24,10 +24,13 @@ protected: // interface
     virtual void update();
     virtual void mousePressEvent(QMouseEvent *event);
     virtual void mouseMoveEvent(QMouseEvent *event);
+    virtual void focusOutEvent(QFocusEvent *evt);
+    virtual void focusInEvent(QFocusEvent *evt);
     //@}
 private:
     ScapeEngine::EngineInterface* mEngineInterface;
     bool mHasView;
+    bool mHasFocus;
 };
 
 #endif // OGREWIDGET_H

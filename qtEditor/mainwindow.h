@@ -5,8 +5,10 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QDockWidget>
 #include <QtWidgets/QToolBox>
+#include <QtCore/QTimer>
 
 class OgreWidget;
+class PropertiesWidget;
 
 namespace Ui {
 class MainWindow;
@@ -14,6 +16,7 @@ class MainWindow;
 namespace ScapeEngine
 {
     class EngineInterface;
+    struct string;
 }
 
 class MainWindow : public QMainWindow
@@ -44,27 +47,32 @@ public Q_SLOTS:
     void deletePreset();
     void exportPreset();
     void importPreset();
+    void timerLoop();
     void exitApp();
 
 protected:
     virtual void resizeEvent(QResizeEvent *rEvent);
 
 private:
-    void colorize();
     void createActions();
     void connectActions();
     void populateToolbar();
     void populateMainMenu();
+    void selectTool(QString toolName, int category);
 
     QMenu* menuFile;
     QToolBox* mPropertiesToolBox;
     QToolBox* mPresetsToolBox;
     QDockWidget* mPropertiesDockWidget;
+    PropertiesWidget* mPropertiesWidget;
 
     Ui::MainWindow *ui;
-    class ScapeEngine::EngineInterface* mEngineInterface;
+    ScapeEngine::EngineInterface* mEngineInterface;
+    QString mSelectedToolElementName;
+    int mSelectedToolElementGroupId;
 
     OgreWidget* mOgreWidget;
+    QTimer *mTimer;
 
     bool mAttachedInputToEngine;
 

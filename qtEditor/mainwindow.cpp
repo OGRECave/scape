@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "ogrewidget.h"
 #include "EngineCore/EngineInterface.h"
+#include <QDebug>
 #include <sstream>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -13,7 +14,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    colorize();
     createActions();
     populateMainMenu();
     populateToolbar();
@@ -25,6 +25,11 @@ MainWindow::MainWindow(QWidget *parent) :
     mOgreWidget = new OgreWidget(mEngineInterface , this);
     setCentralWidget(mOgreWidget);
 
+    mTimer = new QTimer(this);
+    mTimer->setInterval(0);
+    connect(mTimer, SIGNAL(timeout()), this, SLOT(timerLoop()));
+    mTimer->start();
+
 }
 
 MainWindow::~MainWindow()
@@ -32,6 +37,7 @@ MainWindow::~MainWindow()
     mEngineInterface->deinitialize();
     delete mEngineInterface;
     delete ui;
+    delete mTimer;
 }
 
 void MainWindow::resizeEvent(QResizeEvent *rEvent)
@@ -47,6 +53,11 @@ void MainWindow::resizeEvent(QResizeEvent *rEvent)
             mAttachedInputToEngine = true;
         }
     }
+}
+
+void MainWindow::timerLoop()
+{
+    mEngineInterface->update();
 }
 
 void MainWindow::createActions()
@@ -67,35 +78,123 @@ void MainWindow::createActions()
     actPencilEraserGPU->setStatusTip(tr("Pencil/Eraser GPU"));
     actPencilEraserGPU->setIcon(QIcon(":/icons/pencil"));
 
-//    actDirectionalNoiseGPU;
-//    actNoiseGPU;
-//    actSoftenGPU;
+    actDirectionalNoiseGPU = new QAction(tr("Directional Noise GPU"), this);
+    actDirectionalNoiseGPU->setStatusTip(tr("Directional Noise GPU"));
+    actDirectionalNoiseGPU->setIcon(QIcon(":/icons/pencil"));
 
-//    actSharpenSoften;
-//    actNoiseCPU;
-//    actLevelUnlevel;
-//    actWaterErosion;
-//    actPencilEraser;
+    actNoiseGPU = new QAction(tr("Noise GPU"), this);
+    actNoiseGPU->setStatusTip(tr("Noise GPU"));
+    actNoiseGPU->setIcon(QIcon(":/icons/pencil"));
 
-//    actMaterialProps;
-//    actSkyProps;
-//    actRenderwindowProps;
+    actSoftenGPU = new QAction(tr("Soften GPU"), this);
+    actSoftenGPU->setStatusTip(tr("Soften GPU"));
+    actSoftenGPU->setIcon(QIcon(":/icons/pencil"));
 
-//    actCreatePreset;
-//    actSavePreset;
-//    actDeletePreset;
-//    actExportPreset;
-//    actImportPreset;
+    actSharpenSoften = new QAction(tr("Sharpen/Soften"), this);
+    actSharpenSoften->setStatusTip(tr("Sharpen/Soften"));
+    actSharpenSoften->setIcon(QIcon(":/icons/smooth"));
+
+    actNoiseCPU = new QAction(tr("Noise"), this);
+    actNoiseCPU->setStatusTip(tr("Noise"));
+    actNoiseCPU->setIcon(QIcon(":/icons/noise"));
+
+    actLevelUnlevel = new QAction(tr("Level/Unlevel"), this);
+    actLevelUnlevel->setStatusTip(tr("Level/Unlevel"));
+    actLevelUnlevel->setIcon(QIcon(":/icons/level"));
+
+    actWaterErosion = new QAction(tr("Water Erosion"), this);
+    actWaterErosion->setStatusTip(tr("Water Erosion"));
+    actWaterErosion->setIcon(QIcon(":/icons/erosion"));
+
+    actPencilEraser = new QAction(tr("Eraser"), this);
+    actPencilEraser->setStatusTip(tr("Eraser"));
+    actPencilEraser->setIcon(QIcon(":/icons/ledge"));
+
+    actMaterialProps = new QAction(tr("Material"), this);
+    actMaterialProps->setStatusTip(tr("Material Properties"));
+    actMaterialProps->setIcon(QIcon(":/icons/material"));
+
+    actSkyProps = new QAction(tr("Sky"), this);
+    actSkyProps->setStatusTip(tr("Sky Properties"));
+    actSkyProps->setIcon(QIcon(":/icons/light"));
+
+    actRenderwindowProps = new QAction(tr("Renderwindow"), this);
+    actRenderwindowProps->setStatusTip(tr("Renderwindow Properties"));
+    actRenderwindowProps->setIcon(QIcon(":/icons/material"));
+
+    actCreatePreset = new QAction(tr("Create Preset"), this);
+    actCreatePreset->setStatusTip(tr("Create Preset"));
+    actCreatePreset->setIcon(QIcon(":/icons/plus"));
+
+    actSavePreset = new QAction(tr("Save Preset"), this);
+    actSavePreset->setStatusTip(tr("Save Preset"));
+    actSavePreset->setIcon(QIcon(":/icons/save"));
+
+    actDeletePreset = new QAction(tr("Delete Preset"), this);
+    actDeletePreset->setStatusTip(tr("Delete Preset"));
+    actDeletePreset->setIcon(QIcon(":/icons/trash"));
+
+    actExportPreset = new QAction(tr("Export Preset"), this);
+    actExportPreset->setStatusTip(tr("Export Preset"));
+    actExportPreset->setIcon(QIcon(":/icons/export"));
+
+    actImportPreset = new QAction(tr("Import Preset"), this);
+    actImportPreset->setStatusTip(tr("Import Preset"));
+    actImportPreset->setIcon(QIcon(":/icons/import"));
 }
 
 void MainWindow::connectActions()
 {
     connect(actExit, SIGNAL(triggered()), this, SLOT(exitApp()));
+    connect(actImportImage, SIGNAL(triggered()), this, SLOT(importImage()));
+    connect(actExportImage, SIGNAL(triggered()), this, SLOT(exportImage()));
+
+    connect(actPencilEraserGPU, SIGNAL(triggered()), this, SLOT(pencilEraserGPU()));
+    connect(actDirectionalNoiseGPU, SIGNAL(triggered()), this, SLOT(directionalNoiseGPU()));
+    connect(actNoiseGPU, SIGNAL(triggered()), this, SLOT(noiseGPU()));
+    connect(actSoftenGPU, SIGNAL(triggered()), this, SLOT(softenGPU()));
+
+    connect(actSharpenSoften, SIGNAL(triggered()), this, SLOT(sharpenSoften()));
+    connect(actNoiseCPU, SIGNAL(triggered()), this, SLOT(noiseCPU()));
+    connect(actLevelUnlevel, SIGNAL(triggered()), this, SLOT(levelUnlevel()));
+    connect(actWaterErosion, SIGNAL(triggered()), this, SLOT(waterErosion()));
+    connect(actPencilEraser, SIGNAL(triggered()), this, SLOT(pencilEraser()));
+
+    connect(actMaterialProps, SIGNAL(triggered()), this, SLOT(materialProps()));
+    connect(actSkyProps, SIGNAL(triggered()), this, SLOT(skyProps()));
+    connect(actRenderwindowProps, SIGNAL(triggered()), this, SLOT(renderwindowProps()));
+
+    connect(actCreatePreset, SIGNAL(triggered()), this, SLOT(createPreset()));
+    connect(actSavePreset, SIGNAL(triggered()), this, SLOT(savePreset()));
+    connect(actDeletePreset, SIGNAL(triggered()), this, SLOT(deletePreset()));
+    connect(actExportPreset, SIGNAL(triggered()), this, SLOT(exportPreset()));
+    connect(actImportPreset, SIGNAL(triggered()), this, SLOT(importPreset()));
 }
 
 void MainWindow::populateToolbar()
 {
     ui->mToolBar->addAction(actPencilEraserGPU);
+    ui->mToolBar->addAction(actDirectionalNoiseGPU);
+    ui->mToolBar->addAction(actNoiseGPU);
+    ui->mToolBar->addAction(actSoftenGPU);
+    ui->mToolBar->addSeparator();
+
+    ui->mToolBar->addAction(actSharpenSoften);
+    ui->mToolBar->addAction(actNoiseCPU);
+    ui->mToolBar->addAction(actLevelUnlevel);
+    ui->mToolBar->addAction(actWaterErosion);
+    ui->mToolBar->addAction(actPencilEraser);
+    ui->mToolBar->addSeparator();
+
+    ui->mToolBar->addAction(actMaterialProps);
+    ui->mToolBar->addAction(actSkyProps);
+    ui->mToolBar->addAction(actRenderwindowProps);
+
+    //actCreatePreset;
+    //actSavePreset;
+    //actDeletePreset;
+    //actExportPreset;
+    //actImportPreset;
 }
 
 void MainWindow::populateMainMenu()
@@ -109,69 +208,17 @@ void MainWindow::populateMainMenu()
     menuFile->addAction(actExit);
 }
 
-void MainWindow::colorize()
+void MainWindow::selectTool(QString toolName, int category)
 {
-    QPalette palette;
-    QBrush brush(QColor(255, 255, 255, 255));
-    brush.setStyle(Qt::SolidPattern);
-    palette.setBrush(QPalette::Active, QPalette::WindowText, brush);
-    QBrush brush1(QColor(91, 91, 91, 255));
-    brush1.setStyle(Qt::SolidPattern);
-    palette.setBrush(QPalette::Active, QPalette::Button, brush1);
-    QBrush brush2(QColor(137, 137, 137, 255));
-    brush2.setStyle(Qt::SolidPattern);
-    palette.setBrush(QPalette::Active, QPalette::Light, brush2);
-    QBrush brush3(QColor(114, 114, 114, 255));
-    brush3.setStyle(Qt::SolidPattern);
-    palette.setBrush(QPalette::Active, QPalette::Midlight, brush3);
-    QBrush brush4(QColor(45, 45, 45, 255));
-    brush4.setStyle(Qt::SolidPattern);
-    palette.setBrush(QPalette::Active, QPalette::Dark, brush4);
-    QBrush brush5(QColor(60, 60, 60, 255));
-    brush5.setStyle(Qt::SolidPattern);
-    palette.setBrush(QPalette::Active, QPalette::Mid, brush5);
-    palette.setBrush(QPalette::Active, QPalette::Text, brush);
-    palette.setBrush(QPalette::Active, QPalette::BrightText, brush);
-    palette.setBrush(QPalette::Active, QPalette::ButtonText, brush);
-    QBrush brush6(QColor(0, 0, 0, 255));
-    brush6.setStyle(Qt::SolidPattern);
-    palette.setBrush(QPalette::Active, QPalette::Base, brush6);
-    palette.setBrush(QPalette::Active, QPalette::Window, brush1);
-    palette.setBrush(QPalette::Active, QPalette::Shadow, brush6);
-    palette.setBrush(QPalette::Active, QPalette::AlternateBase, brush4);
-    QBrush brush7(QColor(255, 255, 220, 255));
-    brush7.setStyle(Qt::SolidPattern);
-    palette.setBrush(QPalette::Active, QPalette::ToolTipBase, brush7);
-    palette.setBrush(QPalette::Active, QPalette::ToolTipText, brush6);
-    palette.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
-    palette.setBrush(QPalette::Inactive, QPalette::Button, brush1);
-    palette.setBrush(QPalette::Inactive, QPalette::Light, brush2);
-    palette.setBrush(QPalette::Inactive, QPalette::Midlight, brush3);
-    palette.setBrush(QPalette::Inactive, QPalette::Dark, brush4);
-    palette.setBrush(QPalette::Inactive, QPalette::Mid, brush5);
-    palette.setBrush(QPalette::Inactive, QPalette::Text, brush);
-    palette.setBrush(QPalette::Inactive, QPalette::BrightText, brush);
-    palette.setBrush(QPalette::Inactive, QPalette::ButtonText, brush);
-    palette.setBrush(QPalette::Inactive, QPalette::Base, brush6);
-    palette.setBrush(QPalette::Inactive, QPalette::Window, brush1);
-    palette.setBrush(QPalette::Inactive, QPalette::Shadow, brush6);
-    palette.setBrush(QPalette::Inactive, QPalette::AlternateBase, brush4);
-    palette.setBrush(QPalette::Inactive, QPalette::ToolTipBase, brush7);
-    palette.setBrush(QPalette::Inactive, QPalette::ToolTipText, brush6);
-    palette.setBrush(QPalette::Disabled, QPalette::WindowText, brush4);
-    palette.setBrush(QPalette::Disabled, QPalette::Button, brush1);
-    palette.setBrush(QPalette::Disabled, QPalette::Light, brush2);
-    palette.setBrush(QPalette::Disabled, QPalette::Midlight, brush3);
-    palette.setBrush(QPalette::Disabled, QPalette::Dark, brush4);
-    palette.setBrush(QPalette::Disabled, QPalette::Mid, brush5);
-    palette.setBrush(QPalette::Disabled, QPalette::Text, brush4);
-    palette.setBrush(QPalette::Disabled, QPalette::BrightText, brush);
-    palette.setBrush(QPalette::Disabled, QPalette::ButtonText, brush4);
-    palette.setBrush(QPalette::Disabled, QPalette::Base, brush1);
-    palette.setBrush(QPalette::Disabled, QPalette::Window, brush1);
-    palette.setBrush(QPalette::Disabled, QPalette::Shadow, brush6);
-    palette.setBrush(QPalette::Disabled, QPalette::AlternateBase, brush1);
-    palette.setBrush(QPalette::Disabled, QPalette::ToolTipBase, brush7);
-    palette.setBrush(QPalette::Disabled, QPalette::ToolTipText, brush6);
-    this->setPalette(palette);
+    qDebug() << "Selecting tool" << toolName;
+    mSelectedToolElementName = toolName;
+    mSelectedToolElementGroupId = (ScapeEngine::EScapeUIElementGroupId)category;
+
+    if (mSelectedToolElementGroupId == ScapeEngine::SCAPEUIELEMENTGROUPID_OPERATION)
+    {
+        mEngineInterface->selectOperation(toolName.toStdString().c_str());
+    }
+
+    //populatePropertyGrid();
+    //populatePresetPanel();
 }

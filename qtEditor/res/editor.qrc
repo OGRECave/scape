@@ -1,18 +1,18 @@
 <RCC>
     <qresource prefix="/icons">
-        <file>icon_export16.bmp</file>
-        <file>icon_import16.bmp</file>
-        <file>icon_plus16.bmp</file>
-        <file>icon_save16.bmp</file>
-        <file>icon_tool_erosion24.bmp</file>
-        <file>icon_tool_ledge24.bmp</file>
-        <file>icon_tool_level24.bmp</file>
-        <file>icon_tool_light24.bmp</file>
-        <file>icon_tool_material24.bmp</file>
-        <file>icon_tool_noise24.bmp</file>
-        <file>icon_tool_pencil24.bmp</file>
-        <file>icon_tool_smooth24.bmp</file>
-        <file>icon_trashcan16.bmp</file>
+        <file alias="export">icon_export16.bmp</file>
+        <file alias="import">icon_import16.bmp</file>
+        <file alias="plus">icon_plus16.bmp</file>
+        <file alias="save">icon_save16.bmp</file>
+        <file alias="erosion">icon_tool_erosion24.bmp</file>
+        <file alias="ledge">icon_tool_ledge24.bmp</file>
+        <file alias="level">icon_tool_level24.bmp</file>
+        <file alias="light">icon_tool_light24.bmp</file>
+        <file alias="material">icon_tool_material24.bmp</file>
+        <file alias="noise">icon_tool_noise24.bmp</file>
+        <file alias="pencil">icon_tool_pencil24.bmp</file>
+        <file alias="smooth">icon_tool_smooth24.bmp</file>
+        <file alias="trash">icon_trashcan16.bmp</file>
     </qresource>
     <qresource prefix="/images">
         <file>ScapeLogo.jpg</file>

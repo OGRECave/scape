@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>qtScape</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="res/editor.qrc">
+    <normaloff>:/images/scape_erosion_mountains_32.jpg</normaloff>:/images/scape_erosion_mountains_32.jpg</iconset>
   </property>
   <property name="tabShape">
    <enum>QTabWidget::Rounded</enum>
@@ -73,6 +77,8 @@
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="res/editor.qrc"/>
+ </resources>
  <connections/>
 </ui>

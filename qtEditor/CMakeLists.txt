@@ -143,19 +143,7 @@ if(NOT OGRE_BUILD_PLATFORM_IPHONE)
         set(OGRE_LIBRARIES ${OGRE_LIBRARIES} ${Boost_LIBRARIES})
 endif()
 
-#Find Qt
-set(Qt5Core_DIR "$ENV{QTDIR}/lib/CMake/Qt5Core/")
-set(Qt5Widgets_DIR "$ENV{QTDIR}/lib/CMake/Qt5Widgets/")
-set(Qt5Gui_DIR "$ENV{QTDIR}/lib/CMake/Qt5GUI/")
-
-find_package(Qt5Core REQUIRED)
 find_package(Qt5Widgets REQUIRED)
-find_package(Qt5Gui REQUIRED)
-
-if(UNIX)
-    set(Qt5X11Extras_DIR "$ENV{QTDIR}/lib/CMake/QtX11Extras/")
-    find_package(Qt5X11Extras REQUIRED)
-endif()
 
 # if we don't include this CMake will not include ui headers properly:
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
@@ -200,7 +188,6 @@ elseif(WIN32)
     set_target_properties(qtEditor PROPERTIES DEBUG_POSTFIX _d)
     set_property(TARGET qtEditor PROPERTY WIN32_EXECUTABLE 0)
 
-    qt5_use_modules(qtEditor Core Gui Widgets)
     target_link_libraries(qtEditor
     ${Boost_SYSTEM_LIBRARY}
     ${OGRE_LIBRARIES}

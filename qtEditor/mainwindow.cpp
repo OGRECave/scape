@@ -22,6 +22,8 @@ MainWindow::MainWindow(QWidget *parent) :
     mEngineInterface = new ScapeEngine::EngineInterface();
     mEngineInterface->initialize();
 
+    setWindowTitle("qtScape 15.02");
+
     mOgreWidget = new OgreWidget(mEngineInterface , this);
     setCentralWidget(mOgreWidget);
 

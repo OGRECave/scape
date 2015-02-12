@@ -17,5 +17,6 @@
     <qresource prefix="/images">
         <file>ScapeLogo.jpg</file>
         <file>scape_splash.jpg</file>
+        <file>scape_erosion_mountains_32.jpg</file>
     </qresource>
 </RCC>

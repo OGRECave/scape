@@ -2,7 +2,6 @@ project(qtEditor)
 
 cmake_minimum_required(VERSION 2.8.11)
 
-
 if(WIN32)
         set(CMAKE_MODULE_PATH "$ENV{OGRE_HOME}/CMake/;${CMAKE_MODULE_PATH}")
         set(OGRE_SAMPLES_INCLUDEPATH
@@ -51,6 +50,11 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 include_directories(${SCAPE_SOURCE_DIR})
 
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+
+ExternalProject_Get_Property(QtSolutions_PropertyBrowser install_dir)
+include_directories(${install_dir}/src/QtSolutions_PropertyBrowser/src)
+
 set(SRC_FILES
 ./main.cpp
 ./mainwindow.cpp
@@ -59,6 +63,7 @@ set(SRC_FILES
 ./aboutdialog.cpp
 ./propertieswidget.cpp
 ./presetswidget.cpp
+./complexproperties.cpp
 )
 
 set(HEADER_FILES
@@ -67,6 +72,8 @@ set(HEADER_FILES
 ./aboutdialog.h
 ./propertieswidget.h
 ./presetswidget.h
+./complexproperties.h
+./stdredirector.h
 )
 
 file(GLOB UI_FILES ./*.ui)
@@ -148,11 +155,16 @@ find_package(Qt5Widgets REQUIRED)
 # if we don't include this CMake will not include ui headers properly:
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
+add_definitions(${Qt5Widgets_DEFINITIONS})
+
 qt5_wrap_ui(UI_SRCS ${UI_FILES})
 
 qt5_add_resources(RESOURCE_SRCS ./res/Editor.qrc)
 
+include_directories(${Qt5Widgets_INCLUDE_DIRS})
+
 if(WIN32)
+
         file(GLOB RES ./res/*.rc)
         set(RESOURCE_SRCS ${RESOURCE_SRCS} ${RES})
 endif(WIN32)
@@ -185,7 +197,9 @@ if(UNIX)
     Engine
     )
 elseif(WIN32)
+    qt5_use_modules(qtEditor Core Gui Widgets)
     set_target_properties(qtEditor PROPERTIES DEBUG_POSTFIX _d)
+    set_target_properties(qtEditor PROPERTIES COMPILE_DEFINITIONS QT_QTPROPERTYBROWSER_IMPORT)
     set_property(TARGET qtEditor PROPERTY WIN32_EXECUTABLE 0)
 
     target_link_libraries(qtEditor
@@ -197,6 +211,28 @@ elseif(WIN32)
     Engine
     )
 endif()
+
+add_dependencies(qtEditor QtSolutions_PropertyBrowser)
+
+if(UNIX AND NOT APPLE)
+        TARGET_LINK_LIBRARIES(qtEditor
+         debug ${CMAKE_BINARY_DIR}/Dependencies/lib/QtSolutions_PropertyBrowser_d.so
+         optimized ${CMAKE_BINARY_DIR}/Dependencies/lib/QtSolutions_PropertyBrowser.so)
+elseif(APPLE)
+        TARGET_LINK_LIBRARIES(qtEditor
+         debug ${CMAKE_BINARY_DIR}/Dependencies/lib/QtSolutions_PropertyBrowser_d.so
+         optimized ${CMAKE_BINARY_DIR}/Dependencies/lib/QtSolutions_PropertyBrowser.so)
+elseif(WIN32)
+    if(MSVC_IDE)
+        TARGET_LINK_LIBRARIES(qtEditor
+         debug ${CMAKE_BINARY_DIR}/Dependencies/lib/Debug/QtSolutions_PropertyBrowser_d.lib
+         optimized ${CMAKE_BINARY_DIR}/Dependencies/lib/Release/QtSolutions_PropertyBrowser.lib)
+    else()
+        TARGET_LINK_LIBRARIES(qtEditor
+            debug ${CMAKE_BINARY_DIR}/Dependencies/lib/QtSolutions_PropertyBrowser_d.lib
+            optimized ${CMAKE_BINARY_DIR}/Dependencies/lib/QtSolutions_PropertyBrowser.lib)
+    endif(MSVC_IDE)
+endif(UNIX AND NOT APPLE)
 
 # Installation
 if(WIN32)

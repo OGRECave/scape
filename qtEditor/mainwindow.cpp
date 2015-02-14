@@ -4,6 +4,8 @@
 #include "EngineCore/EngineInterface.h"
 #include <QDebug>
 #include <sstream>
+#include "propertieswidget.h"
+#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -26,6 +28,19 @@ MainWindow::MainWindow(QWidget *parent) :
 
     mOgreWidget = new OgreWidget(mEngineInterface , this);
     setCentralWidget(mOgreWidget);
+
+    mPropertiesWidget = new PropertiesWidget(this);
+
+    mPropertiesToolBox = new QToolBox(this);
+    mPropertiesToolBox->addItem( mPropertiesWidget, tr("General"));
+
+    mPropertiesDockWidget = new QDockWidget(this);
+    mPropertiesDockWidget->setWindowTitle(tr("Properties"));
+    mPropertiesDockWidget->setAllowedAreas(Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea);
+    mPropertiesDockWidget->setObjectName( QString::fromUtf8("propertiesDockWidget") );
+    mPropertiesDockWidget->setWidget( mPropertiesToolBox );
+	mPropertiesDockWidget->setMinimumWidth(180);
+    this->addDockWidget( Qt::RightDockWidgetArea, mPropertiesDockWidget);
 
     mTimer = new QTimer(this);
     mTimer->setInterval(0);
@@ -67,6 +82,10 @@ void MainWindow::createActions()
     actExit = new QAction(tr("Exit"), this);
     actExit->setStatusTip(tr("Exit application"));
     actExit->setShortcut(QKeySequence::Close);
+
+    actAbout = new QAction(tr("About"), this);
+    actAbout->setStatusTip(tr("About qtScape"));
+    //actAbout->setIcon(QIcon(":/icons/about"));
 
     actImportImage = new QAction(tr("Import Image"), this);
     actImportImage->setStatusTip(tr("Import heightmap image"));
@@ -148,6 +167,7 @@ void MainWindow::createActions()
 void MainWindow::connectActions()
 {
     connect(actExit, SIGNAL(triggered()), this, SLOT(exitApp()));
+    connect(actAbout, SIGNAL(triggered()), this, SLOT(aboutApp()));
     connect(actImportImage, SIGNAL(triggered()), this, SLOT(importImage()));
     connect(actExportImage, SIGNAL(triggered()), this, SLOT(exportImage()));
 
@@ -208,6 +228,10 @@ void MainWindow::populateMainMenu()
     menuFile->addAction(actExportImage);
     menuFile->addSeparator();
     menuFile->addAction(actExit);
+    menuHelp = new QMenu(tr("Help"), ui->mMenuBar);
+    menuHelp->setObjectName(QString::fromUtf8("menuHelp"));
+    ui->mMenuBar->addAction(menuHelp->menuAction());
+    menuHelp->addAction(actAbout);
 }
 
 void MainWindow::selectTool(QString toolName, int category)
@@ -221,6 +245,47 @@ void MainWindow::selectTool(QString toolName, int category)
         mEngineInterface->selectOperation(toolName.toStdString().c_str());
     }
 
-    //populatePropertyGrid();
+    populatePropertyGrid();
     //populatePresetPanel();
+}
+
+void MainWindow::populatePropertyGrid()
+{
+    //if (mPropertiesWidget)
+    //{
+        ScapeEngine::StringList nameList = mEngineInterface->getUIElementPropertyNameList((ScapeEngine::EScapeUIElementGroupId)mSelectedToolElementGroupId,
+                                                                                          mSelectedToolElementName.toStdString().c_str());
+
+        UIElementPropertyGridItemList itemList;
+
+        ScapeEngine::StringList::iterator nameIt, nameItEnd = nameList.end();
+
+        qDebug() << "***********************************************************************************";
+
+        QString propertySetName = mSelectedToolElementName;
+        qDebug() << "PropertysetName : " << propertySetName;
+
+        for (nameIt = nameList.begin(); nameIt != nameItEnd; ++nameIt)
+        {
+            UIElementPropertyGridItem item;
+            item.name = *nameIt;
+            qDebug() << "-----------";
+            qDebug() << "item.name" << QString::fromStdString(*nameIt);
+            item.label = mEngineInterface->getUIElementPropertyField(propertySetName.toStdString().c_str(), *nameIt, "SHORT");
+            qDebug() << "item.label" << QString::fromStdString(mEngineInterface->getUIElementPropertyField(propertySetName.toStdString().c_str(), *nameIt, "SHORT"));
+            item.description = mEngineInterface->getUIElementPropertyField(propertySetName.toStdString().c_str(), *nameIt, "LONG");
+            qDebug() << "item.description" << QString::fromStdString(mEngineInterface->getUIElementPropertyField(propertySetName.toStdString().c_str(), *nameIt, "LONG"));
+            item.category = mEngineInterface->getUIElementPropertyField(propertySetName.toStdString().c_str(), *nameIt, "CATEGORY");
+            qDebug() << "item.category" << QString::fromStdString(mEngineInterface->getUIElementPropertyField(propertySetName.toStdString().c_str(), *nameIt, "CATEGORY"));
+            item.type = mEngineInterface->getUIElementPropertyField(propertySetName.toStdString().c_str(), *nameIt, "TYPE");
+            qDebug() << "item.type" << QString::fromStdString(mEngineInterface->getUIElementPropertyField(propertySetName.toStdString().c_str(), *nameIt, "TYPE"));
+            itemList.push_back(item);
+            qDebug() << "-----------";
+        }
+        qDebug() << "***********************************************************************************";
+
+        //mPropertiesWidget->populate(itemList);
+        //mPropertiesWidget->setValues(mEngineInterface->getUIElementPropertyValueMap(mSelectedToolElementGroupId, mSelectedToolElementName));
+    //}
+
 }

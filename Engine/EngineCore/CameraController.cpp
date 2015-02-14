@@ -244,7 +244,7 @@ void CameraController::updateTruck()
 	InputManager* inputManager = getEngineCore()->getInputManager();
 	float getTimeSinceLastFrame = getEngineCore()->getTimeSinceLastFrame();
 
-	float moveSpeed = 200.0f;
+    float moveSpeed = 500.0f; //FIXME: store in a setting (was 200.0f)
 
 	if (inputManager->getButton(ButtonId::CAMERA_KEYLEFT)->isPressed(false))
 	{
@@ -274,8 +274,9 @@ void CameraController::updateDolly()
 	InputManager* inputManager = getEngineCore()->getInputManager();
 	float getTimeSinceLastFrame = getEngineCore()->getTimeSinceLastFrame();
 
-	float moveSpeed = 200.0f;
-	if (inputManager->getButton(ButtonId::CAMERA_KEYFORWARD)->isPressed(false))
+    float moveSpeed = 500.0f; //FIXME: store in a setting (was 200.0f)
+
+    if (inputManager->getButton(ButtonId::CAMERA_KEYFORWARD)->isPressed(false))
 	{
 		mCameraTransform.col3 = mCameraTransform.col3 - moveSpeed * mCameraTransform.col2 * getTimeSinceLastFrame;
 	}

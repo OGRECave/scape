@@ -61,10 +61,6 @@ if(UNIX)
 endif(UNIX)
  
 
-set(CMAKE_DEBUG_POSTFIX "_d")
- 
-set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}")
- 
 # Find Boost
 # Prefer static linking in all cases
 if (NOT OGRE_BUILD_PLATFORM_IPHONE)

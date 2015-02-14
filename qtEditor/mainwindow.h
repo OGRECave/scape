@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
+#include <QtWidgets/QMainWindow>
 #include <QtWidgets/QAction>
 #include <QtWidgets/QDockWidget>
 #include <QtWidgets/QToolBox>
@@ -48,6 +48,7 @@ public Q_SLOTS:
     void exportPreset();
     void importPreset();
     void timerLoop();
+    void aboutApp();
     void exitApp();
 
 protected:
@@ -59,8 +60,10 @@ private:
     void populateToolbar();
     void populateMainMenu();
     void selectTool(QString toolName, int category);
+    void populatePropertyGrid();
 
     QMenu* menuFile;
+    QMenu* menuHelp;
     QToolBox* mPropertiesToolBox;
     QToolBox* mPresetsToolBox;
     QDockWidget* mPropertiesDockWidget;
@@ -76,30 +79,31 @@ private:
 
     bool mAttachedInputToEngine;
 
-    QAction*  actExit;
-    QAction*  actImportImage;
-    QAction*  actExportImage;
+    QAction* actExit;
+    QAction* actAbout;
+    QAction* actImportImage;
+    QAction* actExportImage;
 
-    QAction*  actPencilEraserGPU;
-    QAction*  actDirectionalNoiseGPU;
-    QAction*  actNoiseGPU;
-    QAction*  actSoftenGPU;
+    QAction* actPencilEraserGPU;
+    QAction* actDirectionalNoiseGPU;
+    QAction* actNoiseGPU;
+    QAction* actSoftenGPU;
 
-    QAction*  actSharpenSoften;
-    QAction*  actNoiseCPU;
-    QAction*  actLevelUnlevel;
-    QAction*  actWaterErosion;
-    QAction*  actPencilEraser;
+    QAction* actSharpenSoften;
+    QAction* actNoiseCPU;
+    QAction* actLevelUnlevel;
+    QAction* actWaterErosion;
+    QAction* actPencilEraser;
 
-    QAction*  actMaterialProps;
-    QAction*  actSkyProps;
-    QAction*  actRenderwindowProps;
+    QAction* actMaterialProps;
+    QAction* actSkyProps;
+    QAction* actRenderwindowProps;
 
-    QAction*  actCreatePreset;
-    QAction*  actSavePreset;
-    QAction*  actDeletePreset;
-    QAction*  actExportPreset;
-    QAction*  actImportPreset;
+    QAction* actCreatePreset;
+    QAction* actSavePreset;
+    QAction* actDeletePreset;
+    QAction* actExportPreset;
+    QAction* actImportPreset;
 };
 
 #endif // MAINWINDOW_H

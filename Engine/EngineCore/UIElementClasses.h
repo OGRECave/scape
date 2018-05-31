@@ -46,13 +46,15 @@ namespace ScapeEngine
 	// ----------------------------------------------------------------------------
 	#define IMPLEMENT_UIELEMENTCONTAINERSIMPLE_CLASS(className) \
 		StringEnumMap& className::getPersistentElementStringEnumMap() \
-			{static StringEnumMap map; static bool inited = initPersistentElementStringEnumMap(map); return map;} \
+			{static StringEnumMap map; return map;} \
 		StringStringMap& className::getPersistentElementValueMap() \
-			{static StringStringMap map; static bool inited = initPersistentElementValueMap(map); return map;}
+			{static StringStringMap map; return map;}
 
 
 	// ----------------------------------------------------------------------------
 	#define LOADPROPERTIES_UIELEMENTCONTAINERSIMPLE_CLASS() \
+    initPersistentElementStringEnumMap(getPersistentElementStringEnumMap()); \
+    initPersistentElementValueMap(getPersistentElementValueMap()); \
 	StringStringMap::iterator propertyIt, propertyItEnd = getPersistentElementValueMap().end(); \
 	for (propertyIt = getPersistentElementValueMap().begin(); propertyIt != propertyItEnd; ++propertyIt) \
 		{setUIElementPropertyValue(propertyIt->first, propertyIt->second);} \

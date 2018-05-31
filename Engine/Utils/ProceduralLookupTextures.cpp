@@ -71,12 +71,9 @@ void Utils::createPerlinPerm2DTexture(const string& textureName)
 	Ogre::Image perlinPerm2DImage;
 	perlinPerm2DImage.loadDynamicImage((Ogre::uint8*)perlinPerm2DTable, 256, 256, 1, Ogre::PF_R8G8B8A8);
 
-	Ogre::TextureManager::getSingleton().loadImage(
-		textureName, 
-		Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-		perlinPerm2DImage);
+	Ogre::TextureManager::getSingleton().getByName(textureName)->loadImage(perlinPerm2DImage);
 
-	perlinPerm2DImage.save(_T("c:/PerlinPerm2D.png"));
+	perlinPerm2DImage.save(_T("PerlinPerm2D.png"));
 }
 
 
@@ -109,11 +106,8 @@ void Utils::createPerlinGrad2DTexture(const string& textureName)
 	Ogre::Image perlinGrad2DImage;
 	perlinGrad2DImage.loadDynamicImage((Ogre::uint8*)perlinGrad2DTable, 256, 256, 1, Ogre::PF_R8G8B8A8);
 
-	Ogre::TextureManager::getSingleton().loadImage(
-		textureName,
-		Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-		perlinGrad2DImage);
+	Ogre::TextureManager::getSingleton().getByName(textureName)->loadImage(perlinGrad2DImage);
 
-	perlinGrad2DImage.save(_T("c:/PerlinGrad2D.png"));
+	perlinGrad2DImage.save(_T("PerlinGrad2D.png"));
 }
 

@@ -642,16 +642,16 @@ void EngineCore::loadSkyBox()
 
 		for (int side = 0; side < 6; ++side)
 		{
-			string oldTextureName = EXTERNAL_TEXTURE_BASENAME + tech->getPass(0)->getTextureUnitState(0)->getFrameTextureName(side);
+			string oldTextureName = tech->getPass(0)->getTextureUnitState(0)->getFrameTextureName(side);
 			string newTextureName = EXTERNAL_TEXTURE_BASENAME + newTextureNames[side];
 
-			if (oldTextureName.compare(newTextureName) != 0)
+			if ((EXTERNAL_TEXTURE_BASENAME + oldTextureName).compare(newTextureName) != 0)
 			{
-				Ogre::TextureManager::getSingleton().remove(EXTERNAL_TEXTURE_BASENAME + oldTextureName);
+				Ogre::TextureManager::getSingleton().remove(oldTextureName);
 				foundDifference = true;
 			}
 
-			Utils::getTextureFromExternalFile(newTextureName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, newTextureNames[side]); 
+			Utils::getTextureFromExternalFile(newTextureName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, newTextureNames[side]);
 
 			tech->getPass(0)->getTextureUnitState(0)->setFrameTextureName(newTextureName, side);
 		}

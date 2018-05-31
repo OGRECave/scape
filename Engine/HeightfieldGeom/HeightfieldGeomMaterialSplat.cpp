@@ -498,7 +498,7 @@ void HeightfieldGeomMaterialSplat::bindShaderConstants()
 // ----------------------------------------------------------------------------
 void HeightfieldGeomMaterialSplat::forceReloadTexture(const string& oldFileName, const string& newFileName)
 {
-	if (oldFileName.compare(newFileName) != 0)
+	if (!oldFileName.empty() && oldFileName.compare(newFileName) != 0)
 	{
 		Ogre::TextureManager::getSingleton().remove(TEXTUREBASENAME + oldFileName);
 	}

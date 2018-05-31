@@ -98,11 +98,10 @@ void GPU2DOperation::setCameraPosition(int x, int y)
 	Ogre::Real pixelOffsetX = renderSystem->getHorizontalTexelOffset();
 	Ogre::Real pixelOffsetY = renderSystem->getVerticalTexelOffset();
 
-	Ogre::Matrix4 viewTransform(
+	Ogre::Affine3 viewTransform(
 		2.0f/viewportWidth,		 0.0f,					0.0f,		-1.0f+2.0f*(pixelOffsetX - x)/viewportWidth,
 		0.0f,					-2.0f/viewportHeight,	0.0f,		 1.0f-2.0f*(pixelOffsetY - y)/viewportHeight,
-		0.0f,					 0.0f,					0.0f,		-1.0f,
-		0.0f,					 0.0f,					0.0f,		 1.0f);
+		0.0f,					 0.0f,					0.0f,		-1.0f);
 
 	mCamera->setCustomViewMatrix(true, viewTransform);
 }

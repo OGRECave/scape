@@ -96,7 +96,7 @@ void RenderView::attach(const string &windowHandle, int left, int top, int width
 	// --------------------
 	// Create a new parameters list according to compiled OS
 	Ogre::NameValuePairList params;
-    params[ "VSync" ] = "Yes";
+    params[ "vsync" ] = "true";
 
 	if (windowHandle.length())
 	{

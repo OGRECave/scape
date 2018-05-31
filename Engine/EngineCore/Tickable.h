@@ -13,7 +13,7 @@
 #define __TICKABLE_H__
 
 
-#include "ogreplatform.h"
+#include "OgrePlatform.h"
 
 
 namespace ScapeEngine 

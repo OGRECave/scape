@@ -7,7 +7,7 @@
 #include "PCH/stdafx.h"
 #include "InputPointer.h"
 #include "InputManager.h"
-#include "AnalogInputID.h"
+#include "AnalogInputId.h"
 #include "EngineCore/RenderViewManager.h"
 #include "EngineCore/RenderView.h"
 #include "EngineCore/CameraController.h"

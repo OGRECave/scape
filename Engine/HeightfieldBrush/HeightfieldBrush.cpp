@@ -12,6 +12,8 @@
 #include "Input/InputManager.h"
 #include "Input/InputPointer.h"
 
+#include <iostream>
+
 using namespace ScapeEngine;
 
 

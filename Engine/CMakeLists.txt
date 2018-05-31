@@ -76,7 +76,7 @@ set (CPP_FILES
     ${Input_DEFS}
     ${Tinyxml_SRCS} 
     ${Utils_SRCS}
-    ${Wintab_SRCS}
+    #${Wintab_SRCS}
     ${PCH_SRCS}
 )
 set (HPP_FILES
@@ -92,7 +92,7 @@ set (HPP_FILES
     ${Input_HDRS}
     ${Utils_HDRS}
     ${Tinyxml_HDRS}
-    ${Wintab_HDRS} 
+    #${Wintab_HDRS} 
     ${PCH_HDRS}
 )
 

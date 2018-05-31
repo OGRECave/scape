@@ -24,7 +24,7 @@ namespace ScapeEngine
 			typedef Type TypeIn;
 			typedef Type TypeOut;
 
-			TypeOut operator()(TypeIn& in) const {return in;}
+			TypeOut operator()(const TypeIn& in) const {return in;}
 		};
 
 

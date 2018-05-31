@@ -71,7 +71,7 @@ namespace ScapeEngine
 
 		// Get some area of this HeightfieldBuffer with the given pixelbox. 
 		// The specified pixelbox should be fully initialized.
-		void HeightfieldBuffer::copyTo(Ogre::PixelBox& relativePixelBox);
+		void copyTo(Ogre::PixelBox& relativePixelBox);
 
 		// Make internal page data consistent after possibly being invalidated by heightfieldbufferpage updates.
 		void revalidate();		

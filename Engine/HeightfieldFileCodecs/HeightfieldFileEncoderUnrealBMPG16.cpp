@@ -10,7 +10,7 @@
 #include "HeightfieldFileEncoderUnrealBMPG16.h"
 #include "HeightfieldFileEncoderRaw.h"
 #include "Utils/SerialMemoryBuffer.h"
-#include "Utils/BmpHeader.h"
+#include "Utils/BMPHeader.h"
 
 
 #define UIELEMENTPROPERTY_FLIPX		_T("FLIPX")

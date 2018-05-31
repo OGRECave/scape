@@ -155,7 +155,7 @@ Ogre::Rect editRect(
 		}
 	}
 
-	pixelBox.data = dataOut;
+	pixelBox.data = reinterpret_cast<Ogre::uchar*>(dataOut);
 	heightfieldBuffer->updateFrom(pixelBox);
 	heightfieldBuffer->revalidate();
 	delete dataIn;
@@ -239,7 +239,7 @@ Ogre::Rect editRect(
 		}
 	}
 
-	pixelBox.data = dataOut;
+	pixelBox.data = reinterpret_cast<Ogre::uchar*>(dataOut);
 	heightfieldBuffer->updateFrom(pixelBox);
 	heightfieldBuffer->revalidate();
 	delete dataIn;

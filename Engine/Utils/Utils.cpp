@@ -6,7 +6,6 @@
 
 #include "PCH/stdafx.h"
 #include "Utils.h"
-#include "direct.h"
 
 using namespace ScapeEngine;
 
@@ -407,6 +406,12 @@ string Utils::getRelativePath(const string& absolutePath, const string& basePath
 // ----------------------------------------------------------------------------
 string Utils::getWorkingPath()
 {
+#if OGRE_PLATFORM == OGRE_PLATFORM_LINUX
+typedef char TCHAR;
+#define MAX_PATH 1024
+#define _getcwd getcwd
+#endif
+
 	TCHAR path[MAX_PATH];
 	_getcwd(path, MAX_PATH);
 	return path;

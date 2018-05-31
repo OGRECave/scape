@@ -36,7 +36,7 @@ namespace ScapeEngine
 		}
 
 		// Add a device button button to this definition
-		void ButtonDefinition::addDeviceButton(DeviceButtonId::EDeviceButtonId buttonId) 
+		void addDeviceButton(DeviceButtonId::EDeviceButtonId buttonId)
 		{
 			mDeviceButtons.push_front(buttonId);
 		}

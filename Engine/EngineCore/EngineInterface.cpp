@@ -28,6 +28,8 @@
 #include "HeightfieldFileCodecs/HeightfieldFileEncoder.h" 
 #include "HeightfieldFileCodecs/HeightfieldFileDecoder.h" 
 
+#include <iostream>
+
 using namespace ScapeEngine;
 
 
@@ -118,7 +120,7 @@ bool EngineInterface::onFatalException()
         stream << _T("A fatal error occured:\n") << e.getFullDescription();
         std::cout << stream.str();
         Ogre::LogManager::getSingleton().logMessage(stream.str());
-        MessageBox(NULL, stream.str().c_str(), _T("A fatal exception has occured!"), MB_OK | MB_ICONERROR | MB_TASKMODAL);
+        //MessageBox(NULL, stream.str().c_str(), _T("A fatal exception has occured!"), MB_OK | MB_ICONERROR | MB_TASKMODAL);
 		assert(false && _T("Exception!"));
 		return true;
 	}
@@ -128,7 +130,7 @@ bool EngineInterface::onFatalException()
         stream << _T("A fatal error occured:\n") << e.what();
         std::cout << stream.str();
         Ogre::LogManager::getSingleton().logMessage(stream.str());
-        MessageBox(NULL, stream.str().c_str(), _T("A fatal exception has occured!"), MB_OK | MB_ICONERROR | MB_TASKMODAL);
+        //MessageBox(NULL, stream.str().c_str(), _T("A fatal exception has occured!"), MB_OK | MB_ICONERROR | MB_TASKMODAL);
 		assert(false && _T("Exception!"));
 		return true;
 	}

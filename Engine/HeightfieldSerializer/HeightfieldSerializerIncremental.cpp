@@ -58,8 +58,8 @@ namespace ScapeEngine
 
 						size_t topLeftOffset = (rowPtrDelta + rowPtrSkip) * previousBox.top + componentCount * previousBox.left;
 
-						Type* previousPtr = static_cast<Type*>(previousBox.data) + topLeftOffset;
-						Type* nextPtr = static_cast<Type*>(nextBox.data) + topLeftOffset;
+						Type* previousPtr = reinterpret_cast<Type*>(previousBox.data) + topLeftOffset;
+						Type* nextPtr = reinterpret_cast<Type*>(nextBox.data) + topLeftOffset;
 						Type lastDelta = 0;
 
 						compressor.begin();
@@ -94,7 +94,7 @@ namespace ScapeEngine
 						size_t rowPtrSkip = previousBox.getRowSkip() * componentCount;
 
 						size_t topLeftOffset = (rowPtrDelta + rowPtrSkip) * previousBox.top + componentCount * previousBox.left;
-						Type* previousPtr = static_cast<Type*>(previousBox.data) + topLeftOffset;
+						Type* previousPtr = reinterpret_cast<Type*>(previousBox.data) + topLeftOffset;
 						Type lastDelta = 0;
 
 						compressor.begin();
@@ -127,7 +127,7 @@ namespace ScapeEngine
 					size_t rowPtrDelta = nextBox.getWidth() * componentCount;
 					size_t rowPtrSkip = nextBox.getRowSkip() * componentCount;
 					size_t topLeftOffset = (rowPtrDelta + rowPtrSkip) * nextBox.top + componentCount * nextBox.left;
-					Type* nextPtr = static_cast<Type*>(nextBox.data) + topLeftOffset;
+					Type* nextPtr = reinterpret_cast<Type*>(nextBox.data) + topLeftOffset;
 					Type lastDelta = 0;
 
 					compressor.begin();
@@ -192,7 +192,7 @@ namespace ScapeEngine
 					size_t rowPtrDelta = box.getWidth() * componentCount;
 					size_t rowPtrSkip = box.getRowSkip() * componentCount;
 					size_t topLeftOffset = (rowPtrDelta + rowPtrSkip) * box.top + componentCount * box.left;
-					Type* ptr = static_cast<Type*>(box.data) + topLeftOffset;
+					Type* ptr = reinterpret_cast<Type*>(box.data) + topLeftOffset;
 					Type delta = 0;
 
 					for (size_t y = box.top; y < box.bottom; ++y)
@@ -252,7 +252,7 @@ namespace ScapeEngine
 					size_t rowPtrDelta = box.getWidth() * componentCount;
 					size_t rowPtrSkip = box.getRowSkip() * componentCount;
 					size_t topLeftOffset = (rowPtrDelta + rowPtrSkip) * box.top + componentCount * box.left;
-					Type* ptr = static_cast<Type*>(box.data) + topLeftOffset;
+					Type* ptr = reinterpret_cast<Type*>(box.data) + topLeftOffset;
 					Type delta = 0;
 
 					for (size_t y = box.top; y < box.bottom; ++y)

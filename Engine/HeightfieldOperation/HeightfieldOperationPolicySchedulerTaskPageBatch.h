@@ -50,10 +50,10 @@ namespace ScapeEngine
 
 			size_t allowedWorkingBrushInstances = mAllowMultipleBrushInstances ? 1000 : 1;
 
-			while (getBrushInstanceCount() &&  mWorkingBrushInstancesCount < allowedWorkingBrushInstances)
+			while (this->getBrushInstanceCount() &&  mWorkingBrushInstancesCount < allowedWorkingBrushInstances)
 			{
-				BrushInstance brushInstance = popBrushInstance();
-				HeightfieldBuffer* inOutHeightfieldBuffer = getInOutHeightfieldBuffer();
+				BrushInstance brushInstance = this->popBrushInstance();
+				HeightfieldBuffer* inOutHeightfieldBuffer = this->getInOutHeightfieldBuffer();
 
 				int radius = (int)(brushInstance.outerRadius) + 2;
 				int column = (int)brushInstance.position.x;
@@ -150,7 +150,7 @@ namespace ScapeEngine
 						isDone = false;
 					}
 
-					if (Ogre::Root::getSingleton().getTimer()->getMilliseconds() - mLastTickMillis >= MINWORKMILLIS)
+					if (Ogre::Root::getSingleton().getTimer()->getMilliseconds() - this->mLastTickMillis >= MINWORKMILLIS)
 					{
 						break;
 					}
@@ -170,8 +170,8 @@ namespace ScapeEngine
 
 					if (page.isCompleted())
 					{
-						getInOutHeightfieldBuffer()->swapPage(page.getPageCoords().first, page.getPageCoords().second, getTempHeightfieldBuffer());
-						getInOutHeightfieldBuffer()->updateGeoms(page.getUpdatedRect());
+					    this->getInOutHeightfieldBuffer()->swapPage(page.getPageCoords().first, page.getPageCoords().second, this->getTempHeightfieldBuffer());
+					    this->getInOutHeightfieldBuffer()->updateGeoms(page.getUpdatedRect());
 
 						delete (*pageIt);
 						mHeightfieldOperationTaskPageList.erase(pageIt++);				
@@ -182,7 +182,7 @@ namespace ScapeEngine
 						isDone = false;
 					}
 
-					if (Ogre::Root::getSingleton().getTimer()->getMilliseconds() - mLastTickMillis >= MINWORKMILLIS)
+					if (Ogre::Root::getSingleton().getTimer()->getMilliseconds() - this->mLastTickMillis >= MINWORKMILLIS)
 					{
 						break;
 					}

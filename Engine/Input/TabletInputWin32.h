@@ -12,6 +12,8 @@
 #ifndef __TABLETINPUTWIN32_H__
 #define __TABLETINPUTWIN32_H__
 
+#include <OgrePlatform.h>
+#if OGRE_PLATFORM == OGRE_PLATFORM_WINDOWS
 
 #include "TabletInput.h"
 #include "Wintab/wintab.h"
@@ -49,5 +51,7 @@ namespace ScapeEngine
 		void cacheCursorSettings();
 	};
 }
+
+#endif
 
 #endif // __TABLETINPUTWIN32_H__

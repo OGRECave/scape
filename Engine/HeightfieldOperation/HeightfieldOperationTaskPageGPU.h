@@ -16,7 +16,7 @@
 //#include "HeightfieldOperationGPU.h"
 #include "GPU2DOperation/GPU2DOperation.h"
 #include "GPU2DOperation/GPU2DOperationQuadBrush.h"
-#include "GPU2DOperation/GPU2DOperationQuadcustom.h"
+#include "GPU2DOperation/GPU2DOperationQuadCustom.h"
 
 namespace ScapeEngine
 {

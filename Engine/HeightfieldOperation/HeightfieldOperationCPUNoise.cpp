@@ -130,12 +130,12 @@ void HeightfieldOperationCPUNoise::applyPrimary(const Ogre::Vector3& position, O
 
 
 	Ogre::Real smallestLevelReal = log(std::max((Ogre::Real)1, mPropMinRange)) / log(2.0f);
-	Ogre::Real largestLevelReal = std::max(smallestLevelReal + 1E-6f, log(std::max((Ogre::Real)1, mPropMaxRange)) / log(2.0f));
+	Ogre::Real largestLevelReal = std::max(smallestLevelReal + 1E-6f, std::log(std::max((Ogre::Real)1, mPropMaxRange)) / std::log(2.0f));
 	int largestLevel = (int)ceil(largestLevelReal);
 	int smallestLevel = (int)floor(smallestLevelReal);
 
-	Ogre::Real high = std::min(1.0f - 1E-6f, pow(std::max(1E-6f, 0.5f * mPropHiAmp), largestLevelReal));
-	Ogre::Real mid = std::min(1.0f - 1E-6f, pow(std::max(1E-6f, 0.5f * mPropMidAmp), 0.5f * largestLevelReal));
+	Ogre::Real high = std::min(1.0f - 1E-6f, std::pow(std::max(1E-6f, 0.5f * mPropHiAmp), largestLevelReal));
+	Ogre::Real mid = std::min(1.0f - 1E-6f, std::pow(std::max(1E-6f, 0.5f * mPropMidAmp), 0.5f * largestLevelReal));
 	Ogre::Real discriminant = std::max(0.0f, 0.25f*high*high + 0.5f*high + 0.25f - high*mid + mid*mid - mid);
 	Ogre::Real half = std::max(1E-6f, (0.5f - 0.5f*high - sqrtf(discriminant)) / (1 - mid));
 	Ogre::Real levelScale = pow(half, 2.0f / (largestLevelReal - smallestLevelReal));

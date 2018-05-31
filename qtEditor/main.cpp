@@ -3,11 +3,10 @@
 #include <QtWidgets/QSplashScreen>
 #include <QtWidgets/QStyleFactory>
 #include "EngineCore/EngineInterface.h"
-#include "customsplash.h"
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QTextEdit>
-#include "stdredirector.h"
+//#include "stdredirector.h"
 
 void outcallback(const char* ptr, std::streamsize count, void* pTextBox)
 {
@@ -40,7 +39,7 @@ int main(int argc, char *argv[])
 	layout->addWidget(splashLabel);
 	layout->addWidget(textedit);
 	splash->setLayout(layout);
-	StdRedirector<>* myRedirector = new StdRedirector<>(std::cout, outcallback, textedit);
+	//StdRedirector<>* myRedirector = new StdRedirector<>(std::cout, outcallback, textedit);
 
 	splash->show();
 
@@ -51,6 +50,6 @@ int main(int argc, char *argv[])
 
     splash->finish(&w);
     delete splash;
-	delete myRedirector;
+	//delete myRedirector;
     return a.exec();
 }

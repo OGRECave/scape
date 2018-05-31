@@ -188,7 +188,7 @@ namespace ScapeEngine
 		public:
 			MapStructReadIterator() : mValid(false) {}
 			MapStructReadIterator(const MapStructType& mapStruct) : mValid(true), mBeginIt(mapStruct.map.begin()), mCurrentIt(mapStruct.map.begin()), mEndIt(mapStruct.map.end()) {}
-			typename const MapStructType::MapType::key_type& getKey() const {return mCurrentIt->first;}
+			const typename MapStructType::MapType::key_type& getKey() const {return mCurrentIt->first;}
 			ValueType getValue() const {return *mCurrentIt->second;}
 			void next() {++mCurrentIt;}
 			void rewind() {mCurrentIt = mBeginIt;}

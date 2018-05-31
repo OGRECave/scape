@@ -16,6 +16,7 @@
 #include "GPU2DOperation/GPU2DOperation.h"
 #include "GPU2DOperation/GPU2DOperationManager.h"
 #include "HeightfieldBrush/HeightfieldBrush.h"
+#include <iostream>
 
 #define MAXRENDERTARGETS 4 //NOTE: must be 1 for OpenGL
 

@@ -9,13 +9,6 @@ if(WIN32)
         )
 endif(WIN32)
 
-if(CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "debug")
-    MESSAGE("DEBUG COMPILATION")
-    ADD_DEFINITIONS("-DDEBUG")
-else()
-  set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options are: None (CMAKE_CXX_FLAGS or CMAKE_C_FLAGS used) Debug Release RelWithDebInfo MinSizeRel." FORCE)
-endif()
-
 set(CMAKE_DEBUG_POSTFIX "_d")
 set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/bin")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY  ${CMAKE_INSTALL_PREFIX})
@@ -56,7 +49,6 @@ set(HEADER_FILES
 ./propertieswidget.h
 ./presetswidget.h
 ./complexproperties.h
-./stdredirector.h
 )
 
 file(GLOB UI_FILES ./*.ui)
@@ -88,7 +80,7 @@ add_definitions(${Qt5Widgets_DEFINITIONS})
 
 qt5_wrap_ui(UI_SRCS ${UI_FILES})
 
-qt5_add_resources(RESOURCE_SRCS ./res/Editor.qrc)
+qt5_add_resources(RESOURCE_SRCS ./res/editor.qrc)
 
 include_directories(${Qt5Widgets_INCLUDE_DIRS})
 
@@ -145,8 +137,7 @@ add_dependencies(qtEditor QtSolutions_PropertyBrowser)
 
 if(UNIX AND NOT APPLE)
         TARGET_LINK_LIBRARIES(qtEditor
-         debug ${CMAKE_BINARY_DIR}/Dependencies/lib/QtSolutions_PropertyBrowser_d.so
-         optimized ${CMAKE_BINARY_DIR}/Dependencies/lib/QtSolutions_PropertyBrowser.so)
+         ${CMAKE_BINARY_DIR}/lib/libQtSolutions_PropertyBrowser_Ogitor.so)
 elseif(APPLE)
         TARGET_LINK_LIBRARIES(qtEditor
          debug ${CMAKE_BINARY_DIR}/Dependencies/lib/QtSolutions_PropertyBrowser_d.so

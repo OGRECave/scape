@@ -24,7 +24,7 @@ RenderViewManager::RenderViewManager()
 // ----------------------------------------------------------------------------
 RenderViewManager::~RenderViewManager()
 {
-	for each (std::pair<long, RenderView*> renderViewPair in mRenderViews)
+	for (std::pair<long, RenderView*> renderViewPair : mRenderViews)
 	{
 		RenderView* renderView = renderViewPair.second;
 		renderView->destroy();
@@ -96,7 +96,7 @@ void RenderViewManager::onRenderViewMovedOrResized(int viewId, int left, int top
 // ----------------------------------------------------------------------------
 long RenderViewManager::getViewIdAtRootSpacePosition(const IVector2 &point)
 {
-	for each (std::pair<long, RenderView*> renderViewPair in mRenderViews)
+	for (std::pair<long, RenderView*> renderViewPair : mRenderViews)
 	{
 		RenderView* renderView = renderViewPair.second;
 		Ogre::Vector2 out;
@@ -111,7 +111,7 @@ long RenderViewManager::getViewIdAtRootSpacePosition(const IVector2 &point)
 // ----------------------------------------------------------------------------
 void RenderViewManager::updateAll()
 {
-	for each (std::pair<long, RenderView*> renderViewPair in mRenderViews)
+	for (std::pair<long, RenderView*> renderViewPair : mRenderViews)
 	{
 		renderViewPair.second->update();
 	}

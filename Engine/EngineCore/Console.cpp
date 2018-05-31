@@ -7,7 +7,7 @@
 #include "PCH/stdafx.h"
 
 #include <fcntl.h>
-#include <io.h>
+
 #include <iostream>
 #include <string>
 
@@ -15,11 +15,16 @@
 
 using namespace ScapeEngine;
 
+#if OGRE_PLATFORM == OGRE_PLATFORM_LINUX
+typedef char TCHAR;
+#endif
+
 #ifdef _DEBUG
 #define CREATE_OWN_CONSOLE
 #endif
 
 #ifdef CREATE_OWN_CONSOLE
+#include <io.h>
 
 // ----------------------------------------------------------------------------
 void Console::openConsole()
@@ -70,83 +75,17 @@ void Console::openConsole()
 
 #else // CREATE_OWN_CONSOLE
 
-typedef std::basic_ostream<TCHAR> ostream_t; 
+typedef std::basic_stringstream<TCHAR> ostream_t;
 
 /// contains globals data and related functions
 class DebugStream
 {
-	// ----------------------------------------------------------------------------
-	/// stream buffer
-	class streambuff: 
-		public std::basic_streambuf<TCHAR>
-	{
-		static const size_t BUFFSZ = 128;
-		TCHAR buffer[BUFFSZ];
-	public:
-
-		// ----------------------------------------------------------------------------
-		// imitialize the debug library
-		streambuff()
-		{
-			/*
-			_CrtSetDbgFlag(
-				_CRTDBG_LEAK_CHECK_DF|
-				_CRTDBG_ALLOC_MEM_DF|
-				_CRTDBG_CHECK_ALWAYS_DF);
-			*/
-
-			OutputDebugString(_T("Opening debug stream\n"));
-			pubsetbuf(buffer,BUFFSZ-1);
-		}
-
-		// ----------------------------------------------------------------------------
-		// finalize the debug
-		~streambuff()
-		{
-			OutputDebugString(_T("deleting debug stream buffer\n"));
-		}
-
-		// ----------------------------------------------------------------------------
-		// makes the streambuff working on \c buffer
-		virtual basic_streambuf* setbuf(TCHAR* _Buffer, std::streamsize _Count)
-		{
-			setp(buffer,buffer,buffer+BUFFSZ-1);
-			return this;
-		}
-
-
-		// ----------------------------------------------------------------------------
-		// sync and rewind when full
-		virtual int_type overflow(int_type i = traits_type::eof()) 
-		{
-			sync();
-			*pptr() = traits_type::to_char_type(i);
-			pbump(1);
-			return traits_type::not_eof(i);
-		}
-
-
-		// ----------------------------------------------------------------------------
-		// spit the buffer to the debugger
-		virtual int sync()
-		{
-			char_type* p = pbase();
-			int sz = (int)(pptr()-p);
-			p[sz] = 0;
-			OutputDebugString(p);
-			pbump(-sz);
-			return 0;
-		}
-	};
-
-	// ----------------------------------------------------------------------------
-	streambuff buff;
-	ostream_t stream; 
+	ostream_t stream;
 
 public:
 	// ----------------------------------------------------------------------------
 	// initialize the stream
-	DebugStream() : stream(&buff)
+	DebugStream()
 	{}
 
 	ostream_t& operator()()

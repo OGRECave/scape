@@ -34,7 +34,7 @@ namespace ScapeEngine
 		// ----------------------------------------------------------------------------
 		virtual void brushInstancerTick()
 		{
-			HeightfieldBrush* brush = getBrush();
+			HeightfieldBrush* brush = this->getBrush();
 			assert(brush);
 
 			bool brushActive = brush->isActive() && brush->getHeightfieldGeom() && mIsActiveStroke;
@@ -52,14 +52,14 @@ namespace ScapeEngine
 				BrushPathNode transitionNode = mCurrentPathNode;
 				transitionNode.pressure = 0.0f;
 				transitionNode.time -= 2;
-				mBrushPathNodes.push_back(transitionNode);
+				this->mBrushPathNodes.push_back(transitionNode);
 				transitionNode.time += 1;
-				mBrushPathNodes.push_back(transitionNode);
+				this->mBrushPathNodes.push_back(transitionNode);
 			}
 
 			if (brushActive)
 			{
-				mBrushPathNodes.push_back(mCurrentPathNode);
+				this->mBrushPathNodes.push_back(mCurrentPathNode);
 				//brushActive = false;
 			}
 			mWasActiveStroke = mIsActiveStroke;
@@ -69,11 +69,11 @@ namespace ScapeEngine
 			Ogre::Real outerRadius = brush->getOuterRadius();
 			Ogre::Real rampPower = brush->getRampPower();
 
-			if (isPencilMode())
+			if (this->isPencilMode())
 			{
-				while (mBrushPathNodes.size() >= 4)
+				while (this->mBrushPathNodes.size() >= 4)
 				{
-					BrushPathNodes::iterator nodesIt = mBrushPathNodes.begin();
+					BrushPathNodes::iterator nodesIt = this->mBrushPathNodes.begin();
 
 					BrushPathNode& node1 = *nodesIt++;
 					BrushPathNode& node2 = *nodesIt++;
@@ -99,7 +99,7 @@ namespace ScapeEngine
 						subPoint4.distance(subPoint5));
 						
 					distance = std::max(0.1f, node2.position.distance(node3.position));
-					Ogre::Real stepSize = std::max(1.0f, mPathSpacing * (brush->getOuterRadius() - brush->getInnerRadius()));
+					Ogre::Real stepSize = std::max(1.0f, this->mPathSpacing * (brush->getOuterRadius() - brush->getInnerRadius()));
 					Ogre::Real stepStrength = stepSize / brush->getOuterRadius() * std::max(0.1f, 0.001f * (node3.time - node2.time));
 					//Ogre::Real stepStrength = std::max(0.1f, 0.001f * (node3.time - node2.time));
 
@@ -110,7 +110,7 @@ namespace ScapeEngine
 						Ogre::Vector4 weights = Utils::getCatmullRomeSplineWeights(mPathNextParam / distance);
 						Ogre::Vector4 interpolation = splineVectors * weights;
 						position = Ogre::Vector3(interpolation.ptr());
-						strength = 0.5f * stepStrength * interpolation.w * interpolation.w * getStrength() * sqrtf(Utils::lerp(rampPower, 1.0f, innerRadius / outerRadius));
+						strength = 0.5f * stepStrength * interpolation.w * interpolation.w * this->getStrength() * sqrtf(Utils::lerp(rampPower, 1.0f, innerRadius / outerRadius));
 
 						if (!mHasLastBrushInstancePosition) 
 						{
@@ -128,7 +128,7 @@ namespace ScapeEngine
 							instance.innerRadius = innerRadius;
 							instance.outerRadius = outerRadius;
 							instance.rampPower = rampPower;
-							mBrushInstances.push_back(instance);
+							this->mBrushInstances.push_back(instance);
 
 						}
 
@@ -138,15 +138,15 @@ namespace ScapeEngine
 					else
 					{
 						mPathNextParam -= distance;
-						mBrushPathNodes.pop_front();
+						this->mBrushPathNodes.pop_front();
 					}
 				}
 			}
 			else
 			{
-				while (mBrushPathNodes.size() >= 1)
+				while (this->mBrushPathNodes.size() >= 1)
 				{
-					BrushPathNodes::iterator nodesIt = mBrushPathNodes.begin();
+					BrushPathNodes::iterator nodesIt = this->mBrushPathNodes.begin();
 
 					if (!mHasLastBrushInstancePosition) 
 					{
@@ -156,7 +156,7 @@ namespace ScapeEngine
 
 					if (nodesIt->pressure > 0.0f)
 					{
-						Ogre::Real strength = 0.1f * nodesIt->pressure * getStrength();
+						Ogre::Real strength = 0.1f * nodesIt->pressure * this->getStrength();
 						strength = (nodesIt->primary ? 1.0f : -1.0f) * strength;
 						BrushInstance instance;
 						instance.position = nodesIt->position;
@@ -165,10 +165,10 @@ namespace ScapeEngine
 						instance.innerRadius = innerRadius;
 						instance.outerRadius = outerRadius;
 						instance.rampPower = rampPower;
-						mBrushInstances.push_back(instance);
+						this->mBrushInstances.push_back(instance);
 					}
 					mLastBrushInstancePosition = nodesIt->position;
-					mBrushPathNodes.pop_front();
+					this->mBrushPathNodes.pop_front();
 				}
 
 			}

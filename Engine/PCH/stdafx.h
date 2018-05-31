@@ -16,15 +16,15 @@
 #define _WIN32_WINNT 0x0501
 #define NOMINMAX
 
-#include "Ogre/Ogre.h"
+#include "Ogre.h"
 //#include "OgreNoMemoryMacros.h"
 //#include "OgreMemoryMacros.h"
-#include "Ogre/OgreConfigFile.h"
-#include "Ogre/OgreException.h"
-#include "Ogre/OgreStringConverter.h"
-#include "Ogre/OgreBitwise.h"
+#include "OgreConfigFile.h"
+#include "OgreException.h"
+#include "OgreStringConverter.h"
+#include "OgreBitwise.h"
 #include "OIS/OIS.h"
-#include "tinyxml/tinyxml.h"
+#include "Tinyxml/tinyxml.h"
 #include <string>
 #include <list>
 #include <map>

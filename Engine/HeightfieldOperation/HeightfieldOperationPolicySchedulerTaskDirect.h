@@ -68,7 +68,7 @@ namespace ScapeEngine
 						direct.tick();
 						tryMore = direct.isActive();
 
-						if (Ogre::Root::getSingleton().getTimer()->getMilliseconds() - mLastTickMillis >= MINWORKMILLIS)
+						if (Ogre::Root::getSingleton().getTimer()->getMilliseconds() - this->mLastTickMillis >= MINWORKMILLIS)
 						{
 							break;
 						}
@@ -87,7 +87,7 @@ namespace ScapeEngine
 						isDone = false;
 					}
 
-					if (Ogre::Root::getSingleton().getTimer()->getMilliseconds() - mLastTickMillis >= MINWORKMILLIS)
+					if (Ogre::Root::getSingleton().getTimer()->getMilliseconds() - this->mLastTickMillis >= MINWORKMILLIS)
 					{
 						break;
 					}

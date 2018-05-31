@@ -4,6 +4,8 @@
  * See Docs/ScapeLicense.txt for details. 
  */
 
+#include <OgrePlatform.h>
+#if OGRE_PLATFORM == OGRE_PLATFORM_WINDOWS
 #include "PCH/stdafx.h"
 #include "Wintab/wintab.h"
 
@@ -249,3 +251,4 @@ void TabletInputWin32::capture()
 	}
 }
 
+#endif

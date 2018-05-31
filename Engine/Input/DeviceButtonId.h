@@ -13,7 +13,7 @@
 #define __DEVICEBUTTONID_H__
 
 #if defined(ENUMID)
-#error ENUMID shouldn't be defined at this point
+#error "ENUMID shouldn't be defined at this point"
 #endif
 
 namespace ScapeEngine

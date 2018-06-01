@@ -28,8 +28,8 @@ include_directories(${SCAPE_SOURCE_DIR})
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
-ExternalProject_Get_Property(QtSolutions_PropertyBrowser install_dir)
-include_directories(${install_dir}/src/QtSolutions_PropertyBrowser/src)
+include_directories(${CMAKE_SOURCE_DIR}/Dependencies/QtPropertyBrowser/src)
+add_subdirectory(${CMAKE_SOURCE_DIR}/Dependencies/QtPropertyBrowser QtPropertyBrowser)
 
 set(SRC_FILES
 ./main.cpp
@@ -63,14 +63,7 @@ if(WIN32)
         )
 endif(WIN32)
 
-find_package(OGRE REQUIRED)
-
-include_directories(${OGRE_INCLUDE_DIRS})
-
-if(NOT ((${OGRE_VERSION} VERSION_EQUAL "1.8.0") OR (${OGRE_VERSION} VERSION_GREATER "1.8.0")))
-    message(SEND_ERROR "You need Ogre 1.8.0 or later to build this. You can get it from sinbad's repository here: https://bitbucket.org/sinbad/ogre")
-endif()
-
+find_package(OGRE 1.11 REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 
 # if we don't include this CMake will not include ui headers properly:
@@ -116,6 +109,7 @@ if(UNIX)
     Qt5::Widgets
     Qt5::X11Extras
     Engine
+    QtPropertyBrowser
     )
 elseif(WIN32)
     qt5_use_modules(qtEditor Core Gui Widgets)
@@ -130,29 +124,9 @@ elseif(WIN32)
     Qt5::Core
     Qt5::Widgets
     Engine
+    QtPropertyBrowser
     )
 endif()
-
-add_dependencies(qtEditor QtSolutions_PropertyBrowser)
-
-if(UNIX AND NOT APPLE)
-        TARGET_LINK_LIBRARIES(qtEditor
-         ${CMAKE_BINARY_DIR}/lib/libQtSolutions_PropertyBrowser_Ogitor.so)
-elseif(APPLE)
-        TARGET_LINK_LIBRARIES(qtEditor
-         debug ${CMAKE_BINARY_DIR}/Dependencies/lib/QtSolutions_PropertyBrowser_d.so
-         optimized ${CMAKE_BINARY_DIR}/Dependencies/lib/QtSolutions_PropertyBrowser.so)
-elseif(WIN32)
-    if(MSVC_IDE)
-        TARGET_LINK_LIBRARIES(qtEditor
-         debug ${CMAKE_BINARY_DIR}/Dependencies/lib/Debug/QtSolutions_PropertyBrowser_d.lib
-         optimized ${CMAKE_BINARY_DIR}/Dependencies/lib/Release/QtSolutions_PropertyBrowser.lib)
-    else()
-        TARGET_LINK_LIBRARIES(qtEditor
-            debug ${CMAKE_BINARY_DIR}/Dependencies/lib/QtSolutions_PropertyBrowser_d.lib
-            optimized ${CMAKE_BINARY_DIR}/Dependencies/lib/QtSolutions_PropertyBrowser.lib)
-    endif(MSVC_IDE)
-endif(UNIX AND NOT APPLE)
 
 # Installation
 if(WIN32)

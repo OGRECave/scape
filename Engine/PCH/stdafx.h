@@ -23,7 +23,6 @@
 #include "OgreException.h"
 #include "OgreStringConverter.h"
 #include "OgreBitwise.h"
-#include "OIS/OIS.h"
 #include "Tinyxml/tinyxml.h"
 #include <string>
 #include <list>

@@ -43,24 +43,6 @@ namespace ScapeEngine
 			};
 		}
 
-		// Get device type of the DeviceButtonId
-		DeviceId::EDeviceId getDeviceButtonIdToDeviceId(EDeviceButtonId button);
-
-
-		// Get device button from OIS::KeyCode
-		EDeviceButtonId getDeviceButtonIdFromOISKeyCode(OIS::KeyCode keyCode);
-		
-		// Get keyboard code if this is a keyboard DeviceButtonId. Returns -1 otherwise
-		OIS::KeyCode getDeviceButtonIdToOISKeyCode(EDeviceButtonId button);
-
-
-		// Get device button from OIS::MouseButtonID
-		EDeviceButtonId getDeviceButtonIdFromOISMouseButtonID(OIS::MouseButtonID mouseButtonID);
-		
-		// Get mouse button code if this is a mouse DeviceButtonId. Returns -1 otherwise
-		OIS::MouseButtonID getDeviceButtonIdToOISMouseButtonID(EDeviceButtonId button);
-
-
 		// Find the DeviceButtonId from the upper-case name. Returns DEVICEBUTTONID_UNKNOWN otherwise
 		EDeviceButtonId getDeviceButtonIdFromUpperName(const string& buttonName);
 

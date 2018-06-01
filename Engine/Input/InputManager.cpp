@@ -56,11 +56,11 @@ InputManager::~InputManager()
 
 
 // ----------------------------------------------------------------------------
-void InputManager::attachToWindow(string inputWindow)
+void InputManager::attachToWindow(InputListener* input)
 {
 	if (!mInputListener)
 	{
-		mInputListener = new InputListener(this, inputWindow);
+		mInputListener = input;
 	}
 }
 

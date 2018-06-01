@@ -24,6 +24,7 @@ namespace ScapeEngine
 {
 
 	class InputPointer;
+	class InputListener;
 
 	class InputManager
 	{
@@ -37,7 +38,7 @@ namespace ScapeEngine
 		InputPointer* getInputPointer() {return mInputPointer;}
 
 		// Attach the input manager to the root window to receive input events from
-		void attachToWindow(string inputWindow);
+		void attachToWindow(InputListener* input);
 
 		// Add a new button definition. Multiple definitions of the same button
 		// identifier may be defined.

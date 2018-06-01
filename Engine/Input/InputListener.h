@@ -1,7 +1,6 @@
 /**
  * ScapeEngine::InputListener class
  *
- * OIS mouse and keyboard listener
  *
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
@@ -22,12 +21,12 @@ namespace ScapeEngine
 {
 	class TabletInput;
 
-	class InputListener : public OIS::KeyListener, public OIS::MouseListener 
+	class InputListener
 	{
 
 	public:
 		// Construct InputListener for the given InputManager and root window
-		InputListener(class InputManager* inputManager, const string& inputWindow);
+		InputListener(class InputManager* inputManager);
 
 		// Destroy the InputListener
 		~InputListener();
@@ -41,27 +40,9 @@ namespace ScapeEngine
 		// Get the analog input of the specified identifier
 		int getAnalogInput(AnalogInputId::EAnalogInputId input) const;
 
-		// OIS::KeyListener interface implementations
-		bool keyPressed(const OIS::KeyEvent &e);
-		bool keyReleased(const OIS::KeyEvent &e);
-
-		// OIS::MouseListener interface implementation
-		bool mouseMoved(const OIS::MouseEvent &e);
-		bool mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id);
-		bool mouseReleased(const OIS::MouseEvent &e, OIS::MouseButtonID id);
-
 		void setActive(bool active);
 
 	protected:
-		// OIS mouse device reference
-		OIS::Mouse*			mMouse;
-
-		// OIS mouse device reference
-		OIS::Keyboard*		mKeyboard;
-
-		// OIS input manager reference
-		OIS::InputManager*	mOISInputManager;
-
 		// Tablet input reference
 		TabletInput*		mTabletInput;
 

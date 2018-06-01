@@ -271,7 +271,7 @@ void EngineCore::setupRenderSystem()
 // ----------------------------------------------------------------------------
 void EngineCore::attachInputToWindow(string inputWindow)
 {
-	getInputManager()->attachToWindow(inputWindow);
+	//getInputManager()->attachToWindow(inputWindow);
 }
 
 

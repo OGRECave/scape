@@ -3,8 +3,14 @@
 
 #include <QWidget>
 #include "EngineCore/EngineInterface.h"
+#include "Ogre.h"
 
-class OgreWidget : public QWidget
+typedef std::string string;
+#include "Utils/TVector2.h"
+#include "Utils/TVector3.h"
+#include "Input/InputListener.h"
+
+class OgreWidget : public QWidget, public ScapeEngine::InputListener
 {
     Q_OBJECT
 
@@ -23,9 +29,12 @@ protected: // interface
     virtual void resizeEvent(QResizeEvent *rEvent);
     virtual void update();
     virtual void mousePressEvent(QMouseEvent *event);
+    virtual void mouseReleaseEvent(QMouseEvent *event);
     virtual void mouseMoveEvent(QMouseEvent *event);
     virtual void focusOutEvent(QFocusEvent *evt);
     virtual void focusInEvent(QFocusEvent *evt);
+    void keyPressEvent(QKeyEvent *event);
+    void keyReleaseEvent(QKeyEvent *event);
     //@}
 private:
     ScapeEngine::EngineInterface* mEngineInterface;

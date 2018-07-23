@@ -1,56 +1,0 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> <html><head><title>User Guide - Scape 0.1.1</title><style type="text/css"> th {padding: 0 1em 0 1em;} td {text-align: center;}</style></head><body><h1>User Guide - Scape</h1><p><b>Giliam de Carpentier</b><br><a href="http://www.decarpentier.nl/scape">http://www.decarpentier.nl/scape</a><br>June 9th, 2012</p><p>This document (very) briefly introducesScape’s most important features from a user’s perspective, providing the minimalset of know-how to start experimenting with the Scape terrain editor.</p><h2>Running the application</h2><p>Follow the following steps to run Scape. Obviously, only the last step is needed every time. The other steps are needed only once.</p><ul> <li>Install a recent graphics driver for your specific hardware</li> <li>Download and install the Microsoft DirectX 9.0c runtime from <a href="http://www.microsoft.com/en-us/download/details.aspx?id=35">http://www.microsoft.com/en-us/download/details.aspx?id=35</a></li>
- <li>Download and extract the Scape binary package to any folder, if not already done so. See <a href="http://www.decarpentier.nl/scape">http://www.decarpentier.nl/scape</a> for details on how to do this.</li> <li>Run /<i>Bin/Scape.exe</i> from this folder</li>
-</ul><h2>The UI Elements</h2><p>The following image shows the different basic user interface elements</p><p><img width=605 height=434 src="UserGuideImages/uielements_overview.jpg" alt="Overview of UI elements"></p><h2>Input</h2><p>All menu items show their own keyboard shortcuts. True/false values in the <i>Properties</i> pane can be toggled by double clicking on them. Number properties can either be typed in, or dragged to (roughly) the right value by vertically dragging the appropriate up/down widget: <img width=12 height=12 src="UserGuideImages/updown_widget.jpg" alt="Up/Down widget">. The exact meaning of all these properties is very tool specific and will not be described in this brief user manual.</p><p>The keyboard / mouse mapping used in the <i>3D View</i> is set through the settings file /<i>Bin/Settings/ButtonDefinitions.xml</i>, making it possible to fully customize the mapping using a text editor. By default, the following mapping is provided:</p><h3>Navigation</h3><ul>
- <li>Use the <i>W</i>, <i>A</i>, <i>S</i>, <i>D</i> keys to move around </li> <li>Press and hold the <i>RMB</i> (i.e. right mouse button), and drag to look around</li> <li>Press and hold <i>Ctrl</i>-<i>RMB</i> (the control key plus the <i>RMB</i>), and drag to pan while keeping the same 3Dlocation under the mouse pointer.</li>
- <li>Press and hold <i>Alt</i>-<i>RMB</i>, and drag to rotate around the 3D position that was under the mouse pointer when the dragstarted</li> <li>Press and hold <i>Ctrl</i>-<i>Alt</i>-<i>RMB</i>, and drag vertically to zoom from/to the 3D position that was under the mousepointer when the drag started</li>
-</ul><h3>Brushes</h3><ul> <li>Press and hold the <i>LMB</i> (i.e. left mouse button), and drag to apply the primary effect of the active brush</li> <li>Press and hold <i>Ctrl</i>-<i>LMB</i>, and drag to apply the alternative (e.g. inverse) effect of the active brush, if available</li> <li>Press and hold <i>R</i> while dragging vertically to change the outer brush radius</li> <li>Press and hold <i>F</i> while dragging vertically to change the inner brush radius</li> <li>Press and hold <i>P</i> while dragging vertically to change the brush hardness / falloff shape </li> <li>Press ESC to cancel the current brush stroke’s application in progress</li> <li>Press Ctrl-Z to undo the last brush stroke</li> <li>Press Ctrl-Shift-Z to redo the last brush stroke</li></ul>
-<p><i>Note</i> There's currently no limit to the number of undo levels kept in memory, making it possible to undo every step. The downside of this is that Scape will eventually crash after all available memory has been consumed to store the intermediate heightfield versions. So, for the time being, safe your work often and restart regularly as a precaution.</p><h3>Lights</h3><ul> <li>Press and hold <i>L</i> while dragging to change the sun’s direction</li></ul>
-<h2>Terrain size and scale</h2><p>Currently, Scape does not allow the user to change the terrain size and scale from within a running instance of application. However, the default parameters can be altered by editing <i>/Bin/Settings/Startup.conf</i> and (re)starting Scape.</p>
-<h2>Import/export</h2><p><i>Note </i>Importing a heightfield image that has a different size than Scape's current size will not affect the Scape's terrain size. Consequently, importing smaller images will only load over only a part of the full terrain, while importing larger images will result in a clipped heightfield.</p><p><i>Note</i> There’s currently no way to create new flat terrains, other than restarting the application, undoing all your previous editing (only in the case you didn’t load a map before), or saving (once) and (re)loading a ‘default’ flat map manually.</p><p>The following file formats and per-channel bitdepths are supported for both reading and writing:</p><table border=1 cellspacing=0 cellpadding=0> <tr>  <th>File format</th>
-  <th>8-bit</th>
-  <th>16-bit</th>
-  <th>32-bit int</th>
-  <th>32-bit float</th>
- </tr>
- <tr>
-  <th>BMP</th>
-  <td>+</td>
-  <td>+&nbsp;<sup>1</sup></td>
-  <td>&nbsp;</td>
-  <td>&nbsp;</td>
- </tr> 
- <tr>
-  <th>PGM</th>
-  <td>+</td>
-  <td>+</td>
-  <td>&nbsp;</td>
-  <td>&nbsp;</td>
- </tr>
- <tr>
-  <th>PNG</th>
-  <td>+</td>
-  <td>+</td>
-  <td>&nbsp;</td>
-  <td>&nbsp;</td>
- </tr>
- <tr>
-  <th>TGA</th>
-  <td>+</td>
-  <td>&nbsp;</td>
-  <td>&nbsp;</td>
-  <td>&nbsp;</td>
- </tr>
- <tr>
-  <th>TIFF</th>
-  <td>+</td>
-  <td>+</td>
-  <td>+</td>
-  <td>+</td>
- </tr>
- <tr>
-  <th>RAW</th>
-  <td>+</td>
-  <td>+</td>
-  <td>&nbsp;</td>
-  <td>+</td>
- </tr> </table><p>&nbsp;<sup>1</sup>16-bit U3 BMP: 8-bit BMP using Unreal 3’s convention to encode 16 bits</p><h2>License</h2><p>See <i>/Docs/ScapeLicense.txt</i></p><p>Copyright (c) 2007-2012, Giliam de Carpentier. All rights reserved.</p></body></html>

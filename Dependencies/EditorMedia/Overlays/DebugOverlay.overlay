@@ -1,0 +1,61 @@
+// Ogre overlay scripts
+DebugOverlay
+{
+	zorder 500
+	// Stats block
+	container BorderPanel(DebugOverlay/StatPanel)
+	{
+		metrics_mode pixels
+		vert_align bottom
+		left 5
+		top -80
+		width 220
+		height 50
+
+		element TextArea(DebugOverlay/AverageFps)
+		{
+			metrics_mode pixels
+			left 5
+			top 0
+			width 90
+			height 20
+			font_name BlueHighway
+			char_height 16
+			colour 1.0 0.0 0.0
+		}
+		element TextArea(DebugOverlay/NumTris)
+		{
+			metrics_mode pixels
+			left 5
+			top 20
+			width 90
+			height 20
+			font_name BlueHighway
+			char_height 16
+			colour 1.0 0.0 0.0
+		}
+		element TextArea(DebugOverlay/NumBatches)
+		{
+			metrics_mode pixels
+			left 5
+			top 40
+			width 90
+			height 20
+			font_name BlueHighway
+			char_height 16
+			colour 1.0 0.0 0.0
+		}
+		element TextArea(DebugOverlay/DebugText)
+		{
+			metrics_mode pixels
+			left 230
+			top 60
+			width 200
+			height 20
+			font_name BlueHighway
+			char_height 16
+			colour 1.0 0.0 0.0
+		}
+
+	}
+}

@@ -1,0 +1,124 @@
+/**
+ * Giliam de Carpentier, Copyright (c) 2007. 
+ * Licensed under the Simplified BSD license. 
+ * See Docs/ScapeLicense.txt for details.
+ */
+ 
+// ----------------------------------------------------------------------------
+vertex_program HeightfieldShader_Splat4_Cg/VP cg
+{
+	source HeightfieldShaderCg.cg
+	entry_point main_vp
+	profiles vs_3_0 arbvp1
+}
+
+
+// ----------------------------------------------------------------------------
+fragment_program HeightfieldShader_Splat4_Cg/FP cg
+{
+	source HeightfieldShaderCg.cg
+	entry_point main_fp
+	profiles ps_3_0 arbfp1
+}
+
+
+// ----------------------------------------------------------------------------
+fragment_program HeightfieldShader_Splat4_MultiProject_Cg/FP cg
+{
+	source HeightfieldShaderCg.cg
+	entry_point main_fp
+	profiles ps_3_0 arbfp1
+        compile_arguments -DMULTIPROJECT
+}
+
+
+// ----------------------------------------------------------------------------
+material HeightfieldMaterial_Splat4
+{
+  technique
+  {
+    pass
+    {
+      vertex_program_ref HeightfieldShader_Splat4_Cg/VP
+      {
+        param_named_auto   worldViewProj         worldviewproj_matrix
+    	param_named_auto   localCameraPos	 camera_position_object_space
+      }
+
+      fragment_program_ref HeightfieldShader_Splat4_Cg/FP
+      {
+      }
+
+      texture_unit
+      {
+          tex_address_mode mirror
+      }
+
+      texture_unit
+      {
+          tex_address_mode mirror
+      }
+
+      texture_unit
+      {
+          tex_address_mode mirror
+      }
+
+      texture_unit
+      {
+          tex_address_mode mirror
+      }
+
+      texture_unit
+      {
+          tex_address_mode mirror
+      }
+    }
+  }
+}
+
+
+// ----------------------------------------------------------------------------
+material HeightfieldMaterial_Splat4_MultiProject
+{
+  technique
+  {
+    pass
+    {
+      vertex_program_ref HeightfieldShader_Splat4_Cg/VP
+      {
+        param_named_auto   worldViewProj         worldviewproj_matrix
+    	param_named_auto   localCameraPos	 camera_position_object_space
+      }
+
+      fragment_program_ref HeightfieldShader_Splat4_MultiProject_Cg/FP
+      {
+      }
+
+      texture_unit
+      {
+         tex_address_mode mirror
+      }
+
+      texture_unit
+      {
+          tex_address_mode mirror
+      }
+
+      texture_unit
+      {
+          tex_address_mode mirror
+      }
+
+      texture_unit
+      {
+          tex_address_mode mirror
+      }
+
+      texture_unit
+      {
+          tex_address_mode mirror
+      }
+    }
+  }
+}

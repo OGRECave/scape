@@ -1,0 +1,25 @@
+/**
+ * Giliam de Carpentier, Copyright (c) 2007. 
+ * Licensed under the Simplified BSD license. 
+ * See Docs/ScapeLicense.txt for details.
+ */
+ 
+#include "pack.cgh"
+#include "noise.cgh"
+
+// ----------------------------------------------------------------------------
+void main_fp // copy samplerC tex to output
+(
+  in float2           iCoord                : TEXCOORD0,
+  out float4          oColor                : COLOR,
+  uniform sampler2D   samplerC              : TEXUNIT0,
+
+  uniform float4      coordTransformC
+)
+{
+  float2 pixCoord = iCoord * coordTransformC.xy + coordTransformC.zw;
+
+  float4 value = tex2D(samplerC, pixCoord);
+  oColor = unpackFormat(value).xxxx;
+}
+

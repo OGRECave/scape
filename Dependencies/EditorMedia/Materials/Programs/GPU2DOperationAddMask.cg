@@ -1,0 +1,169 @@
+/**
+ * Giliam de Carpentier, Copyright (c) 2007. 
+ * Licensed under the Simplified BSD license. 
+ * See Docs/ScapeLicense.txt for details.
+ */
+ 
+#include "pack.cgh"
+
+// ----------------------------------------------------------------------------
+float valueLookup(sampler2D sampler, float2 coord)
+{
+  return unpackFormat(tex2D(sampler, coord)).x;
+}
+
+// ----------------------------------------------------------------------------
+float blur3x3(sampler2D sampler, float4 coordTransform, float2 coord, float centerValue)
+{
+  float2 centerCoord = coordTransform.xy * coord + coordTransform.zw;
+
+  float sum = 0.112 * centerValue +
+              0.111 * valueLookup(sampler, centerCoord + float2( 0,-1) * coordTransform.xy) +
+              0.111 * valueLookup(sampler, centerCoord + float2( 1,-1) * coordTransform.xy) +
+              0.111 * valueLookup(sampler, centerCoord + float2( 1, 0) * coordTransform.xy) +
+              0.111 * valueLookup(sampler, centerCoord + float2( 1, 1) * coordTransform.xy) +
+              0.111 * valueLookup(sampler, centerCoord + float2( 0, 1) * coordTransform.xy) +
+              0.111 * valueLookup(sampler, centerCoord + float2(-1, 1) * coordTransform.xy) +
+              0.111 * valueLookup(sampler, centerCoord + float2(-1, 0) * coordTransform.xy) +
+              0.111 * valueLookup(sampler, centerCoord + float2(-1,-1) * coordTransform.xy);
+
+  return sum;
+}
+
+
+// ----------------------------------------------------------------------------
+float4 cubicBSpline(float t)
+{
+  float4 ret;
+
+  float t2 = t * t;
+  float t3 = t2 * t;
+  float4 tp = float4(t3, t2, t, 1);
+
+  const float4 c0 = float4(-1.0/6.0, 3.0/6.0, -3.0/6.0, 1.0/6.0);
+  const float4 c1 = float4( 3.0/6.0,-6.0/6.0,  0.0/6.0, 4.0/6.0);
+  const float4 c2 = float4(-3.0/6.0, 3.0/6.0,  3.0/6.0, 1.0/6.0);
+  const float4 c3 = float4( 1.0/6.0, 0.0/6.0,  0.0/6.0, 0.0/6.0);
+
+  ret.x = dot(tp, c0);
+  ret.y = dot(tp, c1);
+  ret.z = dot(tp, c2);
+  ret.w = dot(tp, c3);
+
+  return ret;
+}
+
+
+// ----------------------------------------------------------------------------
+float4 cubicHSpline(float t)
+{
+  float4 ret;
+
+  float t2 = t * t;
+  float t3 = t2 * t;
+  float4 tp = float4(t3, t2, t, 1);
+
+  const float4 c0 = float4(-1.0/2.0, 2.0/2.0, -1.0/2.0, 0.0/2.0);
+  const float4 c1 = float4( 3.0/2.0,-5.0/2.0,  0.0/2.0, 2.0/2.0);
+  const float4 c2 = float4(-3.0/2.0, 4.0/2.0,  1.0/2.0, 0.0/2.0);
+  const float4 c3 = float4( 1.0/2.0,-1.0/2.0,  0.0/2.0, 0.0/2.0);
+
+  ret.x = dot(tp, c0);
+  ret.y = dot(tp, c1);
+  ret.z = dot(tp, c2);
+  ret.w = dot(tp, c3);
+
+  return ret;
+}
+
+
+// ----------------------------------------------------------------------------
+void main_fp
+(
+
+  uniform float4      coordTransformC,
+  uniform sampler2D   samplerC                   : TEXUNIT0,
+  uniform sampler2D   samplerMask                : TEXUNIT1,
+  
+#if LOOKUP_COUNT >= 2
+  uniform float4      coordTransformC2,
+  uniform sampler2D   samplerC2                  : TEXUNIT2,
+#endif
+#if LOOKUP_COUNT >= 3
+  uniform float4      coordTransformC3,
+  uniform sampler2D   samplerC3                  : TEXUNIT3,
+#endif
+#if LOOKUP_COUNT >= 4
+  uniform float4      coordTransformC4,
+  uniform sampler2D   samplerC4                  : TEXUNIT4,
+#endif
+
+  in float2           iCoord                     : TEXCOORD0,
+  out float4          oColor                     : COLOR
+
+)
+{
+  const float4 coordTransforms[LOOKUP_COUNT] = {
+    coordTransformC
+  #if LOOKUP_COUNT >= 2
+    ,coordTransformC2
+  #endif
+  #if LOOKUP_COUNT >= 3
+    ,coordTransformC3
+  #endif
+  #if LOOKUP_COUNT >= 4
+    ,coordTransformC4
+  #endif
+  };
+
+  const sampler2D samplers[LOOKUP_COUNT] = {
+    samplerC
+  #if LOOKUP_COUNT >= 2
+    ,samplerC2
+  #endif
+  #if LOOKUP_COUNT >= 3
+    ,samplerC3
+  #endif
+  #if LOOKUP_COUNT >= 4
+    ,samplerC4
+  #endif
+    };
+
+  const float sampleweights[25] = {
+    1.0/256.0,  4.0/256.0,  6.0/256.0,  4.0/256.0,  1.0/256.0,
+    4.0/256.0, 16.0/256.0, 24.0/256.0, 16.0/256.0,  4.0/256.0,
+    6.0/256.0, 24.0/256.0, 36.0/256.0, 24.0/256.0,  6.0/256.0,
+    4.0/256.0, 16.0/256.0, 24.0/256.0, 16.0/256.0,  4.0/256.0,
+    1.0/256.0,  4.0/256.0,  6.0/256.0,  4.0/256.0,  1.0/256.0
+  };
+
+  float mask = valueLookup(samplerMask, iCoord * coordTransformC.xy + coordTransformC.zw);
+  mask = saturate(4 * mask);
+
+  float center = valueLookup(samplerC, iCoord * coordTransformC.xy + coordTransformC.zw);
+
+  float lodpow = 16;
+
+  float2 c = iCoord;
+  float2 w = frac((c - 0.49f) / lodpow);
+  c = c - w * lodpow;
+  float4 wx = cubicBSpline(w.x);
+  float4 wy = cubicBSpline(w.y);
+  float blur = 0;
+
+  for (int y = -1; y <= 2; ++y)
+  {
+    for (int x = -1; x <= 2; ++x)
+    {
+      for (int i = 0; i < LOOKUP_COUNT; ++i)
+      {
+        blur = blur + wx[1+x] * wy[1+y] * valueLookup(samplers[i], coordTransforms[i].xy * (c + lodpow * float2(x, y)) + coordTransforms[i].zw);
+      }
+    }
+  }
+  float output = lerp(center, blur, mask);
+
+
+  output = clamp(output, 0, 65535.0f/65536.0f);
+  oColor = packFormat(float2(output,0));
+}

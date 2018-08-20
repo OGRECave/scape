@@ -5,79 +5,74 @@
  *
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details. 
+ * See Docs/ScapeLicense.txt for details.
  */
-
 
 #ifndef __BUTTON_H__
 #define __BUTTON_H__
 
-
 #include "ButtonId.h"
 #include "AnalogInputId.h"
 
+namespace ScapeEngine {
 
-namespace ScapeEngine
-{
+    class InputManager;
 
-	class InputManager;
+    class Button
+    {
+        friend InputManager;
 
-	class Button
-	{
+    public:
+        // Create a button for the given unique buttonId
+        Button(ButtonId::EButtonId buttonId);
 
-		friend InputManager;
+        // Is button currently pressed? (this frame). If onlyHighestPriority is true,
+        // only returns true if pressed and is the highest assigned priority of all
+        // currently pressed buttons.
+        bool isPressed(bool onlyHighestPriority = true) const;
 
-	public:
-		// Create a button for the given unique buttonId
-		Button(ButtonId::EButtonId buttonId);
+        // Is button currently released?
+        bool isReleased() const;
 
-		// Is button currently pressed? (this frame). If onlyHighestPriority is true, 
-		// only returns true if pressed and is the highest assigned priority of all 
-		// currently pressed buttons.
-		bool isPressed(bool onlyHighestPriority = true) const;
+        // Is the button pressed now while it wasn't pressed in the last frame?
+        bool isJustPressed(bool onlyHighestPriority = true) const;
 
-		// Is button currently released?
-		bool isReleased() const;
+        // Is the button released now while it was pressed in the last frame?
+        bool isJustReleased() const;
 
-		// Is the button pressed now while it wasn't pressed in the last frame?
-		bool isJustPressed(bool onlyHighestPriority = true) const;
+        // Is the button pressed or released in the right order?
+        // This is only relevant for virtual buttons that use a button definition
+        // that consists of multiple hardware buttons
+        bool isOrdered() const;
 
-		// Is the button released now while it was pressed in the last frame?
-		bool isJustReleased() const;
+        // Get the button identifier for this button
+        ButtonId::EButtonId getButtonId() const;
 
-		// Is the button pressed or released in the right order? 
-		// This is only relevant for virtual buttons that use a button definition
-		// that consists of multiple hardware buttons
-		bool isOrdered() const;
+        // Get the assigned priority for this button
+        int getPriority() const;
 
-		// Get the button identifier for this button
-		ButtonId::EButtonId getButtonId() const;
+        // Assign priority to this button
+        void setPriority(int priority);
 
-		// Get the assigned priority for this button
-		int getPriority() const;
+    protected:
+        // Button identifier of this button
+        ButtonId::EButtonId mButtonId;
 
-		// Assign priority to this button
-		void setPriority(int priority);
+        // Is button currently pressed?
+        bool mPressed;
 
-	protected:
-		// Button identifier of this button
-		ButtonId::EButtonId mButtonId;
+        // Has the button just been pressed?
+        bool mJustPressed;
 
-		// Is button currently pressed?
-		bool mPressed;
+        // Has the button just been released?
+        bool mJustReleased;
 
-		// Has the button just been pressed?
-		bool mJustPressed;
+        // Was the button press or release in the order of its definition
+        bool mOrdered;
 
-		// Has the button just been released?
-		bool mJustReleased;
-
-		// Was the button press or release in the order of its definition
-		bool mOrdered;
-
-		// Assigned button priority
-		int mPriority;
-	};
+        // Assigned button priority
+        int mPriority;
+    };
 }
 
 #endif // __BUTTON_H__

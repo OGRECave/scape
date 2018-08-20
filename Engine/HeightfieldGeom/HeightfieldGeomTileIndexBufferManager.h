@@ -6,68 +6,47 @@
  *
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details. 
+ * See Docs/ScapeLicense.txt for details.
  */
-
 
 #ifndef __HEIGHTFIELDGEOMTILEINDEXBUFFERMANAGER_H__
 #define __HEIGHTFIELDGEOMTILEINDEXBUFFERMANAGER_H__
 
 #include "EngineCore/Tickable.h"
 
-namespace ScapeEngine
-{
-	namespace HeightfieldGeomTileIndexBufferManagerNS
-	{
-		struct CachedBufferDescription;
-		struct CachedBufferReference;
-	}
+namespace ScapeEngine {
+    namespace HeightfieldGeomTileIndexBufferManagerNS {
+        struct CachedBufferDescription;
+        struct CachedBufferReference;
+    }
 
+    class HeightfieldGeomTileIndexBufferManager : public Tickable
+    {
+    public:
+        HeightfieldGeomTileIndexBufferManager();
 
-	class HeightfieldGeomTileIndexBufferManager : public Tickable
-	{
-	public:
-		HeightfieldGeomTileIndexBufferManager();
+        ~HeightfieldGeomTileIndexBufferManager();
 
-		~HeightfieldGeomTileIndexBufferManager();
+        Ogre::HardwareIndexBufferSharedPtr getBuffer(int quadColumnCount, int quadRowCount, int spacingNorth,
+            int spacingEast, int spacingSouth, int spacingWest);
 
-		Ogre::HardwareIndexBufferSharedPtr getBuffer(
-			int quadColumnCount, 
-			int quadRowCount, 
-			int spacingNorth, 
-			int spacingEast,
-			int spacingSouth,
-			int spacingWest
-		);
+        float getBufferTimeToLive() const { return mBufferTimeToLive; }
+        void setBufferTimeToLive(float timeToLive) { mBufferTimeToLive = timeToLive; }
+        void onPostFrameTick();
 
-		float getBufferTimeToLive() const {return mBufferTimeToLive;}
+    private:
+        typedef std::map<HeightfieldGeomTileIndexBufferManagerNS::CachedBufferDescription,
+            HeightfieldGeomTileIndexBufferManagerNS::CachedBufferReference>
+            CachedBuffers;
 
-		void setBufferTimeToLive(float timeToLive) {mBufferTimeToLive = timeToLive;}
+        CachedBuffers* mCachedBuffers;
 
-		void onPostFrameTick();
+        float mBufferTimeToLive;
 
-	private:
-
-		typedef std::map <
-			HeightfieldGeomTileIndexBufferManagerNS::CachedBufferDescription, 
-			HeightfieldGeomTileIndexBufferManagerNS::CachedBufferReference
-		> CachedBuffers;
-
-		CachedBuffers *mCachedBuffers;
-
-		float mBufferTimeToLive;
-
-		template<class IndexType>
-		Ogre::HardwareIndexBufferSharedPtr createBuffer(
-			Ogre::HardwareIndexBuffer::IndexType type, 
-			int quadColumnCount, 
-			int quadRowCount, 
-			int spacingNorth, 
-			int spacingEast,
-			int spacingSouth,
-			int spacingWest
-		);
-	};
+        template <class IndexType>
+        Ogre::HardwareIndexBufferSharedPtr createBuffer(Ogre::HardwareIndexBuffer::IndexType type, int quadColumnCount,
+            int quadRowCount, int spacingNorth, int spacingEast, int spacingSouth, int spacingWest);
+    };
 }
 
 #endif // __HEIGHTFIELDGEOMTILEINDEXBUFFERMANAGER_H__

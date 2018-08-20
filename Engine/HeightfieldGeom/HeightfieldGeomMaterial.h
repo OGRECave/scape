@@ -5,81 +5,73 @@
  *
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details. 
+ * See Docs/ScapeLicense.txt for details.
  */
-
 
 #ifndef __HEIGHTFIELDGEOMMATERIAL_H__
 #define __HEIGHTFIELDGEOMMATERIAL_H__
 
 #include "EngineCore/UIElementClasses.h"
 
-namespace ScapeEngine
-{
-	namespace _HeightfieldGeomMaterialNS
-	{
-		enum EShaderConstant
-		{
-			UNITQUADSCALE,
-			UNITQUADBIAS,
-			LOCALPOSSCALE,
-			LOCALPOSBIAS,
-			GRADIENTSCALEBIAS,
-			BRUSHPOSRAMP,
-			BRUSHCOLOR,
-			SHADERCONSTANT_COUNT
-		};
-	}
+namespace ScapeEngine {
+    namespace _HeightfieldGeomMaterialNS {
+        enum EShaderConstant
+        {
+            UNITQUADSCALE,
+            UNITQUADBIAS,
+            LOCALPOSSCALE,
+            LOCALPOSBIAS,
+            GRADIENTSCALEBIAS,
+            BRUSHPOSRAMP,
+            BRUSHCOLOR,
+            SHADERCONSTANT_COUNT
+        };
+    }
 
-	class HeightfieldGeomMaterial : public UIElementPresetContainerSimple
-	{
-		DEFINE_UIELEMENTCONTAINERSIMPLE_CLASS(HeightfieldGeomMaterial)
-	public:
+    class HeightfieldGeomMaterial : public UIElementPresetContainerSimple
+    {
+        DEFINE_UIELEMENTCONTAINERSIMPLE_CLASS(HeightfieldGeomMaterial)
+    public:
+        HeightfieldGeomMaterial();
 
-		HeightfieldGeomMaterial();
+        virtual ~HeightfieldGeomMaterial();
 
-		virtual ~HeightfieldGeomMaterial();
+        const Ogre::MaterialPtr& getMaterial();
 
-		const Ogre::MaterialPtr& getMaterial();
+        virtual void updateShaderConstantsGeom(const class HeightfieldGeom* heightfieldGeom,
+            class ShaderCustomAutoConstants* shaderCustomAutoConstants, bool forceAll);
+        virtual void updateShaderConstantsGeomTile(const class HeightfieldGeomTile* heightfieldGeomTile,
+            class ShaderCustomAutoConstants* shaderCustomAutoConstants, bool forceAll);
 
-		virtual void updateShaderConstantsGeom(const class HeightfieldGeom* heightfieldGeom, class ShaderCustomAutoConstants* shaderCustomAutoConstants, bool forceAll);
-		virtual void updateShaderConstantsGeomTile(const class HeightfieldGeomTile* heightfieldGeomTile, class ShaderCustomAutoConstants* shaderCustomAutoConstants, bool forceAll);
+        virtual void updateTextures() {}
+        virtual void bindBrush(class HeightfieldBrush* brush);
 
-		virtual void updateTextures() {}
+        bool hasDirtySettings() { return mHasDirtySettings; }
+        void clearDirtySettings() { mHasDirtySettings = false; }
+        virtual Ogre::Real getLODPixelError() = 0;
+        virtual Ogre::Real getLODDistancePower() = 0;
 
-		virtual void bindBrush(class HeightfieldBrush* brush);
+    protected:
+        bool mHasDirtySettings;
 
-		bool hasDirtySettings() {return mHasDirtySettings;}
-		void clearDirtySettings() {mHasDirtySettings = false;}
+        virtual Ogre::MaterialPtr createMaterial() = 0;
 
-		virtual Ogre::Real getLODPixelError() = 0;
-		virtual Ogre::Real getLODDistancePower() = 0;
+        void resetMaterial() { mMaterial.setNull(); }
+        virtual void bindShaderConstants();
 
-	protected:
+        virtual bool initPersistentElementValueMap(StringStringMap& map) = 0;
+        virtual bool initPersistentElementStringEnumMap(StringEnumMap& map) = 0;
+        virtual string setUIElementPropertyValue(const string& elementName, const string& value) = 0;
 
-		bool mHasDirtySettings;
+    private:
+        Ogre::MaterialPtr mMaterial;
 
-		virtual Ogre::MaterialPtr createMaterial() = 0;
+        class HeightfieldBrush* mBrush;
 
-		void resetMaterial() {mMaterial.setNull();}
+        bool mInitialized;
 
-		virtual void bindShaderConstants();
-
-		virtual bool initPersistentElementValueMap(StringStringMap& map) = 0;
-		virtual bool initPersistentElementStringEnumMap(StringEnumMap& map) = 0;
-		virtual string setUIElementPropertyValue(const string& elementName, const string& value) = 0;
-
-	private:
-
-		Ogre::MaterialPtr mMaterial;
-
-		class HeightfieldBrush* mBrush;
-
-		bool mInitialized;
-
-		void initialize();
-	};
-
+        void initialize();
+    };
 }
 
 #endif // __HEIGHTFIELDGEOMMATERIAL_H__

@@ -5,57 +5,50 @@
  *
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details. 
+ * See Docs/ScapeLicense.txt for details.
  */
-
 
 #ifndef __HEIGHTFIELDOPERATIONPAGE_H__
 #define __HEIGHTFIELDOPERATIONPAGE_H__
 
 #include "HeightfieldOperationBrush.h"
 
-namespace ScapeEngine
-{
-	class HeightfieldBuffer;
+namespace ScapeEngine {
+    class HeightfieldBuffer;
 
-	class HeightfieldOperationTaskPage
-	{
-	public:
+    class HeightfieldOperationTaskPage
+    {
+    public:
+        HeightfieldOperationTaskPage(HeightfieldOperationBrush* operation, const BrushPageCoords pageCoords,
+            const BrushInstances& brushInstances);
+        virtual ~HeightfieldOperationTaskPage();
 
-		HeightfieldOperationTaskPage(HeightfieldOperationBrush* operation, const BrushPageCoords pageCoords, const BrushInstances& brushInstances);
-		virtual ~HeightfieldOperationTaskPage();
+        inline const BrushPageCoords getPageCoords() { return mPageCoords; }
+        bool addBrushInstances(const BrushInstances& brushInstances);
 
-		inline const BrushPageCoords getPageCoords() {return mPageCoords;}
+        virtual void tick();
 
-		bool addBrushInstances(const BrushInstances& brushInstances);
+        bool isActive() { return mCurrentState == STATE_ACTIVE; }
+        bool isPending() { return mCurrentState == STATE_PENDING; }
+        bool isCompleted() { return mCurrentState == STATE_COMPLETED; }
+        const Ogre::Rect& getUpdatedRect() { return mUpdatedRect; }
+    protected:
+        enum State
+        {
+            STATE_PENDING,
+            STATE_ACTIVE,
+            STATE_COMPLETED,
+        } mCurrentState;
 
-		virtual void tick();
+        Ogre::Rect mUpdatedRect;
 
-		bool isActive() {return mCurrentState == STATE_ACTIVE;}
-		bool isPending() {return mCurrentState == STATE_PENDING;}
-		bool isCompleted() {return mCurrentState == STATE_COMPLETED;}
+        BrushInstances mBrushInstances;
+        BrushPageCoords mPageCoords;
+        HeightfieldOperationBrush* mOperation;
 
-		const Ogre::Rect& getUpdatedRect() {return mUpdatedRect;}
-
-	protected:
-
-		enum State
-		{
-			STATE_PENDING,
-			STATE_ACTIVE,
-			STATE_COMPLETED,
-		} mCurrentState;
-
-		Ogre::Rect mUpdatedRect;
-
-		BrushInstances mBrushInstances;
-		BrushPageCoords mPageCoords;
-		HeightfieldOperationBrush* mOperation;
-
-		virtual void tickPending() = 0;
-		virtual void tickActive() = 0;
-
-	};
+        virtual void tickPending() = 0;
+        virtual void tickActive() = 0;
+    };
 }
 
 #endif // __HEIGHTFIELDOPERATIONPAGE_H__

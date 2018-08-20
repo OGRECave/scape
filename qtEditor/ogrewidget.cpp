@@ -5,32 +5,31 @@
 #include "PCH/stdafx.h"
 #include "Input/InputManager.h"
 
-OgreWidget::OgreWidget(ScapeEngine::EngineInterface *engineInterface,
-                       QWidget *parent)
-    : ScapeEngine::InputListener(
-          ScapeEngine::EngineCore::getSingleton().getInputManager()),
-      mEngineInterface(engineInterface),
-      mHasView(false),
-      mHasFocus(false) {
-  if (!parent) {
-    throw std::runtime_error(
-        "Parent widget supplied was uninitialised!");  // interface requirement
-  }
+OgreWidget::OgreWidget(ScapeEngine::EngineInterface* engineInterface, QWidget* parent)
+    : ScapeEngine::InputListener(ScapeEngine::EngineCore::getSingleton().getInputManager())
+    , mEngineInterface(engineInterface)
+    , mHasView(false)
+    , mHasFocus(false)
+{
+    if (!parent)
+    {
+        throw std::runtime_error("Parent widget supplied was uninitialised!"); // interface requirement
+    }
 
-  setFocusPolicy(Qt::WheelFocus);
-  setMouseTracking(true);
-  setAttribute(Qt::WA_NoBackground);
-  setAttribute(Qt::WA_PaintOnScreen);
+    setFocusPolicy(Qt::WheelFocus);
+    setMouseTracking(true);
+    setAttribute(Qt::WA_NoBackground);
+    setAttribute(Qt::WA_PaintOnScreen);
 
-  mInputManager->attachToWindow(this);
+    mInputManager->attachToWindow(this);
 }
 
 OgreWidget::~OgreWidget()
 {
-
 }
 
-void OgreWidget::paintEvent(QPaintEvent *pEvent) {
+void OgreWidget::paintEvent(QPaintEvent* pEvent)
+{
     this->update();
 }
 
@@ -41,8 +40,7 @@ QPaintEngine* OgreWidget::paintEngine() const
     return NULL;
 }
 
-
-void OgreWidget::resizeEvent(QResizeEvent *rEvent)
+void OgreWidget::resizeEvent(QResizeEvent* rEvent)
 {
     if (rEvent)
     {
@@ -51,60 +49,59 @@ void OgreWidget::resizeEvent(QResizeEvent *rEvent)
     }
 }
 
-
-void OgreWidget::mousePressEvent(QMouseEvent *e)
+void OgreWidget::mousePressEvent(QMouseEvent* e)
 {
     using namespace ScapeEngine;
     if (mActive)
     {
-      DeviceButtonId::EDeviceButtonId button =
-          e->button() == 1 ? DeviceButtonId::MB_Left : DeviceButtonId::MB_Right;
-      mDeviceButtonPressed[button] = true;
-      mInputManager->onDeviceButtonPressed(button);
+        DeviceButtonId::EDeviceButtonId button = e->button() == 1 ? DeviceButtonId::MB_Left : DeviceButtonId::MB_Right;
+        mDeviceButtonPressed[button] = true;
+        mInputManager->onDeviceButtonPressed(button);
     }
 }
 
-void OgreWidget::mouseReleaseEvent(QMouseEvent *e)
+void OgreWidget::mouseReleaseEvent(QMouseEvent* e)
 {
     using namespace ScapeEngine;
     if (mActive)
     {
-        DeviceButtonId::EDeviceButtonId button =
-            e->button() == 1 ? DeviceButtonId::MB_Left : DeviceButtonId::MB_Right;
+        DeviceButtonId::EDeviceButtonId button = e->button() == 1 ? DeviceButtonId::MB_Left : DeviceButtonId::MB_Right;
         mDeviceButtonPressed[button] = false;
         mInputManager->onDeviceButtonReleased(button);
     }
 }
 
-static ScapeEngine::DeviceButtonId::EDeviceButtonId toButton(int key) {
-  using namespace ScapeEngine::DeviceButtonId;
-  switch (key) {
+static ScapeEngine::DeviceButtonId::EDeviceButtonId toButton(int key)
+{
+    using namespace ScapeEngine::DeviceButtonId;
+    switch (key)
+    {
     case Qt::Key_W:
-      return KC_W;
+        return KC_W;
     case Qt::Key_A:
-      return KC_A;
+        return KC_A;
     case Qt::Key_S:
-      return KC_S;
+        return KC_S;
     case Qt::Key_D:
-      return KC_D;
+        return KC_D;
     case Qt::Key_Q:
-      return KC_Q;
+        return KC_Q;
     case Qt::Key_C:
-      return KC_C;
+        return KC_C;
     case Qt::Key_L:
-      return KC_L;
+        return KC_L;
     case Qt::Key_R:
-      return KC_R;
+        return KC_R;
     case Qt::Key_Control:
-      return KC_LCONTROL;
+        return KC_LCONTROL;
     case Qt::Key_Alt:
-      return KC_LMENU;
+        return KC_LMENU;
     default:
-      return DEVICEBUTTONID_UNKNOWN;
-  }
+        return DEVICEBUTTONID_UNKNOWN;
+    }
 }
 
-void OgreWidget::keyPressEvent(QKeyEvent *e)
+void OgreWidget::keyPressEvent(QKeyEvent* e)
 {
     using namespace ScapeEngine;
     if (mActive)
@@ -114,7 +111,7 @@ void OgreWidget::keyPressEvent(QKeyEvent *e)
         mInputManager->onDeviceButtonPressed(button);
     }
 }
-void OgreWidget::keyReleaseEvent(QKeyEvent *e)
+void OgreWidget::keyReleaseEvent(QKeyEvent* e)
 {
     using namespace ScapeEngine;
     if (mActive)
@@ -125,7 +122,7 @@ void OgreWidget::keyReleaseEvent(QKeyEvent *e)
     }
 }
 
-void OgreWidget::mouseMoveEvent(QMouseEvent *e)
+void OgreWidget::mouseMoveEvent(QMouseEvent* e)
 {
     using namespace ScapeEngine;
     if (mActive)
@@ -134,9 +131,8 @@ void OgreWidget::mouseMoveEvent(QMouseEvent *e)
         IVector3 newPosition(e->x(), e->y(), 0);
         mPointerDeltaPosition = newPosition - mPointerPosition;
 
-        if (newPosition.x != mPointerPosition.x ||
-            newPosition.y != mPointerPosition.y ||
-            newPosition.z != mPointerPosition.z)
+        if (newPosition.x != mPointerPosition.x || newPosition.y != mPointerPosition.y
+            || newPosition.z != mPointerPosition.z)
         {
             mPointerPosition = newPosition;
             mInputManager->onPointerMove();
@@ -144,7 +140,7 @@ void OgreWidget::mouseMoveEvent(QMouseEvent *e)
     }
 }
 
-void OgreWidget::focusOutEvent(QFocusEvent *evt)
+void OgreWidget::focusOutEvent(QFocusEvent* evt)
 {
     if (mHasView)
     {
@@ -154,7 +150,7 @@ void OgreWidget::focusOutEvent(QFocusEvent *evt)
     evt->setAccepted(true);
 }
 
-void OgreWidget::focusInEvent(QFocusEvent *evt)
+void OgreWidget::focusInEvent(QFocusEvent* evt)
 {
     if (mHasView)
     {
@@ -163,7 +159,6 @@ void OgreWidget::focusInEvent(QFocusEvent *evt)
     mHasFocus = true;
     evt->setAccepted(true);
 }
-
 
 void OgreWidget::update()
 {

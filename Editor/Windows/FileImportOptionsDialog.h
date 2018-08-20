@@ -13,43 +13,44 @@
 
 #include "EngineInterface.h"
 
-namespace ScapeEditor
-{
-	// ----------------------------------------------------------------------------
-	struct FileImportOptionsDialogItem
-	{
-		string type;
-		string label;
-		string description;
-		string options;
-	};
+namespace ScapeEditor {
+    // ----------------------------------------------------------------------------
+    struct FileImportOptionsDialogItem
+    {
+        string type;
+        string label;
+        string description;
+        string options;
+    };
 
-	typedef std::map<string, FileImportOptionsDialogItem> FileImportOptionsDialogItemMap;
+    typedef std::map<string, FileImportOptionsDialogItem> FileImportOptionsDialogItemMap;
 
-	// ----------------------------------------------------------------------------
-	class FileImportOptionsDialog : public wxDialog
-	{
-		DECLARE_CLASS(FileImportOptionsDialog)
+    // ----------------------------------------------------------------------------
+    class FileImportOptionsDialog : public wxDialog
+    {
+        DECLARE_CLASS(FileImportOptionsDialog)
 
-	public:
-		FileImportOptionsDialog(wxWindow* parentWindow, wxWindowID windowId, const wxString& caption, const wxString& fileName, size_t fileSize, const FileImportOptionsDialogItemMap& itemMap, const StringStringMap& valueMap);
+    public:
+        FileImportOptionsDialog(wxWindow* parentWindow, wxWindowID windowId, const wxString& caption,
+            const wxString& fileName, size_t fileSize, const FileImportOptionsDialogItemMap& itemMap,
+            const StringStringMap& valueMap);
 
-		const StringStringMap& getValueMap();
+        const StringStringMap& getValueMap();
 
-	protected:
-		wxCheckBox* mFlipXCheckBox;
-		wxCheckBox* mFlipYCheckBox;
-		wxTextCtrl* mWidthTextCtrl;
-		wxTextCtrl* mHeightTextCtrl;
-		wxRadioButton* mBigEndianButton;
-		std::list<wxRadioButton*> mBppButtons;
-		bool mDirtyValueMap;
+    protected:
+        wxCheckBox* mFlipXCheckBox;
+        wxCheckBox* mFlipYCheckBox;
+        wxTextCtrl* mWidthTextCtrl;
+        wxTextCtrl* mHeightTextCtrl;
+        wxRadioButton* mBigEndianButton;
+        std::list<wxRadioButton*> mBppButtons;
+        bool mDirtyValueMap;
 
-		FileImportOptionsDialogItemMap mItemMap;
-		StringStringMap mValueMap;
+        FileImportOptionsDialogItemMap mItemMap;
+        StringStringMap mValueMap;
 
-		DECLARE_EVENT_TABLE()
-	};
+        DECLARE_EVENT_TABLE()
+    };
 }
 
 #endif // __FILEIMPORTOPTIONSDIALOG_H__

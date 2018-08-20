@@ -1,7 +1,7 @@
 /**
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details. 
+ * See Docs/ScapeLicense.txt for details.
  */
 
 #include "PCH/stdafx.h"
@@ -14,429 +14,442 @@
 #include "Utils/SerialMemoryBuffer.h"
 
 // ----------------------------------------------------------------------------
-namespace ScapeEngine
-{
-	namespace _HeightfieldSerializerIncrementalNS
-	{
-		// ----------------------------------------------------------------------------
-		template<class Type>
-		void _serializeIncrementalPage(HeightfieldBufferPage* inPreviousPage, HeightfieldBufferPage* inNextPage, Utils::SerialMemoryBufferWriter& writer)
-		{
-			HeightfieldBufferPageVersion previousVersion = inPreviousPage->getVersion();
-			HeightfieldBufferPageVersion nextVersion = inNextPage->getVersion();
+namespace ScapeEngine {
+    namespace _HeightfieldSerializerIncrementalNS {
+        // ----------------------------------------------------------------------------
+        template <class Type>
+        void _serializeIncrementalPage(HeightfieldBufferPage* inPreviousPage, HeightfieldBufferPage* inNextPage,
+            Utils::SerialMemoryBufferWriter& writer)
+        {
+            HeightfieldBufferPageVersion previousVersion = inPreviousPage->getVersion();
+            HeightfieldBufferPageVersion nextVersion = inNextPage->getVersion();
 
-			size_t writerStartPosition = writer.getPosition();
-			writer.advancePosition(sizeof(size_t));
+            size_t writerStartPosition = writer.getPosition();
+            writer.advancePosition(sizeof(size_t));
 
-			writer.write(previousVersion);
-			writer.write(nextVersion);
+            writer.write(previousVersion);
+            writer.write(nextVersion);
 
-			Type defaultValue = 0;
-			size_t flags = 0; // bit 0 = 'previous' contains data. bit 1 = 'next' contains data
+            Type defaultValue = 0;
+            size_t flags = 0; // bit 0 = 'previous' contains data. bit 1 = 'next' contains data
 
-			if (inPreviousPage->getVersion() != inNextPage->getVersion())
-			{
-				Utils::RLECompressor<Type, unsigned short> compressor(&writer);
+            if (inPreviousPage->getVersion() != inNextPage->getVersion())
+            {
+                Utils::RLECompressor<Type, unsigned short> compressor(&writer);
 
-				if (inPreviousPage->containsData())
-				{
-					if (inNextPage->containsData())
-					{
-						flags = 3; 
-						writer.write(flags);
-						const Ogre::PixelBox& previousBox = inPreviousPage->getRawHeightData();
-						const Ogre::PixelBox& nextBox = inNextPage->getRawHeightData();
-						
-						assert(previousBox.getWidth() == nextBox.getWidth());
-						assert(previousBox.getHeight() == nextBox.getHeight());
-						assert(previousBox.format == nextBox.format);
-						assert(previousBox.data && nextBox.data);
+                if (inPreviousPage->containsData())
+                {
+                    if (inNextPage->containsData())
+                    {
+                        flags = 3;
+                        writer.write(flags);
+                        const Ogre::PixelBox& previousBox = inPreviousPage->getRawHeightData();
+                        const Ogre::PixelBox& nextBox = inNextPage->getRawHeightData();
 
-						size_t componentCount = Ogre::PixelUtil::getComponentCount(previousBox.format);
-						size_t rowPtrDelta = previousBox.getWidth() * componentCount;
-						size_t rowPtrSkip = previousBox.getRowSkip() * componentCount;
+                        assert(previousBox.getWidth() == nextBox.getWidth());
+                        assert(previousBox.getHeight() == nextBox.getHeight());
+                        assert(previousBox.format == nextBox.format);
+                        assert(previousBox.data && nextBox.data);
 
-						size_t topLeftOffset = (rowPtrDelta + rowPtrSkip) * previousBox.top + componentCount * previousBox.left;
+                        size_t componentCount = Ogre::PixelUtil::getComponentCount(previousBox.format);
+                        size_t rowPtrDelta = previousBox.getWidth() * componentCount;
+                        size_t rowPtrSkip = previousBox.getRowSkip() * componentCount;
 
-						Type* previousPtr = reinterpret_cast<Type*>(previousBox.data) + topLeftOffset;
-						Type* nextPtr = reinterpret_cast<Type*>(nextBox.data) + topLeftOffset;
-						Type lastDelta = 0;
+                        size_t topLeftOffset
+                            = (rowPtrDelta + rowPtrSkip) * previousBox.top + componentCount * previousBox.left;
 
-						compressor.begin();
-						for (size_t y = previousBox.top; y < previousBox.bottom; ++y)
-						{
-							Type* previousPtrEnd = previousPtr + rowPtrDelta;
-							while (previousPtr != previousPtrEnd)
-							{
-								Type delta = *nextPtr - *previousPtr;
-								compressor.write(delta - lastDelta);
-								lastDelta = delta;
+                        Type* previousPtr = reinterpret_cast<Type*>(previousBox.data) + topLeftOffset;
+                        Type* nextPtr = reinterpret_cast<Type*>(nextBox.data) + topLeftOffset;
+                        Type lastDelta = 0;
 
-								previousPtr += componentCount;
-								nextPtr += componentCount;
-							}
-							previousPtr += rowPtrSkip;
-							nextPtr += rowPtrSkip;
-						}
-						compressor.end();
-					}
-					else
-					{
-						flags = 1;
-						writer.write(flags);
+                        compressor.begin();
+                        for (size_t y = previousBox.top; y < previousBox.bottom; ++y)
+                        {
+                            Type* previousPtrEnd = previousPtr + rowPtrDelta;
+                            while (previousPtr != previousPtrEnd)
+                            {
+                                Type delta = *nextPtr - *previousPtr;
+                                compressor.write(delta - lastDelta);
+                                lastDelta = delta;
 
-						const Ogre::PixelBox& previousBox = inPreviousPage->getRawHeightData();
-						
-						assert(previousBox.data);
+                                previousPtr += componentCount;
+                                nextPtr += componentCount;
+                            }
+                            previousPtr += rowPtrSkip;
+                            nextPtr += rowPtrSkip;
+                        }
+                        compressor.end();
+                    }
+                    else
+                    {
+                        flags = 1;
+                        writer.write(flags);
 
-						size_t componentCount = Ogre::PixelUtil::getComponentCount(previousBox.format);
-						size_t rowPtrDelta = previousBox.getWidth() * componentCount;
-						size_t rowPtrSkip = previousBox.getRowSkip() * componentCount;
+                        const Ogre::PixelBox& previousBox = inPreviousPage->getRawHeightData();
 
-						size_t topLeftOffset = (rowPtrDelta + rowPtrSkip) * previousBox.top + componentCount * previousBox.left;
-						Type* previousPtr = reinterpret_cast<Type*>(previousBox.data) + topLeftOffset;
-						Type lastDelta = 0;
+                        assert(previousBox.data);
 
-						compressor.begin();
-						for (size_t y = previousBox.top; y < previousBox.bottom; ++y)
-						{
-							Type* previousPtrEnd = previousPtr + rowPtrDelta;
-							while (previousPtr != previousPtrEnd)
-							{
-								Type delta = defaultValue - *previousPtr;
-								compressor.write(delta - lastDelta);
-								lastDelta = delta;
+                        size_t componentCount = Ogre::PixelUtil::getComponentCount(previousBox.format);
+                        size_t rowPtrDelta = previousBox.getWidth() * componentCount;
+                        size_t rowPtrSkip = previousBox.getRowSkip() * componentCount;
 
-								previousPtr += componentCount;
-							}
-							previousPtr += rowPtrSkip;
-						}
-						compressor.end();
-					}
-				}
-				else
-				{
-					flags = 2; 
-					writer.write(flags);
+                        size_t topLeftOffset
+                            = (rowPtrDelta + rowPtrSkip) * previousBox.top + componentCount * previousBox.left;
+                        Type* previousPtr = reinterpret_cast<Type*>(previousBox.data) + topLeftOffset;
+                        Type lastDelta = 0;
 
-					const Ogre::PixelBox& nextBox = inNextPage->getRawHeightData();
-					
-					assert(nextBox.data);
+                        compressor.begin();
+                        for (size_t y = previousBox.top; y < previousBox.bottom; ++y)
+                        {
+                            Type* previousPtrEnd = previousPtr + rowPtrDelta;
+                            while (previousPtr != previousPtrEnd)
+                            {
+                                Type delta = defaultValue - *previousPtr;
+                                compressor.write(delta - lastDelta);
+                                lastDelta = delta;
 
-					size_t componentCount = Ogre::PixelUtil::getComponentCount(nextBox.format);
-					size_t rowPtrDelta = nextBox.getWidth() * componentCount;
-					size_t rowPtrSkip = nextBox.getRowSkip() * componentCount;
-					size_t topLeftOffset = (rowPtrDelta + rowPtrSkip) * nextBox.top + componentCount * nextBox.left;
-					Type* nextPtr = reinterpret_cast<Type*>(nextBox.data) + topLeftOffset;
-					Type lastDelta = 0;
+                                previousPtr += componentCount;
+                            }
+                            previousPtr += rowPtrSkip;
+                        }
+                        compressor.end();
+                    }
+                }
+                else
+                {
+                    flags = 2;
+                    writer.write(flags);
 
-					compressor.begin();
-					for (size_t y = nextBox.top; y < nextBox.bottom; ++y)
-					{
-						Type* nextPtrEnd = nextPtr + rowPtrDelta;
-						while (nextPtr != nextPtrEnd)
-						{
-							Type delta = *nextPtr - defaultValue;
-							compressor.write(delta - lastDelta);
-							lastDelta = delta;
+                    const Ogre::PixelBox& nextBox = inNextPage->getRawHeightData();
 
-							nextPtr += componentCount;
-						}
-						nextPtr += rowPtrSkip;
-					}
-					compressor.end();
-				}
-			}
-			else
-			{
-				flags = 0;
-				writer.write(flags);
-			}
+                    assert(nextBox.data);
 
-			size_t lastPosition = writer.getPosition();
-			size_t byteCount = lastPosition - writerStartPosition;
+                    size_t componentCount = Ogre::PixelUtil::getComponentCount(nextBox.format);
+                    size_t rowPtrDelta = nextBox.getWidth() * componentCount;
+                    size_t rowPtrSkip = nextBox.getRowSkip() * componentCount;
+                    size_t topLeftOffset = (rowPtrDelta + rowPtrSkip) * nextBox.top + componentCount * nextBox.left;
+                    Type* nextPtr = reinterpret_cast<Type*>(nextBox.data) + topLeftOffset;
+                    Type lastDelta = 0;
 
-			writer.setPosition(writerStartPosition);
-			writer.write(byteCount);
-			writer.setPosition(lastPosition);
-		}
+                    compressor.begin();
+                    for (size_t y = nextBox.top; y < nextBox.bottom; ++y)
+                    {
+                        Type* nextPtrEnd = nextPtr + rowPtrDelta;
+                        while (nextPtr != nextPtrEnd)
+                        {
+                            Type delta = *nextPtr - defaultValue;
+                            compressor.write(delta - lastDelta);
+                            lastDelta = delta;
 
-		// ----------------------------------------------------------------------------
-		template<class Type>
-		bool _deserializeIncrementalNextPage(HeightfieldBufferPage* page, Utils::SerialMemoryBufferReader& reader)
-		{
-			size_t byteCount;
-			reader.read(byteCount);
+                            nextPtr += componentCount;
+                        }
+                        nextPtr += rowPtrSkip;
+                    }
+                    compressor.end();
+                }
+            }
+            else
+            {
+                flags = 0;
+                writer.write(flags);
+            }
 
-			HeightfieldBufferPageVersion previousVersion, nextVersion;
-			reader.read(previousVersion);
-			reader.read(nextVersion);
+            size_t lastPosition = writer.getPosition();
+            size_t byteCount = lastPosition - writerStartPosition;
 
-			size_t flags;
-			reader.read(flags);
+            writer.setPosition(writerStartPosition);
+            writer.write(byteCount);
+            writer.setPosition(lastPosition);
+        }
 
-			assert(page->getVersion() == previousVersion);
+        // ----------------------------------------------------------------------------
+        template <class Type>
+        bool _deserializeIncrementalNextPage(HeightfieldBufferPage* page, Utils::SerialMemoryBufferReader& reader)
+        {
+            size_t byteCount;
+            reader.read(byteCount);
 
-			if (previousVersion != nextVersion)
-			{
-				if (flags & 2) 
-				{
-					Utils::RLEDecompressor<Type, unsigned short> decompressor(&reader);
-					decompressor.begin();
+            HeightfieldBufferPageVersion previousVersion, nextVersion;
+            reader.read(previousVersion);
+            reader.read(nextVersion);
 
-					const Ogre::PixelBox& box = page->getRawHeightData();
-					
-					assert(box.data);
+            size_t flags;
+            reader.read(flags);
 
-					size_t componentCount = Ogre::PixelUtil::getComponentCount(box.format);
-					size_t rowPtrDelta = box.getWidth() * componentCount;
-					size_t rowPtrSkip = box.getRowSkip() * componentCount;
-					size_t topLeftOffset = (rowPtrDelta + rowPtrSkip) * box.top + componentCount * box.left;
-					Type* ptr = reinterpret_cast<Type*>(box.data) + topLeftOffset;
-					Type delta = 0;
+            assert(page->getVersion() == previousVersion);
 
-					for (size_t y = box.top; y < box.bottom; ++y)
-					{
-						Type* ptrEnd = ptr + rowPtrDelta;
-						while (ptr != ptrEnd)
-						{
-							delta = delta + decompressor.read();
-							*ptr = *ptr + delta;
-							ptr += componentCount;
-						}
-						ptr += rowPtrSkip;
-					}
+            if (previousVersion != nextVersion)
+            {
+                if (flags & 2)
+                {
+                    Utils::RLEDecompressor<Type, unsigned short> decompressor(&reader);
+                    decompressor.begin();
 
-					decompressor.end();
-				}
-				else
-				{	
-					page->clearData();
-				}
+                    const Ogre::PixelBox& box = page->getRawHeightData();
 
-				page->setVersion(nextVersion);
+                    assert(box.data);
 
-				return true;
-			}
-			return false;
-		}
+                    size_t componentCount = Ogre::PixelUtil::getComponentCount(box.format);
+                    size_t rowPtrDelta = box.getWidth() * componentCount;
+                    size_t rowPtrSkip = box.getRowSkip() * componentCount;
+                    size_t topLeftOffset = (rowPtrDelta + rowPtrSkip) * box.top + componentCount * box.left;
+                    Type* ptr = reinterpret_cast<Type*>(box.data) + topLeftOffset;
+                    Type delta = 0;
 
-		// ----------------------------------------------------------------------------
-		template<class Type>
-		bool _deserializeIncrementalPreviousPage(HeightfieldBufferPage* page, Utils::SerialMemoryBufferReader& reader)
-		{
-			size_t byteCount;
-			reader.read(byteCount);
+                    for (size_t y = box.top; y < box.bottom; ++y)
+                    {
+                        Type* ptrEnd = ptr + rowPtrDelta;
+                        while (ptr != ptrEnd)
+                        {
+                            delta = delta + decompressor.read();
+                            *ptr = *ptr + delta;
+                            ptr += componentCount;
+                        }
+                        ptr += rowPtrSkip;
+                    }
 
-			HeightfieldBufferPageVersion previousVersion, nextVersion;
-			reader.read(previousVersion);
-			reader.read(nextVersion);
+                    decompressor.end();
+                }
+                else
+                {
+                    page->clearData();
+                }
 
-			assert(page->getVersion() == nextVersion);
+                page->setVersion(nextVersion);
 
-			size_t flags;
-			reader.read(flags);
+                return true;
+            }
+            return false;
+        }
 
-			if (previousVersion != nextVersion)
-			{
-				if (flags & 1)
-				{
-					Utils::RLEDecompressor<Type, unsigned short> decompressor(&reader);
-					decompressor.begin();
+        // ----------------------------------------------------------------------------
+        template <class Type>
+        bool _deserializeIncrementalPreviousPage(HeightfieldBufferPage* page, Utils::SerialMemoryBufferReader& reader)
+        {
+            size_t byteCount;
+            reader.read(byteCount);
 
-					const Ogre::PixelBox& box = page->getRawHeightData();
-					
-					assert(box.data);
+            HeightfieldBufferPageVersion previousVersion, nextVersion;
+            reader.read(previousVersion);
+            reader.read(nextVersion);
 
-					size_t componentCount = Ogre::PixelUtil::getComponentCount(box.format);
-					size_t rowPtrDelta = box.getWidth() * componentCount;
-					size_t rowPtrSkip = box.getRowSkip() * componentCount;
-					size_t topLeftOffset = (rowPtrDelta + rowPtrSkip) * box.top + componentCount * box.left;
-					Type* ptr = reinterpret_cast<Type*>(box.data) + topLeftOffset;
-					Type delta = 0;
+            assert(page->getVersion() == nextVersion);
 
-					for (size_t y = box.top; y < box.bottom; ++y)
-					{
-						Type* ptrEnd = ptr + rowPtrDelta;
-						while (ptr != ptrEnd)
-						{
-							delta = delta + decompressor.read();
-							*ptr = *ptr - delta;
+            size_t flags;
+            reader.read(flags);
 
-							ptr += componentCount;
-						}
-						ptr += rowPtrSkip;
-					}
+            if (previousVersion != nextVersion)
+            {
+                if (flags & 1)
+                {
+                    Utils::RLEDecompressor<Type, unsigned short> decompressor(&reader);
+                    decompressor.begin();
 
-					decompressor.end();
-				}
-				else
-				{
-					page->clearData();
-				}
+                    const Ogre::PixelBox& box = page->getRawHeightData();
 
-				page->setVersion(previousVersion);
+                    assert(box.data);
 
-				return true;
-			}
-			return false;
-		}
-	}
+                    size_t componentCount = Ogre::PixelUtil::getComponentCount(box.format);
+                    size_t rowPtrDelta = box.getWidth() * componentCount;
+                    size_t rowPtrSkip = box.getRowSkip() * componentCount;
+                    size_t topLeftOffset = (rowPtrDelta + rowPtrSkip) * box.top + componentCount * box.left;
+                    Type* ptr = reinterpret_cast<Type*>(box.data) + topLeftOffset;
+                    Type delta = 0;
+
+                    for (size_t y = box.top; y < box.bottom; ++y)
+                    {
+                        Type* ptrEnd = ptr + rowPtrDelta;
+                        while (ptr != ptrEnd)
+                        {
+                            delta = delta + decompressor.read();
+                            *ptr = *ptr - delta;
+
+                            ptr += componentCount;
+                        }
+                        ptr += rowPtrSkip;
+                    }
+
+                    decompressor.end();
+                }
+                else
+                {
+                    page->clearData();
+                }
+
+                page->setVersion(previousVersion);
+
+                return true;
+            }
+            return false;
+        }
+    }
 };
 
 // ----------------------------------------------------------------------------
 using namespace ScapeEngine;
 using namespace ScapeEngine::_HeightfieldSerializerIncrementalNS;
 
-
-
 // ----------------------------------------------------------------------------
-Utils::SerialMemoryBufferPtr HeightfieldSerializer::serializeIncremental(HeightfieldBuffer* inPreviousBuffer, HeightfieldBuffer *inNextBuffer)
+Utils::SerialMemoryBufferPtr HeightfieldSerializer::serializeIncremental(
+    HeightfieldBuffer* inPreviousBuffer, HeightfieldBuffer* inNextBuffer)
 {
-	assert(inPreviousBuffer);
-	assert(inNextBuffer);
+    assert(inPreviousBuffer);
+    assert(inNextBuffer);
 
-	int elementCount = inPreviousBuffer->getHeightfieldBufferSet()->getElementColumnCount() * inPreviousBuffer->getHeightfieldBufferSet()->getElementRowCount();
-	int bytesPerElement = Ogre::PixelUtil::getNumElemBytes(inPreviousBuffer->getHeightElementFormat());
-	int dataByteCount = elementCount * bytesPerElement;
-	int headerByteCount = 1000;
+    int elementCount = inPreviousBuffer->getHeightfieldBufferSet()->getElementColumnCount()
+        * inPreviousBuffer->getHeightfieldBufferSet()->getElementRowCount();
+    int bytesPerElement = Ogre::PixelUtil::getNumElemBytes(inPreviousBuffer->getHeightElementFormat());
+    int dataByteCount = elementCount * bytesPerElement;
+    int headerByteCount = 1000;
 
-	assert(elementCount == inPreviousBuffer->getHeightfieldBufferSet()->getElementColumnCount() * inPreviousBuffer->getHeightfieldBufferSet()->getElementRowCount());
-	assert((size_t)bytesPerElement == Ogre::PixelUtil::getNumElemBytes(inPreviousBuffer->getHeightElementFormat()));
-	assert(inPreviousBuffer->getHeightfieldBufferSet()->getPageColumnCount() == inNextBuffer->getHeightfieldBufferSet()->getPageColumnCount());
-	assert(inPreviousBuffer->getHeightfieldBufferSet()->getPageRowCount() == inNextBuffer->getHeightfieldBufferSet()->getPageRowCount());
-	
-	Utils::SerialMemoryBufferPtr serialBufferPtr(new Utils::SerialMemoryBuffer());
-	serialBufferPtr.get()->setSize(headerByteCount + dataByteCount, false);
+    assert(elementCount
+        == inPreviousBuffer->getHeightfieldBufferSet()->getElementColumnCount()
+            * inPreviousBuffer->getHeightfieldBufferSet()->getElementRowCount());
+    assert((size_t)bytesPerElement == Ogre::PixelUtil::getNumElemBytes(inPreviousBuffer->getHeightElementFormat()));
+    assert(inPreviousBuffer->getHeightfieldBufferSet()->getPageColumnCount()
+        == inNextBuffer->getHeightfieldBufferSet()->getPageColumnCount());
+    assert(inPreviousBuffer->getHeightfieldBufferSet()->getPageRowCount()
+        == inNextBuffer->getHeightfieldBufferSet()->getPageRowCount());
 
-	Utils::SerialMemoryBufferWriter writer(serialBufferPtr);
+    Utils::SerialMemoryBufferPtr serialBufferPtr(new Utils::SerialMemoryBuffer());
+    serialBufferPtr.get()->setSize(headerByteCount + dataByteCount, false);
 
-	for (int pageRowIndex = 0; pageRowIndex < inPreviousBuffer->getHeightfieldBufferSet()->getPageRowCount(); ++pageRowIndex)
-	{
-		for (int pageColumnIndex = 0; pageColumnIndex < inPreviousBuffer->getHeightfieldBufferSet()->getPageColumnCount(); ++pageColumnIndex)
-		{
-			HeightfieldBufferPage* previousPage = inPreviousBuffer->getPage(pageColumnIndex, pageRowIndex, HeightfieldBuffer::PAGEACCESSMODE_READONLY);
-			HeightfieldBufferPage* nextPage = inNextBuffer->getPage(pageColumnIndex, pageRowIndex, HeightfieldBuffer::PAGEACCESSMODE_READONLY);
+    Utils::SerialMemoryBufferWriter writer(serialBufferPtr);
 
-			if (Ogre::PixelUtil::getComponentType(inPreviousBuffer->getHeightElementFormat()) == Ogre::PCT_FLOAT32)
-			{
-				_serializeIncrementalPage<Ogre::Real>(previousPage, nextPage, writer);
-			}
-			else if (Ogre::PixelUtil::getComponentType(inPreviousBuffer->getHeightElementFormat()) == Ogre::PCT_SHORT)
-			{
-				_serializeIncrementalPage<Ogre::uint16>(previousPage, nextPage, writer);
-			}
-			else
-			{
-				OGRE_EXCEPT(
-					Ogre::Exception::ERR_ITEM_NOT_FOUND, 
-					_T("Tried to create icnremental serialization of unknown vertex element type '") + 
-					Ogre::StringConverter::toString(inPreviousBuffer->getHeightElementFormat()) + _T("'"),
-					_T("HeightfieldSerializer::serializeIncremental"));
-			}
-		}
-	}
+    for (int pageRowIndex = 0; pageRowIndex < inPreviousBuffer->getHeightfieldBufferSet()->getPageRowCount();
+         ++pageRowIndex)
+    {
+        for (int pageColumnIndex = 0;
+             pageColumnIndex < inPreviousBuffer->getHeightfieldBufferSet()->getPageColumnCount(); ++pageColumnIndex)
+        {
+            HeightfieldBufferPage* previousPage
+                = inPreviousBuffer->getPage(pageColumnIndex, pageRowIndex, HeightfieldBuffer::PAGEACCESSMODE_READONLY);
+            HeightfieldBufferPage* nextPage
+                = inNextBuffer->getPage(pageColumnIndex, pageRowIndex, HeightfieldBuffer::PAGEACCESSMODE_READONLY);
 
-	serialBufferPtr->setSize(writer.getPosition(), true);
+            if (Ogre::PixelUtil::getComponentType(inPreviousBuffer->getHeightElementFormat()) == Ogre::PCT_FLOAT32)
+            {
+                _serializeIncrementalPage<Ogre::Real>(previousPage, nextPage, writer);
+            }
+            else if (Ogre::PixelUtil::getComponentType(inPreviousBuffer->getHeightElementFormat()) == Ogre::PCT_SHORT)
+            {
+                _serializeIncrementalPage<Ogre::uint16>(previousPage, nextPage, writer);
+            }
+            else
+            {
+                OGRE_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND,
+                    _T("Tried to create icnremental serialization of unknown vertex element type '")
+                        + Ogre::StringConverter::toString(inPreviousBuffer->getHeightElementFormat()) + _T("'"),
+                    _T("HeightfieldSerializer::serializeIncremental"));
+            }
+        }
+    }
 
-	{
-		size_t uncompressedSize = Ogre::PixelUtil::getMemorySize(inPreviousBuffer->getHeightfieldBufferSet()->getElementColumnCount(), inPreviousBuffer->getHeightfieldBufferSet()->getElementRowCount(), 1, inPreviousBuffer->getHeightElementFormat());
-		size_t compressedSize = serialBufferPtr->getSize();
-		printf(_T("serializeIncremental: compressed %d to %d (%d%%)\n"), uncompressedSize, compressedSize, (int)(100.0f * compressedSize / uncompressedSize));
-	}
+    serialBufferPtr->setSize(writer.getPosition(), true);
 
-	return serialBufferPtr;
+    {
+        size_t uncompressedSize
+            = Ogre::PixelUtil::getMemorySize(inPreviousBuffer->getHeightfieldBufferSet()->getElementColumnCount(),
+                inPreviousBuffer->getHeightfieldBufferSet()->getElementRowCount(), 1,
+                inPreviousBuffer->getHeightElementFormat());
+        size_t compressedSize = serialBufferPtr->getSize();
+        printf(_T("serializeIncremental: compressed %d to %d (%d%%)\n"), uncompressedSize, compressedSize,
+            (int)(100.0f * compressedSize / uncompressedSize));
+    }
+
+    return serialBufferPtr;
 }
 
 // ----------------------------------------------------------------------------
-bool HeightfieldSerializer::deserializeIncrementalNext(Utils::SerialMemoryBufferConstPtr inSerial, HeightfieldBuffer* buffer, string *error)
+bool HeightfieldSerializer::deserializeIncrementalNext(
+    Utils::SerialMemoryBufferConstPtr inSerial, HeightfieldBuffer* buffer, string* error)
 {
-	assert(buffer);
+    assert(buffer);
 
-	Utils::SerialMemoryBufferReader reader(inSerial);
+    Utils::SerialMemoryBufferReader reader(inSerial);
 
-	for (int pageRowIndex = 0; pageRowIndex < buffer->getHeightfieldBufferSet()->getPageRowCount(); ++pageRowIndex)
-	{
-		for (int pageColumnIndex = 0; pageColumnIndex < buffer->getHeightfieldBufferSet()->getPageColumnCount(); ++pageColumnIndex)
-		{
-			HeightfieldBufferPage* page = buffer->getPage(pageColumnIndex, pageRowIndex, HeightfieldBuffer::PAGEACCESSMODE_READWRITE);
-			Ogre::Rect dirtyRect(
-				pageColumnIndex * buffer->getHeightfieldBufferSet()->getElementColumnCountPerPage(),
-				pageRowIndex * buffer->getHeightfieldBufferSet()->getElementRowCountPerPage(),
-				(pageColumnIndex + 1) * buffer->getHeightfieldBufferSet()->getElementColumnCountPerPage(),
-				(pageRowIndex + 1) * buffer->getHeightfieldBufferSet()->getElementRowCountPerPage());
+    for (int pageRowIndex = 0; pageRowIndex < buffer->getHeightfieldBufferSet()->getPageRowCount(); ++pageRowIndex)
+    {
+        for (int pageColumnIndex = 0; pageColumnIndex < buffer->getHeightfieldBufferSet()->getPageColumnCount();
+             ++pageColumnIndex)
+        {
+            HeightfieldBufferPage* page
+                = buffer->getPage(pageColumnIndex, pageRowIndex, HeightfieldBuffer::PAGEACCESSMODE_READWRITE);
+            Ogre::Rect dirtyRect(pageColumnIndex * buffer->getHeightfieldBufferSet()->getElementColumnCountPerPage(),
+                pageRowIndex * buffer->getHeightfieldBufferSet()->getElementRowCountPerPage(),
+                (pageColumnIndex + 1) * buffer->getHeightfieldBufferSet()->getElementColumnCountPerPage(),
+                (pageRowIndex + 1) * buffer->getHeightfieldBufferSet()->getElementRowCountPerPage());
 
-			if (Ogre::PixelUtil::getComponentType(buffer->getHeightElementFormat()) == Ogre::PCT_FLOAT32)
-			{
-				if (_deserializeIncrementalNextPage<Ogre::Real>(page, reader))
-				{
-					buffer->updateGeoms(dirtyRect);
-				}
-			}
-			else if (Ogre::PixelUtil::getComponentType(buffer->getHeightElementFormat()) == Ogre::PCT_SHORT)
-			{
-				if (_deserializeIncrementalNextPage<Ogre::uint16>(page, reader))
-				{
-					buffer->updateGeoms(dirtyRect);
-				}
-			}
-			else
-			{
-				OGRE_EXCEPT(
-					Ogre::Exception::ERR_ITEM_NOT_FOUND, 
-					_T("Tried to decode icnremental serialization of unknown vertex element type '") + 
-					Ogre::StringConverter::toString(buffer->getHeightElementFormat()) + _T("'"),
-					_T("HeightfieldSerializer::deserializeIncrementalPrevious"));
-			}
-		}
-	}
+            if (Ogre::PixelUtil::getComponentType(buffer->getHeightElementFormat()) == Ogre::PCT_FLOAT32)
+            {
+                if (_deserializeIncrementalNextPage<Ogre::Real>(page, reader))
+                {
+                    buffer->updateGeoms(dirtyRect);
+                }
+            }
+            else if (Ogre::PixelUtil::getComponentType(buffer->getHeightElementFormat()) == Ogre::PCT_SHORT)
+            {
+                if (_deserializeIncrementalNextPage<Ogre::uint16>(page, reader))
+                {
+                    buffer->updateGeoms(dirtyRect);
+                }
+            }
+            else
+            {
+                OGRE_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND,
+                    _T("Tried to decode icnremental serialization of unknown vertex element type '")
+                        + Ogre::StringConverter::toString(buffer->getHeightElementFormat()) + _T("'"),
+                    _T("HeightfieldSerializer::deserializeIncrementalPrevious"));
+            }
+        }
+    }
 
-	return true;
+    return true;
 }
 
-
 // ----------------------------------------------------------------------------
-bool HeightfieldSerializer::deserializeIncrementalPrevious(Utils::SerialMemoryBufferConstPtr inSerial, HeightfieldBuffer* buffer, string *error)
+bool HeightfieldSerializer::deserializeIncrementalPrevious(
+    Utils::SerialMemoryBufferConstPtr inSerial, HeightfieldBuffer* buffer, string* error)
 {
-	assert(buffer);
+    assert(buffer);
 
-	Utils::SerialMemoryBufferReader reader(inSerial);
+    Utils::SerialMemoryBufferReader reader(inSerial);
 
-	for (int pageRowIndex = 0; pageRowIndex < buffer->getHeightfieldBufferSet()->getPageRowCount(); ++pageRowIndex)
-	{
-		for (int pageColumnIndex = 0; pageColumnIndex < buffer->getHeightfieldBufferSet()->getPageColumnCount(); ++pageColumnIndex)
-		{
-			HeightfieldBufferPage* page = buffer->getPage(pageColumnIndex, pageRowIndex, HeightfieldBuffer::PAGEACCESSMODE_READWRITE);
-			Ogre::Rect dirtyRect(
-				pageColumnIndex * buffer->getHeightfieldBufferSet()->getElementColumnCountPerPage(),
-				pageRowIndex * buffer->getHeightfieldBufferSet()->getElementRowCountPerPage(),
-				(pageColumnIndex + 1) * buffer->getHeightfieldBufferSet()->getElementColumnCountPerPage(),
-				(pageRowIndex + 1) * buffer->getHeightfieldBufferSet()->getElementRowCountPerPage());
+    for (int pageRowIndex = 0; pageRowIndex < buffer->getHeightfieldBufferSet()->getPageRowCount(); ++pageRowIndex)
+    {
+        for (int pageColumnIndex = 0; pageColumnIndex < buffer->getHeightfieldBufferSet()->getPageColumnCount();
+             ++pageColumnIndex)
+        {
+            HeightfieldBufferPage* page
+                = buffer->getPage(pageColumnIndex, pageRowIndex, HeightfieldBuffer::PAGEACCESSMODE_READWRITE);
+            Ogre::Rect dirtyRect(pageColumnIndex * buffer->getHeightfieldBufferSet()->getElementColumnCountPerPage(),
+                pageRowIndex * buffer->getHeightfieldBufferSet()->getElementRowCountPerPage(),
+                (pageColumnIndex + 1) * buffer->getHeightfieldBufferSet()->getElementColumnCountPerPage(),
+                (pageRowIndex + 1) * buffer->getHeightfieldBufferSet()->getElementRowCountPerPage());
 
-			if (Ogre::PixelUtil::getComponentType(buffer->getHeightElementFormat()) == Ogre::PCT_FLOAT32)
-			{
-				if (_deserializeIncrementalPreviousPage<Ogre::Real>(page, reader))
-				{
-					buffer->updateGeoms(dirtyRect);
-				}
-			}
-			else if (Ogre::PixelUtil::getComponentType(buffer->getHeightElementFormat()) == Ogre::PCT_SHORT)
-			{
-				if (_deserializeIncrementalPreviousPage<Ogre::uint16>(page, reader))
-				{
-					buffer->updateGeoms(dirtyRect);
-				}
-			}
-			else
-			{
-				OGRE_EXCEPT(
-					Ogre::Exception::ERR_ITEM_NOT_FOUND, 
-					_T("Tried to decode icnremental serialization of unknown vertex element type '") + 
-					Ogre::StringConverter::toString(buffer->getHeightElementFormat()) + _T("'"),
-					_T("HeightfieldSerializer::deserializeIncrementalPrevious"));
-			}
-		}
-	}
+            if (Ogre::PixelUtil::getComponentType(buffer->getHeightElementFormat()) == Ogre::PCT_FLOAT32)
+            {
+                if (_deserializeIncrementalPreviousPage<Ogre::Real>(page, reader))
+                {
+                    buffer->updateGeoms(dirtyRect);
+                }
+            }
+            else if (Ogre::PixelUtil::getComponentType(buffer->getHeightElementFormat()) == Ogre::PCT_SHORT)
+            {
+                if (_deserializeIncrementalPreviousPage<Ogre::uint16>(page, reader))
+                {
+                    buffer->updateGeoms(dirtyRect);
+                }
+            }
+            else
+            {
+                OGRE_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND,
+                    _T("Tried to decode icnremental serialization of unknown vertex element type '")
+                        + Ogre::StringConverter::toString(buffer->getHeightElementFormat()) + _T("'"),
+                    _T("HeightfieldSerializer::deserializeIncrementalPrevious"));
+            }
+        }
+    }
 
-	return true;
+    return true;
 }

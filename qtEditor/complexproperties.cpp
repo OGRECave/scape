@@ -32,42 +32,46 @@
 #include "complexproperties.h"
 
 //----------------------------------------------------------------------------------------
-QuaternionManager::QuaternionManager(QObject *parent)
-    : QtVariantPropertyManager(parent)
+QuaternionManager::QuaternionManager(QObject* parent) : QtVariantPropertyManager(parent)
 {
-    connect(this, SIGNAL(valueChanged(QtProperty *, const QVariant &)),
-                this, SLOT(slotValueChanged(QtProperty *, const QVariant &)));
-    connect(this, SIGNAL(propertyDestroyed(QtProperty *)),
-                this, SLOT(slotPropertyDestroyed(QtProperty *)));
+    connect(this, SIGNAL(valueChanged(QtProperty*, const QVariant&)), this,
+        SLOT(slotValueChanged(QtProperty*, const QVariant&)));
+    connect(this, SIGNAL(propertyDestroyed(QtProperty*)), this, SLOT(slotPropertyDestroyed(QtProperty*)));
 }
 //----------------------------------------------------------------------------------------
 QuaternionManager::~QuaternionManager()
 {
-
 }
 //----------------------------------------------------------------------------------------
-void QuaternionManager::slotValueChanged(QtProperty *property, const QVariant &value)
+void QuaternionManager::slotValueChanged(QtProperty* property, const QVariant& value)
 {
-    if (xToProperty.contains(property)) {
-        QtProperty *pointProperty = xToProperty[property];
+    if (xToProperty.contains(property))
+    {
+        QtProperty* pointProperty = xToProperty[property];
         QVariant v = this->value(pointProperty);
         QRectF p = v.value<QRectF>();
         p.moveLeft(value.value<double>());
         setValue(pointProperty, p);
-    } else if (yToProperty.contains(property)) {
-        QtProperty *pointProperty = yToProperty[property];
+    }
+    else if (yToProperty.contains(property))
+    {
+        QtProperty* pointProperty = yToProperty[property];
         QVariant v = this->value(pointProperty);
         QRectF p = v.value<QRectF>();
         p.moveTop(value.value<double>());
         setValue(pointProperty, p);
-    } else if (zToProperty.contains(property)) {
-        QtProperty *pointProperty = zToProperty[property];
+    }
+    else if (zToProperty.contains(property))
+    {
+        QtProperty* pointProperty = zToProperty[property];
         QVariant v = this->value(pointProperty);
         QRectF p = v.value<QRectF>();
         p.setWidth(value.value<double>());
         setValue(pointProperty, p);
-    } else if (wToProperty.contains(property)) {
-        QtProperty *pointProperty = wToProperty[property];
+    }
+    else if (wToProperty.contains(property))
+    {
+        QtProperty* pointProperty = wToProperty[property];
         QVariant v = this->value(pointProperty);
         QRectF p = v.value<QRectF>();
         p.setHeight(value.value<double>());
@@ -75,22 +79,29 @@ void QuaternionManager::slotValueChanged(QtProperty *property, const QVariant &v
     }
 }
 //----------------------------------------------------------------------------------------
-void QuaternionManager::slotPropertyDestroyed(QtProperty *property)
+void QuaternionManager::slotPropertyDestroyed(QtProperty* property)
 {
-    if (xToProperty.contains(property)) {
-        QtProperty *pointProperty = xToProperty[property];
+    if (xToProperty.contains(property))
+    {
+        QtProperty* pointProperty = xToProperty[property];
         propertyToData[pointProperty].x = 0;
         xToProperty.remove(property);
-    } else if (yToProperty.contains(property)) {
-        QtProperty *pointProperty = yToProperty[property];
+    }
+    else if (yToProperty.contains(property))
+    {
+        QtProperty* pointProperty = yToProperty[property];
         propertyToData[pointProperty].y = 0;
         yToProperty.remove(property);
-    } else if (zToProperty.contains(property)) {
-        QtProperty *pointProperty = zToProperty[property];
+    }
+    else if (zToProperty.contains(property))
+    {
+        QtProperty* pointProperty = zToProperty[property];
         propertyToData[pointProperty].z = 0;
         zToProperty.remove(property);
-    } else if (wToProperty.contains(property)) {
-        QtProperty *pointProperty = wToProperty[property];
+    }
+    else if (wToProperty.contains(property))
+    {
+        QtProperty* pointProperty = wToProperty[property];
         propertyToData[pointProperty].w = 0;
         wToProperty.remove(property);
     }
@@ -110,27 +121,32 @@ int QuaternionManager::valueType(int propertyType) const
     return QtVariantPropertyManager::valueType(propertyType);
 }
 //----------------------------------------------------------------------------------------
-QVariant QuaternionManager::value(const QtProperty *property) const
+QVariant QuaternionManager::value(const QtProperty* property) const
 {
     if (propertyToData.contains(property))
         return propertyToData[property].value;
     return QtVariantPropertyManager::value(property);
 }
 //----------------------------------------------------------------------------------------
-QString QuaternionManager::valueText(const QtProperty *property) const
+QString QuaternionManager::valueText(const QtProperty* property) const
 {
-    if (propertyToData.contains(property)) {
+    if (propertyToData.contains(property))
+    {
         QVariant v = propertyToData[property].value;
         QRectF p = v.value<QRectF>();
-        return QString("(%1;%2;%3;%4)").arg(QString::number(p.height())).arg(QString::number(p.x()))
-                                          .arg(QString::number(p.y())).arg(QString::number(p.width()));
+        return QString("(%1;%2;%3;%4)")
+            .arg(QString::number(p.height()))
+            .arg(QString::number(p.x()))
+            .arg(QString::number(p.y()))
+            .arg(QString::number(p.width()));
     }
     return QtVariantPropertyManager::valueText(property);
 }
 //----------------------------------------------------------------------------------------
-void QuaternionManager::setValue(QtProperty *property, const QVariant &val)
+void QuaternionManager::setValue(QtProperty* property, const QVariant& val)
 {
-    if (propertyToData.contains(property)) {
+    if (propertyToData.contains(property))
+    {
         if (val.type() != QVariant::RectF)
             return;
         QRectF p = val.value<QRectF>();
@@ -152,14 +168,15 @@ void QuaternionManager::setValue(QtProperty *property, const QVariant &val)
     QtVariantPropertyManager::setValue(property, val);
 }
 //----------------------------------------------------------------------------------------
-void QuaternionManager::initializeProperty(QtProperty *property)
+void QuaternionManager::initializeProperty(QtProperty* property)
 {
-    if (propertyType(property) == QVariant::RectF) {
+    if (propertyType(property) == QVariant::RectF)
+    {
         Data d;
 
-        d.value = QRectF(0,0,0,1);
+        d.value = QRectF(0, 0, 0, 1);
 
-        QuaternionManager *that = (QuaternionManager *)this;
+        QuaternionManager* that = (QuaternionManager*)this;
 
         d.x = that->addProperty(QVariant::Double);
         d.x->setPropertyName("X");
@@ -186,9 +203,10 @@ void QuaternionManager::initializeProperty(QtProperty *property)
     QtVariantPropertyManager::initializeProperty(property);
 }
 //----------------------------------------------------------------------------------------
-void QuaternionManager::uninitializeProperty(QtProperty *property)
+void QuaternionManager::uninitializeProperty(QtProperty* property)
 {
-    if (propertyToData.contains(property)) {
+    if (propertyToData.contains(property))
+    {
         Data d = propertyToData[property];
         if (d.x)
             xToProperty.remove(d.x);
@@ -205,42 +223,46 @@ void QuaternionManager::uninitializeProperty(QtProperty *property)
 //----------------------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------------------
-Vector4Manager::Vector4Manager(QObject *parent)
-    : QtVariantPropertyManager(parent)
+Vector4Manager::Vector4Manager(QObject* parent) : QtVariantPropertyManager(parent)
 {
-    connect(this, SIGNAL(valueChanged(QtProperty *, const QVariant &)),
-                this, SLOT(slotValueChanged(QtProperty *, const QVariant &)));
-    connect(this, SIGNAL(propertyDestroyed(QtProperty *)),
-                this, SLOT(slotPropertyDestroyed(QtProperty *)));
+    connect(this, SIGNAL(valueChanged(QtProperty*, const QVariant&)), this,
+        SLOT(slotValueChanged(QtProperty*, const QVariant&)));
+    connect(this, SIGNAL(propertyDestroyed(QtProperty*)), this, SLOT(slotPropertyDestroyed(QtProperty*)));
 }
 //----------------------------------------------------------------------------------------
 Vector4Manager::~Vector4Manager()
 {
-
 }
 //----------------------------------------------------------------------------------------
-void Vector4Manager::slotValueChanged(QtProperty *property, const QVariant &value)
+void Vector4Manager::slotValueChanged(QtProperty* property, const QVariant& value)
 {
-    if (xToProperty.contains(property)) {
-        QtProperty *pointProperty = xToProperty[property];
+    if (xToProperty.contains(property))
+    {
+        QtProperty* pointProperty = xToProperty[property];
         QVariant v = this->value(pointProperty);
         QRectF p = v.value<QRectF>();
         p.moveLeft(value.value<double>());
         setValue(pointProperty, p);
-    } else if (yToProperty.contains(property)) {
-        QtProperty *pointProperty = yToProperty[property];
+    }
+    else if (yToProperty.contains(property))
+    {
+        QtProperty* pointProperty = yToProperty[property];
         QVariant v = this->value(pointProperty);
         QRectF p = v.value<QRectF>();
         p.moveTop(value.value<double>());
         setValue(pointProperty, p);
-    } else if (zToProperty.contains(property)) {
-        QtProperty *pointProperty = zToProperty[property];
+    }
+    else if (zToProperty.contains(property))
+    {
+        QtProperty* pointProperty = zToProperty[property];
         QVariant v = this->value(pointProperty);
         QRectF p = v.value<QRectF>();
         p.setWidth(value.value<double>());
         setValue(pointProperty, p);
-    } else if (wToProperty.contains(property)) {
-        QtProperty *pointProperty = wToProperty[property];
+    }
+    else if (wToProperty.contains(property))
+    {
+        QtProperty* pointProperty = wToProperty[property];
         QVariant v = this->value(pointProperty);
         QRectF p = v.value<QRectF>();
         p.setHeight(value.value<double>());
@@ -248,22 +270,29 @@ void Vector4Manager::slotValueChanged(QtProperty *property, const QVariant &valu
     }
 }
 //----------------------------------------------------------------------------------------
-void Vector4Manager::slotPropertyDestroyed(QtProperty *property)
+void Vector4Manager::slotPropertyDestroyed(QtProperty* property)
 {
-    if (xToProperty.contains(property)) {
-        QtProperty *pointProperty = xToProperty[property];
+    if (xToProperty.contains(property))
+    {
+        QtProperty* pointProperty = xToProperty[property];
         propertyToData[pointProperty].x = 0;
         xToProperty.remove(property);
-    } else if (yToProperty.contains(property)) {
-        QtProperty *pointProperty = yToProperty[property];
+    }
+    else if (yToProperty.contains(property))
+    {
+        QtProperty* pointProperty = yToProperty[property];
         propertyToData[pointProperty].y = 0;
         yToProperty.remove(property);
-    } else if (zToProperty.contains(property)) {
-        QtProperty *pointProperty = zToProperty[property];
+    }
+    else if (zToProperty.contains(property))
+    {
+        QtProperty* pointProperty = zToProperty[property];
         propertyToData[pointProperty].z = 0;
         zToProperty.remove(property);
-    } else if (wToProperty.contains(property)) {
-        QtProperty *pointProperty = wToProperty[property];
+    }
+    else if (wToProperty.contains(property))
+    {
+        QtProperty* pointProperty = wToProperty[property];
         propertyToData[pointProperty].w = 0;
         wToProperty.remove(property);
     }
@@ -283,27 +312,32 @@ int Vector4Manager::valueType(int propertyType) const
     return QtVariantPropertyManager::valueType(propertyType);
 }
 //----------------------------------------------------------------------------------------
-QVariant Vector4Manager::value(const QtProperty *property) const
+QVariant Vector4Manager::value(const QtProperty* property) const
 {
     if (propertyToData.contains(property))
         return propertyToData[property].value;
     return QtVariantPropertyManager::value(property);
 }
 //----------------------------------------------------------------------------------------
-QString Vector4Manager::valueText(const QtProperty *property) const
+QString Vector4Manager::valueText(const QtProperty* property) const
 {
-    if (propertyToData.contains(property)) {
+    if (propertyToData.contains(property))
+    {
         QVariant v = propertyToData[property].value;
         QRectF p = v.value<QRectF>();
-        return QString("(%1;%2;%3;%4)").arg(QString::number(p.x())).arg(QString::number(p.y()))
-                                          .arg(QString::number(p.width())).arg(QString::number(p.height()));
+        return QString("(%1;%2;%3;%4)")
+            .arg(QString::number(p.x()))
+            .arg(QString::number(p.y()))
+            .arg(QString::number(p.width()))
+            .arg(QString::number(p.height()));
     }
     return QtVariantPropertyManager::valueText(property);
 }
 //----------------------------------------------------------------------------------------
-void Vector4Manager::setValue(QtProperty *property, const QVariant &val)
+void Vector4Manager::setValue(QtProperty* property, const QVariant& val)
 {
-    if (propertyToData.contains(property)) {
+    if (propertyToData.contains(property))
+    {
         if (val.type() != QVariant::RectF)
             return;
         QRectF p = val.value<QRectF>();
@@ -327,9 +361,10 @@ void Vector4Manager::setValue(QtProperty *property, const QVariant &val)
     QtVariantPropertyManager::setValue(property, val);
 }
 //----------------------------------------------------------------------------------------
-void Vector4Manager::setPropertyNames(QtProperty *property, QString fx, QString fy, QString fz, QString fw)
+void Vector4Manager::setPropertyNames(QtProperty* property, QString fx, QString fy, QString fz, QString fw)
 {
-    if (propertyToData.contains(property)) {
+    if (propertyToData.contains(property))
+    {
         Data d = propertyToData[property];
         d.x->setPropertyName(fx);
         d.y->setPropertyName(fy);
@@ -338,14 +373,15 @@ void Vector4Manager::setPropertyNames(QtProperty *property, QString fx, QString 
     }
 }
 //----------------------------------------------------------------------------------------
-void Vector4Manager::initializeProperty(QtProperty *property)
+void Vector4Manager::initializeProperty(QtProperty* property)
 {
-    if (propertyType(property) == QVariant::RectF) {
+    if (propertyType(property) == QVariant::RectF)
+    {
         Data d;
 
-        d.value = QRectF(0,0,0,0);
+        d.value = QRectF(0, 0, 0, 0);
 
-        Vector4Manager *that = (Vector4Manager *)this;
+        Vector4Manager* that = (Vector4Manager*)this;
 
         d.x = that->addProperty(QVariant::Double);
         d.x->setPropertyName("X");
@@ -372,9 +408,10 @@ void Vector4Manager::initializeProperty(QtProperty *property)
     QtVariantPropertyManager::initializeProperty(property);
 }
 //----------------------------------------------------------------------------------------
-void Vector4Manager::uninitializeProperty(QtProperty *property)
+void Vector4Manager::uninitializeProperty(QtProperty* property)
 {
-    if (propertyToData.contains(property)) {
+    if (propertyToData.contains(property))
+    {
         Data d = propertyToData[property];
         if (d.x)
             xToProperty.remove(d.x);
@@ -391,36 +428,38 @@ void Vector4Manager::uninitializeProperty(QtProperty *property)
 //----------------------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------------------
-Vector3Manager::Vector3Manager(QObject *parent)
-    : QtVariantPropertyManager(parent)
+Vector3Manager::Vector3Manager(QObject* parent) : QtVariantPropertyManager(parent)
 {
-    connect(this, SIGNAL(valueChanged(QtProperty *, const QVariant &)),
-                this, SLOT(slotValueChanged(QtProperty *, const QVariant &)));
-    connect(this, SIGNAL(propertyDestroyed(QtProperty *)),
-                this, SLOT(slotPropertyDestroyed(QtProperty *)));
+    connect(this, SIGNAL(valueChanged(QtProperty*, const QVariant&)), this,
+        SLOT(slotValueChanged(QtProperty*, const QVariant&)));
+    connect(this, SIGNAL(propertyDestroyed(QtProperty*)), this, SLOT(slotPropertyDestroyed(QtProperty*)));
 }
 //----------------------------------------------------------------------------------------
 Vector3Manager::~Vector3Manager()
 {
-
 }
 //----------------------------------------------------------------------------------------
-void Vector3Manager::slotValueChanged(QtProperty *property, const QVariant &value)
+void Vector3Manager::slotValueChanged(QtProperty* property, const QVariant& value)
 {
-    if (xToProperty.contains(property)) {
-        QtProperty *pointProperty = xToProperty[property];
+    if (xToProperty.contains(property))
+    {
+        QtProperty* pointProperty = xToProperty[property];
         QVariant v = this->value(pointProperty);
         QRectF p = v.value<QRectF>();
         p.moveLeft(value.value<double>());
         setValue(pointProperty, p);
-    } else if (yToProperty.contains(property)) {
-        QtProperty *pointProperty = yToProperty[property];
+    }
+    else if (yToProperty.contains(property))
+    {
+        QtProperty* pointProperty = yToProperty[property];
         QVariant v = this->value(pointProperty);
         QRectF p = v.value<QRectF>();
         p.moveTop(value.value<double>());
         setValue(pointProperty, p);
-    } else if (zToProperty.contains(property)) {
-        QtProperty *pointProperty = zToProperty[property];
+    }
+    else if (zToProperty.contains(property))
+    {
+        QtProperty* pointProperty = zToProperty[property];
         QVariant v = this->value(pointProperty);
         QRectF p = v.value<QRectF>();
         p.setWidth(value.value<double>());
@@ -428,18 +467,23 @@ void Vector3Manager::slotValueChanged(QtProperty *property, const QVariant &valu
     }
 }
 //----------------------------------------------------------------------------------------
-void Vector3Manager::slotPropertyDestroyed(QtProperty *property)
+void Vector3Manager::slotPropertyDestroyed(QtProperty* property)
 {
-    if (xToProperty.contains(property)) {
-        QtProperty *pointProperty = xToProperty[property];
+    if (xToProperty.contains(property))
+    {
+        QtProperty* pointProperty = xToProperty[property];
         propertyToData[pointProperty].x = 0;
         xToProperty.remove(property);
-    } else if (yToProperty.contains(property)) {
-        QtProperty *pointProperty = yToProperty[property];
+    }
+    else if (yToProperty.contains(property))
+    {
+        QtProperty* pointProperty = yToProperty[property];
         propertyToData[pointProperty].y = 0;
         yToProperty.remove(property);
-    } else if (zToProperty.contains(property)) {
-        QtProperty *pointProperty = zToProperty[property];
+    }
+    else if (zToProperty.contains(property))
+    {
+        QtProperty* pointProperty = zToProperty[property];
         propertyToData[pointProperty].z = 0;
         zToProperty.remove(property);
     }
@@ -459,27 +503,31 @@ int Vector3Manager::valueType(int propertyType) const
     return QtVariantPropertyManager::valueType(propertyType);
 }
 //----------------------------------------------------------------------------------------
-QVariant Vector3Manager::value(const QtProperty *property) const
+QVariant Vector3Manager::value(const QtProperty* property) const
 {
     if (propertyToData.contains(property))
         return propertyToData[property].value;
     return QtVariantPropertyManager::value(property);
 }
 //----------------------------------------------------------------------------------------
-QString Vector3Manager::valueText(const QtProperty *property) const
+QString Vector3Manager::valueText(const QtProperty* property) const
 {
-    if (propertyToData.contains(property)) {
+    if (propertyToData.contains(property))
+    {
         QVariant v = propertyToData[property].value;
         QRectF p = v.value<QRectF>();
-        return QString("(%1;%2;%3)").arg(QString::number(p.x())).arg(QString::number(p.y()))
-                                          .arg(QString::number(p.width()));
+        return QString("(%1;%2;%3)")
+            .arg(QString::number(p.x()))
+            .arg(QString::number(p.y()))
+            .arg(QString::number(p.width()));
     }
     return QtVariantPropertyManager::valueText(property);
 }
 //----------------------------------------------------------------------------------------
-void Vector3Manager::setValue(QtProperty *property, const QVariant &val)
+void Vector3Manager::setValue(QtProperty* property, const QVariant& val)
 {
-    if (propertyToData.contains(property)) {
+    if (propertyToData.contains(property))
+    {
         if (val.type() != QVariant::RectF)
             return;
         QRectF p = val.value<QRectF>();
@@ -499,9 +547,10 @@ void Vector3Manager::setValue(QtProperty *property, const QVariant &val)
     QtVariantPropertyManager::setValue(property, val);
 }
 //----------------------------------------------------------------------------------------
-void Vector3Manager::setPropertyNames(QtProperty *property, QString fx, QString fy, QString fz)
+void Vector3Manager::setPropertyNames(QtProperty* property, QString fx, QString fy, QString fz)
 {
-    if (propertyToData.contains(property)) {
+    if (propertyToData.contains(property))
+    {
         Data d = propertyToData[property];
         d.x->setPropertyName(fx);
         d.y->setPropertyName(fy);
@@ -509,14 +558,15 @@ void Vector3Manager::setPropertyNames(QtProperty *property, QString fx, QString 
     }
 }
 //----------------------------------------------------------------------------------------
-void Vector3Manager::initializeProperty(QtProperty *property)
+void Vector3Manager::initializeProperty(QtProperty* property)
 {
-    if (propertyType(property) == QVariant::RectF) {
+    if (propertyType(property) == QVariant::RectF)
+    {
         Data d;
 
-        d.value = QRectF(0,0,0,0);
+        d.value = QRectF(0, 0, 0, 0);
 
-        Vector3Manager *that = (Vector3Manager *)this;
+        Vector3Manager* that = (Vector3Manager*)this;
 
         d.x = that->addProperty(QVariant::Double);
         d.x->setPropertyName("X");
@@ -538,9 +588,10 @@ void Vector3Manager::initializeProperty(QtProperty *property)
     QtVariantPropertyManager::initializeProperty(property);
 }
 //----------------------------------------------------------------------------------------
-void Vector3Manager::uninitializeProperty(QtProperty *property)
+void Vector3Manager::uninitializeProperty(QtProperty* property)
 {
-    if (propertyToData.contains(property)) {
+    if (propertyToData.contains(property))
+    {
         Data d = propertyToData[property];
         if (d.x)
             xToProperty.remove(d.x);
@@ -555,30 +606,30 @@ void Vector3Manager::uninitializeProperty(QtProperty *property)
 //----------------------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------------------
-Vector2Manager::Vector2Manager(QObject *parent)
-    : QtVariantPropertyManager(parent)
+Vector2Manager::Vector2Manager(QObject* parent) : QtVariantPropertyManager(parent)
 {
-    connect(this, SIGNAL(valueChanged(QtProperty *, const QVariant &)),
-                this, SLOT(slotValueChanged(QtProperty *, const QVariant &)));
-    connect(this, SIGNAL(propertyDestroyed(QtProperty *)),
-                this, SLOT(slotPropertyDestroyed(QtProperty *)));
+    connect(this, SIGNAL(valueChanged(QtProperty*, const QVariant&)), this,
+        SLOT(slotValueChanged(QtProperty*, const QVariant&)));
+    connect(this, SIGNAL(propertyDestroyed(QtProperty*)), this, SLOT(slotPropertyDestroyed(QtProperty*)));
 }
 //----------------------------------------------------------------------------------------
 Vector2Manager::~Vector2Manager()
 {
-
 }
 //----------------------------------------------------------------------------------------
-void Vector2Manager::slotValueChanged(QtProperty *property, const QVariant &value)
+void Vector2Manager::slotValueChanged(QtProperty* property, const QVariant& value)
 {
-    if (xToProperty.contains(property)) {
-        QtProperty *pointProperty = xToProperty[property];
+    if (xToProperty.contains(property))
+    {
+        QtProperty* pointProperty = xToProperty[property];
         QVariant v = this->value(pointProperty);
         QPointF p = v.value<QPointF>();
         p.setX(value.value<double>());
         setValue(pointProperty, p);
-    } else if (yToProperty.contains(property)) {
-        QtProperty *pointProperty = yToProperty[property];
+    }
+    else if (yToProperty.contains(property))
+    {
+        QtProperty* pointProperty = yToProperty[property];
         QVariant v = this->value(pointProperty);
         QPointF p = v.value<QPointF>();
         p.setY(value.value<double>());
@@ -586,14 +637,17 @@ void Vector2Manager::slotValueChanged(QtProperty *property, const QVariant &valu
     }
 }
 //----------------------------------------------------------------------------------------
-void Vector2Manager::slotPropertyDestroyed(QtProperty *property)
+void Vector2Manager::slotPropertyDestroyed(QtProperty* property)
 {
-    if (xToProperty.contains(property)) {
-        QtProperty *pointProperty = xToProperty[property];
+    if (xToProperty.contains(property))
+    {
+        QtProperty* pointProperty = xToProperty[property];
         propertyToData[pointProperty].x = 0;
         xToProperty.remove(property);
-    } else if (yToProperty.contains(property)) {
-        QtProperty *pointProperty = yToProperty[property];
+    }
+    else if (yToProperty.contains(property))
+    {
+        QtProperty* pointProperty = yToProperty[property];
         propertyToData[pointProperty].y = 0;
         yToProperty.remove(property);
     }
@@ -613,16 +667,17 @@ int Vector2Manager::valueType(int propertyType) const
     return QtVariantPropertyManager::valueType(propertyType);
 }
 //----------------------------------------------------------------------------------------
-QVariant Vector2Manager::value(const QtProperty *property) const
+QVariant Vector2Manager::value(const QtProperty* property) const
 {
     if (propertyToData.contains(property))
         return propertyToData[property].value;
     return QtVariantPropertyManager::value(property);
 }
 //----------------------------------------------------------------------------------------
-QString Vector2Manager::valueText(const QtProperty *property) const
+QString Vector2Manager::valueText(const QtProperty* property) const
 {
-    if (propertyToData.contains(property)) {
+    if (propertyToData.contains(property))
+    {
         QVariant v = propertyToData[property].value;
         QPointF p = v.value<QPointF>();
         return QString("(%1;%2)").arg(QString::number(p.x())).arg(QString::number(p.y()));
@@ -630,9 +685,10 @@ QString Vector2Manager::valueText(const QtProperty *property) const
     return QtVariantPropertyManager::valueText(property);
 }
 //----------------------------------------------------------------------------------------
-void Vector2Manager::setValue(QtProperty *property, const QVariant &val)
+void Vector2Manager::setValue(QtProperty* property, const QVariant& val)
 {
-    if (propertyToData.contains(property)) {
+    if (propertyToData.contains(property))
+    {
         if (val.type() != QVariant::PointF)
             return;
         QPointF p = val.value<QPointF>();
@@ -650,23 +706,25 @@ void Vector2Manager::setValue(QtProperty *property, const QVariant &val)
     QtVariantPropertyManager::setValue(property, val);
 }
 //----------------------------------------------------------------------------------------
-void Vector2Manager::setPropertyNames(QtProperty *property, QString fx, QString fy)
+void Vector2Manager::setPropertyNames(QtProperty* property, QString fx, QString fy)
 {
-    if (propertyToData.contains(property)) {
+    if (propertyToData.contains(property))
+    {
         Data d = propertyToData[property];
         d.x->setPropertyName(fx);
         d.y->setPropertyName(fy);
     }
 }
 //----------------------------------------------------------------------------------------
-void Vector2Manager::initializeProperty(QtProperty *property)
+void Vector2Manager::initializeProperty(QtProperty* property)
 {
-    if (propertyType(property) == QVariant::PointF) {
+    if (propertyType(property) == QVariant::PointF)
+    {
         Data d;
 
-        d.value = QPointF(0,0);
+        d.value = QPointF(0, 0);
 
-        Vector2Manager *that = (Vector2Manager *)this;
+        Vector2Manager* that = (Vector2Manager*)this;
 
         d.x = that->addProperty(QVariant::Double);
         d.x->setPropertyName("X");
@@ -683,9 +741,10 @@ void Vector2Manager::initializeProperty(QtProperty *property)
     QtVariantPropertyManager::initializeProperty(property);
 }
 //----------------------------------------------------------------------------------------
-void Vector2Manager::uninitializeProperty(QtProperty *property)
+void Vector2Manager::uninitializeProperty(QtProperty* property)
 {
-    if (propertyToData.contains(property)) {
+    if (propertyToData.contains(property))
+    {
         Data d = propertyToData[property];
         if (d.x)
             xToProperty.remove(d.x);
@@ -696,4 +755,3 @@ void Vector2Manager::uninitializeProperty(QtProperty *property)
     QtVariantPropertyManager::uninitializeProperty(property);
 }
 //----------------------------------------------------------------------------------------
-

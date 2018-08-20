@@ -1,5 +1,5 @@
 /**
- * G.J.P. de Carpentier, 2007 
+ * G.J.P. de Carpentier, 2007
  */
 
 #include "PCH/stdafx.h"

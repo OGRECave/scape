@@ -1,7 +1,7 @@
 /**
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details. 
+ * See Docs/ScapeLicense.txt for details.
  */
 
 #include "PCH/stdafx.h"
@@ -12,113 +12,108 @@
 
 using namespace ScapeEngine;
 
-template<> RenderViewManager* Ogre::Singleton<RenderViewManager>::msSingleton = 0;
-
+template <> RenderViewManager* Ogre::Singleton<RenderViewManager>::msSingleton = 0;
 
 // ----------------------------------------------------------------------------
-RenderViewManager::RenderViewManager()
-:	mCurrentRenderViewId(-1)
+RenderViewManager::RenderViewManager() : mCurrentRenderViewId(-1)
 {
 }
 
 // ----------------------------------------------------------------------------
 RenderViewManager::~RenderViewManager()
 {
-	for (std::pair<long, RenderView*> renderViewPair : mRenderViews)
-	{
-		RenderView* renderView = renderViewPair.second;
-		renderView->destroy();
-		delete renderView;
-	}
-	mRenderViews.clear();
+    for (std::pair<long, RenderView*> renderViewPair : mRenderViews)
+    {
+        RenderView* renderView = renderViewPair.second;
+        renderView->destroy();
+        delete renderView;
+    }
+    mRenderViews.clear();
 }
-
 
 // ----------------------------------------------------------------------------
 RenderView* RenderViewManager::getRenderView(int viewId)
 {
-	RenderViews::iterator renderViewsIt = mRenderViews.find(viewId);
-	if (renderViewsIt != mRenderViews.end())
-	{
-		return renderViewsIt->second;
-	}
-	return NULL;
+    RenderViews::iterator renderViewsIt = mRenderViews.find(viewId);
+    if (renderViewsIt != mRenderViews.end())
+    {
+        return renderViewsIt->second;
+    }
+    return NULL;
 }
-
 
 // ----------------------------------------------------------------------------
-void RenderViewManager::createRenderView(int viewId, const string &windowHandle, int left, int top, int width, int height)
+void RenderViewManager::createRenderView(
+    int viewId, const string& windowHandle, int left, int top, int width, int height)
 {
-	RenderView* renderView;
-	RenderViews::iterator renderViewsIt = mRenderViews.find(viewId);
-	if (renderViewsIt == mRenderViews.end())
-	{
-		renderView = new RenderView(viewId);
-		mRenderViews[viewId] = renderView;
-	}
-	else
-	{
-		renderView = renderViewsIt->second;
-		assert(renderView->getRenderWindow() == NULL);
-		assert(renderView->getViewport() == NULL);
-	}
+    RenderView* renderView;
+    RenderViews::iterator renderViewsIt = mRenderViews.find(viewId);
+    if (renderViewsIt == mRenderViews.end())
+    {
+        renderView = new RenderView(viewId);
+        mRenderViews[viewId] = renderView;
+    }
+    else
+    {
+        renderView = renderViewsIt->second;
+        assert(renderView->getRenderWindow() == NULL);
+        assert(renderView->getViewport() == NULL);
+    }
 
-	renderView->attach(windowHandle, left, top, width, height);
+    renderView->attach(windowHandle, left, top, width, height);
 
-	if (mCurrentRenderViewId == -1)
-	{
-		mCurrentRenderViewId = viewId;
-	}
+    if (mCurrentRenderViewId == -1)
+    {
+        mCurrentRenderViewId = viewId;
+    }
 }
-
 
 // ----------------------------------------------------------------------------
 void RenderViewManager::detachRenderView(int viewId)
 {
-	RenderView* renderView = mRenderViews[viewId];
-	renderView->detach();
+    RenderView* renderView = mRenderViews[viewId];
+    renderView->detach();
 
-	if (mCurrentRenderViewId == viewId)
-	{
-		mCurrentRenderViewId = -1;
-	}
+    if (mCurrentRenderViewId == viewId)
+    {
+        mCurrentRenderViewId = -1;
+    }
 }
-
 
 // ----------------------------------------------------------------------------
 void RenderViewManager::onRenderViewMovedOrResized(int viewId, int left, int top, int width, int height)
 {
-	RenderView* renderView = mRenderViews[viewId];
-	renderView->onMovedOrResized(left, top, width, height);
+    RenderView* renderView = mRenderViews[viewId];
+    renderView->onMovedOrResized(left, top, width, height);
 }
 
-
 // ----------------------------------------------------------------------------
-long RenderViewManager::getViewIdAtRootSpacePosition(const IVector2 &point)
+long RenderViewManager::getViewIdAtRootSpacePosition(const IVector2& point)
 {
-	for (std::pair<long, RenderView*> renderViewPair : mRenderViews)
-	{
-		RenderView* renderView = renderViewPair.second;
-		Ogre::Vector2 out;
-		if (renderView->fromRootToNormalizedLocalSpace(point, out))
-		{
-			return renderViewPair.first;
-		}
-	}
-	return -1;
+    for (std::pair<long, RenderView*> renderViewPair : mRenderViews)
+    {
+        RenderView* renderView = renderViewPair.second;
+        Ogre::Vector2 out;
+        if (renderView->fromRootToNormalizedLocalSpace(point, out))
+        {
+            return renderViewPair.first;
+        }
+    }
+    return -1;
 }
 
 // ----------------------------------------------------------------------------
 void RenderViewManager::updateAll()
 {
-	for (std::pair<long, RenderView*> renderViewPair : mRenderViews)
-	{
-		renderViewPair.second->update();
-	}
+    for (std::pair<long, RenderView*> renderViewPair : mRenderViews)
+    {
+        renderViewPair.second->update();
+    }
 
-	std::pair<RenderView*, Ogre::Vector2> currentView = getEngineCore()->getInputManager()->getInputPointer()->getCurrentState().getRenderView2DPoint();
-	if (currentView.first)
-	{
-		mCurrentRenderViewId = currentView.first->viewId();
-	}
+    std::pair<RenderView*, Ogre::Vector2> currentView
+        = getEngineCore()->getInputManager()->getInputPointer()->getCurrentState().getRenderView2DPoint();
+    if (currentView.first)
+    {
+        mCurrentRenderViewId = currentView.first->viewId();
+    }
 }

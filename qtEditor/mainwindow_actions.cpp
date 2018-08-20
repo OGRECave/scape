@@ -5,7 +5,8 @@
 void MainWindow::aboutApp()
 {
     AboutDialog dialog(this);
-    if(dialog.exec() == QDialog::Accepted) return;
+    if (dialog.exec() == QDialog::Accepted)
+        return;
 }
 
 void MainWindow::importImage()

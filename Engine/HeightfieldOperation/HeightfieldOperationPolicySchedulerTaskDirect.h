@@ -5,9 +5,8 @@
  *
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details. 
+ * See Docs/ScapeLicense.txt for details.
  */
-
 
 #ifndef __HEIGHTFIELDOPERATIONPOLICYSCHEDULERDIRECTTASK_H__
 #define __HEIGHTFIELDOPERATIONPOLICYSCHEDULERDIRECTTASK_H__
@@ -20,95 +19,88 @@
 #include "HeightfieldBuffer/HeightfieldBuffer.h"
 #include "HeightfieldBuffer/HeightfieldBufferSet.h"
 
-namespace ScapeEngine
-{
-	static const int MINWORKMILLIS = 100;
-	class HeightfieldOperationTaskDirect;
+namespace ScapeEngine {
+    static const int MINWORKMILLIS = 100;
+    class HeightfieldOperationTaskDirect;
 
-	
-	template<class SubClass, class ParentClass>
-	class HeightfieldOperationPolicySchedulerTaskDirect : public ParentClass
-	{
-	protected:
-		HeightfieldOperationPolicySchedulerTaskDirect() : ParentClass() {}
+    template <class SubClass, class ParentClass>
+    class HeightfieldOperationPolicySchedulerTaskDirect : public ParentClass
+    {
+    protected:
+        HeightfieldOperationPolicySchedulerTaskDirect() : ParentClass() {}
+        // ----------------------------------------------------------------------------
+        virtual void schedulerTick()
+        {
+            SubClass* operation = static_cast<SubClass*>(this);
 
+            size_t allowedWorkingBrushInstances = 1000;
 
-		// ----------------------------------------------------------------------------
-		virtual void schedulerTick()
-		{
-			SubClass* operation = static_cast<SubClass*>(this);
+            if (mHeightfieldOperationTaskDirectList.empty())
+            {
+                mWorkingBrushInstancesCount = 0;
+            }
 
-			size_t allowedWorkingBrushInstances = 1000;
+            while (operation->getBrushInstanceCount() && mWorkingBrushInstancesCount < allowedWorkingBrushInstances)
+            {
+                BrushInstance brushInstance = operation->popBrushInstance();
+                HeightfieldOperationTaskDirect* operationDirect = operation->createTaskDirect(brushInstance);
+                mHeightfieldOperationTaskDirectList.push_back(operationDirect);
+            }
 
-			if (mHeightfieldOperationTaskDirectList.empty())
-			{
-				mWorkingBrushInstancesCount = 0;
-			}
+            bool isDone = false;
+            while (!isDone)
+            {
+                isDone = true;
+                // Process current list of HeightfieldOperationDirects
+                HeightfieldOperationTaskDirectList::iterator directIt,
+                    directItEnd = mHeightfieldOperationTaskDirectList.end();
+                for (directIt = mHeightfieldOperationTaskDirectList.begin(); directIt != directItEnd;)
+                {
+                    HeightfieldOperationTaskDirect& direct = **directIt;
 
-			while (operation->getBrushInstanceCount() &&  mWorkingBrushInstancesCount < allowedWorkingBrushInstances)
-			{
-				BrushInstance brushInstance = operation->popBrushInstance();
-				HeightfieldOperationTaskDirect* operationDirect = operation->createTaskDirect(brushInstance);
-				mHeightfieldOperationTaskDirectList.push_back(operationDirect);
-			}
+                    bool tryMore = true;
+                    while (tryMore)
+                    {
+                        direct.tick();
+                        tryMore = direct.isActive();
 
-			bool isDone = false;
-			while (!isDone)
-			{
-				isDone = true;
-				// Process current list of HeightfieldOperationDirects
-				HeightfieldOperationTaskDirectList::iterator directIt, directItEnd = mHeightfieldOperationTaskDirectList.end();
-				for (directIt = mHeightfieldOperationTaskDirectList.begin(); directIt != directItEnd;)
-				{
-					HeightfieldOperationTaskDirect& direct = **directIt;
+                        if (Ogre::Root::getSingleton().getTimer()->getMilliseconds() - this->mLastTickMillis
+                            >= MINWORKMILLIS)
+                        {
+                            break;
+                        }
+                    }
 
-					bool tryMore = true;
-					while (tryMore)
-					{
-						direct.tick();
-						tryMore = direct.isActive();
+                    if (direct.isCompleted())
+                    {
+                        operation->getInOutHeightfieldBuffer()->updateGeoms(direct.getUpdatedRect());
 
-						if (Ogre::Root::getSingleton().getTimer()->getMilliseconds() - this->mLastTickMillis >= MINWORKMILLIS)
-						{
-							break;
-						}
-					}
+                        delete *directIt;
+                        mHeightfieldOperationTaskDirectList.erase(directIt++);
+                    }
+                    else
+                    {
+                        ++directIt;
+                        isDone = false;
+                    }
 
-					if (direct.isCompleted())
-					{
-						operation->getInOutHeightfieldBuffer()->updateGeoms(direct.getUpdatedRect());
+                    if (Ogre::Root::getSingleton().getTimer()->getMilliseconds() - this->mLastTickMillis
+                        >= MINWORKMILLIS)
+                    {
+                        break;
+                    }
+                }
+            }
 
-						delete *directIt;
-						mHeightfieldOperationTaskDirectList.erase(directIt++);	
-					}
-					else
-					{
-						++directIt;
-						isDone = false;
-					}
+            // mLastTickMillis = Ogre::Root::getSingleton().getTimer()->getMilliseconds();
+        }
 
-					if (Ogre::Root::getSingleton().getTimer()->getMilliseconds() - this->mLastTickMillis >= MINWORKMILLIS)
-					{
-						break;
-					}
-				}
-			}
-
-			//mLastTickMillis = Ogre::Root::getSingleton().getTimer()->getMilliseconds();
-
-		}
-
-
-		// ----------------------------------------------------------------------------
-		virtual bool isSchedulerDone()
-		{
-			return mHeightfieldOperationTaskDirectList.empty();
-		}
-
-	private:
-		HeightfieldOperationTaskDirectList mHeightfieldOperationTaskDirectList;
-		size_t mWorkingBrushInstancesCount;
-	};
+        // ----------------------------------------------------------------------------
+        virtual bool isSchedulerDone() { return mHeightfieldOperationTaskDirectList.empty(); }
+    private:
+        HeightfieldOperationTaskDirectList mHeightfieldOperationTaskDirectList;
+        size_t mWorkingBrushInstancesCount;
+    };
 }
 
 #endif // __HEIGHTFIELDOPERATIONPOLICYSCHEDULERDIRECTTASK_H__

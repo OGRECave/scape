@@ -13,45 +13,43 @@
 
 #include "EngineInterface.h"
 
-namespace ScapeEditor
-{
-	// ----------------------------------------------------------------------------
-	struct FileExportItem
-	{
-		string name;
-		string label;
-		string description;
-	};
+namespace ScapeEditor {
+    // ----------------------------------------------------------------------------
+    struct FileExportItem
+    {
+        string name;
+        string label;
+        string description;
+    };
 
-	typedef std::list<FileExportItem> FileExportItemList;
+    typedef std::list<FileExportItem> FileExportItemList;
 
-	// ----------------------------------------------------------------------------
-	class FileExportDialog : public wxDialog
-	{
-		DECLARE_CLASS(FileExportDialog)
+    // ----------------------------------------------------------------------------
+    class FileExportDialog : public wxDialog
+    {
+        DECLARE_CLASS(FileExportDialog)
 
+    public:
+        FileExportDialog(wxWindow* parentWindow, wxWindowID windowId, const FileExportItemList& encoders,
+            const string& selectedEncoder, bool flipX, bool flipY);
 
-	public:
-		FileExportDialog(wxWindow* parentWindow, wxWindowID windowId, const FileExportItemList& encoders, const string& selectedEncoder, bool flipX, bool flipY);
+        string getSelectionName() { return mSelectedItemName; }
+        bool isFlipXChecked() { return mFlipXCheckBox->GetValue(); }
+        bool isFlipYChecked() { return mFlipYCheckBox->GetValue(); }
+    protected:
+        wxListBox* mListBox;
+        wxTextCtrl* mDescriptionTextCtrl;
+        wxCheckBox* mFlipXCheckBox;
+        wxCheckBox* mFlipYCheckBox;
 
-		string getSelectionName() {return mSelectedItemName;}
-		bool isFlipXChecked() {return mFlipXCheckBox->GetValue();}
-		bool isFlipYChecked() {return mFlipYCheckBox->GetValue();}
+        FileExportItemList mEncoders;
+        string mSelectedItemName;
 
-	protected:
-		wxListBox* mListBox;
-		wxTextCtrl* mDescriptionTextCtrl;
-		wxCheckBox* mFlipXCheckBox;
-		wxCheckBox* mFlipYCheckBox;
+        DECLARE_EVENT_TABLE()
 
-		FileExportItemList mEncoders;
-		string mSelectedItemName;
-
-		DECLARE_EVENT_TABLE()
-
-		void onListBoxSelect(wxCommandEvent& event);
-		void onListBoxDClick(wxCommandEvent& event);
-	};
+        void onListBoxSelect(wxCommandEvent& event);
+        void onListBoxDClick(wxCommandEvent& event);
+    };
 }
 
 #endif // __FILEEXPORTDIALOG_H__

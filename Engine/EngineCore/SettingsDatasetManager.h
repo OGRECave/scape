@@ -5,40 +5,39 @@
  *
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details. 
+ * See Docs/ScapeLicense.txt for details.
  */
-
 
 #ifndef __SETTINGSDATASETMANAGER_H__
 #define __SETTINGSDATASETMANAGER_H__
 
-namespace ScapeEngine
-{
-	class SettingsDataset;
+namespace ScapeEngine {
+    class SettingsDataset;
 
-	class SettingsDatasetManager
-	{
-	public:
-		~SettingsDatasetManager();
+    class SettingsDatasetManager
+    {
+    public:
+        ~SettingsDatasetManager();
 
-		void setDatasetResourcePath(const string& path);
+        void setDatasetResourcePath(const string& path);
 
-		SettingsDataset* getDataset(const string& datasetName) const;
+        SettingsDataset* getDataset(const string& datasetName) const;
 
-		string getSetting(const string& datasetName, const string& section, const string& subsection, const string& key) const;
+        string getSetting(
+            const string& datasetName, const string& section, const string& subsection, const string& key) const;
 
-		void setSetting(const string& datasetName, const string& section, const string& subsection, const string& key, const string& value);
+        void setSetting(const string& datasetName, const string& section, const string& subsection, const string& key,
+            const string& value);
 
-		void saveAllDirty();
+        void saveAllDirty();
 
-	protected:
-		typedef std::map<string, SettingsDataset*> DatasetMap;
-		mutable DatasetMap mDatasetMap;
-		string mDatasetResourcePath;
+    protected:
+        typedef std::map<string, SettingsDataset*> DatasetMap;
+        mutable DatasetMap mDatasetMap;
+        string mDatasetResourcePath;
 
-		string getPathFromDatasetName(const string& dataset) const;
-
-	};
+        string getPathFromDatasetName(const string& dataset) const;
+    };
 }
 
 #endif // __SETTINGSDATASETMANAGER_H__

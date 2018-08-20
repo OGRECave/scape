@@ -5,93 +5,82 @@
  *
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details. 
+ * See Docs/ScapeLicense.txt for details.
  */
-
 
 #ifndef __HEIGHTFIELDBUFFERPAGE_H__
 #define __HEIGHTFIELDBUFFERPAGE_H__
 
-namespace ScapeEngine
-{
-	class HeightfieldBuffer;
-	class HeightfieldBufferSet;
+namespace ScapeEngine {
+    class HeightfieldBuffer;
+    class HeightfieldBufferSet;
 
-	typedef Utils::GUID HeightfieldBufferPageVersion;
-	
-	class HeightfieldBufferPage
-	{
+    typedef Utils::GUID HeightfieldBufferPageVersion;
 
-	public:
+    class HeightfieldBufferPage
+    {
+    public:
+        HeightfieldBufferPage(HeightfieldBuffer* heightfieldBuffer, int pageColumn, int pageRow);
 
-		HeightfieldBufferPage(HeightfieldBuffer* heightfieldBuffer, int pageColumn, int pageRow);
+        ~HeightfieldBufferPage();
 
-		~HeightfieldBufferPage();
+        inline HeightfieldBufferSet* getHeightfieldBufferSet() const { return mHeightfieldBufferSet; }
+        Ogre::PixelFormat getHeightElementFormat() const { return mHeightElementFormat; }
+        inline int getHeightfieldBufferCount() const { return mHeightfieldBuffers.size(); }
+        inline HeightfieldBufferPageVersion getVersion() const { return mVersion; }
+        inline void setVersion(HeightfieldBufferPageVersion version) { mVersion = version; }
+        void increaseVersion();
 
-		inline HeightfieldBufferSet* getHeightfieldBufferSet() const {return mHeightfieldBufferSet;}
+        void addHeightfieldBuffer(HeightfieldBuffer* heightfieldBuffer);
 
-		Ogre::PixelFormat getHeightElementFormat() const {return mHeightElementFormat;}
+        void removeHeightfieldBuffer(HeightfieldBuffer* heightfieldBuffer);
 
-		inline int getHeightfieldBufferCount() const {return mHeightfieldBuffers.size();}
+        void removeAllHeightfieldBuffers();
 
-		inline HeightfieldBufferPageVersion getVersion() const {return mVersion;}
+        // Update invalidated data. Returns true if it requires another pass after this one
+        bool revalidatePass();
 
-		inline void setVersion(HeightfieldBufferPageVersion version) {mVersion = version;}
+        // Update some area of this HeightfieldBufferPage with the given pixelbox
+        void updateFrom(const Ogre::PixelBox& relativePixelBox);
 
-		void increaseVersion();
+        // Update some area of this HeightfieldBufferPage with the given pixelbox
+        void copyTo(Ogre::PixelBox& relativePixelBox);
 
-		void addHeightfieldBuffer(HeightfieldBuffer* heightfieldBuffer);
+        // Get access to texture memory (or a shadow copy to it). Don't forget to increase the version number if
+        // the texture memory is written to.
+        Ogre::PixelBox getRawHeightData();
 
-		void removeHeightfieldBuffer(HeightfieldBuffer* heightfieldBuffer);
+        Ogre::Rect getAbsoluteRect();
 
-		void removeAllHeightfieldBuffers();
+        void cloneDataFrom(HeightfieldBufferPage* const heightfieldBufferPage);
 
-		// Update invalidated data. Returns true if it requires another pass after this one
-		bool revalidatePass(); 
+        bool containsData();
 
-		// Update some area of this HeightfieldBufferPage with the given pixelbox
-		void updateFrom(const Ogre::PixelBox& relativePixelBox);
+        void clearData();
 
-		// Update some area of this HeightfieldBufferPage with the given pixelbox
-		void copyTo(Ogre::PixelBox& relativePixelBox);
+        void unlockAll();
 
-		// Get access to texture memory (or a shadow copy to it). Don't forget to increase the version number if
-		// the texture memory is written to.
-		Ogre::PixelBox getRawHeightData();
+        inline int getPageColumn() { return mPageColumn; }
+        inline int getPageRow() { return mPageRow; }
+        void updateGeoms(const Ogre::Rect& rect);
 
-		Ogre::Rect getAbsoluteRect();
+        Ogre::TexturePtr getHeightTexture();
 
-		void cloneDataFrom(HeightfieldBufferPage* const heightfieldBufferPage);
+    private:
+        HeightfieldBufferPageVersion mVersion;
 
-		bool containsData();
+        std::list<HeightfieldBuffer*> mHeightfieldBuffers;
 
-		void clearData();
+        int mPageColumn, mPageRow;
 
-		void unlockAll();
+        Ogre::TexturePtr _mHeightTexture;
 
-		inline int getPageColumn() {return mPageColumn;}
+        HeightfieldBufferSet* mHeightfieldBufferSet;
 
-		inline int getPageRow() {return mPageRow;}
+        Ogre::PixelFormat mHeightElementFormat;
 
-		void updateGeoms(const Ogre::Rect& rect);
-
-		Ogre::TexturePtr getHeightTexture();
-	private:
-
-		HeightfieldBufferPageVersion mVersion;
-
-		std::list<HeightfieldBuffer*> mHeightfieldBuffers;
-
-		int mPageColumn, mPageRow;
-
-		Ogre::TexturePtr _mHeightTexture;
-
-		HeightfieldBufferSet* mHeightfieldBufferSet;
-
-		Ogre::PixelFormat mHeightElementFormat;
-
-		Ogre::PixelFormat getPackedFormat();
-	};
+        Ogre::PixelFormat getPackedFormat();
+    };
 }
 
 #endif // __HEIGHTFIELDBUFFERPAGE_H__

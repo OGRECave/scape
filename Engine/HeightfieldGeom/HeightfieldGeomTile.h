@@ -5,52 +5,43 @@
  *
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details. 
+ * See Docs/ScapeLicense.txt for details.
  */
-
 
 #ifndef __HEIGHTFIELDGEOMTILE_H__
 #define __HEIGHTFIELDGEOMTILE_H__
 
-namespace ScapeEngine
-{
+namespace ScapeEngine {
 
-	class HeightfieldGeomTile : public Ogre::SimpleRenderable
-	{
-	public:
-		HeightfieldGeomTile(
-			class HeightfieldGeom* heightfieldGeom, 
-			const Ogre::Rect& visibleQuadRect, 
-			size_t bufferedQuadColumnCount, 
-			size_t bufferQuadRowCount,
-			const string& name = Utils::emptyString);
+    class HeightfieldGeomTile : public Ogre::SimpleRenderable
+    {
+    public:
+        HeightfieldGeomTile(class HeightfieldGeom* heightfieldGeom, const Ogre::Rect& visibleQuadRect,
+            size_t bufferedQuadColumnCount, size_t bufferQuadRowCount, const string& name = Utils::emptyString);
 
+        ~HeightfieldGeomTile();
 
-		~HeightfieldGeomTile();
-
-		/** Returns the type name of this object. */
-		virtual const string& getMovableType() const {return mMovableType;}
-
-		/** Retrieves the radius of the origin-centered bounding sphere 
-		 	 for this object.
-		*/
-		virtual Ogre::Real getBoundingRadius() const {return mBoundingRadius;}
-
+        /** Returns the type name of this object. */
+        virtual const string& getMovableType() const { return mMovableType; }
+        /** Retrieves the radius of the origin-centered bounding sphere
+                 for this object.
+        */
+        virtual Ogre::Real getBoundingRadius() const { return mBoundingRadius; }
         /** Retrieves a weak reference to the material this renderable object uses.
         @remarks
             Note that the Renderable also has the option to override the getTechnique method
             to specify a particular Technique to use instead of the best one available.
         */
-		virtual const Ogre::MaterialPtr& getMaterial() const;
+        virtual const Ogre::MaterialPtr& getMaterial() const;
 
-		/** Returns the camera-relative squared depth of this renderable.
-		@remarks
-			Used to sort transparent objects. Squared depth is used rather than
-			actual depth to avoid having to perform a square root on the result.
-		*/
-		virtual Ogre::Real getSquaredViewDepth(const Ogre::Camera* cam) const;
+        /** Returns the camera-relative squared depth of this renderable.
+        @remarks
+                Used to sort transparent objects. Squared depth is used rather than
+                actual depth to avoid having to perform a square root on the result.
+        */
+        virtual Ogre::Real getSquaredViewDepth(const Ogre::Camera* cam) const;
 
-        /** Update a custom GpuProgramParameters constant which is derived from 
+        /** Update a custom GpuProgramParameters constant which is derived from
             information only this Renderable knows.
         @remarks
             This method allows a Renderable to map in a custom GPU program parameter
@@ -58,7 +49,7 @@ namespace ScapeEngine
             of ACT_CUSTOM, and to allow there to be more than one of these per
             Renderable, the 'data' field on the auto parameter will identify
             which parameter is being updated. The implementation of this method
-            must identify the parameter being updated, and call a 'setConstant' 
+            must identify the parameter being updated, and call a 'setConstant'
             method on the passed in GpuProgramParameters object, using the details
             provided in the incoming auto constant setting to identify the index
             at which to set the parameter.
@@ -71,93 +62,79 @@ namespace ScapeEngine
             this if they want, in any case.
         @param constantEntry The auto constant entry referring to the parameter
             being updated
-        @param params The parameters object which this method should call to 
+        @param params The parameters object which this method should call to
             set the updated parameters.
         */
-        virtual void _updateCustomGpuParameter(
-			const Ogre::GpuProgramParameters::AutoConstantEntry& constantEntry,
-			Ogre::GpuProgramParameters* params) const;
+        virtual void _updateCustomGpuParameter(const Ogre::GpuProgramParameters::AutoConstantEntry& constantEntry,
+            Ogre::GpuProgramParameters* params) const;
 
-		/** Internal method to notify the object of the camera to be used for the next rendering operation.
-            @remarks
-                Certain objects may want to do specific processing based on the camera position. This method notifies
-                them incase they wish to do this.
-        */
-		virtual void _notifyCurrentCamera(Ogre::Camera* cam);
+        /** Internal method to notify the object of the camera to be used for the next rendering operation.
+    @remarks
+        Certain objects may want to do specific processing based on the camera position. This method notifies
+        them incase they wish to do this.
+*/
+        virtual void _notifyCurrentCamera(Ogre::Camera* cam);
 
-		inline void markDirtyData() {mDirtyData = true;}
+        inline void markDirtyData() { mDirtyData = true; }
+        inline void markDirtyDataNeighbor() { mDirtyDataNeighbor = true; }
+        inline void markDirtyMaterial() { mDirtyMaterial = true; }
+        inline bool isDirtyData() const { return mDirtyData; }
+        inline bool isDirtyDataNeighbor() const { return mDirtyDataNeighbor; }
+        inline bool isDirtyMaterial() const { return mDirtyMaterial; }
+        inline HeightfieldGeom* getHeightfieldGeom() const { return mHeightfieldGeom; }
+        inline Ogre::Rect getVisibleQuadRect() const { return mVisibleQuadRect; }
+        inline int getTemplateQuadColumnCount() const { return mTemplateQuadColumnCount; }
+        inline int getTemplateQuadRowCount() const { return mTemplateQuadRowCount; }
+        int needsLODUpdate() const;
 
-		inline void markDirtyDataNeighbor() {mDirtyDataNeighbor = true;}
+        int getCurrentLODSpacing() const;
 
-		inline void markDirtyMaterial() {mDirtyMaterial = true;}
+        void updateLOD();
 
-		inline bool isDirtyData() const {return mDirtyData;}
+        void postFrameUpdate();
 
-		inline bool isDirtyDataNeighbor() const {return mDirtyDataNeighbor;}
+        void addNeighbor(HeightfieldGeomTile* neighborTile);
 
-		inline bool isDirtyMaterial() const {return mDirtyMaterial;}
+        const std::list<HeightfieldGeomTile*>& getNeighbors() { return mNeighborTiles; }
+    private:
+        static const string mMovableType;
 
-		inline HeightfieldGeom* getHeightfieldGeom() const {return mHeightfieldGeom;}
+        class HeightfieldGeom* mHeightfieldGeom;
 
-		inline Ogre::Rect getVisibleQuadRect() const {return mVisibleQuadRect;}
+        bool mDirtyData;
 
-		inline int getTemplateQuadColumnCount() const {return mTemplateQuadColumnCount;}
+        bool mDirtyDataNeighbor;
 
-		inline int getTemplateQuadRowCount() const {return mTemplateQuadRowCount;}
+        bool mDirtyMaterial;
 
-		int needsLODUpdate() const;
+        Ogre::Rect mVisibleQuadRect;
 
-		int getCurrentLODSpacing() const;
+        int mTemplateQuadColumnCount;
 
-		void updateLOD();
+        int mTemplateQuadRowCount;
 
-		void postFrameUpdate();
+        int mQuadColumnSpacing;
 
-		void addNeighbor(HeightfieldGeomTile* neighborTile);
+        int mQuadRowSpacing;
 
-		const std::list<HeightfieldGeomTile*>& getNeighbors() {return mNeighborTiles;}
+        Ogre::Real mBoundingRadius;
 
-	private:
-		static const string mMovableType;
+        class ShaderCustomAutoConstants* mGeomTileShaderCustomAutoConstants;
 
-		class HeightfieldGeom* mHeightfieldGeom;
+        Ogre::Real mFrameLeastSquaredPixelsWorldQuad;
 
-		bool mDirtyData;
+        void revalidate();
 
-		bool mDirtyDataNeighbor;
+        void updateRenderOperation();
 
-		bool mDirtyMaterial;
+        void updateRenderIndexBuffer();
 
-		Ogre::Rect mVisibleQuadRect;
+        int getBestLODSpacing() const;
 
-		int mTemplateQuadColumnCount;
+        unsigned long mLastMillisRevalidate;
 
-		int mTemplateQuadRowCount;
-
-		int mQuadColumnSpacing;
-
-		int mQuadRowSpacing;
-
-		Ogre::Real mBoundingRadius;
-
-		class ShaderCustomAutoConstants* mGeomTileShaderCustomAutoConstants;
-
-		Ogre::Real mFrameLeastSquaredPixelsWorldQuad;
-
-		void revalidate();
-
-		void updateRenderOperation();
-
-		void updateRenderIndexBuffer();
-
-		int getBestLODSpacing() const;
-
-		unsigned long mLastMillisRevalidate;
-
-		std::list<HeightfieldGeomTile*> mNeighborTiles;
-
-	};
-
+        std::list<HeightfieldGeomTile*> mNeighborTiles;
+    };
 }
 
 #endif // __HEIGHTFIELDGEOMTILE_H__

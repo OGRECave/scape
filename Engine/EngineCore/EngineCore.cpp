@@ -6,7 +6,6 @@
 
 #include "PCH/stdafx.h"
 
-#include "OIS/OIS.h"
 #include "Input/InputManager.h"
 #include "Input/InputPointer.h"
 #include "SettingsDatasetManager.h"

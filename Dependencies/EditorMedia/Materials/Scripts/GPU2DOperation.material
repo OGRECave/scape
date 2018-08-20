@@ -11,7 +11,7 @@ vertex_program GPU2DOperationCgVP cg
 {
   source GPU2DOperation.cg
   entry_point main_vp
-  profiles vs_3_0 arbvp1
+  profiles vs_3_0 glslv
 }
 
 
@@ -55,7 +55,7 @@ fragment_program GPU2DOperationCopyCgFP cg
 {
   source GPU2DOperation.cg
   entry_point main_fp
-  profiles ps_3_0 arbfp1
+  profiles ps_3_0 glslf
   compile_arguments -bestprecision
 }
 
@@ -80,7 +80,7 @@ fragment_program GPU2DOperationUnpackCgFP cg
 {
   source GPU2DOperationUnpack.cg
   entry_point main_fp
-  profiles ps_3_0 arbfp1
+  profiles ps_3_0 glslf
   compile_arguments -bestprecision
 }
 
@@ -105,7 +105,7 @@ fragment_program GPU2DOperationBrushCgFP cg
 {
   source GPU2DOperationBrush.cg
   entry_point main_fp
-  profiles ps_3_0 arbfp1
+  profiles ps_3_0 glslf
   compile_arguments -bestprecision
 }
 
@@ -130,7 +130,7 @@ fragment_program GPU2DOperationPencilCgFP cg
 {
   source GPU2DOperationPencil.cg
   entry_point main_fp
-  profiles ps_3_0 arbfp1
+  profiles ps_3_0 glslf
   compile_arguments -bestprecision
 }
 
@@ -156,7 +156,7 @@ fragment_program GPU2DOperationAddMaskCgFP cg
 {
   source GPU2DOperationAddMask.cg
   entry_point main_fp
-  profiles ps_3_0 arbfp1
+  profiles ps_3_0 glslf
   compile_arguments -bestprecision -DLOOKUP_COUNT=1
 }
 
@@ -189,7 +189,7 @@ fragment_program GPU2DOperationAddMask2CgFP cg
 {
   source GPU2DOperationAddMask.cg
   entry_point main_fp
-  profiles ps_3_0 arbfp1
+  profiles ps_3_0 glslf
   compile_arguments -bestprecision -DLOOKUP_COUNT=2
 }
 
@@ -222,7 +222,7 @@ fragment_program GPU2DOperationAddMask3CgFP cg
 {
   source GPU2DOperationAddMask.cg
   entry_point main_fp
-  profiles ps_3_0 arbfp1
+  profiles ps_3_0 glslf
   compile_arguments -bestprecision -DLOOKUP_COUNT=3
 }
 
@@ -255,7 +255,7 @@ fragment_program GPU2DOperationAddMask4CgFP cg
 {
   source GPU2DOperationAddMask.cg
   entry_point main_fp
-  profiles ps_3_0 arbfp1
+  profiles ps_3_0 glslf
   compile_arguments -bestprecision -DLOOKUP_COUNT=4
 }
 
@@ -314,7 +314,7 @@ fragment_program GPU2DOperationNoiseMaskCgFP_PERLIN cg
 {
   source GPU2DOperationNoiseMask.cg
   entry_point main_fp
-  profiles ps_3_0 arbfp1
+  profiles ps_3_0 glslf
   compile_arguments -bestprecision -DNOISEFUNC=perlinTurbulence
 }
 material GPU2DOperationNoiseMask_PERLIN : GPU2DOperationNoiseMask
@@ -338,7 +338,7 @@ fragment_program GPU2DOperationNoiseMaskCgFP_RIDGED cg
 {
   source GPU2DOperationNoiseMask.cg
   entry_point main_fp
-  profiles ps_3_0 arbfp1
+  profiles ps_3_0 glslf
   compile_arguments -bestprecision -DNOISEFUNC=ridgedTurbulence
 }
 material GPU2DOperationNoiseMask_RIDGED : GPU2DOperationNoiseMask
@@ -362,7 +362,7 @@ fragment_program GPU2DOperationNoiseMaskCgFP_BILLOWED cg
 {
   source GPU2DOperationNoiseMask.cg
   entry_point main_fp
-  profiles ps_3_0 arbfp1
+  profiles ps_3_0 glslf
   compile_arguments -bestprecision -DNOISEFUNC=billowedTurbulence
 }
 material GPU2DOperationNoiseMask_BILLOWED : GPU2DOperationNoiseMask
@@ -386,7 +386,7 @@ fragment_program GPU2DOperationNoiseMaskCgFP_IQ cg
 {
   source GPU2DOperationNoiseMask.cg
   entry_point main_fp
-  profiles ps_3_0 arbfp1
+  profiles ps_3_0 glslf
   compile_arguments -bestprecision -DNOISEFUNC=iqTurbulence
 }
 material GPU2DOperationNoiseMask_IQ : GPU2DOperationNoiseMask
@@ -409,7 +409,7 @@ fragment_program GPU2DOperationNoiseMaskCgFP_EROSION1 cg
 {
   source GPU2DOperationNoiseMask.cg
   entry_point main_fp
-  profiles ps_3_0 arbfp1
+  profiles ps_3_0 glslf
   compile_arguments -bestprecision -DNOISEFUNC=erosion1Turbulence
 }
 material GPU2DOperationNoiseMask_EROSION1 : GPU2DOperationNoiseMask
@@ -432,7 +432,7 @@ fragment_program GPU2DOperationNoiseMaskCgFP_EROSION2 cg
 {
   source GPU2DOperationNoiseMask.cg
   entry_point main_fp
-  profiles ps_3_0 arbfp1
+  profiles ps_3_0 glslf
   compile_arguments -bestprecision -DNOISEFUNC=erosion1Turbulence
 }
 material GPU2DOperationNoiseMask_EROSION2 : GPU2DOperationNoiseMask
@@ -456,7 +456,7 @@ fragment_program GPU2DOperationNoiseDragCgFP cg
 {
   source GPU2DOperationNoiseDrag.cg
   entry_point main_fp
-  profiles ps_3_0 arbfp1
+  profiles ps_3_0 glslf
   compile_arguments -bestprecision
 }
 

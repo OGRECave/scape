@@ -5,7 +5,7 @@
  *
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details. 
+ * See Docs/ScapeLicense.txt for details.
  */
 
 #ifndef __UIELEMENTTOOLBAR_H__
@@ -16,65 +16,60 @@
 // ----------------------------------------------------------------------------
 namespace ScapeEngine
 {
-	// ----------------------------------------------------------------------------
-	struct string;
+// ----------------------------------------------------------------------------
+struct string;
 }
 
 // ----------------------------------------------------------------------------
 namespace ScapeEditor
 {
-	// ----------------------------------------------------------------------------
-	class UIElementToolBarListener
-	{
-	public:
-		virtual void onToolBarItemClicked(const wxString& toolBarName, const wxString& itemName, int itemCategory) = 0;
-	};
+// ----------------------------------------------------------------------------
+class UIElementToolBarListener
+{
+public:
+    virtual void onToolBarItemClicked(const wxString& toolBarName, const wxString& itemName,
+                                      int itemCategory) = 0;
+};
 
+// ----------------------------------------------------------------------------
+struct UIElementToolBarItem
+{
+    string name;
+    string label;
+    string description;
+    string icon;
+    int category;
+};
 
-	// ----------------------------------------------------------------------------
-	struct UIElementToolBarItem
-	{
-		string name;
-		string label;
-		string description;
-		string icon;
-		int category;
-	};
+typedef std::list<UIElementToolBarItem> UIElementToolBarItemList;
 
-	typedef std::list<UIElementToolBarItem> UIElementToolBarItemList;
+// ----------------------------------------------------------------------------
+class UIElementToolBar : public wxToolBar
+{
+    DECLARE_CLASS(UIElementToolBar);
 
+public:
+    UIElementToolBar(const wxString& toolBarName, wxWindow* parentWindow,
+                     UIElementToolBarListener* listener, wxAuiManager* auiManager);
 
+    ~UIElementToolBar();
 
-	// ----------------------------------------------------------------------------
-	class UIElementToolBar : public wxToolBar
-	{
-		DECLARE_CLASS(UIElementToolBar);
+    void populate(const UIElementToolBarItemList& descs);
 
-	public:
-		UIElementToolBar(
-			const wxString& toolBarName,
-			wxWindow* parentWindow, 
-			UIElementToolBarListener* listener,
-			wxAuiManager* auiManager);
+    wxString getToolBarName() { return mToolBarName; }
 
-		~UIElementToolBar();
+protected:
+    DECLARE_EVENT_TABLE()
 
-		void populate(const UIElementToolBarItemList& descs);
+    typedef std::vector<UIElementToolBarItem> UIElementToolBarItemVector;
+    UIElementToolBarItemVector mItemVector;
 
-		wxString getToolBarName() {return mToolBarName;}
+    wxString mToolBarName;
+    wxAuiManager* mAuiManager;
+    UIElementToolBarListener* mListener;
 
-	protected:
-		DECLARE_EVENT_TABLE()
-
-		typedef std::vector<UIElementToolBarItem> UIElementToolBarItemVector;
-		UIElementToolBarItemVector mItemVector;
-
-		wxString mToolBarName;
-		wxAuiManager* mAuiManager;
-		UIElementToolBarListener* mListener;
-
-		void onItemClicked(wxCommandEvent& event);
-	};
+    void onItemClicked(wxCommandEvent& event);
+};
 }
 
 #endif __UIELEMENTTOOLBAR_H__

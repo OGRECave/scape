@@ -1,11 +1,11 @@
 /*/////////////////////////////////////////////////////////////////////////////////
 /// This file is part of
-///    ___                   _ _ _             
-///   /___\__ _ _ __ ___  __| (_) |_ ___  _ __ 
+///    ___                   _ _ _
+///   /___\__ _ _ __ ___  __| (_) |_ ___  _ __
 ///  //  // _` | '__/ _ \/ _` | | __/ _ \| '__|
-/// / \_// (_| | | |  __/ (_| | | || (_) | |   
-/// \___/ \__, |_|  \___|\__,_|_|\__\___/|_|   
-///       |___/                                
+/// / \_// (_| | | |  __/ (_| | | || (_) | |
+/// \___/ \__, |_|  \___|\__,_|_|\__\___/|_|
+///       |___/
 ///             Copyright (c) 2010 Jacob 'jacmoe' Moen
 /// The MIT License
 ///
@@ -25,15 +25,15 @@
 /// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 /// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-/// THE SOFTWARE. 
+/// THE SOFTWARE.
 ///////////////////////////////////////////////////////////////////////////////////*/
 // For compilers that support precompilation, includes "wx/wx.h".
 #include "wx/wxprec.h"
 
-#include "wxOgreditor.h"
 #include "MainFrame.h"
-#include "renderpanel.h"
 #include "paths.h"
+#include "renderpanel.h"
+#include "wxOgreditor.h"
 #include <OgrePlugin.h>
 
 #include <wx/splash.h>
@@ -46,8 +46,8 @@
 // handlers) which process them. It can be also done at run-time, but for the
 // simple menu events like this the static method is much simpler.
 BEGIN_EVENT_TABLE(MainFrame, wxFrame)
-    EVT_MENU(Minimal_Quit,  MainFrame::OnQuit)
-    EVT_MENU(Minimal_About, MainFrame::OnAbout)
+EVT_MENU(Minimal_Quit, MainFrame::OnQuit)
+EVT_MENU(Minimal_About, MainFrame::OnAbout)
 END_EVENT_TABLE()
 
 // Create a new application object: this macro will allow wxWidgets to create
@@ -56,7 +56,7 @@ END_EVENT_TABLE()
 // wxGetApp() which will return the reference of the right type (i.e. MyApp and
 // not wxApp)
 IMPLEMENT_APP(OgreditorApp)
-IMPLEMENT_CLASS( OgreditorApp, wxApp )
+IMPLEMENT_CLASS(OgreditorApp, wxApp)
 
 // ============================================================================
 // implementation
@@ -66,10 +66,7 @@ IMPLEMENT_CLASS( OgreditorApp, wxApp )
 // the application class
 // ----------------------------------------------------------------------------
 
-OgreditorApp::OgreditorApp()
-    : m_OgreRoot(0)
-{
-}
+OgreditorApp::OgreditorApp() : m_OgreRoot(0) {}
 // 'Main program' equivalent: the program execution "starts" here
 bool OgreditorApp::OnInit()
 {
@@ -86,34 +83,32 @@ bool OgreditorApp::OnInit()
     wxImage::AddHandler(new wxGIFHandler);
 #endif
 
-//#ifndef _DEBUG
-//    wxString bmppath = getDataPath() + "Images/OgitorLogo.png";
-//    wxSplashScreen* splash = new wxSplashScreen(wxBitmap(bmppath, wxBITMAP_TYPE_PNG),
-//        wxSPLASH_CENTRE_ON_SCREEN | wxSPLASH_NO_TIMEOUT,
-//        5000, 0, -1, wxDefaultPosition, wxDefaultSize,
-//        wxSIMPLE_BORDER | wxFRAME_NO_TASKBAR | wxSTAY_ON_TOP);
-//    wxYield();
-//#endif
+    //#ifndef _DEBUG
+    //    wxString bmppath = getDataPath() + "Images/OgitorLogo.png";
+    //    wxSplashScreen* splash = new wxSplashScreen(wxBitmap(bmppath, wxBITMAP_TYPE_PNG),
+    //        wxSPLASH_CENTRE_ON_SCREEN | wxSPLASH_NO_TIMEOUT,
+    //        5000, 0, -1, wxDefaultPosition, wxDefaultSize,
+    //        wxSIMPLE_BORDER | wxFRAME_NO_TASKBAR | wxSTAY_ON_TOP);
+    //    wxYield();
+    //#endif
 
-	mConfig = new wxConfig("wxOgreditor");
+    mConfig = new wxConfig("wxOgreditor");
 
     SetupOgre();
 
     // call the base class initialization method, currently it only parses a
     // few common command-line options but it could be do more in the future
-    if ( !wxApp::OnInit() )
+    if (!wxApp::OnInit())
         return false;
 
     // create the main application window
-    MainFrame *frame = new MainFrame("Minimal wxWidgets App");
-
+    MainFrame* frame = new MainFrame("Minimal wxWidgets App");
 
     frame->GetRenderPanel()->SetupOgre();
 
-//#ifndef _DEBUG
-//	splash->Destroy();
-//#endif
-
+    //#ifndef _DEBUG
+    //	splash->Destroy();
+    //#endif
 
     // and show it (the frames, unlike simple controls, are not shown when
     // created initially)
@@ -128,8 +123,8 @@ bool OgreditorApp::OnInit()
 int OgreditorApp::OnExit()
 {
     delete m_OgreRoot;
-	
-	return wxApp::OnExit();
+
+    return wxApp::OnExit();
 }
 
 bool OgreditorApp::SetupOgre()
@@ -142,7 +137,7 @@ bool OgreditorApp::SetupOgre()
     required_plugins.push_back("GL RenderSystem");
     required_plugins.push_back("Octree Scene Manager");
 
-    // Load the OpenGL RenderSystem and the Octree SceneManager plugins
+// Load the OpenGL RenderSystem and the Octree SceneManager plugins
 #ifdef _DEBUG
     Ogre::StringVector rp_debug;
     rp_debug.push_back("RenderSystem_GL_d");
@@ -176,27 +171,31 @@ bool OgreditorApp::SetupOgre()
                 break;
             }
         }
-        if (!found)  // return false because a required plugin is not available
+        if (!found) // return false because a required plugin is not available
         {
             return false;
         }
     }
 
-//-------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------
     // setup resources
     // Only add the minimally required resource locations to load up the Ogre head mesh
-    //Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../../media/materials/programs", "FileSystem", "General");
-    //Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../../media/materials/scripts", "FileSystem", "General");
-    //Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../../media/materials/textures", "FileSystem", "General");
-    //Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../../media/models", "FileSystem", "General");
+    // Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../../media/materials/programs",
+    // "FileSystem", "General");
+    // Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../../media/materials/scripts",
+    // "FileSystem", "General");
+    // Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../../media/materials/textures",
+    // "FileSystem", "General");
+    // Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../../media/models", "FileSystem",
+    // "General");
 
-//-------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------
     // configure
     // Grab the OpenGL RenderSystem, or exit
     Ogre::RenderSystem* rs = m_OgreRoot->getRenderSystemByName("OpenGL Rendering Subsystem");
-    if(!(rs->getName() == "OpenGL Rendering Subsystem"))
+    if (!(rs->getName() == "OpenGL Rendering Subsystem"))
     {
-        return false; //No RenderSystem found
+        return false; // No RenderSystem found
     }
     // configure our RenderSystem
     rs->setConfigOption("Full Screen", "No");
@@ -205,8 +204,8 @@ bool OgreditorApp::SetupOgre()
 
     m_OgreRoot->setRenderSystem(rs);
 
-	m_OgreRoot->initialise(false);
-	Ogre::MovableObject::setDefaultQueryFlags(0);
+    m_OgreRoot->initialise(false);
+    Ogre::MovableObject::setDefaultQueryFlags(0);
 
     return true;
 }

@@ -5,9 +5,8 @@
  *
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details. 
+ * See Docs/ScapeLicense.txt for details.
  */
-
 
 #ifndef __HEIGHTFIELDOPERATIONCPUNOISE_H__
 #define __HEIGHTFIELDOPERATIONCPUNOISE_H__
@@ -17,36 +16,34 @@
 
 namespace ScapeEngine
 {
-	class HeightfieldGeom;
+class HeightfieldGeom;
 
-	class HeightfieldOperationCPUNoise : public HeightfieldOperationCPU
-	{
-		DEFINE_UIELEMENTCONTAINERSIMPLE_CLASS(HeightfieldOperationCPUNoise)
-	public:
-		DEFINE_FACTORYCLASS(HeightfieldOperationCPUNoise, HeightfieldOperation)
+class HeightfieldOperationCPUNoise : public HeightfieldOperationCPU
+{
+    DEFINE_UIELEMENTCONTAINERSIMPLE_CLASS(HeightfieldOperationCPUNoise)
+public:
+    DEFINE_FACTORYCLASS(HeightfieldOperationCPUNoise, HeightfieldOperation)
 
-		HeightfieldOperationCPUNoise();
+    HeightfieldOperationCPUNoise();
 
-	protected:
+protected:
+    static Ogre::Vector3 mNoiseOrigin;
 
-		static Ogre::Vector3 mNoiseOrigin;
+    bool mHasPreviousPosition;
+    Ogre::Vector3 mPositionPrevious;
 
-		bool mHasPreviousPosition;
-		Ogre::Vector3 mPositionPrevious;
+    Ogre::Real mPropMinRange;
+    Ogre::Real mPropMaxRange;
+    Ogre::Real mPropHiAmp;
+    Ogre::Real mPropMidAmp;
 
-		Ogre::Real mPropMinRange;
-		Ogre::Real mPropMaxRange;
-		Ogre::Real mPropHiAmp;
-		Ogre::Real mPropMidAmp;
+    virtual void applyPrimary(const Ogre::Vector3& position, Ogre::Real strength);
+    virtual void applySecondary(const Ogre::Vector3& position, Ogre::Real strength) {}
 
-		virtual void applyPrimary(const Ogre::Vector3& position, Ogre::Real strength);
-		virtual void applySecondary(const Ogre::Vector3& position, Ogre::Real strength) {}
-
-		virtual bool initPersistentElementValueMap(StringStringMap& map);
-		virtual bool initPersistentElementStringEnumMap(StringEnumMap& map);
-		virtual string setUIElementPropertyValue(const string& elementName, const string& value);
-
-	};
+    virtual bool initPersistentElementValueMap(StringStringMap& map);
+    virtual bool initPersistentElementStringEnumMap(StringEnumMap& map);
+    virtual string setUIElementPropertyValue(const string& elementName, const string& value);
+};
 }
 
 #endif // __HEIGHTFIELDOPERATIONCPUNOISE_H__

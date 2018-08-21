@@ -16,30 +16,30 @@
 namespace ScapeEditor
 {
 
-	class FileImportTypeDialog : public wxDialog
-	{
-		DECLARE_CLASS(FileImportTypeDialog)
+class FileImportTypeDialog : public wxDialog
+{
+    DECLARE_CLASS(FileImportTypeDialog)
 
+public:
+    FileImportTypeDialog(wxWindow* parentWindow, wxWindowID windowId, const StringList& decoders,
+                         const string& selectedEncoder);
 
-	public:
-		FileImportTypeDialog(wxWindow* parentWindow, wxWindowID windowId, const StringList& decoders, const string& selectedEncoder);
+    string getSelectionName() { return mSelectedItemName; }
 
-		string getSelectionName() {return mSelectedItemName;}
+protected:
+    wxListBox* mListBox;
+    wxTextCtrl* mDescriptionTextCtrl;
+    wxCheckBox* mFlipXCheckBox;
+    wxCheckBox* mFlipYCheckBox;
 
-	protected:
-		wxListBox* mListBox;
-		wxTextCtrl* mDescriptionTextCtrl;
-		wxCheckBox* mFlipXCheckBox;
-		wxCheckBox* mFlipYCheckBox;
+    StringList mEncoders;
+    string mSelectedItemName;
 
-		StringList mEncoders;
-		string mSelectedItemName;
+    DECLARE_EVENT_TABLE()
 
-		DECLARE_EVENT_TABLE()
-
-		void onListBoxSelect(wxCommandEvent& event);
-		void onListBoxDClick(wxCommandEvent& event);
-	};
+    void onListBoxSelect(wxCommandEvent& event);
+    void onListBoxDClick(wxCommandEvent& event);
+};
 }
 
 #endif // __FILEIMPORTTYPEDIALOG_H__

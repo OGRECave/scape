@@ -5,9 +5,8 @@
  *
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details. 
+ * See Docs/ScapeLicense.txt for details.
  */
-
 
 #ifndef __HEIGHTFIELDOPERATIONSTACK_H__
 #define __HEIGHTFIELDOPERATIONSTACK_H__
@@ -16,46 +15,43 @@
 
 namespace ScapeEngine
 {
-	class HeightfieldOperation;
+class HeightfieldOperation;
 
-	class HeightfieldOperationStack : public Tickable
-	{
+class HeightfieldOperationStack : public Tickable
+{
 
-	public:
+public:
+    HeightfieldOperationStack();
 
-		HeightfieldOperationStack();
+    ~HeightfieldOperationStack();
 
-		~HeightfieldOperationStack();
+    HeightfieldOperation* getNewOperation();
 
-		HeightfieldOperation* getNewOperation();
+    HeightfieldOperation* getLastOperation();
 
-		HeightfieldOperation* getLastOperation();
+    virtual void onPreFrameTick();
 
-		virtual void onPreFrameTick();
+    bool setNewOperationClassName(const string& className);
 
-		bool setNewOperationClassName(const string& className);
+    void clearAll();
 
-		void clearAll();
+protected:
+    typedef std::deque<HeightfieldOperation*> Operations;
+    Operations mOperationHistory;
 
-	protected:
+    HeightfieldOperation* mNewOperation;
+    string mNewOperationClassName;
 
-		typedef std::deque<HeightfieldOperation*> Operations;
-		Operations mOperationHistory;
+    int mLastOperationIndex;
 
-		HeightfieldOperation* mNewOperation;
-		string mNewOperationClassName;
+    HeightfieldOperation* getOperation(size_t index);
 
-		int mLastOperationIndex;
+    bool doOperation();
 
-		HeightfieldOperation* getOperation(size_t index);
+    bool undoOperation();
 
-		bool doOperation();
-
-		bool undoOperation();
-
-		bool redoOperation();
-
-	};
+    bool redoOperation();
+};
 }
 
 #endif // __HEIGHTFIELDOPERATIONSTACK_H__

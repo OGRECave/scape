@@ -15,43 +15,43 @@
 
 namespace ScapeEditor
 {
-	// ----------------------------------------------------------------------------
-	struct FileExportItem
-	{
-		string name;
-		string label;
-		string description;
-	};
+// ----------------------------------------------------------------------------
+struct FileExportItem
+{
+    string name;
+    string label;
+    string description;
+};
 
-	typedef std::list<FileExportItem> FileExportItemList;
+typedef std::list<FileExportItem> FileExportItemList;
 
-	// ----------------------------------------------------------------------------
-	class FileExportDialog : public wxDialog
-	{
-		DECLARE_CLASS(FileExportDialog)
+// ----------------------------------------------------------------------------
+class FileExportDialog : public wxDialog
+{
+    DECLARE_CLASS(FileExportDialog)
 
+public:
+    FileExportDialog(wxWindow* parentWindow, wxWindowID windowId, const FileExportItemList& encoders,
+                     const string& selectedEncoder, bool flipX, bool flipY);
 
-	public:
-		FileExportDialog(wxWindow* parentWindow, wxWindowID windowId, const FileExportItemList& encoders, const string& selectedEncoder, bool flipX, bool flipY);
+    string getSelectionName() { return mSelectedItemName; }
+    bool isFlipXChecked() { return mFlipXCheckBox->GetValue(); }
+    bool isFlipYChecked() { return mFlipYCheckBox->GetValue(); }
 
-		string getSelectionName() {return mSelectedItemName;}
-		bool isFlipXChecked() {return mFlipXCheckBox->GetValue();}
-		bool isFlipYChecked() {return mFlipYCheckBox->GetValue();}
+protected:
+    wxListBox* mListBox;
+    wxTextCtrl* mDescriptionTextCtrl;
+    wxCheckBox* mFlipXCheckBox;
+    wxCheckBox* mFlipYCheckBox;
 
-	protected:
-		wxListBox* mListBox;
-		wxTextCtrl* mDescriptionTextCtrl;
-		wxCheckBox* mFlipXCheckBox;
-		wxCheckBox* mFlipYCheckBox;
+    FileExportItemList mEncoders;
+    string mSelectedItemName;
 
-		FileExportItemList mEncoders;
-		string mSelectedItemName;
+    DECLARE_EVENT_TABLE()
 
-		DECLARE_EVENT_TABLE()
-
-		void onListBoxSelect(wxCommandEvent& event);
-		void onListBoxDClick(wxCommandEvent& event);
-	};
+    void onListBoxSelect(wxCommandEvent& event);
+    void onListBoxDClick(wxCommandEvent& event);
+};
 }
 
 #endif // __FILEEXPORTDIALOG_H__

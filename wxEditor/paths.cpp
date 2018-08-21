@@ -1,11 +1,11 @@
 /*/////////////////////////////////////////////////////////////////////////////////
 /// This file is part of
-///    ___                   _ _ _
-///   /___\__ _ _ __ ___  __| (_) |_ ___  _ __
+///    ___                   _ _ _             
+///   /___\__ _ _ __ ___  __| (_) |_ ___  _ __ 
 ///  //  // _` | '__/ _ \/ _` | | __/ _ \| '__|
-/// / \_// (_| | | |  __/ (_| | | || (_) | |
-/// \___/ \__, |_|  \___|\__,_|_|\__\___/|_|
-///       |___/
+/// / \_// (_| | | |  __/ (_| | | || (_) | |   
+/// \___/ \__, |_|  \___|\__,_|_|\__\___/|_|   
+///       |___/                                
 ///             Copyright (c) 2010 Jacob 'jacmoe' Moen
 /// The MIT License
 ///
@@ -25,69 +25,69 @@
 /// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 /// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-/// THE SOFTWARE.
+/// THE SOFTWARE. 
 ///////////////////////////////////////////////////////////////////////////////////*/
 #include "paths.h"
 #include <OgrePlatform.h>
 
-std::string bundlePath()
+std::string bundlePath() 
 {
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-
-    char path[1024];
-    CFBundleRef mainBundle = CFBundleGetMainBundle();
-    assert(mainBundle);
-
-    CFURLRef mainBundleURL = CFBundleCopyBundleURL(mainBundle);
-    assert(mainBundleURL);
-
-    CFStringRef cfStringRef = CFURLCopyFileSystemPath(mainBundleURL, kCFURLPOSIXPathStyle);
-    assert(cfStringRef);
-
-    CFStringGetCString(cfStringRef, path, 1024, kCFStringEncodingASCII);
-
-    CFRelease(mainBundleURL);
-    CFRelease(cfStringRef);
-
-    return std::string(path);
-
+	
+	char path[1024];
+	CFBundleRef mainBundle = CFBundleGetMainBundle();
+	assert( mainBundle );
+	
+	CFURLRef mainBundleURL = CFBundleCopyBundleURL( mainBundle);
+	assert( mainBundleURL);
+	
+	CFStringRef cfStringRef = CFURLCopyFileSystemPath( mainBundleURL, kCFURLPOSIXPathStyle);
+	assert( cfStringRef);
+	
+	CFStringGetCString( cfStringRef, path, 1024, kCFStringEncodingASCII);
+	
+	CFRelease( mainBundleURL);
+	CFRelease( cfStringRef);
+	
+	return std::string( path);
+	
 #else
-    return "";
+	return "" ;
 #endif
 }
 
-std::string logsPath()
+std::string logsPath() 
 {
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-    return bundlePath() + "/Contents/Resources/Logs/";
+	return bundlePath() + "/Contents/Resources/Logs/" ;
 #else
-    return bundlePath() + "/Logs/";
+	return bundlePath() + "/Logs/" ;
 #endif
 }
 
-std::string configPath()
+std::string configPath() 
 {
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-    return bundlePath() + "/Contents/Resources/";
+	return bundlePath() + "/Contents/Resources/" ;
 #else
-    return bundlePath();
+	return bundlePath() ;
 #endif
 }
 
-std::string getPluginPath()
+std::string getPluginPath() 
 {
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-    return bundlePath() + "/Contents/Resources/Plugins/";
+	return bundlePath() + "/Contents/Resources/Plugins/";
 #else
-    return bundlePath() + "../Plugins/";
-#endif
+	return bundlePath() + "../Plugins/";
+#endif	
 }
 
-std::string getDataPath()
+std::string getDataPath() 
 {
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-    return bundlePath() + "/Contents/Resources/Data/";
+	return bundlePath() + "/Contents/Resources/Data/";
 #else
-    return bundlePath() + "../Data/";
-#endif
+	return bundlePath() + "../Data/";
+#endif	
 }

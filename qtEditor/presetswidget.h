@@ -4,7 +4,7 @@
 #include <QWidget>
 
 namespace Ui {
-    class PresetsWidget;
+class PresetsWidget;
 }
 
 class PresetsWidget : public QWidget
@@ -12,11 +12,11 @@ class PresetsWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit PresetsWidget(QWidget* parent = 0);
+    explicit PresetsWidget(QWidget *parent = 0);
     ~PresetsWidget();
 
 private:
-    Ui::PresetsWidget* ui;
+    Ui::PresetsWidget *ui;
 };
 
 #endif // PRESETSWIDGET_H

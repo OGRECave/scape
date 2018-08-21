@@ -1,11 +1,11 @@
 /*/////////////////////////////////////////////////////////////////////////////////
 /// This file is part of
-///    ___                   _ _ _
-///   /___\__ _ _ __ ___  __| (_) |_ ___  _ __
+///    ___                   _ _ _             
+///   /___\__ _ _ __ ___  __| (_) |_ ___  _ __ 
 ///  //  // _` | '__/ _ \/ _` | | __/ _ \| '__|
-/// / \_// (_| | | |  __/ (_| | | || (_) | |
-/// \___/ \__, |_|  \___|\__,_|_|\__\___/|_|
-///       |___/
+/// / \_// (_| | | |  __/ (_| | | || (_) | |   
+/// \___/ \__, |_|  \___|\__,_|_|\__\___/|_|   
+///       |___/                                
 ///             Copyright (c) 2010 Jacob 'jacmoe' Moen
 /// The MIT License
 ///
@@ -25,7 +25,7 @@
 /// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 /// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-/// THE SOFTWARE.
+/// THE SOFTWARE. 
 ///////////////////////////////////////////////////////////////////////////////////*/
 #ifndef __wxhelperfunctions_h__431D421B_ADFE_44b2_B788_1E94A4A1A418
 #define __wxhelperfunctions_h__431D421B_ADFE_44b2_B788_1E94A4A1A418
@@ -35,12 +35,11 @@
 #include <wx/string.h>
 
 bool MakeDirectory(wxString dirname);
-void CleanPath(wxString& path);
+void CleanPath(wxString &path);
 wxString ExtractFileName(wxString path);
 wxString ExtractFilePath(wxString filename);
 wxString ConvertToWxString(Ogre::String val);
 Ogre::String ConvertToOgreString(wxString val);
-wxString GetRelativePath(
-    const wxString pathFrom, const wxString pathTo, bool isfile, wxString PathToModifier = wxT(""));
+wxString GetRelativePath(const wxString pathFrom,const wxString pathTo, bool isfile, wxString PathToModifier = wxT(""));
 
 #endif // __wxhelperfunctions_h__431D421B_ADFE_44b2_B788_1E94A4A1A418

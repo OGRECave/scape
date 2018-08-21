@@ -5,28 +5,32 @@
  *
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details.
+ * See Docs/ScapeLicense.txt for details. 
  */
+
 
 #ifndef __GPU2DOPERATIONRENDERABLEQUADMANAGER_H__
 #define __GPU2DOPERATIONRENDERABLEQUADMANAGER_H__
 
-namespace ScapeEngine {
-    class GPU2DOperationRenderableQuad;
+namespace ScapeEngine
+{
+	class GPU2DOperationRenderableQuad;
 
-    class GPU2DOperationRenderableQuadManager
+	class GPU2DOperationRenderableQuadManager
     {
     public:
-        GPU2DOperationRenderableQuadManager();
-        ~GPU2DOperationRenderableQuadManager();
 
-        GPU2DOperationRenderableQuad* getNewQuad();
+		GPU2DOperationRenderableQuadManager();
+		~GPU2DOperationRenderableQuadManager();
 
-        void returnQuad(GPU2DOperationRenderableQuad* quad);
+		GPU2DOperationRenderableQuad* getNewQuad();
 
-    protected:
-        typedef std::list<GPU2DOperationRenderableQuad*> FreeQuads;
-        FreeQuads mFreeQuads;
+		void returnQuad(GPU2DOperationRenderableQuad* quad);
+		
+	protected:
+		typedef std::list<GPU2DOperationRenderableQuad*> FreeQuads;
+		FreeQuads mFreeQuads;
+
     };
 }
 

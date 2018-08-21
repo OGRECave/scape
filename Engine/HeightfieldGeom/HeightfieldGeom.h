@@ -5,75 +5,86 @@
  *
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details.
+ * See Docs/ScapeLicense.txt for details. 
  */
+
 
 #ifndef __HEIGHTFIELDGEOM_H__
 #define __HEIGHTFIELDGEOM_H__
 
 #include "EngineCore/Tickable.h"
 
-namespace ScapeEngine {
+namespace ScapeEngine
+{
 
-    class HeightfieldGeom
-    {
-    public:
-        HeightfieldGeom(class HeightfieldBuffer* heightfieldBuffer, Ogre::SceneNode* parentSceneNode,
-            Ogre::VertexElementType vertexElementTypeUV, Ogre::VertexElementType vertexElementTypeHeight);
+	class HeightfieldGeom
+	{
+	public:
+		HeightfieldGeom(
+			class HeightfieldBuffer* heightfieldBuffer, 
+			Ogre::SceneNode* parentSceneNode,
+			Ogre::VertexElementType vertexElementTypeUV,
+			Ogre::VertexElementType vertexElementTypeHeight);
 
-        ~HeightfieldGeom();
+		~HeightfieldGeom();
 
-        inline class HeightfieldBuffer* getHeightfieldBuffer() const { return mHeightfieldBuffer; }
-        Ogre::Real getWorldQuadSize() const { return mWorldQuadSize; }
-        Ogre::SceneNode* getParentSceneNode() const { return mParentSceneNode; }
-        Ogre::VertexElementType getVertexElementTypeUV() const { return mVertexElementTypeUV; }
-        Ogre::VertexElementType getVertexElementTypeHeight() const { return mVertexElementTypeHeight; }
-        class HeightfieldGeomMaterial* getHeightfieldGeomMaterial() const { return mHeightfieldGeomMaterial; }
-        void tick();
+		inline class HeightfieldBuffer* getHeightfieldBuffer() const {return mHeightfieldBuffer;}
 
-        Ogre::Real getIntersectionPoint(const Ogre::Ray& worldRay);
+		Ogre::Real getWorldQuadSize() const {return mWorldQuadSize;}
 
-        Ogre::Real getHeightAt(size_t column, size_t row);
+		Ogre::SceneNode* getParentSceneNode() const {return mParentSceneNode;}
 
-        void markDirtyRect(const Ogre::Rect& dirtyRect);
+		Ogre::VertexElementType getVertexElementTypeUV() const {return mVertexElementTypeUV;}
 
-        Ogre::Vector3 getLocalPosition(const Ogre::Vector3& worldPosition) const;
+		Ogre::VertexElementType getVertexElementTypeHeight() const {return mVertexElementTypeHeight;}
 
-        const class ShaderCustomAutoConstants* getGeomShaderCustomAutoConstants();
+		class HeightfieldGeomMaterial* getHeightfieldGeomMaterial() const {return mHeightfieldGeomMaterial;}
 
-    private:
-        class HeightfieldBuffer* mHeightfieldBuffer;
+		void tick();
 
-        class HeightfieldGeomMaterial* mHeightfieldGeomMaterial;
+		Ogre::Real getIntersectionPoint(const Ogre::Ray& worldRay);
 
-        class ShaderCustomAutoConstants* mGeomShaderCustomAutoConstants;
-        bool mGeomAutoConstantsDirty;
+		Ogre::Real getHeightAt(size_t column, size_t row);
 
-        Ogre::Vector3 mTopLeftPosition;
+		void markDirtyRect(const Ogre::Rect& dirtyRect);
 
-        Ogre::Real mWorldQuadSize;
+		Ogre::Vector3 getLocalPosition(const Ogre::Vector3& worldPosition) const;
 
-        Ogre::SceneNode* mParentSceneNode;
+		const class ShaderCustomAutoConstants* getGeomShaderCustomAutoConstants();
 
-        typedef std::vector<class HeightfieldGeomTile*> TileRow;
-        typedef std::vector<TileRow> Tiles;
-        Tiles mTiles;
+	private:
+		class HeightfieldBuffer* mHeightfieldBuffer;
 
-        Ogre::VertexElementType mVertexElementTypeUV;
+		class HeightfieldGeomMaterial* mHeightfieldGeomMaterial;
 
-        Ogre::VertexElementType mVertexElementTypeHeight;
+		class ShaderCustomAutoConstants* mGeomShaderCustomAutoConstants;
+		bool mGeomAutoConstantsDirty;
 
-        bool getTile(int columnIndex, int rowIndex, IVector2& tileIndex);
+		Ogre::Vector3 mTopLeftPosition;
 
-        HeightfieldGeomTile* createTile(
-            const Ogre::Rect& visibleQuadRect, size_t bufferedQuadColumnCount, size_t bufferedQuadRowCount);
+		Ogre::Real mWorldQuadSize;
 
-        void updateMaterial();
+		Ogre::SceneNode* mParentSceneNode;
 
-        Ogre::Real getIntersectionParam(const Ogre::Ray& localRay, size_t column, size_t row);
+		typedef std::vector<class HeightfieldGeomTile*> TileRow;
+		typedef std::vector<TileRow> Tiles;
+		Tiles mTiles;
 
-        unsigned long mMillisLastRevalidate;
-    };
+		Ogre::VertexElementType mVertexElementTypeUV;
+
+		Ogre::VertexElementType mVertexElementTypeHeight;
+
+		bool getTile(int columnIndex, int rowIndex, IVector2& tileIndex);
+
+		HeightfieldGeomTile *createTile(const Ogre::Rect& visibleQuadRect, size_t bufferedQuadColumnCount, size_t bufferedQuadRowCount);
+
+		void updateMaterial();
+
+		Ogre::Real getIntersectionParam(const Ogre::Ray& localRay, size_t column, size_t row);
+
+		unsigned long mMillisLastRevalidate;
+	};
+
 }
 
 #endif // __HEIGHTFIELDGEOM_H__

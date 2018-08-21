@@ -5,80 +5,85 @@
  *
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details.
+ * See Docs/ScapeLicense.txt for details. 
  */
+
 
 #ifndef __TICKABLEMANAGER_H__
 #define __TICKABLEMANAGER_H__
 
-namespace ScapeEngine {
 
-    class Tickable;
+namespace ScapeEngine 
+{
 
-    class TickableManager
-    {
-    public:
-        // Enumeration of all known tick events
-        enum ETickableEventId
-        {
-            TICKEVENTID_PRESUBTICK,
-            TICKEVENTID_SUBTICK,
-            TICKEVENTID_POSTSUBTICK,
-            TICKEVENTID_PREFRAMETICK,
-            TICKEVENTID_FRAMETICK,
-            TICKEVENTID_POSTFRAMETICK,
-            TICKEVENTID_COUNT
-        };
+	class Tickable;
 
-        // Continuation of ETickableEventId, containing a predispose state
-        enum ETickableDisposeId
-        {
-            TICKABLEDISPOSEID_PREDISPOSE = TICKEVENTID_COUNT,
-        };
+	class TickableManager
+	{
 
-        // Update state of Tickable, enabling or disabling one type of tick call
-        void updateTickableEvent(Tickable* tickable, ETickableEventId eventId, bool enable);
+	public:
+		// Enumeration of all known tick events
+		enum ETickableEventId
+		{
+			TICKEVENTID_PRESUBTICK,
+			TICKEVENTID_SUBTICK,
+			TICKEVENTID_POSTSUBTICK,
+			TICKEVENTID_PREFRAMETICK,
+			TICKEVENTID_FRAMETICK,
+			TICKEVENTID_POSTFRAMETICK,
+			TICKEVENTID_COUNT
+		};
 
-        // Dispose of one Tickable object
-        void disposeTickable(Tickable* tickable);
+		// Continuation of ETickableEventId, containing a predispose state
+		enum ETickableDisposeId
+		{
+			TICKABLEDISPOSEID_PREDISPOSE = TICKEVENTID_COUNT,
+		};
 
-        // Dispose of all Tickable objects registered with this TickableManager
-        void disposeAllActiveTickables(bool forceInstant);
+		// Update state of Tickable, enabling or disabling one type of tick call
+		void updateTickableEvent(Tickable* tickable, ETickableEventId eventId, bool enable);
 
-        // Fixed-high-frequency pre-tick call handler. Calls all interested registered Tickables.
-        virtual void onPreSubTick();
+		// Dispose of one Tickable object
+		void disposeTickable(Tickable* tickable);
 
-        // Fixed-high-frequency tick call handler. Calls all interested registered Tickables.
-        virtual void onSubTick();
+		// Dispose of all Tickable objects registered with this TickableManager
+		void disposeAllActiveTickables(bool forceInstant);
 
-        // Fixed-high-frequency post-tick call handler. Calls all interested registered Tickables.
-        virtual void onPostSubTick();
+		// Fixed-high-frequency pre-tick call handler. Calls all interested registered Tickables.
+		virtual void onPreSubTick();
 
-        // Once-per-frame pre-tick call handler. Calls all interested registered Tickables.
-        virtual void onPreFrameTick();
+		// Fixed-high-frequency tick call handler. Calls all interested registered Tickables.
+		virtual void onSubTick();
 
-        // Once-per-frame tick call handler. Calls all interested registered Tickables.
-        virtual void onFrameTick();
+		// Fixed-high-frequency post-tick call handler. Calls all interested registered Tickables.
+		virtual void onPostSubTick();
 
-        // Once-per-frame post-tick call handler. Calls all interested registered Tickables.
-        virtual void onPostFrameTick();
+		// Once-per-frame pre-tick call handler. Calls all interested registered Tickables.
+		virtual void onPreFrameTick();
 
-        // Perform any pending two-phased Tickable disposals. Should be called after all
-        // on....Tick() calls have been made in the renderloop cycle.
-        void postFrameCleanup();
+		// Once-per-frame tick call handler. Calls all interested registered Tickables.
+		virtual void onFrameTick();
 
-    private:
-        // Container type of pointers to Tickables.
-        typedef std::deque<Tickable*> TickableEventList;
+		// Once-per-frame post-tick call handler. Calls all interested registered Tickables.
+		virtual void onPostFrameTick();
 
-        // Container of the Tickables interested per ETickableEventId
-        TickableEventList mTickEventLists[TICKEVENTID_COUNT];
+		// Perform any pending two-phased Tickable disposals. Should be called after all
+		// on....Tick() calls have been made in the renderloop cycle.
+		void postFrameCleanup();
 
-        // Container of the Tickables that are ready to be disposed
-        TickableEventList mDisposeEventList;
+	private:
+		// Container type of pointers to Tickables.
+		typedef std::deque<Tickable*> TickableEventList;
 
-        // Helper function to call all interested Tickables for the speficied ETickableEventId
-        void fireTickableEvents(ETickableEventId eventId, void (Tickable::*tickEvent)());
-    };
+		// Container of the Tickables interested per ETickableEventId
+		TickableEventList mTickEventLists[TICKEVENTID_COUNT];
+
+		// Container of the Tickables that are ready to be disposed
+		TickableEventList mDisposeEventList;
+
+		// Helper function to call all interested Tickables for the speficied ETickableEventId
+		void fireTickableEvents(ETickableEventId eventId, void (Tickable::*tickEvent)());
+
+	};
 }
 #endif // __TICKABLEMANAGER_H__

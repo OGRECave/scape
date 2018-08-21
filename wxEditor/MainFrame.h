@@ -1,11 +1,11 @@
 /*/////////////////////////////////////////////////////////////////////////////////
 /// This file is part of
-///    ___                   _ _ _
-///   /___\__ _ _ __ ___  __| (_) |_ ___  _ __
+///    ___                   _ _ _             
+///   /___\__ _ _ __ ___  __| (_) |_ ___  _ __ 
 ///  //  // _` | '__/ _ \/ _` | | __/ _ \| '__|
-/// / \_// (_| | | |  __/ (_| | | || (_) | |
-/// \___/ \__, |_|  \___|\__,_|_|\__\___/|_|
-///       |___/
+/// / \_// (_| | | |  __/ (_| | | || (_) | |   
+/// \___/ \__, |_|  \___|\__,_|_|\__\___/|_|   
+///       |___/                                
 ///             Copyright (c) 2010 Jacob 'jacmoe' Moen
 /// The MIT License
 ///
@@ -25,7 +25,7 @@
 /// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 /// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-/// THE SOFTWARE.
+/// THE SOFTWARE. 
 ///////////////////////////////////////////////////////////////////////////////////*/
 #pragma once
 
@@ -48,8 +48,9 @@ public:
     void storeConfig();
 
     RenderPanel* GetRenderPanel() const { return mRenderPanel; }
+
 private:
-    RenderPanel* mRenderPanel;
+	RenderPanel* mRenderPanel;
     // any class wishing to process wxWidgets events must use this macro
     DECLARE_EVENT_TABLE()
 };
@@ -69,3 +70,4 @@ enum
     // (where it is special and put into the "Apple" menu)
     Minimal_About = wxID_ABOUT
 };
+

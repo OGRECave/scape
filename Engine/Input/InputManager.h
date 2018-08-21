@@ -5,11 +5,13 @@
  *
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details.
+ * See Docs/ScapeLicense.txt for details. 
  */
+
 
 #ifndef __INPUTMANAGER_H__
 #define __INPUTMANAGER_H__
+
 
 #include "ButtonId.h"
 #include "AnalogInputId.h"
@@ -17,93 +19,101 @@
 #include "ButtonDefinition.h"
 #include "Utils/Utils.h"
 
-namespace ScapeEngine {
 
-    class InputPointer;
-    class InputListener;
+namespace ScapeEngine
+{
 
-    class InputManager
-    {
-    public:
-        InputManager();
+	class InputPointer;
+	class InputListener;
 
-        ~InputManager();
+	class InputManager
+	{
 
-        InputPointer* getInputPointer() { return mInputPointer; }
-        // Attach the input manager to the root window to receive input events from
-        void attachToWindow(InputListener* input);
+	public:
 
-        // Add a new button definition. Multiple definitions of the same button
-        // identifier may be defined.
-        void addButtonDefinition(const ButtonDefinition& buttonDefinition);
+		InputManager();
 
-        // Remove all added button definitions
-        void clearButtonDefinitions();
+		~InputManager();
 
-        // Load a button definition XML file
-        void loadButtonDefinitionsFromXML(const string& filename);
+		InputPointer* getInputPointer() {return mInputPointer;}
 
-        // Capture all input events and update state. Call this at the beginning of each renderloop cycle
-        void captureInput();
+		// Attach the input manager to the root window to receive input events from
+		void attachToWindow(InputListener* input);
 
-        // Did one or more button states change since the last frame?
-        bool hasSomeButtonStateJustChanged() const;
+		// Add a new button definition. Multiple definitions of the same button
+		// identifier may be defined.
+		void addButtonDefinition(const ButtonDefinition &buttonDefinition);
 
-        // Get button reference for the given button identifier
-        Button* getButton(ButtonId::EButtonId buttonId);
+		// Remove all added button definitions
+		void clearButtonDefinitions();
 
-        // Get analog input reference for the given input identifier
-        int getAnalogInput(AnalogInputId::EAnalogInputId input);
+		// Load a button definition XML file
+		void loadButtonDefinitionsFromXML(const string& filename);
+		
+		// Capture all input events and update state. Call this at the beginning of each renderloop cycle
+		void captureInput();
 
-        void onPointerMove();
+		// Did one or more button states change since the last frame?
+		bool hasSomeButtonStateJustChanged() const;
 
-        // Let the InputManager know the state of the given DeviceButtonId changed to being pressed
-        void onDeviceButtonPressed(DeviceButtonId::EDeviceButtonId deviceButton);
+		// Get button reference for the given button identifier
+		Button* getButton(ButtonId::EButtonId buttonId);
 
-        // Let the InputManager know the state of the given DeviceButtonId changed to being released
-        void onDeviceButtonReleased(DeviceButtonId::EDeviceButtonId deviceButton);
+		// Get analog input reference for the given input identifier
+		int getAnalogInput(AnalogInputId::EAnalogInputId input);
 
-        // Get the highest priority of all buttons currently being pressed
-        int getHighestPriorityPressed() const;
+		void onPointerMove();
 
-        // Get the view identifier that currently should have the input foces
-        class RenderView* getFocusedRenderView() const;
+		// Let the InputManager know the state of the given DeviceButtonId changed to being pressed
+		void onDeviceButtonPressed(DeviceButtonId::EDeviceButtonId deviceButton);
 
-        void onRenderViewSetFocus(long viewId);
+		// Let the InputManager know the state of the given DeviceButtonId changed to being released
+		void onDeviceButtonReleased(DeviceButtonId::EDeviceButtonId deviceButton);
 
-        void onRenderViewKillFocus(long viewId);
+		// Get the highest priority of all buttons currently being pressed
+		int getHighestPriorityPressed() const;
 
-    protected:
-        // Button definition container type
-        typedef std::list<ButtonDefinition> ButtonDefinitions;
+		// Get the view identifier that currently should have the input foces
+		class RenderView* getFocusedRenderView() const;
 
-        // Button definition container
-        ButtonDefinitions mButtonDefinitions;
+		void onRenderViewSetFocus(long viewId);
 
-        // Button object container type
-        typedef std::map<ButtonId::EButtonId, Button*> Buttons;
+		void onRenderViewKillFocus(long viewId);
 
-        // Button object container
-        Buttons mButtons;
+	protected:
 
-        // The highest priority of all buttons currently being pressed
-        int mHighestPriorityPressed;
+		// Button definition container type 
+		typedef std::list<ButtonDefinition> ButtonDefinitions;
 
-        // The view identifier that currently should have the input foces
-        long mFocusedRenderViewId;
-        bool mHasFocusedRenderView;
+		// Button definition container
+		ButtonDefinitions mButtonDefinitions;
 
-        // Total number of currently pressed Buttons
-        int mNumButtonsPressed;
+		// Button object container type
+		typedef std::map<ButtonId::EButtonId, Button*> Buttons;
 
-        // Did one or more button states change since the last frame?
-        bool mSomeButtonStateJustChanged;
+		// Button object container
+		Buttons mButtons;
 
-        // Pointer to its input listener, responsible for notifying the InputManager of any input state changes
-        class InputListener* mInputListener;
+		// The highest priority of all buttons currently being pressed
+		int mHighestPriorityPressed;
 
-        InputPointer* mInputPointer;
-    };
+		// The view identifier that currently should have the input foces
+		long mFocusedRenderViewId;
+		bool mHasFocusedRenderView;
+
+		// Total number of currently pressed Buttons
+		int mNumButtonsPressed;
+
+		// Did one or more button states change since the last frame?
+		bool mSomeButtonStateJustChanged;
+
+		// Pointer to its input listener, responsible for notifying the InputManager of any input state changes
+		class InputListener* mInputListener;
+
+		InputPointer* mInputPointer;
+
+	};
+
 }
 
 #endif // __INPUTMANAGER_H__

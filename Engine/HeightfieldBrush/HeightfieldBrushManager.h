@@ -5,29 +5,32 @@
  *
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details.
+ * See Docs/ScapeLicense.txt for details. 
  */
+
 
 #ifndef __HEIGHTFIELDBRUSHMANAGER_H__
 #define __HEIGHTFIELDBRUSHMANAGER_H__
 
-namespace ScapeEngine {
-    class HeightfieldBrush;
 
-    class HeightfieldBrushManager
-    {
-    public:
-        HeightfieldBrushManager();
-        ~HeightfieldBrushManager();
+namespace ScapeEngine
+{
+	class HeightfieldBrush;
 
-        HeightfieldBrush* getBrush(const string& brushName);
+	class HeightfieldBrushManager
+	{
+	public:
+		HeightfieldBrushManager();
+		~HeightfieldBrushManager();
 
-        HeightfieldBrush* getCurrentBrush() const;
+		HeightfieldBrush* getBrush(const string& brushName);
 
-    private:
-        typedef std::map<string, HeightfieldBrush*> Brushes;
-        Brushes mBrushes;
-    };
+		HeightfieldBrush* getCurrentBrush() const;
+
+	private:
+		typedef std::map<string, HeightfieldBrush*> Brushes;
+		Brushes mBrushes;
+	};
 }
 
 #endif // __HEIGHTFIELDBRUSHMANAGER_H__

@@ -5,188 +5,183 @@
  *
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details.
+ * See Docs/ScapeLicense.txt for details. 
  */
+
 
 #ifndef __ENGINECORE_H__
 #define __ENGINECORE_H__
 
 #include "SkySettings.h"
 
-namespace ScapeEngine {
 
-    class EngineCore : public Ogre::Singleton<EngineCore>, public SkySettingsListener
-    {
-    public:
-        // Create EngineCore object. Don't call this directly but
-        // use getSingleton() instead.
-        EngineCore(class EngineInterface* engineInterface);
+namespace ScapeEngine 
+{
 
-        // Deconstruct EngineCore. Be sure to call deinitialize() before an
-        // initialized engine is deconstructed
-        ~EngineCore();
+	class EngineCore : public Ogre::Singleton<EngineCore>, public SkySettingsListener
+	{
 
-        // Get reference to EngineCore singleton instance
-        static EngineCore& getSingleton();
+	public:
+		// Create EngineCore object. Don't call this directly but
+		// use getSingleton() instead.
+		EngineCore (class EngineInterface* engineInterface);
 
-        // Get pointer to the InputManager instance
-        class InputManager* getInputManager() const { return mInputManager; }
-        // Get pointer to the HeightfieldGeomTileVertexUVBufferManager instance
-        class HeightfieldGeomTileVertexUVBufferManager* getHeightfieldGeomTileVertexUVBufferManager() const
-        {
-            return mHeightfieldGeomTileVertexUVBufferManager;
-        }
+		// Deconstruct EngineCore. Be sure to call deinitialize() before an
+		// initialized engine is deconstructed
+		~EngineCore();
 
-        // Get pointer to the HeightfieldGeomTileVertexIndexManager instance
-        class HeightfieldGeomTileIndexBufferManager* getHeightfieldGeomTileIndexBufferManager() const
-        {
-            return mHeightfieldGeomTileIndexBufferManager;
-        }
+		// Get reference to EngineCore singleton instance
+		static EngineCore &getSingleton();
 
-        // Get pointer to the RenderViewManager instance
-        class RenderViewManager* getRenderViewManager() const { return mRenderViewManager; }
-        class HeightfieldBrushManager* getHeightfieldBrushManager() const { return mHeightfieldBrushManager; }
-        class HeightfieldOperationFactory* getHeightfieldOperationFactory() const
-        {
-            return mHeightfieldOperationFactory;
-        }
+		// Get pointer to the InputManager instance
+		class InputManager* getInputManager() const {return mInputManager;}
 
-        class HeightfieldOperationStack* getHeightfieldOperationStack() const { return mHeightfieldOperationStack; }
-        class GPU2DOperationManager* getGPU2DOperationManager() { return mGPU2DOperationManager; }
-        class GPU2DOperationRenderableQuadManager* getGPU2DOperationRenderableQuadManager()
-        {
-            return mGPU2DOperationRenderableQuadManager;
-        }
+		// Get pointer to the HeightfieldGeomTileVertexUVBufferManager instance
+		class HeightfieldGeomTileVertexUVBufferManager* getHeightfieldGeomTileVertexUVBufferManager() const {return mHeightfieldGeomTileVertexUVBufferManager;}
 
-        // Get pointer to the TickableManager instance
-        class TickableManager* getTickableManager() const { return mTickableManager; }
-        class SkySettings* getSkySettings() { return mSkySettings; }
-        class HeightfieldGeomManager* getHeightfieldGeomManager() const { return mHeightfieldGeomManager; }
-        // Read-only global settings
-        string getApplicationSetting(const string& section, const string& key);
+		// Get pointer to the HeightfieldGeomTileVertexIndexManager instance
+		class HeightfieldGeomTileIndexBufferManager* getHeightfieldGeomTileIndexBufferManager() const {return mHeightfieldGeomTileIndexBufferManager;}
 
-        // More structured read/write settings
-        class SettingsDatasetManager* getSettingsDatasetManager() { return mSettingsDatasetManager; }
-        class HeightfieldFileEncoderManager* getHeightfieldFileEncoderManager()
-        {
-            return mHeightfieldFileEncoderManager;
-        }
-        class HeightfieldFileDecoderManager* getHeightfieldFileDecoderManager()
-        {
-            return mHeightfieldFileDecoderManager;
-        }
 
-        Ogre::RenderWindow* getDebugRenderWindow();
+		// Get pointer to the RenderViewManager instance
+		class RenderViewManager* getRenderViewManager() const {return mRenderViewManager;}
 
-        // Give the engine a change to update itself and render a frame
-        // if it wants to. Call this as very often.
-        void update();
+		class HeightfieldBrushManager* getHeightfieldBrushManager() const {return mHeightfieldBrushManager;}
 
-        // Initialize all engine modules except a render view
-        void initialize();
+		class HeightfieldOperationFactory* getHeightfieldOperationFactory() const {return mHeightfieldOperationFactory;}
 
-        // Destroy the engine and its managed modules
-        void deinitialize();
+		class HeightfieldOperationStack* getHeightfieldOperationStack() const {return mHeightfieldOperationStack;}
 
-        // Attach mouse and keyboard input to root window
-        void attachInputToWindow(string inputWindow);
+		class GPU2DOperationManager* getGPU2DOperationManager() {return mGPU2DOperationManager;}
 
-        // Load scene when ready for it
-        void loadScene();
+		class GPU2DOperationRenderableQuadManager* getGPU2DOperationRenderableQuadManager() {return mGPU2DOperationRenderableQuadManager;}
 
-        // Load scene manager when ready for it
-        void loadSceneManager();
+		// Get pointer to the TickableManager instance
+		class TickableManager* getTickableManager() const {return mTickableManager;}
 
-        // Get current scene manager
-        Ogre::SceneManager* getSceneManager();
+		class SkySettings* getSkySettings() {return mSkySettings;}
 
-        // Get time (in seconds) since last frame
-        float getTimeSinceLastFrame() const;
+		class HeightfieldGeomManager* getHeightfieldGeomManager() const {return mHeightfieldGeomManager;}
 
-        unsigned long getFrameMilliseconds() { return mFrameTimerMilliseconds; }
-        unsigned long getLastFrameMilliseconds() { return mLastFrameTimerMilliseconds; }
-        unsigned long getFrameCount() { return mFrameCount; }
-        virtual void onSkySettingsUpdate();
+		// Read-only global settings
+		string getApplicationSetting(const string& section, const string& key);
 
-    private:
-        // Ogre root pointer
-        Ogre::Root* mRoot;
+		// More structured read/write settings
+		class SettingsDatasetManager* getSettingsDatasetManager() {return mSettingsDatasetManager;}
 
-        // Ogre render system pointer
-        Ogre::SceneManager* mSceneManager;
+		class HeightfieldFileEncoderManager* getHeightfieldFileEncoderManager() {return mHeightfieldFileEncoderManager;}
+		class HeightfieldFileDecoderManager* getHeightfieldFileDecoderManager() {return mHeightfieldFileDecoderManager;}
 
-        class EngineInterface* mEngineInterface;
+		Ogre::RenderWindow* getDebugRenderWindow();
 
-        class TickableManager* mTickableManager;
+		// Give the engine a change to update itself and render a frame
+		// if it wants to. Call this as very often.
+		void update();
 
-        class RenderViewManager* mRenderViewManager;
+		// Initialize all engine modules except a render view
+		void initialize();
 
-        class HeightfieldGeomTileVertexUVBufferManager* mHeightfieldGeomTileVertexUVBufferManager;
+		// Destroy the engine and its managed modules
+		void deinitialize();
 
-        class HeightfieldGeomTileIndexBufferManager* mHeightfieldGeomTileIndexBufferManager;
+		// Attach mouse and keyboard input to root window
+		void attachInputToWindow(string inputWindow);
 
-        class HeightfieldBufferSetManager* mHeightfieldBufferSetManager;
+		// Load scene when ready for it
+		void loadScene();
 
-        class HeightfieldGeomManager* mHeightfieldGeomManager;
+		// Load scene manager when ready for it
+		void loadSceneManager();
 
-        class HeightfieldOperationFactory* mHeightfieldOperationFactory;
+		// Get current scene manager
+		Ogre::SceneManager* getSceneManager();
 
-        class HeightfieldOperationStack* mHeightfieldOperationStack;
+		// Get time (in seconds) since last frame
+		float getTimeSinceLastFrame() const;
 
-        class HeightfieldBrushManager* mHeightfieldBrushManager;
+		unsigned long getFrameMilliseconds() {return mFrameTimerMilliseconds;}
+		unsigned long getLastFrameMilliseconds() {return mLastFrameTimerMilliseconds;}
+		unsigned long getFrameCount() {return mFrameCount;}
 
-        Ogre::RenderWindow* mDebugRenderWindow;
+		virtual void onSkySettingsUpdate();
 
-        class InputManager* mInputManager;
+	private:
+		// Ogre root pointer
+		Ogre::Root* mRoot;
 
-        class SettingsDatasetManager* mSettingsDatasetManager;
+		// Ogre render system pointer
+		Ogre::SceneManager* mSceneManager;
 
-        class Ogre::ConfigFile* mApplicationSettingsConfigFile;
+		class EngineInterface* mEngineInterface;
 
-        class HeightfieldFileEncoderManager* mHeightfieldFileEncoderManager;
-        class HeightfieldFileDecoderManager* mHeightfieldFileDecoderManager;
+		class TickableManager* mTickableManager;
 
-        class SkySettings* mSkySettings;
+		class RenderViewManager* mRenderViewManager;
 
-        class GPU2DOperationManager* mGPU2DOperationManager;
+		class HeightfieldGeomTileVertexUVBufferManager* mHeightfieldGeomTileVertexUVBufferManager;
 
-        class GPU2DOperationRenderableQuadManager* mGPU2DOperationRenderableQuadManager;
+		class HeightfieldGeomTileIndexBufferManager* mHeightfieldGeomTileIndexBufferManager;
 
-        // Is scene loaded already?
-        bool mSceneLoaded;
+		class HeightfieldBufferSetManager* mHeightfieldBufferSetManager;
 
-        // Is scenemanager loaded already?
-        bool mSceneManagerLoaded;
+		class HeightfieldGeomManager* mHeightfieldGeomManager;
 
-        // Milliseconds since start of application
-        unsigned long mFrameTimerMilliseconds;
-        unsigned long mLastFrameTimerMilliseconds;
-        unsigned long mFrameCount;
+		class HeightfieldOperationFactory* mHeightfieldOperationFactory;
 
-        // Time since last frame in seconds
-        float mTimeSinceLastFrame;
+		class HeightfieldOperationStack* mHeightfieldOperationStack;
 
-        // Get pointer to the HeightfieldBufferSet instance
-        class HeightfieldBufferSetManager* getHeightfieldBufferSetManager() const
-        {
-            return mHeightfieldBufferSetManager;
-        }
+		class HeightfieldBrushManager* mHeightfieldBrushManager;
 
-        // Load ogre plug-ins, among other things
-        void loadApplicationSettings();
+		Ogre::RenderWindow* mDebugRenderWindow;
 
-        // Set Ogre resource locations
-        void loadResourceLocations();
+		class InputManager* mInputManager;
 
-        // Set Ogre render system
-        void setupRenderSystem();
+		class SettingsDatasetManager* mSettingsDatasetManager;
 
-        void loadSkyBox();
+		class Ogre::ConfigFile* mApplicationSettingsConfigFile;
 
-        void resetHeightfield();
-    };
+		class HeightfieldFileEncoderManager* mHeightfieldFileEncoderManager;
+		class HeightfieldFileDecoderManager* mHeightfieldFileDecoderManager;
 
-    inline EngineCore* getEngineCore() { return &EngineCore::getSingleton(); }
+		class SkySettings* mSkySettings;
+
+		class GPU2DOperationManager* mGPU2DOperationManager;
+
+		class GPU2DOperationRenderableQuadManager* mGPU2DOperationRenderableQuadManager;
+
+		// Is scene loaded already?
+		bool mSceneLoaded;
+
+		// Is scenemanager loaded already?
+		bool mSceneManagerLoaded;
+
+		// Milliseconds since start of application
+		unsigned long mFrameTimerMilliseconds;
+		unsigned long mLastFrameTimerMilliseconds;
+		unsigned long mFrameCount;
+
+
+		// Time since last frame in seconds
+		float mTimeSinceLastFrame;
+
+		// Get pointer to the HeightfieldBufferSet instance
+		class HeightfieldBufferSetManager* getHeightfieldBufferSetManager() const {return mHeightfieldBufferSetManager;}
+
+		// Load ogre plug-ins, among other things
+		void loadApplicationSettings();
+
+		// Set Ogre resource locations
+		void loadResourceLocations();
+
+		// Set Ogre render system
+		void setupRenderSystem();
+
+		void loadSkyBox();
+
+		void resetHeightfield();
+	};
+
+	inline EngineCore* getEngineCore() {return &EngineCore::getSingleton();}
 }
 
 #endif // __ENGINECORE_H__

@@ -5,8 +5,9 @@
  *
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details.
+ * See Docs/ScapeLicense.txt for details. 
  */
+
 
 #ifndef __HEIGHTFIELDOPERATIONGPUPENCIL_H__
 #define __HEIGHTFIELDOPERATIONGPUPENCIL_H__
@@ -15,35 +16,35 @@
 #include "HeightfieldOperationTaskPageGPU.h"
 #include "Utils/SerialMemoryBuffer.h"
 
-namespace ScapeEngine {
-    class HeightfieldGeom;
-    class HeightfieldBufferPage;
-    class HeightfieldOperationTaskPage;
+namespace ScapeEngine
+{
+	class HeightfieldGeom;
+	class HeightfieldBufferPage;
+	class HeightfieldOperationTaskPage;
 
-    class HeightfieldOperationGPUPencil
-        : public HeightfieldOperationTaskPageGPUListener,
-          public HeightfieldOperationPolicyBrushInstancerSpacer<HeightfieldOperationGPUPencil,
-              HeightfieldOperationPolicySchedulerTaskPageBatch<HeightfieldOperationGPUPencil,
-                                                                    HeightfieldOperationBrushBase> >
-    {
-        DEFINE_UIELEMENTCONTAINERSIMPLE_CLASS(HeightfieldOperationGPUPencil)
-    public:
-        DEFINE_FACTORYCLASS(HeightfieldOperationGPUPencil, HeightfieldOperation)
+	class HeightfieldOperationGPUPencil
+	: 	public HeightfieldOperationTaskPageGPUListener,
+		public HeightfieldOperationPolicyBrushInstancerSpacer<HeightfieldOperationGPUPencil, 
+			   HeightfieldOperationPolicySchedulerTaskPageBatch<HeightfieldOperationGPUPencil, HeightfieldOperationBrushBase> >
+	{
+		DEFINE_UIELEMENTCONTAINERSIMPLE_CLASS(HeightfieldOperationGPUPencil)
+	public:
+		DEFINE_FACTORYCLASS(HeightfieldOperationGPUPencil, HeightfieldOperation)
 
-        HeightfieldOperationGPUPencil();
+		HeightfieldOperationGPUPencil();
 
-        HeightfieldOperationTaskPage* createTaskPage(
-            const BrushPageCoords& pageCoords, const BrushInstances& brushInstances);
+		HeightfieldOperationTaskPage* createTaskPage(const BrushPageCoords& pageCoords, const BrushInstances& brushInstances);
 
-        virtual void onSetupGPU2DOperationQuadBrush(GPU2DOperationQuadBrushPtr quadPtr);
+		virtual void onSetupGPU2DOperationQuadBrush(GPU2DOperationQuadBrushPtr quadPtr);
 
-    protected:
-        virtual bool initPersistentElementValueMap(StringStringMap& map);
-        virtual bool initPersistentElementStringEnumMap(StringEnumMap& map);
-        virtual string setUIElementPropertyValue(const string& elementName, const string& value);
+	protected:
 
-        Ogre::Real mLevelEffect;
-    };
+		virtual bool initPersistentElementValueMap(StringStringMap& map);
+		virtual bool initPersistentElementStringEnumMap(StringEnumMap& map);
+		virtual string setUIElementPropertyValue(const string& elementName, const string& value);
+
+		Ogre::Real mLevelEffect;
+	};
 }
 
 #endif // __HEIGHTFIELDOPERATIONGPUPENCIL_H__

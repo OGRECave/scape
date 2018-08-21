@@ -4,62 +4,68 @@
  *
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details.
+ * See Docs/ScapeLicense.txt for details. 
  */
+
 
 #ifndef __INPUTLISTENER_H__
 #define __INPUTLISTENER_H__
+
 
 #include "ButtonId.h"
 #include "AnalogInputId.h"
 #include "DeviceButtonId.h"
 
-namespace ScapeEngine {
-    class TabletInput;
 
-    class InputListener
-    {
-    public:
-        // Construct InputListener for the given InputManager and root window
-        InputListener(class InputManager* inputManager);
+namespace ScapeEngine
+{
+	class TabletInput;
 
-        // Destroy the InputListener
-        ~InputListener();
+	class InputListener
+	{
 
-        // Capture all input events and update state. Call this at the beginning of each renderloop cycle
-        void captureInput();
+	public:
+		// Construct InputListener for the given InputManager and root window
+		InputListener(class InputManager* inputManager);
 
-        // Is the specified DeviceButtonId currently pressed?
-        bool isDeviceButtonPressed(DeviceButtonId::EDeviceButtonId deviceButton) const;
+		// Destroy the InputListener
+		~InputListener();
 
-        // Get the analog input of the specified identifier
-        int getAnalogInput(AnalogInputId::EAnalogInputId input) const;
+		// Capture all input events and update state. Call this at the beginning of each renderloop cycle
+		void captureInput();
 
-        void setActive(bool active);
+		// Is the specified DeviceButtonId currently pressed?
+		bool isDeviceButtonPressed(DeviceButtonId::EDeviceButtonId deviceButton) const;
 
-    protected:
-        // Tablet input reference
-        TabletInput* mTabletInput;
+		// Get the analog input of the specified identifier
+		int getAnalogInput(AnalogInputId::EAnalogInputId input) const;
 
-        // Reference to InputManager
-        InputManager* mInputManager;
+		void setActive(bool active);
 
-        // Absolute pointer position
-        IVector3 mPointerPosition;
+	protected:
+		// Tablet input reference
+		TabletInput*		mTabletInput;
 
-        // Difference between current and previous absolute pointer position
-        IVector3 mPointerDeltaPosition;
+		// Reference to InputManager
+		InputManager*		mInputManager;
 
-        // Unaccelerated movement of pointer (e.g. mickeys)
-        IVector3 mPointerMovement;
+		// Absolute pointer position
+		IVector3			mPointerPosition;
 
-        // Current pointer pressure. Negative if (and only if) not supported.
-        int mPointerPressure;
+		// Difference between current and previous absolute pointer position
+		IVector3			mPointerDeltaPosition;
 
-        bool mActive;
-        bool mReactivate;
-        bool mDeviceButtonPressed[DeviceButtonId::DEVICEBUTTONID_ENUM_LENGTH];
-    };
+		// Unaccelerated movement of pointer (e.g. mickeys)
+		IVector3			mPointerMovement;
+
+		// Current pointer pressure. Negative if (and only if) not supported.
+		int					mPointerPressure;
+
+		bool				mActive;
+		bool				mReactivate;
+		bool				mDeviceButtonPressed[DeviceButtonId::DEVICEBUTTONID_ENUM_LENGTH];
+
+	};
 }
 
 #endif // __INPUTLISTENER_H__

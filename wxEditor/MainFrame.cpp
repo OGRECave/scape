@@ -1,11 +1,11 @@
 /*/////////////////////////////////////////////////////////////////////////////////
 /// This file is part of
-///    ___                   _ _ _
-///   /___\__ _ _ __ ___  __| (_) |_ ___  _ __
+///    ___                   _ _ _             
+///   /___\__ _ _ __ ___  __| (_) |_ ___  _ __ 
 ///  //  // _` | '__/ _ \/ _` | | __/ _ \| '__|
-/// / \_// (_| | | |  __/ (_| | | || (_) | |
-/// \___/ \__, |_|  \___|\__,_|_|\__\___/|_|
-///       |___/
+/// / \_// (_| | | |  __/ (_| | | || (_) | |   
+/// \___/ \__, |_|  \___|\__,_|_|\__\___/|_|   
+///       |___/                                
 ///             Copyright (c) 2010 Jacob 'jacmoe' Moen
 /// The MIT License
 ///
@@ -25,7 +25,7 @@
 /// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 /// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-/// THE SOFTWARE.
+/// THE SOFTWARE. 
 ///////////////////////////////////////////////////////////////////////////////////*/
 #include "MainFrame.h"
 #include <wx/menu.h>
@@ -39,23 +39,25 @@
 // ----------------------------------------------------------------------------
 
 // frame constructor
-MainFrame::MainFrame(const wxString& title) : wxFrame(NULL, wxID_ANY, title), mRenderPanel(0)
+MainFrame::MainFrame(const wxString& title)
+    : wxFrame(NULL, wxID_ANY, title),
+    mRenderPanel(0)
 
 {
     // set the frame icon
     SetIcon(wxICON(sample));
 
     // create a menu bar
-    wxMenu* fileMenu = new wxMenu;
+    wxMenu *fileMenu = new wxMenu;
 
     // the "About" item should be in the help menu
-    wxMenu* helpMenu = new wxMenu;
+    wxMenu *helpMenu = new wxMenu;
     helpMenu->Append(Minimal_About, "&About...\tF1", "Show about dialog");
 
     fileMenu->Append(Minimal_Quit, "E&xit\tAlt-X", "Quit this program");
 
     // now append the freshly created menu to the menu bar...
-    wxMenuBar* menuBar = new wxMenuBar();
+    wxMenuBar *menuBar = new wxMenuBar();
     menuBar->Append(fileMenu, "&File");
     menuBar->Append(helpMenu, "&Help");
 
@@ -66,9 +68,8 @@ MainFrame::MainFrame(const wxString& title) : wxFrame(NULL, wxID_ANY, title), mR
     CreateStatusBar(2);
     SetStatusText("Welcome to wxWidgets!");
 
-    mRenderPanel
-        = new RenderPanel(this, RenderPanel::ID_RENDERPANEL, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
-    mRenderPanel->SetBackgroundColour(wxColour(0, 0, 0));
+    mRenderPanel = new RenderPanel( this, RenderPanel::ID_RENDERPANEL, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	mRenderPanel->SetBackgroundColour(wxColour(0, 0, 0));
 
     readConfig();
 }
@@ -89,24 +90,24 @@ void MainFrame::readConfig()
 
     Move(x, y);
     SetClientSize(w, h);
-
+	
     //// Load AUI perspective
-    // wxString tmp;
-    // if(wxGetApp().GetConfig()->Read(wxT("layout"), &tmp))
-    // GetAuiManager().LoadPerspective(tmp, true);
+    //wxString tmp;
+    //if(wxGetApp().GetConfig()->Read(wxT("layout"), &tmp))
+    //GetAuiManager().LoadPerspective(tmp, true);
 }
 
 void MainFrame::storeConfig()
 {
-    //    wxGetApp().GetConfig()->Write(wxT("layout"), GetAuiManager().SavePerspective());
+//    wxGetApp().GetConfig()->Write(wxT("layout"), GetAuiManager().SavePerspective());
     // save the frame position
     int x, y, w, h;
     GetClientSize(&w, &h);
     GetPosition(&x, &y);
-    wxGetApp().GetConfig()->Write(wxT("/MainFrame/x"), (long)x);
-    wxGetApp().GetConfig()->Write(wxT("/MainFrame/y"), (long)y);
-    wxGetApp().GetConfig()->Write(wxT("/MainFrame/w"), (long)w);
-    wxGetApp().GetConfig()->Write(wxT("/MainFrame/h"), (long)h);
+    wxGetApp().GetConfig()->Write(wxT("/MainFrame/x"), (long) x);
+    wxGetApp().GetConfig()->Write(wxT("/MainFrame/y"), (long) y);
+    wxGetApp().GetConfig()->Write(wxT("/MainFrame/w"), (long) w);
+    wxGetApp().GetConfig()->Write(wxT("/MainFrame/h"), (long) h);
 }
 
 // event handlers
@@ -119,10 +120,16 @@ void MainFrame::OnQuit(wxCommandEvent& WXUNUSED(event))
 
 void MainFrame::OnAbout(wxCommandEvent& WXUNUSED(event))
 {
-    wxMessageBox(wxString::Format("Welcome to %s!\n"
-                                  "\n"
-                                  "This is the minimal wxWidgets sample\n"
-                                  "running under %s.",
-                     wxVERSION_STRING, wxGetOsDescription()),
-        "About wxWidgets minimal sample", wxOK | wxICON_INFORMATION, this);
+    wxMessageBox(wxString::Format
+                 (
+                    "Welcome to %s!\n"
+                    "\n"
+                    "This is the minimal wxWidgets sample\n"
+                    "running under %s.",
+                    wxVERSION_STRING,
+                    wxGetOsDescription()
+                 ),
+                 "About wxWidgets minimal sample",
+                 wxOK | wxICON_INFORMATION,
+                 this);
 }

@@ -1,6 +1,6 @@
 /**
- * Giliam de Carpentier, Copyright (c) 2007.
- * Licensed under the Simplified BSD license.
+ * Giliam de Carpentier, Copyright (c) 2007. 
+ * Licensed under the Simplified BSD license. 
  * See Docs/ScapeLicense.txt for details.
  */
 
@@ -17,18 +17,19 @@ using namespace ScapeEditor;
 // ----------------------------------------------------------------------------
 IMPLEMENT_APP(Application)
 
+
 // ----------------------------------------------------------------------------
 bool Application::OnInit()
 {
-    wxHandleFatalExceptions(true);
+	wxHandleFatalExceptions(true);
 
-    //#ifdef _DEBUG
-    ScapeEngine::EngineInterface::openConsole();
-    //#endif
+//#ifdef _DEBUG
+	ScapeEngine::EngineInterface::openConsole();
+//#endif
 
-    mMainFrame = new MainFrame(this);
+	mMainFrame = new MainFrame(this);
 
-    mMainFrame->Show(true);
+	mMainFrame->Show(true);
 
     return true;
 }
@@ -36,37 +37,39 @@ bool Application::OnInit()
 // ----------------------------------------------------------------------------
 int Application::OnRun()
 {
-    return wxApp::OnRun();
+	return wxApp::OnRun();
 }
+
 
 // ----------------------------------------------------------------------------
 bool Application::ProcessIdle()
 {
-    if (mMainFrame)
-        mMainFrame->onProcessIdle();
-    wxApp::ProcessIdle();
-    return true;
+	if (mMainFrame)	mMainFrame->onProcessIdle();
+	wxApp::ProcessIdle();
+	return true;
 }
 
 // ----------------------------------------------------------------------------
 bool Application::OnExceptionInMainLoop()
 {
-    ScapeEngine::EngineInterface::onFatalException();
-    wxApp::OnExceptionInMainLoop();
-    throw;
+	ScapeEngine::EngineInterface::onFatalException();
+	wxApp::OnExceptionInMainLoop();
+	throw;
 }
+
 
 // ----------------------------------------------------------------------------
 void Application::OnFatalException()
 {
-    ScapeEngine::EngineInterface::onFatalException();
-    wxApp::OnFatalException();
+	ScapeEngine::EngineInterface::onFatalException();
+	wxApp::OnFatalException();
 }
+
 
 // ----------------------------------------------------------------------------
 void Application::OnUnhandledException()
 {
-    ScapeEngine::EngineInterface::onFatalException();
-    wxApp::OnUnhandledException();
-    throw;
+	ScapeEngine::EngineInterface::onFatalException();
+	wxApp::OnUnhandledException();
+	throw;
 }

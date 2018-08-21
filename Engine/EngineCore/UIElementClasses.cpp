@@ -1,7 +1,7 @@
 /**
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details.
+ * See Docs/ScapeLicense.txt for details. 
  */
 
 #include "PCH/stdafx.h"
@@ -15,200 +15,210 @@ using namespace ScapeEngine;
 
 #define PRESET_DATASETNAME _T("Presets")
 
+
 // ----------------------------------------------------------------------------
 StringList UIElementContainerSimple::getUIElementPropertyFieldNameList()
 {
-    std::list<string> names;
+	std::list<string> names;
 
-    StringEnumMap::iterator elementIt, elementItEnd = getPersistentElementStringEnumMap().end();
-    for (elementIt = getPersistentElementStringEnumMap().begin(); elementIt != elementItEnd; ++elementIt)
-    {
-        names.push_back(elementIt->first);
-    }
+	StringEnumMap::iterator elementIt, elementItEnd = getPersistentElementStringEnumMap().end();
+	for (elementIt = getPersistentElementStringEnumMap().begin(); elementIt != elementItEnd; ++elementIt)
+	{
+		names.push_back(elementIt->first);
+	}
 
-    return names;
+	return names;
 }
+
 
 // ----------------------------------------------------------------------------
 StringStringMap UIElementContainerSimple::setUIElementPropertyValueMap(const StringStringMap& valueMap)
 {
-    StringStringMap correctedValueMap;
-    StringStringMap::const_iterator valueIt, valueItEnd = valueMap.end();
-    for (valueIt = valueMap.begin(); valueIt != valueItEnd; ++valueIt)
-    {
-        string correctedValue = setUIElementPropertyValue(valueIt->first, valueIt->second);
-        correctedValueMap.insert(StringStringMap::value_type(valueIt->first, correctedValue));
-    }
-    return correctedValueMap;
+	StringStringMap correctedValueMap;
+	StringStringMap::const_iterator valueIt, valueItEnd = valueMap.end();
+	for (valueIt = valueMap.begin(); valueIt != valueItEnd; ++valueIt)
+	{
+		string correctedValue = setUIElementPropertyValue(valueIt->first, valueIt->second);
+		correctedValueMap.insert(StringStringMap::value_type(valueIt->first, correctedValue));			
+	}
+	return correctedValueMap;
 }
+
 
 // ----------------------------------------------------------------------------
 string UIElementContainerSimple::getUIElementPropertyFieldValue(const string& elementName)
 {
-    StringStringMap& valueMap = getPersistentElementValueMap();
-    StringStringMap::iterator elementIt = valueMap.find(elementName);
-    if (elementIt != valueMap.end())
-    {
-        return elementIt->second;
-    }
-    return Utils::emptyString;
+	StringStringMap& valueMap = getPersistentElementValueMap();
+	StringStringMap::iterator elementIt = valueMap.find(elementName);
+	if (elementIt != valueMap.end())
+	{
+		return elementIt->second;
+	}
+	return Utils::emptyString;
 }
+
 
 // ----------------------------------------------------------------------------
 StringList UIElementPresetContainerSimple::getUIElementPropertyFieldNameList()
 {
-    std::list<string> names;
+	std::list<string> names;
 
-    StringEnumMap::iterator elementIt, elementItEnd = getPersistentElementStringEnumMap().end();
-    for (elementIt = getPersistentElementStringEnumMap().begin(); elementIt != elementItEnd; ++elementIt)
-    {
-        names.push_back(elementIt->first);
-    }
+	StringEnumMap::iterator elementIt, elementItEnd = getPersistentElementStringEnumMap().end();
+	for (elementIt = getPersistentElementStringEnumMap().begin(); elementIt != elementItEnd; ++elementIt)
+	{
+		names.push_back(elementIt->first);
+	}
 
-    return names;
+	return names;
 }
+
 
 // ----------------------------------------------------------------------------
 StringStringMap UIElementPresetContainerSimple::setUIElementPropertyValueMap(const StringStringMap& valueMap)
 {
-    StringStringMap correctedValueMap;
-    StringStringMap::const_iterator valueIt, valueItEnd = valueMap.end();
-    for (valueIt = valueMap.begin(); valueIt != valueItEnd; ++valueIt)
-    {
-        string correctedValue = setUIElementPropertyValue(valueIt->first, valueIt->second);
-        correctedValueMap.insert(StringStringMap::value_type(valueIt->first, correctedValue));
-    }
-    return correctedValueMap;
+	StringStringMap correctedValueMap;
+	StringStringMap::const_iterator valueIt, valueItEnd = valueMap.end();
+	for (valueIt = valueMap.begin(); valueIt != valueItEnd; ++valueIt)
+	{
+		string correctedValue = setUIElementPropertyValue(valueIt->first, valueIt->second);
+		correctedValueMap.insert(StringStringMap::value_type(valueIt->first, correctedValue));			
+	}
+	return correctedValueMap;
 }
+
 
 // ----------------------------------------------------------------------------
 string UIElementPresetContainerSimple::getUIElementPropertyFieldValue(const string& elementName)
 {
-    StringStringMap& valueMap = getPersistentElementValueMap();
-    StringStringMap::iterator elementIt = valueMap.find(elementName);
-    if (elementIt != valueMap.end())
-    {
-        return elementIt->second;
-    }
-    return Utils::emptyString;
+	StringStringMap& valueMap = getPersistentElementValueMap();
+	StringStringMap::iterator elementIt = valueMap.find(elementName);
+	if (elementIt != valueMap.end())
+	{
+		return elementIt->second;
+	}
+	return Utils::emptyString;
 }
 
-// ----------------------------------------------------------------------------
-string UIElementPresetContainerSimple::getUIElementPresetPropertyValue(
-    const string& presetName, const string& elementName)
-{
-    return getEngineCore()->getSettingsDatasetManager()->getSetting(
-        PRESET_DATASETNAME, getContainerName(), presetName, elementName);
-}
 
 // ----------------------------------------------------------------------------
-void UIElementPresetContainerSimple::setUIElementPresetPropertyValue(
-    const string& presetName, const string& elementName, const string& value)
+string UIElementPresetContainerSimple::getUIElementPresetPropertyValue(const string& presetName, const string& elementName)
 {
-    return getEngineCore()->getSettingsDatasetManager()->setSetting(
-        PRESET_DATASETNAME, getContainerName(), presetName, elementName, value);
+	return getEngineCore()->getSettingsDatasetManager()->getSetting(PRESET_DATASETNAME, getContainerName(), presetName, elementName);
 }
+
+
+// ----------------------------------------------------------------------------
+void UIElementPresetContainerSimple::setUIElementPresetPropertyValue(const string& presetName, const string& elementName, const string& value) 
+{
+	return getEngineCore()->getSettingsDatasetManager()->setSetting(PRESET_DATASETNAME, getContainerName(), presetName, elementName, value);
+}
+
 
 // ----------------------------------------------------------------------------
 StringStringMap UIElementPresetContainerSimple::getUIElementPresetPropertyValueMap(const string& presetName)
 {
-    StringStringMap valueMap;
+	StringStringMap valueMap;
 
-    StringEnumMap::iterator elementIt, elementItEnd = getPersistentElementStringEnumMap().end();
-    for (elementIt = getPersistentElementStringEnumMap().begin(); elementIt != elementItEnd; ++elementIt)
-    {
-        valueMap[elementIt->first] = getUIElementPresetPropertyValue(presetName, elementIt->first);
-    }
-    return valueMap;
+	StringEnumMap::iterator elementIt, elementItEnd = getPersistentElementStringEnumMap().end();
+	for (elementIt = getPersistentElementStringEnumMap().begin(); elementIt != elementItEnd; ++elementIt)
+	{
+		valueMap[elementIt->first] = getUIElementPresetPropertyValue(presetName, elementIt->first);
+	}
+	return valueMap;
 }
+
 
 // ----------------------------------------------------------------------------
-void UIElementPresetContainerSimple::setUIElementPresetPropertyValueMap(
-    const string& presetName, const StringStringMap& valueMap)
+void UIElementPresetContainerSimple::setUIElementPresetPropertyValueMap(const string& presetName, const StringStringMap& valueMap)
 {
-    StringStringMap::const_iterator valueIt, valueItEnd = valueMap.end();
-    for (valueIt = valueMap.begin(); valueIt != valueItEnd; ++valueIt)
-    {
-        setUIElementPresetPropertyValue(presetName, valueIt->first, valueIt->second);
-    }
+	StringStringMap::const_iterator valueIt, valueItEnd = valueMap.end();
+	for (valueIt = valueMap.begin(); valueIt != valueItEnd; ++valueIt)
+	{
+		setUIElementPresetPropertyValue(presetName, valueIt->first, valueIt->second);
+	}
 }
+
 
 // ----------------------------------------------------------------------------
 void UIElementPresetContainerSimple::deleteUIElementPreset(const string& presetName)
 {
-    SettingsDataset* dataset = getEngineCore()->getSettingsDatasetManager()->getDataset(PRESET_DATASETNAME);
-    assert(dataset);
-    return dataset->clear(getContainerName(), presetName);
+	SettingsDataset* dataset = getEngineCore()->getSettingsDatasetManager()->getDataset(PRESET_DATASETNAME);
+	assert(dataset);
+	return dataset->clear(getContainerName(), presetName);
 }
+
 
 // ----------------------------------------------------------------------------
 StringList UIElementPresetContainerSimple::getUIElementPresetPropertyNames()
 {
-    SettingsDataset* dataset = getEngineCore()->getSettingsDatasetManager()->getDataset(PRESET_DATASETNAME);
-    assert(dataset);
-    SettingsDataset::SubsectionIterator iterator = dataset->getSubsectionIterator(getContainerName());
+	SettingsDataset* dataset = getEngineCore()->getSettingsDatasetManager()->getDataset(PRESET_DATASETNAME);
+	assert(dataset);
+	SettingsDataset::SubsectionIterator iterator = dataset->getSubsectionIterator(getContainerName());
 
-    StringList presetNames;
+	StringList presetNames;
 
-    for (; !iterator.isEnd(); iterator.next())
-    {
-        presetNames.push_back(iterator.getKey());
-    }
+	for (; !iterator.isEnd(); iterator.next())
+	{
+		presetNames.push_back(iterator.getKey());
+	}
 
-    return presetNames;
+	return presetNames;
 }
+
 
 // ----------------------------------------------------------------------------
 string UIElementPresetContainerSimple::importUIElementPreset(const string& fileName)
 {
-    SettingsDataset* dataset = getEngineCore()->getSettingsDatasetManager()->getDataset(PRESET_DATASETNAME);
-    assert(dataset);
+	SettingsDataset* dataset = getEngineCore()->getSettingsDatasetManager()->getDataset(PRESET_DATASETNAME);
+	assert(dataset);
 
-    SettingsDataset importedDataset(PRESET_DATASETNAME);
-    importedDataset.load(fileName);
-    SettingsDataset::SubsectionIterator subsectionIterator = importedDataset.getSubsectionIterator(getContainerName());
+	SettingsDataset importedDataset(PRESET_DATASETNAME);
+	importedDataset.load(fileName);
+	SettingsDataset::SubsectionIterator subsectionIterator = importedDataset.getSubsectionIterator(getContainerName());
 
-    string presetName;
+	string presetName;
 
-    for (; !subsectionIterator.isEnd(); subsectionIterator.next())
-    {
-        presetName = subsectionIterator.getKey();
-        presetName = makeUniquePresetName(presetName);
+	for (; !subsectionIterator.isEnd(); subsectionIterator.next())
+	{
+		presetName = subsectionIterator.getKey();
+		presetName = makeUniquePresetName(presetName);
 
-        SettingsDataset::KeyIterator keyIterator = subsectionIterator.getValue();
+		SettingsDataset::KeyIterator keyIterator = subsectionIterator.getValue();
+		
+		for (; !keyIterator.isEnd(); keyIterator.next())
+		{
+			dataset->setSetting(getContainerName(), presetName, keyIterator.getKey(), keyIterator.getValue());
+		}
+	}
 
-        for (; !keyIterator.isEnd(); keyIterator.next())
-        {
-            dataset->setSetting(getContainerName(), presetName, keyIterator.getKey(), keyIterator.getValue());
-        }
-    }
-
-    return presetName;
+	return presetName;
 }
+
 
 // ----------------------------------------------------------------------------
 void UIElementPresetContainerSimple::exportUIElementPreset(const string& fileName)
 {
-    StringStringMap valueMap = getUIElementPropertyFieldValueMap();
+	StringStringMap valueMap = getUIElementPropertyFieldValueMap();
 
-    SettingsDataset exportedDataset(PRESET_DATASETNAME);
+	SettingsDataset exportedDataset(PRESET_DATASETNAME);
 
-    string baseName, extension, path;
-    Ogre::StringUtil::splitFullFilename(fileName, baseName, extension, path);
+	string baseName, extension, path;
+	Ogre::StringUtil::splitFullFilename(fileName, baseName, extension, path);
 
-    string presetName = baseName;
+	string presetName = baseName;
 
-    StringStringMap::const_iterator valueIt, valueItEnd = valueMap.end();
-    for (valueIt = valueMap.begin(); valueIt != valueItEnd; ++valueIt)
-    {
-        exportedDataset.setSetting(getContainerName(), presetName, valueIt->first, valueIt->second);
-    }
+	StringStringMap::const_iterator valueIt, valueItEnd = valueMap.end();
+	for (valueIt = valueMap.begin(); valueIt != valueItEnd; ++valueIt)
+	{
+		exportedDataset.setSetting(getContainerName(), presetName, valueIt->first, valueIt->second);
+	}
 
-    exportedDataset.save(fileName);
+	exportedDataset.save(fileName);
 }
+
 
 // ----------------------------------------------------------------------------
 string UIElementPresetContainerSimple::makeUniquePresetName(const string& baseName)
 {
-    return Utils::makeUniqueName(baseName, getUIElementPresetPropertyNames());
+	return Utils::makeUniqueName(baseName, getUIElementPresetPropertyNames());
 }

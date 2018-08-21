@@ -1,11 +1,11 @@
 /*/////////////////////////////////////////////////////////////////////////////////
 /// This file is part of
-///    ___                   _ _ _
-///   /___\__ _ _ __ ___  __| (_) |_ ___  _ __
+///    ___                   _ _ _             
+///   /___\__ _ _ __ ___  __| (_) |_ ___  _ __ 
 ///  //  // _` | '__/ _ \/ _` | | __/ _ \| '__|
-/// / \_// (_| | | |  __/ (_| | | || (_) | |
-/// \___/ \__, |_|  \___|\__,_|_|\__\___/|_|
-///       |___/
+/// / \_// (_| | | |  __/ (_| | | || (_) | |   
+/// \___/ \__, |_|  \___|\__,_|_|\__\___/|_|   
+///       |___/                                
 ///             Copyright (c) 2010 Jacob 'jacmoe' Moen
 /// The MIT License
 ///
@@ -25,7 +25,7 @@
 /// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 /// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-/// THE SOFTWARE.
+/// THE SOFTWARE. 
 ///////////////////////////////////////////////////////////////////////////////////*/
 #ifndef __wxOgreditor_h_
 #define __wxOgreditor_h_
@@ -42,24 +42,25 @@
 // Define a new application type, each program should derive a class from wxApp
 class OgreditorApp : public wxApp
 {
-    DECLARE_CLASS(OgreditorApp)
+	DECLARE_CLASS( OgreditorApp )
 
 public:
     // override base class virtuals
     // ----------------------------
 
-    OgreditorApp();
+	OgreditorApp();
     // this one is called on application startup and is a good place for the app
     // initialization (doing it here and not in the ctor allows to have an error
     // return: if OnInit() returns false, the application terminates)
     virtual bool OnInit();
-    virtual int OnExit();
-    bool SetupOgre();
-    Ogre::Root* GetOgreRoot() const { return m_OgreRoot; }
-    wxConfig* GetConfig() const { return mConfig; }
+	virtual int OnExit();
+	bool SetupOgre();
+	Ogre::Root* GetOgreRoot() const { return m_OgreRoot; }
+	wxConfig* GetConfig() const { return mConfig; }
+
 private:
-    wxConfig* mConfig;
-    Ogre::Root* m_OgreRoot;
+	wxConfig* mConfig;
+    Ogre::Root *m_OgreRoot;
 };
 
 DECLARE_APP(OgreditorApp)

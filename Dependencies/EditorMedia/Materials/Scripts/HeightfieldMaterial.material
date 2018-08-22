@@ -9,7 +9,7 @@ vertex_program HeightfieldShader_Splat4_Cg/VP cg
 {
 	source HeightfieldShaderCg.cg
 	entry_point main_vp
-	profiles vs_3_0 arbvp1
+	profiles vs_3_0 vp40 glslv
 }
 
 
@@ -18,7 +18,7 @@ fragment_program HeightfieldShader_Splat4_Cg/FP cg
 {
 	source HeightfieldShaderCg.cg
 	entry_point main_fp
-	profiles ps_3_0 arbfp1
+	profiles ps_3_0 fp40 glslf
 }
 
 
@@ -27,7 +27,7 @@ fragment_program HeightfieldShader_Splat4_MultiProject_Cg/FP cg
 {
 	source HeightfieldShaderCg.cg
 	entry_point main_fp
-	profiles ps_3_0 arbfp1
+	profiles ps_3_0 fp40 glslf
         compile_arguments -DMULTIPROJECT
 }
 

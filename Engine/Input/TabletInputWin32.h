@@ -5,9 +5,8 @@
  *
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details. 
+ * See Docs/ScapeLicense.txt for details.
  */
-
 
 #ifndef __TABLETINPUTWIN32_H__
 #define __TABLETINPUTWIN32_H__
@@ -20,36 +19,35 @@
 
 namespace ScapeEngine
 {
-	class TabletInputWin32 : public TabletInput
-	{
-	public:
-		TabletInputWin32(const string& inputWindow);
+class TabletInputWin32 : public TabletInput
+{
+public:
+    TabletInputWin32(const string& inputWindow);
 
-		virtual ~TabletInputWin32();
+    virtual ~TabletInputWin32();
 
-		virtual void connect();
+    virtual void connect();
 
-		virtual bool isConnected() {return mConnected;}
+    virtual bool isConnected() { return mConnected; }
 
-		virtual float getPressure() {return mPressure;}
+    virtual float getPressure() { return mPressure; }
 
-		virtual void disconnect();
+    virtual void disconnect();
 
-		virtual void capture();
+    virtual void capture();
 
-	private:
+private:
+    bool mConnected;
+    int mPacketQueueSize;
+    string mInputWindow;
+    HCTX mContextHandle;
+    Ogre::uint32 mCurrentCursorId;
+    Ogre::uint8 mPressureButton;
+    Ogre::Real mPressureValueMin, mPressureValueMax;
+    Ogre::Real mPressure;
 
-		bool mConnected;
-		int mPacketQueueSize;
-		string mInputWindow;
-		HCTX mContextHandle;
-		Ogre::uint32 mCurrentCursorId;
-		Ogre::uint8 mPressureButton;
-		Ogre::Real mPressureValueMin, mPressureValueMax;
-		Ogre::Real mPressure;
-
-		void cacheCursorSettings();
-	};
+    void cacheCursorSettings();
+};
 }
 
 #endif

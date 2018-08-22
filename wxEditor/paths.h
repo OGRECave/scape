@@ -1,11 +1,11 @@
 /*/////////////////////////////////////////////////////////////////////////////////
 /// This file is part of
-///    ___                   _ _ _             
-///   /___\__ _ _ __ ___  __| (_) |_ ___  _ __ 
+///    ___                   _ _ _
+///   /___\__ _ _ __ ___  __| (_) |_ ___  _ __
 ///  //  // _` | '__/ _ \/ _` | | __/ _ \| '__|
-/// / \_// (_| | | |  __/ (_| | | || (_) | |   
-/// \___/ \__, |_|  \___|\__,_|_|\__\___/|_|   
-///       |___/                                
+/// / \_// (_| | | |  __/ (_| | | || (_) | |
+/// \___/ \__, |_|  \___|\__,_|_|\__\___/|_|
+///       |___/
 ///             Copyright (c) 2010 Jacob 'jacmoe' Moen
 /// The MIT License
 ///
@@ -25,7 +25,7 @@
 /// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 /// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-/// THE SOFTWARE. 
+/// THE SOFTWARE.
 ///////////////////////////////////////////////////////////////////////////////////*/
 #ifndef PATHS_H_INCLUDED
 #define PATHS_H_INCLUDED

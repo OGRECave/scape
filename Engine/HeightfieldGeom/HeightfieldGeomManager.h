@@ -5,9 +5,8 @@
  *
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details. 
+ * See Docs/ScapeLicense.txt for details.
  */
-
 
 #ifndef __HEIGHTFIELDGEOMMANAGER_H__
 #define __HEIGHTFIELDGEOMMANAGER_H__
@@ -16,31 +15,31 @@
 
 namespace ScapeEngine
 {
-	class HeightfieldGeom;
+class HeightfieldGeom;
 
-	class HeightfieldGeomManager : public Tickable
-	{
-	public:
+class HeightfieldGeomManager : public Tickable
+{
+public:
+    HeightfieldGeomManager();
 
-		HeightfieldGeomManager();
+    HeightfieldGeom* create(class HeightfieldBuffer* heightfieldBuffer, Ogre::SceneNode* rootNode);
 
-		HeightfieldGeom* create(class HeightfieldBuffer* heightfieldBuffer, Ogre::SceneNode* rootNode);
+    bool getClosestHeightfieldGeomRayIntersection(const Ogre::Ray& ray,
+                                                  const Ogre::SceneManager& sceneManager,
+                                                  class HeightfieldGeom*& outHeightfieldGeom,
+                                                  Ogre::Vector3& outPoint);
 
-		bool getClosestHeightfieldGeomRayIntersection(const Ogre::Ray &ray, const Ogre::SceneManager& sceneManager, class HeightfieldGeom*& outHeightfieldGeom, Ogre::Vector3& outPoint);
+    HeightfieldGeom* getCurrentHeightfieldGeom() const { return mCurrentHeightfieldGeom; }
 
-		HeightfieldGeom* getCurrentHeightfieldGeom() const {return mCurrentHeightfieldGeom; }
+    void destroy(class HeightfieldGeom* heightfieldGeom);
 
-		void destroy(class HeightfieldGeom* heightfieldGeom);
+    void onPostFrameTick();
 
-		void onPostFrameTick();
-
-	private:
-
-		typedef std::list<HeightfieldGeom*> HeightfieldGeoms;
-		HeightfieldGeom* mCurrentHeightfieldGeom;
-		HeightfieldGeoms mHeightfieldGeoms;
-	};
-
+private:
+    typedef std::list<HeightfieldGeom*> HeightfieldGeoms;
+    HeightfieldGeom* mCurrentHeightfieldGeom;
+    HeightfieldGeoms mHeightfieldGeoms;
+};
 }
 
 #endif // __HEIGHTFIELDGEOMMANAGER_H__

@@ -5,9 +5,8 @@
  *
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details. 
+ * See Docs/ScapeLicense.txt for details.
  */
-
 
 #ifndef __HEIGHTFIELDOPERATIONCPUBRUSH_H__
 #define __HEIGHTFIELDOPERATIONCPUBRUSH_H__
@@ -18,29 +17,29 @@
 
 namespace ScapeEngine
 {
-	class HeightfieldGeom;
+class HeightfieldGeom;
 
-	class HeightfieldOperationCPUBrush
-	: 	public HeightfieldOperationPolicyBrushInstancerSpacer<HeightfieldOperationCPUBrush, 
-			   HeightfieldOperationPolicySchedulerTaskDirect<HeightfieldOperationCPUBrush, HeightfieldOperationBrushBase> >
-	{
-		DEFINE_UIELEMENTCONTAINERSIMPLE_CLASS(HeightfieldOperationCPUBrush)
-	public:
-		DEFINE_FACTORYCLASS(HeightfieldOperationCPUBrush, HeightfieldOperation)
+class HeightfieldOperationCPUBrush
+    : public HeightfieldOperationPolicyBrushInstancerSpacer<
+          HeightfieldOperationCPUBrush, HeightfieldOperationPolicySchedulerTaskDirect<
+                                            HeightfieldOperationCPUBrush, HeightfieldOperationBrushBase>>
+{
+    DEFINE_UIELEMENTCONTAINERSIMPLE_CLASS(HeightfieldOperationCPUBrush)
+public:
+    DEFINE_FACTORYCLASS(HeightfieldOperationCPUBrush, HeightfieldOperation)
 
-		HeightfieldOperationCPUBrush();
+    HeightfieldOperationCPUBrush();
 
-		virtual HeightfieldOperationTaskDirect* createTaskDirect(const BrushInstance& brushInstance);
+    virtual HeightfieldOperationTaskDirect* createTaskDirect(const BrushInstance& brushInstance);
 
-		bool isLedgeMode() {return mLedgeMode;}
-	protected:
+    bool isLedgeMode() { return mLedgeMode; }
+protected:
+    bool mLedgeMode;
 
-		bool mLedgeMode;
-
-		virtual bool initPersistentElementValueMap(StringStringMap& map);
-		virtual bool initPersistentElementStringEnumMap(StringEnumMap& map);
-		virtual string setUIElementPropertyValue(const string& elementName, const string& value);
-	};
+    virtual bool initPersistentElementValueMap(StringStringMap& map);
+    virtual bool initPersistentElementStringEnumMap(StringEnumMap& map);
+    virtual string setUIElementPropertyValue(const string& elementName, const string& value);
+};
 }
 
 #endif // __HEIGHTFIELDOPERATIONCPUBRUSH_H__

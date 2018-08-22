@@ -5,9 +5,8 @@
  *
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details. 
+ * See Docs/ScapeLicense.txt for details.
  */
-
 
 #ifndef __HEIGHTFIELDFILEDECODERMANAGER_H__
 #define __HEIGHTFIELDFILEDECODERMANAGER_H__
@@ -16,27 +15,27 @@
 
 namespace ScapeEngine
 {
-	class HeightfieldFileDecoder;
+class HeightfieldFileDecoder;
 
-	class HeightfieldFileDecoderManager
-	{
-	public:
-		HeightfieldFileDecoderManager();
-		~HeightfieldFileDecoderManager();
+class HeightfieldFileDecoderManager
+{
+public:
+    HeightfieldFileDecoderManager();
+    ~HeightfieldFileDecoderManager();
 
-		StringList getDecoderNameList();
-		StringStringStringPairMap getFileFilterMap();
+    StringList getDecoderNameList();
+    StringStringStringPairMap getFileFilterMap();
 
-		HeightfieldFileDecoder* getDecoder(const string& name);
-		string getDecoderNameFromExtension(const string& extension);
+    HeightfieldFileDecoder* getDecoder(const string& name);
+    string getDecoderNameFromExtension(const string& extension);
 
-	protected:
-		typedef std::map<string, HeightfieldFileDecoder*> DecoderMap;
-		DecoderMap mDecoderMap;
-		StringStringStringPairMap mFileFilterMap;
+protected:
+    typedef std::map<string, HeightfieldFileDecoder*> DecoderMap;
+    DecoderMap mDecoderMap;
+    StringStringStringPairMap mFileFilterMap;
 
-		void registerDecoder(HeightfieldFileDecoder* decoder);
-	};
+    void registerDecoder(HeightfieldFileDecoder* decoder);
+};
 }
 
 #endif // __HEIGHTFIELDFILEDECODERMANAGER_H__

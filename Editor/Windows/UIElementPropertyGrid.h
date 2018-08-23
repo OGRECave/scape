@@ -5,7 +5,7 @@
  *
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details. 
+ * See Docs/ScapeLicense.txt for details.
  */
 
 #ifndef __UIELEMENTPROPERTYGRID_H__
@@ -17,61 +17,58 @@
 // ----------------------------------------------------------------------------
 namespace ScapeEditor
 {
-	// ----------------------------------------------------------------------------
-	class UIElementPropertyGridListener
-	{
-	public:
-		// should react to the change and return a corrected (e.g. clamped) version of 'value'
-		virtual wxString onUpdatePropertyGridPropertyValue(const wxString& name, const wxString& propertyName, const wxString& value) = 0;
+// ----------------------------------------------------------------------------
+class UIElementPropertyGridListener
+{
+public:
+    // should react to the change and return a corrected (e.g. clamped) version of 'value'
+    virtual wxString onUpdatePropertyGridPropertyValue(const wxString& name, const wxString& propertyName,
+                                                       const wxString& value) = 0;
 
-		// shoud reset to the requested property, returning the new value
-		virtual wxString onResetPropertyGridPropertyValue(const wxString& name, const wxString& propertyName) = 0;
-	};
+    // shoud reset to the requested property, returning the new value
+    virtual wxString onResetPropertyGridPropertyValue(const wxString& name,
+                                                      const wxString& propertyName) = 0;
+};
 
-	// ----------------------------------------------------------------------------
-	struct UIElementPropertyGridItem
-	{
-		string type;
-		string name;
-		string label;
-		string description;
-		string category;
-	};
+// ----------------------------------------------------------------------------
+struct UIElementPropertyGridItem
+{
+    string type;
+    string name;
+    string label;
+    string description;
+    string category;
+};
 
-	typedef std::list<UIElementPropertyGridItem> UIElementPropertyGridItemList;
+typedef std::list<UIElementPropertyGridItem> UIElementPropertyGridItemList;
 
-	// ----------------------------------------------------------------------------
-	class UIElementPropertyGrid : public wxPanel
-	{
-		DECLARE_CLASS(UIElementPropertyGrid)
+// ----------------------------------------------------------------------------
+class UIElementPropertyGrid : public wxPanel
+{
+    DECLARE_CLASS(UIElementPropertyGrid)
 
-	public:
-	    UIElementPropertyGrid(
-			wxWindow *parent,
-			const wxString& name,
-			const wxString& caption,
-			UIElementPropertyGridListener* listener,
-			wxAuiManager *auiManager);
+public:
+    UIElementPropertyGrid(wxWindow* parent, const wxString& name, const wxString& caption,
+                          UIElementPropertyGridListener* listener, wxAuiManager* auiManager);
 
-		~UIElementPropertyGrid();
+    ~UIElementPropertyGrid();
 
-		void populate(const UIElementPropertyGridItemList& itemList);
-		void setValues(const StringStringMap& valueMap);
+    void populate(const UIElementPropertyGridItemList& itemList);
+    void setValues(const StringStringMap& valueMap);
 
-	protected:
-		DECLARE_EVENT_TABLE()
+protected:
+    DECLARE_EVENT_TABLE()
 
-		wxPropertyGridManager* mGridManager;
-		UIElementPropertyGridListener* mListener;
-		wxWindow* mParentWindow;
-		wxAuiManager* mAuiManager;
-		wxString mName;
+    wxPropertyGridManager* mGridManager;
+    UIElementPropertyGridListener* mListener;
+    wxWindow* mParentWindow;
+    wxAuiManager* mAuiManager;
+    wxString mName;
 
-		void onSize(wxSizeEvent &event);
-	    void onPropertyGridChange(wxPropertyGridEvent& event);
-		void onPropertyGridItemRightClick(wxPropertyGridEvent& event);
-	};
-
+    void onSize(wxSizeEvent& event);
+    void onPropertyGridChange(wxPropertyGridEvent& event);
+    void onPropertyGridItemRightClick(wxPropertyGridEvent& event);
+};
 }
 
 #endif // __UIELEMENTPROPERTYGRID_H__

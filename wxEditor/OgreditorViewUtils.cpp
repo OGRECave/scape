@@ -1,11 +1,11 @@
 /*/////////////////////////////////////////////////////////////////////////////////
 /// This file is part of
-///    ___                   _ _ _             
-///   /___\__ _ _ __ ___  __| (_) |_ ___  _ __ 
+///    ___                   _ _ _
+///   /___\__ _ _ __ ___  __| (_) |_ ___  _ __
 ///  //  // _` | '__/ _ \/ _` | | __/ _ \| '__|
-/// / \_// (_| | | |  __/ (_| | | || (_) | |   
-/// \___/ \__, |_|  \___|\__,_|_|\__\___/|_|   
-///       |___/                                
+/// / \_// (_| | | |  __/ (_| | | || (_) | |
+/// \___/ \__, |_|  \___|\__,_|_|\__\___/|_|
+///       |___/
 ///             Copyright (c) 2010 Jacob 'jacmoe' Moen
 /// The MIT License
 ///
@@ -25,7 +25,7 @@
 /// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 /// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-/// THE SOFTWARE. 
+/// THE SOFTWARE.
 ///////////////////////////////////////////////////////////////////////////////////*/
 /*
 -----------------------------------------------------------------------------
@@ -58,31 +58,32 @@ THE SOFTWARE.
 #include "OgreStringConverter.h"
 #include "OgreditorViewUtils.h"
 
-#if defined( _MSC_VER )
-    #include <exception>
-#elif defined( __GNUC__ )
-    #include <stdexcept>
+#if defined(_MSC_VER)
+#include <exception>
+#elif defined(__GNUC__)
+#include <stdexcept>
 #endif
 
 //---------------------------------------------------------------------
-Ogre::RenderWindow* ViewUtils::createOgreWindow(const Ogre::String& windowName, wxWindow* win, const wxSize& sz)
+Ogre::RenderWindow* ViewUtils::createOgreWindow(const Ogre::String& windowName, wxWindow* win,
+                                                const wxSize& sz)
 {
     // Confirm Ogre::Root created
     Ogre::Root* proot = Ogre::Root::getSingletonPtr();
     if (!proot)
     {
-#if defined( _MSC_VER )
-    throw std::exception("No instance of Root exists, cannot create Ogre View");
-#elif defined( __GNUC__ )
-    throw  std::runtime_error("No instance of Root exists, cannot create Ogre View");
+#if defined(_MSC_VER)
+        throw std::exception("No instance of Root exists, cannot create Ogre View");
+#elif defined(__GNUC__)
+        throw std::runtime_error("No instance of Root exists, cannot create Ogre View");
 #endif
     }
     if (!proot->isInitialised())
     {
-#if defined( _MSC_VER )
+#if defined(_MSC_VER)
         throw std::exception("Root hasn't been initialised!");
-#elif defined( __GNUC__ )
-    throw  std::runtime_error("Root hasn't been initialised!");
+#elif defined(__GNUC__)
+        throw std::runtime_error("Root hasn't been initialised!");
 #endif
     }
 
@@ -94,42 +95,44 @@ Ogre::RenderWindow* ViewUtils::createOgreWindow(const Ogre::String& windowName, 
 #ifdef __WXMSW__
     handle = Ogre::StringConverter::toString((size_t)((HWND)(win->GetHandle())));
 #elif defined(__WXGTK__)
-GtkWidget* widget = win->GetHandle();
-gtk_widget_realize( widget );   // Mandatory. Otherwise, a segfault happens.
-std::stringstream handleStream;
+    GtkWidget* widget = win->GetHandle();
+    gtk_widget_realize(widget); // Mandatory. Otherwise, a segfault happens.
+    std::stringstream handleStream;
 
-Display* display = GDK_WINDOW_XDISPLAY( widget->window );
-Window wid = GDK_WINDOW_XWINDOW( widget->window );  // Window is a typedef for XID, which is a typedef for unsigned int
+    Display* display = GDK_WINDOW_XDISPLAY(widget->window);
+    Window wid = GDK_WINDOW_XWINDOW(
+        widget->window); // Window is a typedef for XID, which is a typedef for unsigned int
 
-/* Get the right display (DisplayString() returns ":display.screen") */
-std::string displayStr = DisplayString( display );
-displayStr = displayStr.substr( 1, ( displayStr.find( ".", 0 ) - 1 ) );
-int attrlist[] = { GLX_RGBA, GLX_DOUBLEBUFFER, GLX_DEPTH_SIZE, 16, GLX_STENCIL_SIZE, 8, None };
-XVisualInfo* vi = glXChooseVisual(display, DefaultScreen(display), attrlist);
+    /* Get the right display (DisplayString() returns ":display.screen") */
+    std::string displayStr = DisplayString(display);
+    displayStr = displayStr.substr(1, (displayStr.find(".", 0) - 1));
+    int attrlist[] = {GLX_RGBA, GLX_DOUBLEBUFFER, GLX_DEPTH_SIZE, 16, GLX_STENCIL_SIZE, 8, None};
+    XVisualInfo* vi = glXChooseVisual(display, DefaultScreen(display), attrlist);
 
-// -----------
-// Try either:
-// -----------
-//handleStream << (unsigned long)display << ':' << DefaultScreen( display ) << ':' << wid << ":" << (unsigned long)vi;
+    // -----------
+    // Try either:
+    // -----------
+    // handleStream << (unsigned long)display << ':' << DefaultScreen( display ) << ':' << wid << ":" <<
+    // (unsigned long)vi;
 
-// ----------------
-// or alternatively
-// ----------------
-handleStream << wid ;
+    // ----------------
+    // or alternatively
+    // ----------------
+    handleStream << wid;
 
-handle = handleStream.str();
+    handle = handleStream.str();
 
-// force xserver to process all tasks and events
-XSync(display, False);
+    // force xserver to process all tasks and events
+    XSync(display, False);
 #elif defined(__WXOSX_CARBON__)
-handle = Ogre::StringConverter::toString((unsigned long)((HIViewRef)win->GetHandle()));
+    handle = Ogre::StringConverter::toString((unsigned long)((HIViewRef)win->GetHandle()));
 #else
 // Support __WXOSX__ sometime?
 #error Not supported on this platform.
 #endif
 
-params["externalWindowHandle"] = handle;
+    params["externalWindowHandle"] = handle;
 
-// Create the render window
-return proot->createRenderWindow(windowName, sz.x, sz.y, false, &params);
+    // Create the render window
+    return proot->createRenderWindow(windowName, sz.x, sz.y, false, &params);
 }

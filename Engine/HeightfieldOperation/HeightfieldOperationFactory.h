@@ -5,40 +5,41 @@
  *
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details. 
+ * See Docs/ScapeLicense.txt for details.
  */
-
 
 #ifndef __HEIGHTFIELDOPERATIONFACTORY_H__
 #define __HEIGHTFIELDOPERATIONFACTORY_H__
 
-#define REGISTER_HEIGHTFIELDOPERATION_CLASS(factoryObject, className) {factoryObject->registerClass(className::getStaticClassName(), className::create);}
+#define REGISTER_HEIGHTFIELDOPERATION_CLASS(factoryObject, className)                                      \
+    {                                                                                                      \
+        factoryObject->registerClass(className::getStaticClassName(), className::create);                  \
+    }
 
 #include "HeightfieldOperation.h"
 
 namespace ScapeEngine
 {
-	class HeightfieldOperationFactory
-	{
+class HeightfieldOperationFactory
+{
 
-	public:
-		HeightfieldOperationFactory() {}
+public:
+    HeightfieldOperationFactory() {}
 
-		void registerClasses();
+    void registerClasses();
 
-		void registerClass(const string& className, HeightfieldOperation*(*classCreateMethod)());
+    void registerClass(const string& className, HeightfieldOperation* (*classCreateMethod)());
 
-		bool isRegistered(const string& className);
+    bool isRegistered(const string& className);
 
-		StringList getOperationNameList();
+    StringList getOperationNameList();
 
-		HeightfieldOperation* create(const string& className);
+    HeightfieldOperation* create(const string& className);
 
-	protected:
-
-		typedef std::map<string, HeightfieldOperation*(*)()> OperationDescMap;
-		OperationDescMap mOperationDescMap;		
-	};
+protected:
+    typedef std::map<string, HeightfieldOperation* (*)()> OperationDescMap;
+    OperationDescMap mOperationDescMap;
+};
 }
 
 #endif // __HEIGHTFIELDOPERATIONMANAGER_H__

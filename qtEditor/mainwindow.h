@@ -10,13 +10,14 @@
 class OgreWidget;
 class PropertiesWidget;
 
-namespace Ui {
+namespace Ui
+{
 class MainWindow;
 }
 namespace ScapeEngine
 {
-    class EngineInterface;
-    struct string;
+class EngineInterface;
+struct string;
 }
 
 class MainWindow : public QMainWindow
@@ -24,7 +25,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(QWidget* parent = 0);
     ~MainWindow();
 
 public Q_SLOTS:
@@ -52,7 +53,7 @@ public Q_SLOTS:
     void exitApp();
 
 protected:
-    virtual void resizeEvent(QResizeEvent *rEvent);
+    virtual void resizeEvent(QResizeEvent* rEvent);
 
 private:
     void createActions();
@@ -69,13 +70,13 @@ private:
     QDockWidget* mPropertiesDockWidget;
     PropertiesWidget* mPropertiesWidget;
 
-    Ui::MainWindow *ui;
+    Ui::MainWindow* ui;
     ScapeEngine::EngineInterface* mEngineInterface;
     QString mSelectedToolElementName;
     int mSelectedToolElementGroupId;
 
     OgreWidget* mOgreWidget;
-    QTimer *mTimer;
+    QTimer* mTimer;
 
     bool mAttachedInputToEngine;
 

@@ -5,9 +5,8 @@
  *
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details. 
+ * See Docs/ScapeLicense.txt for details.
  */
-
 
 #ifndef __HEIGHTFIELDOPERATIONPOLICYBRUSHINSTANCER_H__
 #define __HEIGHTFIELDOPERATIONPOLICYBRUSHINSTANCER_H__
@@ -16,34 +15,40 @@
 
 namespace ScapeEngine
 {
-	class HeightfieldBrush;
+class HeightfieldBrush;
 
-	typedef struct	
-	{
-		Ogre::Vector3 position;
-		Ogre::Real pressure;
-		unsigned long time;
-		bool primary;
-	} BrushPathNode;
-	typedef std::list<BrushPathNode> BrushPathNodes;
+typedef struct
+{
+    Ogre::Vector3 position;
+    Ogre::Real pressure;
+    unsigned long time;
+    bool primary;
+} BrushPathNode;
+typedef std::list<BrushPathNode> BrushPathNodes;
 
-	class HeightfieldOperationPolicyBrushInstancer
-	{
-	public:
-		virtual ~HeightfieldOperationPolicyBrushInstancer() {}
+class HeightfieldOperationPolicyBrushInstancer
+{
+public:
+    virtual ~HeightfieldOperationPolicyBrushInstancer() {}
 
-	protected:
-		HeightfieldOperationPolicyBrushInstancer() {}
+protected:
+    HeightfieldOperationPolicyBrushInstancer() {}
 
-		virtual void brushInstancerTick() = 0;
+    virtual void brushInstancerTick() = 0;
 
-		virtual size_t getBrushInstanceCount() {return mBrushInstances.size();}
-		virtual BrushInstance popBrushInstance() {assert(!mBrushInstances.empty()); BrushInstance instance = *mBrushInstances.begin(); mBrushInstances.pop_front(); return instance;}
+    virtual size_t getBrushInstanceCount() { return mBrushInstances.size(); }
+    virtual BrushInstance popBrushInstance()
+    {
+        assert(!mBrushInstances.empty());
+        BrushInstance instance = *mBrushInstances.begin();
+        mBrushInstances.pop_front();
+        return instance;
+    }
 
-	protected:
-		BrushPathNodes mBrushPathNodes;
-		BrushInstances mBrushInstances;
-	};
+protected:
+    BrushPathNodes mBrushPathNodes;
+    BrushInstances mBrushInstances;
+};
 }
 
 #endif // __HEIGHTFIELDOPERATIONPOLICYBRUSHINSTANCER_H__

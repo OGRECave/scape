@@ -5,9 +5,8 @@
  *
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details. 
+ * See Docs/ScapeLicense.txt for details.
  */
-
 
 #ifndef __HEIGHTFIELDOPERATIONDIRECT_H__
 #define __HEIGHTFIELDOPERATIONDIRECT_H__
@@ -16,44 +15,42 @@
 
 namespace ScapeEngine
 {
-	class HeightfieldBuffer;
+class HeightfieldBuffer;
 
-	class HeightfieldOperationTaskDirect
-	{
-	public:
+class HeightfieldOperationTaskDirect
+{
+public:
+    HeightfieldOperationTaskDirect(HeightfieldOperationBrush* operation,
+                                   const BrushInstance& brushInstance);
+    virtual ~HeightfieldOperationTaskDirect();
 
-		HeightfieldOperationTaskDirect(HeightfieldOperationBrush* operation, const BrushInstance& brushInstance);
-		virtual ~HeightfieldOperationTaskDirect();
+    // bool addBrushInstances(const BrushInstances& brushInstances);
 
-		//bool addBrushInstances(const BrushInstances& brushInstances);
+    virtual void tick();
 
-		virtual void tick();
+    bool isActive() { return mCurrentState == STATE_ACTIVE; }
+    bool isPending() { return mCurrentState == STATE_PENDING; }
+    bool isCompleted() { return mCurrentState == STATE_COMPLETED; }
 
-		bool isActive() {return mCurrentState == STATE_ACTIVE;}
-		bool isPending() {return mCurrentState == STATE_PENDING;}
-		bool isCompleted() {return mCurrentState == STATE_COMPLETED;}
+    const Ogre::Rect& getUpdatedRect() { return mUpdatedRect; }
 
-		const Ogre::Rect& getUpdatedRect() {return mUpdatedRect;}
+protected:
+    enum State
+    {
+        STATE_PENDING,
+        STATE_ACTIVE,
+        STATE_COMPLETED,
+    } mCurrentState;
 
-	protected:
+    Ogre::Rect mUpdatedRect;
 
-		enum State
-		{
-			STATE_PENDING,
-			STATE_ACTIVE,
-			STATE_COMPLETED,
-		} mCurrentState;
+    BrushInstance mBrushInstance;
+    HeightfieldOperationBrush* mOperation;
+    Ogre::Real mStrength;
 
-		Ogre::Rect mUpdatedRect;
-
-		BrushInstance mBrushInstance;
-		HeightfieldOperationBrush* mOperation;
-		Ogre::Real mStrength;
-
-		virtual void tickPending() = 0;
-		virtual void tickActive() = 0;
-
-	};
+    virtual void tickPending() = 0;
+    virtual void tickActive() = 0;
+};
 }
 
 #endif // __HEIGHTFIELDOPERATIONPAGE_H__

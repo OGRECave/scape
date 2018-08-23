@@ -5,9 +5,8 @@
  *
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details. 
+ * See Docs/ScapeLicense.txt for details.
  */
-
 
 #ifndef __HEIGHTFIELDOPERATIONCPU_H__
 #define __HEIGHTFIELDOPERATIONCPU_H__
@@ -17,65 +16,62 @@
 
 namespace ScapeEngine
 {
-	class HeightfieldOperationCPU : public HeightfieldOperationBrush
-	{
-	public:
+class HeightfieldOperationCPU : public HeightfieldOperationBrush
+{
+public:
+    virtual ~HeightfieldOperationCPU();
 
-		virtual ~HeightfieldOperationCPU();
+    virtual bool canInitiate(EState state);
+    virtual bool isActive();
+    virtual bool isActive(EState state);
+    virtual bool isDone(EState state);
+    virtual void initiate(EState state, HeightfieldBuffer* inOutHeightfieldBuffer);
+    virtual void tick();
 
-		virtual bool canInitiate(EState state);
-		virtual bool isActive();
-		virtual bool isActive(EState state);
-		virtual bool isDone(EState state);
-		virtual void initiate(EState state, HeightfieldBuffer* inOutHeightfieldBuffer);
-		virtual void tick();
+    virtual HeightfieldBuffer* getInOutHeightfieldBuffer() { return NULL; }
+    virtual HeightfieldBuffer* getTempHeightfieldBuffer() { return NULL; }
 
-		virtual HeightfieldBuffer* getInOutHeightfieldBuffer() {return NULL;}
-		virtual HeightfieldBuffer* getTempHeightfieldBuffer() {return NULL;}
+protected:
+    EState mState;
+    bool mIsStateActive;
+    bool mHasBeenStateActive;
 
-	protected:
+    class HeightfieldBuffer* mOriginalHeightfieldBuffer;
+    HeightfieldBuffer* mInOutHeightfieldBuffer;
+    Utils::SerialMemoryBufferPtr mDeltaBufferPtr;
 
-		EState mState;
-		bool mIsStateActive;
-		bool mHasBeenStateActive;
+    string mBrushName;
+    class HeightfieldGeom* mHeightfieldGeom;
 
-		class HeightfieldBuffer* mOriginalHeightfieldBuffer;
-		HeightfieldBuffer* mInOutHeightfieldBuffer;
-		Utils::SerialMemoryBufferPtr mDeltaBufferPtr;
+    HeightfieldOperationCPU();
 
-		string mBrushName;
-		class HeightfieldGeom* mHeightfieldGeom;
+    struct BrushPathNode
+    {
+        Ogre::Vector3 position;
+        Ogre::Real pressure;
+        unsigned long time;
+        bool primary;
+    };
 
-		HeightfieldOperationCPU();
+    typedef std::list<BrushPathNode> BrushPathNodes;
+    BrushPathNodes mBrushPathNodes;
+    Ogre::Real mPathNextParam;
 
-		struct BrushPathNode
-		{
-			Ogre::Vector3 position;
-			Ogre::Real pressure;
-			unsigned long time;
-			bool primary;
-		};
+    Ogre::Real mPathSpacing;
+    bool mPencilMode;
 
-		typedef std::list<BrushPathNode> BrushPathNodes;
-		BrushPathNodes mBrushPathNodes;
-		Ogre::Real mPathNextParam;
+    virtual void initiateDo();
+    virtual void initiateUndo();
+    virtual void initiateRedo();
+    virtual void tickDo();
+    virtual void tickUndo();
+    virtual void tickRedo();
+    virtual void tickInactive();
+    virtual void finishDo();
 
-		Ogre::Real mPathSpacing;
-		bool mPencilMode;
-
-		virtual void initiateDo();
-		virtual void initiateUndo();
-		virtual void initiateRedo();
-		virtual void tickDo();
-		virtual void tickUndo();
-		virtual void tickRedo();
-		virtual void tickInactive();
-		virtual void finishDo();
-
-		virtual void applyPrimary(const Ogre::Vector3& position, Ogre::Real strength) = 0;
-		virtual void applySecondary(const Ogre::Vector3& position, Ogre::Real strength) = 0;
-
-	};
+    virtual void applyPrimary(const Ogre::Vector3& position, Ogre::Real strength) = 0;
+    virtual void applySecondary(const Ogre::Vector3& position, Ogre::Real strength) = 0;
+};
 }
 
 #endif // __HEIGHTFIELDOPERATIONCPU_H__

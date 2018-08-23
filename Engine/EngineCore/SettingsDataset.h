@@ -5,68 +5,65 @@
  *
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details. 
+ * See Docs/ScapeLicense.txt for details.
  */
-
 
 #ifndef __SETTINGSDATASET_H__
 #define __SETTINGSDATASET_H__
 
-namespace ScapeEngine 
+namespace ScapeEngine
 {
-	class SettingsFile;
+class SettingsFile;
 
-	class SettingsDataset
-	{
-	protected:
-		typedef Utils::MapStruct<string, string*> KeyMapStruct;
-		typedef Utils::MapStruct<string, KeyMapStruct*> SubsectionMapStruct;
-		typedef Utils::MapStruct<string, SubsectionMapStruct*> SectionMapStruct;
+class SettingsDataset
+{
+protected:
+    typedef Utils::MapStruct<string, string*> KeyMapStruct;
+    typedef Utils::MapStruct<string, KeyMapStruct*> SubsectionMapStruct;
+    typedef Utils::MapStruct<string, SubsectionMapStruct*> SectionMapStruct;
 
-	public:
-		typedef Utils::MapStructReadIterator<KeyMapStruct, const string&> KeyIterator;
-		typedef Utils::MapStructReadIterator<SubsectionMapStruct, KeyIterator> SubsectionIterator;
-		typedef Utils::MapStructReadIterator<SectionMapStruct, SubsectionIterator> SectionIterator;
+public:
+    typedef Utils::MapStructReadIterator<KeyMapStruct, const string&> KeyIterator;
+    typedef Utils::MapStructReadIterator<SubsectionMapStruct, KeyIterator> SubsectionIterator;
+    typedef Utils::MapStructReadIterator<SectionMapStruct, SubsectionIterator> SectionIterator;
 
-		SettingsDataset(const string& datasetName);
-		~SettingsDataset();
+    SettingsDataset(const string& datasetName);
+    ~SettingsDataset();
 
-		const string& getDatasetName() {return mDatasetName;}
+    const string& getDatasetName() { return mDatasetName; }
 
-		void clear();
-		void clear(const string& section);
-		void clear(const string& section, const string& subsection);
-		void clear(const string& section, const string& subsection, const string& key);
+    void clear();
+    void clear(const string& section);
+    void clear(const string& section, const string& subsection);
+    void clear(const string& section, const string& subsection, const string& key);
 
-		bool isDirty() {return mIsDirty;}
-		void setDirty(bool dirty) {mIsDirty = dirty;}
+    bool isDirty() { return mIsDirty; }
+    void setDirty(bool dirty) { mIsDirty = dirty; }
 
-		// None of the dataset, section and subsection names should begin with a colon.
-		// Also, keys should not be empty or contain a colon.
-		bool load(const string& fileName, bool appendSettings = false);
-		bool save(const string& fileName, bool appendFile = false);
+    // None of the dataset, section and subsection names should begin with a colon.
+    // Also, keys should not be empty or contain a colon.
+    bool load(const string& fileName, bool appendSettings = false);
+    bool save(const string& fileName, bool appendFile = false);
 
-		SectionIterator getSectionIterator();
-		SubsectionIterator getSubsectionIterator(const string& section);
-		KeyIterator getKeyIterator(const string& section, const string& subsection);
+    SectionIterator getSectionIterator();
+    SubsectionIterator getSubsectionIterator(const string& section);
+    KeyIterator getKeyIterator(const string& section, const string& subsection);
 
-		string getSetting(const string& section, const string& subsection, const string& key) const;
-		void setSetting(const string& section, const string& subsection, const string& key, const string& value);
+    string getSetting(const string& section, const string& subsection, const string& key) const;
+    void setSetting(const string& section, const string& subsection, const string& key,
+                    const string& value);
 
-		/*
-		void insert(const SectionIterator& sectionIterator);
-		void insert(const string& section, const SubsectionIterator& subsectionIterator);
-		void insert(const string& section, const string& subsection, const KeyIterator& keyIterator);
-		*/
+    /*
+    void insert(const SectionIterator& sectionIterator);
+    void insert(const string& section, const SubsectionIterator& subsectionIterator);
+    void insert(const string& section, const string& subsection, const KeyIterator& keyIterator);
+    */
 
-
-
-	protected:
-		SectionMapStruct* mSectionMapStruct;
-		string mDatasetName;
-		bool mIsDirty;
-	};
-
+protected:
+    SectionMapStruct* mSectionMapStruct;
+    string mDatasetName;
+    bool mIsDirty;
+};
 }
 
 #endif // __SETTINGSDATASET_H__

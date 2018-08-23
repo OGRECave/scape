@@ -5,72 +5,69 @@
  *
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details. 
+ * See Docs/ScapeLicense.txt for details.
  */
-
 
 #ifndef __HEIGHTFIELDBRUSH_H__
 #define __HEIGHTFIELDBRUSH_H__
 
-
 namespace ScapeEngine
 {
-	class HeightfieldBrush
-	{
-	public:
-		HeightfieldBrush();
+class HeightfieldBrush
+{
+public:
+    HeightfieldBrush();
 
-		void setInnerRadius(Ogre::Real radius);
-	
-		void setOuterRadius(Ogre::Real radius);
+    void setInnerRadius(Ogre::Real radius);
 
-		void setRadius(Ogre::Real radius);
+    void setOuterRadius(Ogre::Real radius);
 
-		void setPosition(const Ogre::Vector3& position);
+    void setRadius(Ogre::Real radius);
 
-		void setPressure(const Ogre::Real pressure);
+    void setPosition(const Ogre::Vector3& position);
 
-		void setRampPower(const Ogre::Real rampPower);
+    void setPressure(const Ogre::Real pressure);
 
-		inline Ogre::Real getInnerRadius() const {return mInnerRadius;}
-	
-		inline Ogre::Real getOuterRadius() const {return mOuterRadius;}
+    void setRampPower(const Ogre::Real rampPower);
 
-		inline Ogre::Real getRampPower() const {return mRampPower;}
+    inline Ogre::Real getInnerRadius() const { return mInnerRadius; }
 
-		inline Ogre::Vector3 getPosition() const {return mPosition;}
+    inline Ogre::Real getOuterRadius() const { return mOuterRadius; }
 
-		inline Ogre::Real getPressure() const {return mPressure;}
+    inline Ogre::Real getRampPower() const { return mRampPower; }
 
-		virtual void tick();
+    inline Ogre::Vector3 getPosition() const { return mPosition; }
 
-		bool isPrimaryActive() {return mPrimaryActive;}
+    inline Ogre::Real getPressure() const { return mPressure; }
 
-		bool isSecondaryActive() {return mSecondaryActive;}
+    virtual void tick();
 
-		bool isActive() {return mPrimaryActive || mSecondaryActive;}
+    bool isPrimaryActive() { return mPrimaryActive; }
 
-		class HeightfieldGeom* getHeightfieldGeom() {return mHeightfieldGeom;}
+    bool isSecondaryActive() { return mSecondaryActive; }
 
-		void setHeightfieldGeom(HeightfieldGeom* heightfieldGeom) {mHeightfieldGeom = heightfieldGeom;}
+    bool isActive() { return mPrimaryActive || mSecondaryActive; }
 
-	private:
+    class HeightfieldGeom* getHeightfieldGeom() { return mHeightfieldGeom; }
 
-		Ogre::Vector3 mPosition;
+    void setHeightfieldGeom(HeightfieldGeom* heightfieldGeom) { mHeightfieldGeom = heightfieldGeom; }
 
-		Ogre::Real mOuterRadius;
+private:
+    Ogre::Vector3 mPosition;
 
-		Ogre::Real mInnerRadius;
+    Ogre::Real mOuterRadius;
 
-		Ogre::Real mPressure;
+    Ogre::Real mInnerRadius;
 
-		Ogre::Real mRampPower;
+    Ogre::Real mPressure;
 
-		bool mPrimaryActive;
-		bool mSecondaryActive;
+    Ogre::Real mRampPower;
 
-		HeightfieldGeom* mHeightfieldGeom;
-	};
+    bool mPrimaryActive;
+    bool mSecondaryActive;
+
+    HeightfieldGeom* mHeightfieldGeom;
+};
 }
 
 #endif // __HEIGHTFIELDBRUSH_H__

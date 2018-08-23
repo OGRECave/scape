@@ -1,11 +1,11 @@
 /*/////////////////////////////////////////////////////////////////////////////////
 /// This file is part of
-///    ___                   _ _ _             
-///   /___\__ _ _ __ ___  __| (_) |_ ___  _ __ 
+///    ___                   _ _ _
+///   /___\__ _ _ __ ___  __| (_) |_ ___  _ __
 ///  //  // _` | '__/ _ \/ _` | | __/ _ \| '__|
-/// / \_// (_| | | |  __/ (_| | | || (_) | |   
-/// \___/ \__, |_|  \___|\__,_|_|\__\___/|_|   
-///       |___/                                
+/// / \_// (_| | | |  __/ (_| | | || (_) | |
+/// \___/ \__, |_|  \___|\__,_|_|\__\___/|_|
+///       |___/
 ///             Copyright (c) 2010 Jacob 'jacmoe' Moen
 /// The MIT License
 ///
@@ -25,7 +25,7 @@
 /// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 /// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-/// THE SOFTWARE. 
+/// THE SOFTWARE.
 ///////////////////////////////////////////////////////////////////////////////////*/
 /*
 -----------------------------------------------------------------------------
@@ -73,15 +73,16 @@ THE SOFTWARE.
 
 namespace Ogre
 {
-   class RenderWindow;
+class RenderWindow;
 }
 
-   /// Utility functions for the View
-   class ViewUtils
-   {
-   public:
-      /** Create an OGRE window bound to a wxWindow */
-      static Ogre::RenderWindow* createOgreWindow(const Ogre::String& windowName, wxWindow* win, const wxSize& sz);
-   };
+/// Utility functions for the View
+class ViewUtils
+{
+public:
+    /** Create an OGRE window bound to a wxWindow */
+    static Ogre::RenderWindow* createOgreWindow(const Ogre::String& windowName, wxWindow* win,
+                                                const wxSize& sz);
+};
 
 #endif

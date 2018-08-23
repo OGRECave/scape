@@ -1,7 +1,7 @@
 /**
  * Giliam de Carpentier, Copyright (c) 2007.
  * Licensed under the Simplified BSD license.
- * See Docs/ScapeLicense.txt for details. 
+ * See Docs/ScapeLicense.txt for details.
  */
 
 #include "PCH/stdafx.h"
@@ -10,13 +10,12 @@
 
 using namespace ScapeEngine;
 
-
 // ----------------------------------------------------------------------------
 TabletInput* TabletInput::create(const string& inputWindow)
 {
 #ifdef _WINDOWS
-	return new TabletInputWin32(inputWindow);
+    return new TabletInputWin32(inputWindow);
 #else
-	return new TabletInput();
+    return new TabletInput();
 #endif
 }

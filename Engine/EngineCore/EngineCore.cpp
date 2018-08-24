@@ -32,7 +32,6 @@
 #include "HeightfieldFileCodecs/HeightfieldFileEncoderManager.h"
 #include "HeightfieldFileCodecs/HeightfieldFileDecoderManager.h"
 
-#define RESOURCES_FILENAME _T("Resources.cfg")
 #define EXTERNAL_TEXTURE_BASENAME _T("file:")
 
 #ifdef _DEBUG
@@ -179,6 +178,7 @@ string EngineCore::getApplicationSetting(const string& section, const string& ke
 // ----------------------------------------------------------------------------
 void EngineCore::loadResourceLocations()
 {
+    const Ogre::String RESOURCES_FILENAME = "Resources.cfg";
     Ogre::ConfigFile cf;
     cf.load(RESOURCES_FILENAME);
 

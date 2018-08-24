@@ -34,12 +34,6 @@
 
 #define EXTERNAL_TEXTURE_BASENAME _T("file:")
 
-#ifdef _DEBUG
-#define LOG_FILENAME _T("Scape_d.log")
-#else // _DEBUG
-#define LOG_FILENAME _T("Scape.log")
-#endif // _DEBUG
-
 using namespace ScapeEngine;
 
 template <> EngineCore* Ogre::Singleton<EngineCore>::msSingleton = 0;
@@ -65,7 +59,7 @@ EngineCore::~EngineCore() {}
 void EngineCore::initialize()
 {
     // Create a new Ogre ROOT
-    mRoot = new Ogre::Root("plugins.cfg", Utils::emptyString, LOG_FILENAME);
+    mRoot = new Ogre::Root("plugins.cfg", Utils::emptyString, "Scape.log");
 
     mSettingsDatasetManager = new SettingsDatasetManager();
 

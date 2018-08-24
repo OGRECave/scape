@@ -172,7 +172,7 @@ string EngineCore::getApplicationSetting(const string& section, const string& ke
 // ----------------------------------------------------------------------------
 void EngineCore::loadResourceLocations()
 {
-    const Ogre::String RESOURCES_FILENAME = "Resources.cfg";
+    const Ogre::String RESOURCES_FILENAME = "resources.cfg";
     Ogre::ConfigFile cf;
     cf.load(RESOURCES_FILENAME);
 

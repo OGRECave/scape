@@ -41,12 +41,6 @@
 #define LOG_FILENAME _T("Scape.log")
 #endif // _DEBUG
 
-#ifdef _DEBUG
-#define GLOBALSETTINGS_FILENAME _T("Settings_d.cfg")
-#else // _DEBUG
-#define GLOBALSETTINGS_FILENAME _T("Settings.cfg")
-#endif // _DEBUG
-
 using namespace ScapeEngine;
 
 template <> EngineCore* Ogre::Singleton<EngineCore>::msSingleton = 0;
@@ -161,6 +155,7 @@ void EngineCore::deinitialize()
 // ----------------------------------------------------------------------------
 void EngineCore::loadApplicationSettings()
 {
+    const Ogre::String GLOBALSETTINGS_FILENAME = "Settings.cfg";
     mApplicationSettingsConfigFile = new Ogre::ConfigFile();
 
     mApplicationSettingsConfigFile->load(GLOBALSETTINGS_FILENAME);

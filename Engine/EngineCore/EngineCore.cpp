@@ -72,7 +72,7 @@ EngineCore::~EngineCore() {}
 void EngineCore::initialize()
 {
     // Create a new Ogre ROOT
-    mRoot = new Ogre::Root(Utils::emptyString, Utils::emptyString, LOG_FILENAME);
+    mRoot = new Ogre::Root("plugins.cfg", Utils::emptyString, LOG_FILENAME);
 
     mSettingsDatasetManager = new SettingsDatasetManager();
 
@@ -169,25 +169,6 @@ void EngineCore::loadApplicationSettings()
 
     Ogre::String settingsPath = getApplicationSetting(_T("Paths"), _T("DatasetSettings"));
     getSettingsDatasetManager()->setDatasetResourcePath(settingsPath);
-
-    Ogre::ConfigFile::SectionIterator seci = mApplicationSettingsConfigFile->getSectionIterator();
-
-    while (seci.hasMoreElements())
-    {
-        string secName = seci.peekNextKey();
-        Ogre::ConfigFile::SettingsMultiMap* settings = seci.getNext();
-        if (secName == _T("Plugins"))
-        {
-            Ogre::ConfigFile::SettingsMultiMap::iterator i;
-            for (i = settings->begin(); i != settings->end(); ++i)
-            {
-                if (i->first == _T("Plugin"))
-                {
-                    mRoot->loadPlugin(i->second);
-                }
-            }
-        }
-    }
 }
 
 // ----------------------------------------------------------------------------

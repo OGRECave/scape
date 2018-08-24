@@ -148,7 +148,7 @@ void EngineCore::deinitialize()
 // ----------------------------------------------------------------------------
 void EngineCore::loadApplicationSettings()
 {
-    const Ogre::String GLOBALSETTINGS_FILENAME = "Settings.cfg";
+    const Ogre::String GLOBALSETTINGS_FILENAME = "settings.cfg";
     mApplicationSettingsConfigFile = new Ogre::ConfigFile();
 
     mApplicationSettingsConfigFile->load(GLOBALSETTINGS_FILENAME);

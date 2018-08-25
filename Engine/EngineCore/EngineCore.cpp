@@ -32,20 +32,7 @@
 #include "HeightfieldFileCodecs/HeightfieldFileEncoderManager.h"
 #include "HeightfieldFileCodecs/HeightfieldFileDecoderManager.h"
 
-#define RESOURCES_FILENAME _T("Resources.cfg")
 #define EXTERNAL_TEXTURE_BASENAME _T("file:")
-
-#ifdef _DEBUG
-#define LOG_FILENAME _T("Scape_d.log")
-#else // _DEBUG
-#define LOG_FILENAME _T("Scape.log")
-#endif // _DEBUG
-
-#ifdef _DEBUG
-#define GLOBALSETTINGS_FILENAME _T("Settings_d.cfg")
-#else // _DEBUG
-#define GLOBALSETTINGS_FILENAME _T("Settings.cfg")
-#endif // _DEBUG
 
 using namespace ScapeEngine;
 
@@ -72,7 +59,7 @@ EngineCore::~EngineCore() {}
 void EngineCore::initialize()
 {
     // Create a new Ogre ROOT
-    mRoot = new Ogre::Root(Utils::emptyString, Utils::emptyString, LOG_FILENAME);
+    mRoot = new Ogre::Root("plugins.cfg", Utils::emptyString, "Scape.log");
 
     mSettingsDatasetManager = new SettingsDatasetManager();
 
@@ -161,6 +148,7 @@ void EngineCore::deinitialize()
 // ----------------------------------------------------------------------------
 void EngineCore::loadApplicationSettings()
 {
+    const Ogre::String GLOBALSETTINGS_FILENAME = "settings.cfg";
     mApplicationSettingsConfigFile = new Ogre::ConfigFile();
 
     mApplicationSettingsConfigFile->load(GLOBALSETTINGS_FILENAME);
@@ -169,25 +157,6 @@ void EngineCore::loadApplicationSettings()
 
     Ogre::String settingsPath = getApplicationSetting(_T("Paths"), _T("DatasetSettings"));
     getSettingsDatasetManager()->setDatasetResourcePath(settingsPath);
-
-    Ogre::ConfigFile::SectionIterator seci = mApplicationSettingsConfigFile->getSectionIterator();
-
-    while (seci.hasMoreElements())
-    {
-        string secName = seci.peekNextKey();
-        Ogre::ConfigFile::SettingsMultiMap* settings = seci.getNext();
-        if (secName == _T("Plugins"))
-        {
-            Ogre::ConfigFile::SettingsMultiMap::iterator i;
-            for (i = settings->begin(); i != settings->end(); ++i)
-            {
-                if (i->first == _T("Plugin"))
-                {
-                    mRoot->loadPlugin(i->second);
-                }
-            }
-        }
-    }
 }
 
 // ----------------------------------------------------------------------------
@@ -203,6 +172,7 @@ string EngineCore::getApplicationSetting(const string& section, const string& ke
 // ----------------------------------------------------------------------------
 void EngineCore::loadResourceLocations()
 {
+    const Ogre::String RESOURCES_FILENAME = "resources.cfg";
     Ogre::ConfigFile cf;
     cf.load(RESOURCES_FILENAME);
 

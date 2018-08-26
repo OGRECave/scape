@@ -3,6 +3,8 @@
 PropertiesWidget::PropertiesWidget(QWidget* parent) : QtTreePropertyBrowser(parent), mPropertyManager(NULL)
 {
     mPropertyManager = new QtVariantPropertyManager(this);
+    connect(mPropertyManager, SIGNAL(valueChanged(QtProperty *, const QVariant &)),
+                        this, SLOT(valueChanged(QtProperty *, const QVariant &)));
 }
 
 PropertiesWidget::~PropertiesWidget() {}
@@ -91,5 +93,14 @@ void PropertiesWidget::populate(const UIElementPropertyGridItemList& itemList,
          it != categoryItems.end(); it++)
     {
         addProperty(it->second);
+    }
+}
+
+void PropertiesWidget::valueChanged(QtProperty *property, const QVariant &value)
+{
+    std::map<QtProperty *, std::string>::const_iterator propertyKeyIt = mPropertyToKey.find(property);
+    if (propertyKeyIt != mPropertyToKey.end())
+    {
+        emit propertyValueChanged(propertyKeyIt->second, value.toString().toStdString());
     }
 }

@@ -30,6 +30,12 @@ public:
     void populate(const UIElementPropertyGridItemList& itemList,
                   const std::map<std::string, std::string>& valueMap);
 
+private slots:
+    void valueChanged(QtProperty * property, const QVariant & value);
+
+signals:
+    void propertyValueChanged(const std::string& key, const std::string& value);
+
 private:
     QtVariantPropertyManager* mPropertyManager;
     std::map<QtProperty*, std::string> mPropertyToKey;

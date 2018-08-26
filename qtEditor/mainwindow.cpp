@@ -2,7 +2,6 @@
 #include "ui_mainwindow.h"
 #include "ogrewidget.h"
 #include "EngineCore/EngineInterface.h"
-#include <QDebug>
 #include <sstream>
 #include "propertieswidget.h"
 #include <iostream>
@@ -229,7 +228,6 @@ void MainWindow::populateMainMenu()
 
 void MainWindow::selectTool(QString toolName, int category)
 {
-    qDebug() << "Selecting tool" << toolName;
     mSelectedToolElementName = toolName;
     mSelectedToolElementGroupId = (ScapeEngine::EScapeUIElementGroupId)category;
 
@@ -254,38 +252,22 @@ void MainWindow::populatePropertyGrid()
 
     ScapeEngine::StringList::iterator nameIt, nameItEnd = nameList.end();
 
-    qDebug() << "***********************************************************************************";
-
     QString propertySetName = mSelectedToolElementName;
-    qDebug() << "PropertysetName : " << propertySetName;
 
     for (nameIt = nameList.begin(); nameIt != nameItEnd; ++nameIt)
     {
         UIElementPropertyGridItem item;
         item.name = *nameIt;
-        qDebug() << "-----------";
-        qDebug() << "item.name" << QString::fromStdString(*nameIt);
         item.label = mEngineInterface->getUIElementPropertyField(propertySetName.toStdString().c_str(),
                                                                  *nameIt, "SHORT");
-        qDebug() << "item.label" << QString::fromStdString(mEngineInterface->getUIElementPropertyField(
-                                        propertySetName.toStdString().c_str(), *nameIt, "SHORT"));
         item.description = mEngineInterface->getUIElementPropertyField(
             propertySetName.toStdString().c_str(), *nameIt, "LONG");
-        qDebug() << "item.description"
-                 << QString::fromStdString(mEngineInterface->getUIElementPropertyField(
-                        propertySetName.toStdString().c_str(), *nameIt, "LONG"));
         item.category = mEngineInterface->getUIElementPropertyField(propertySetName.toStdString().c_str(),
                                                                     *nameIt, "CATEGORY");
-        qDebug() << "item.category" << QString::fromStdString(mEngineInterface->getUIElementPropertyField(
-                                           propertySetName.toStdString().c_str(), *nameIt, "CATEGORY"));
         item.type = mEngineInterface->getUIElementPropertyField(propertySetName.toStdString().c_str(),
                                                                 *nameIt, "TYPE");
-        qDebug() << "item.type" << QString::fromStdString(mEngineInterface->getUIElementPropertyField(
-                                       propertySetName.toStdString().c_str(), *nameIt, "TYPE"));
         itemList.push_back(item);
-        qDebug() << "-----------";
     }
-    qDebug() << "***********************************************************************************";
 
     // mPropertiesWidget->populate(itemList);
     // mPropertiesWidget->setValues(mEngineInterface->getUIElementPropertyValueMap(mSelectedToolElementGroupId,

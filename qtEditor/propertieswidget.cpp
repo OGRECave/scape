@@ -82,6 +82,7 @@ void PropertiesWidget::populate(const UIElementPropertyGridItemList& itemList,
             std::string value = pos->second;
             item->setValue(QString(value.c_str()));
         }
+        item->setToolTip(QString(itemIt->description.c_str()));
 
         parent->addSubProperty(item);
     }

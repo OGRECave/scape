@@ -242,8 +242,6 @@ void MainWindow::selectTool(QString toolName, int category)
 
 void MainWindow::populatePropertyGrid()
 {
-    // if (mPropertiesWidget)
-    //{
     ScapeEngine::StringList nameList = mEngineInterface->getUIElementPropertyNameList(
         (ScapeEngine::EScapeUIElementGroupId)mSelectedToolElementGroupId,
         mSelectedToolElementName.toStdString().c_str());
@@ -269,8 +267,8 @@ void MainWindow::populatePropertyGrid()
         itemList.push_back(item);
     }
 
-    // mPropertiesWidget->populate(itemList);
-    // mPropertiesWidget->setValues(mEngineInterface->getUIElementPropertyValueMap(mSelectedToolElementGroupId,
-    // mSelectedToolElementName));
-    //}
+    mPropertiesWidget->populate(itemList,
+                                mEngineInterface->getUIElementPropertyValueMap(
+                                    (ScapeEngine::EScapeUIElementGroupId)mSelectedToolElementGroupId,
+                                    mSelectedToolElementName.toStdString()));
 }

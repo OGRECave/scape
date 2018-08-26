@@ -26,6 +26,8 @@ MainWindow::MainWindow(QWidget* parent)
     setCentralWidget(mOgreWidget);
 
     mPropertiesWidget = new PropertiesWidget(this);
+    connect(mPropertiesWidget, SIGNAL(propertyValueChanged(const std::string&, const std::string&)), this,
+            SLOT(propertyValueChanged(const std::string&, const std::string&)));
 
     mPropertiesToolBox = new QToolBox(this);
     mPropertiesToolBox->addItem(mPropertiesWidget, tr("General"));
@@ -271,4 +273,11 @@ void MainWindow::populatePropertyGrid()
                                 mEngineInterface->getUIElementPropertyValueMap(
                                     (ScapeEngine::EScapeUIElementGroupId)mSelectedToolElementGroupId,
                                     mSelectedToolElementName.toStdString()));
+}
+
+void MainWindow::propertyValueChanged(const std::string& key, const std::string& value)
+{
+    std::string ret = mEngineInterface->setUIElementPropertyValue(
+        (ScapeEngine::EScapeUIElementGroupId)mSelectedToolElementGroupId,
+        mSelectedToolElementName.toStdString(), key, value);
 }

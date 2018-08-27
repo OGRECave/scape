@@ -2,7 +2,6 @@
 #include "ui_mainwindow.h"
 #include "ogrewidget.h"
 #include "EngineCore/EngineInterface.h"
-#include <QDebug>
 #include <sstream>
 #include "propertieswidget.h"
 #include <iostream>
@@ -27,6 +26,8 @@ MainWindow::MainWindow(QWidget* parent)
     setCentralWidget(mOgreWidget);
 
     mPropertiesWidget = new PropertiesWidget(this);
+    connect(mPropertiesWidget, SIGNAL(propertyValueChanged(const std::string&, const std::string&)), this,
+            SLOT(propertyValueChanged(const std::string&, const std::string&)));
 
     mPropertiesToolBox = new QToolBox(this);
     mPropertiesToolBox->addItem(mPropertiesWidget, tr("General"));
@@ -229,7 +230,6 @@ void MainWindow::populateMainMenu()
 
 void MainWindow::selectTool(QString toolName, int category)
 {
-    qDebug() << "Selecting tool" << toolName;
     mSelectedToolElementName = toolName;
     mSelectedToolElementGroupId = (ScapeEngine::EScapeUIElementGroupId)category;
 
@@ -244,8 +244,6 @@ void MainWindow::selectTool(QString toolName, int category)
 
 void MainWindow::populatePropertyGrid()
 {
-    // if (mPropertiesWidget)
-    //{
     ScapeEngine::StringList nameList = mEngineInterface->getUIElementPropertyNameList(
         (ScapeEngine::EScapeUIElementGroupId)mSelectedToolElementGroupId,
         mSelectedToolElementName.toStdString().c_str());
@@ -254,41 +252,32 @@ void MainWindow::populatePropertyGrid()
 
     ScapeEngine::StringList::iterator nameIt, nameItEnd = nameList.end();
 
-    qDebug() << "***********************************************************************************";
-
     QString propertySetName = mSelectedToolElementName;
-    qDebug() << "PropertysetName : " << propertySetName;
 
     for (nameIt = nameList.begin(); nameIt != nameItEnd; ++nameIt)
     {
         UIElementPropertyGridItem item;
         item.name = *nameIt;
-        qDebug() << "-----------";
-        qDebug() << "item.name" << QString::fromStdString(*nameIt);
         item.label = mEngineInterface->getUIElementPropertyField(propertySetName.toStdString().c_str(),
                                                                  *nameIt, "SHORT");
-        qDebug() << "item.label" << QString::fromStdString(mEngineInterface->getUIElementPropertyField(
-                                        propertySetName.toStdString().c_str(), *nameIt, "SHORT"));
         item.description = mEngineInterface->getUIElementPropertyField(
             propertySetName.toStdString().c_str(), *nameIt, "LONG");
-        qDebug() << "item.description"
-                 << QString::fromStdString(mEngineInterface->getUIElementPropertyField(
-                        propertySetName.toStdString().c_str(), *nameIt, "LONG"));
         item.category = mEngineInterface->getUIElementPropertyField(propertySetName.toStdString().c_str(),
                                                                     *nameIt, "CATEGORY");
-        qDebug() << "item.category" << QString::fromStdString(mEngineInterface->getUIElementPropertyField(
-                                           propertySetName.toStdString().c_str(), *nameIt, "CATEGORY"));
         item.type = mEngineInterface->getUIElementPropertyField(propertySetName.toStdString().c_str(),
                                                                 *nameIt, "TYPE");
-        qDebug() << "item.type" << QString::fromStdString(mEngineInterface->getUIElementPropertyField(
-                                       propertySetName.toStdString().c_str(), *nameIt, "TYPE"));
         itemList.push_back(item);
-        qDebug() << "-----------";
     }
-    qDebug() << "***********************************************************************************";
 
-    // mPropertiesWidget->populate(itemList);
-    // mPropertiesWidget->setValues(mEngineInterface->getUIElementPropertyValueMap(mSelectedToolElementGroupId,
-    // mSelectedToolElementName));
-    //}
+    mPropertiesWidget->populate(itemList,
+                                mEngineInterface->getUIElementPropertyValueMap(
+                                    (ScapeEngine::EScapeUIElementGroupId)mSelectedToolElementGroupId,
+                                    mSelectedToolElementName.toStdString()));
+}
+
+void MainWindow::propertyValueChanged(const std::string& key, const std::string& value)
+{
+    std::string ret = mEngineInterface->setUIElementPropertyValue(
+        (ScapeEngine::EScapeUIElementGroupId)mSelectedToolElementGroupId,
+        mSelectedToolElementName.toStdString(), key, value);
 }

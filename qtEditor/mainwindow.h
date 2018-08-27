@@ -52,6 +52,8 @@ public Q_SLOTS:
     void aboutApp();
     void exitApp();
 
+    void propertyValueChanged(const std::string& key, const std::string& value);
+
 protected:
     virtual void resizeEvent(QResizeEvent* rEvent);
 

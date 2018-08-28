@@ -1,5 +1,7 @@
 #include "propertieswidget.h"
 
+#include <OgreString.h>
+
 PropertiesWidget::PropertiesWidget(QWidget* parent) : QtTreePropertyBrowser(parent), mPropertyManager(NULL)
 {
     mPropertyManager = new QtVariantPropertyManager(this);
@@ -7,7 +9,10 @@ PropertiesWidget::PropertiesWidget(QWidget* parent) : QtTreePropertyBrowser(pare
                         this, SLOT(valueChanged(QtProperty *, const QVariant &)));
 }
 
-PropertiesWidget::~PropertiesWidget() {}
+PropertiesWidget::~PropertiesWidget()
+{
+    delete mPropertyManager;
+}
 
 void PropertiesWidget::populate(const UIElementPropertyGridItemList& itemList,
                                 const std::map<std::string, std::string>& valueMap)
@@ -94,6 +99,22 @@ void PropertiesWidget::populate(const UIElementPropertyGridItemList& itemList,
          it != categoryItems.end(); it++)
     {
         addProperty(it->second);
+    }
+}
+
+void PropertiesWidget::setValue(const std::string& key, const std::string& value)
+{
+    Ogre::String keyTrimmed = Ogre::String(key);
+    Ogre::StringUtil::trim(keyTrimmed);
+    for (std::map<QtProperty*, std::string>::const_iterator it = mPropertyToKey.begin();
+         it != mPropertyToKey.end(); it++)
+    {
+        Ogre::String curKeyTrimmed = Ogre::String(it->second);
+        Ogre::StringUtil::trim(curKeyTrimmed);
+        if (curKeyTrimmed == keyTrimmed)
+        {
+            ((QtVariantProperty*)it->first)->setValue(QString(value.c_str()));
+        }
     }
 }
 

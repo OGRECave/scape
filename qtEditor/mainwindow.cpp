@@ -52,6 +52,7 @@ MainWindow::~MainWindow()
     delete mEngineInterface;
     delete ui;
     delete mTimer;
+    delete mToolActionGroup;
 }
 
 void MainWindow::resizeEvent(QResizeEvent* rEvent)
@@ -92,38 +93,47 @@ void MainWindow::createActions()
     actPencilEraserGPU = new QAction(tr("Pencil/Eraser GPU"), this);
     actPencilEraserGPU->setStatusTip(tr("Pencil/Eraser GPU"));
     actPencilEraserGPU->setIcon(QIcon(":/icons/pencil"));
+    actPencilEraserGPU->setCheckable(true);
 
     actDirectionalNoiseGPU = new QAction(tr("Directional Noise GPU"), this);
     actDirectionalNoiseGPU->setStatusTip(tr("Directional Noise GPU"));
     actDirectionalNoiseGPU->setIcon(QIcon(":/icons/pencil"));
+    actDirectionalNoiseGPU->setCheckable(true);
 
     actNoiseGPU = new QAction(tr("Noise GPU"), this);
     actNoiseGPU->setStatusTip(tr("Noise GPU"));
     actNoiseGPU->setIcon(QIcon(":/icons/pencil"));
+    actNoiseGPU->setCheckable(true);
 
     actSoftenGPU = new QAction(tr("Soften GPU"), this);
     actSoftenGPU->setStatusTip(tr("Soften GPU"));
     actSoftenGPU->setIcon(QIcon(":/icons/pencil"));
+    actSoftenGPU->setCheckable(true);
 
     actSharpenSoften = new QAction(tr("Sharpen/Soften"), this);
     actSharpenSoften->setStatusTip(tr("Sharpen/Soften"));
     actSharpenSoften->setIcon(QIcon(":/icons/smooth"));
+    actSharpenSoften->setCheckable(true);
 
     actNoiseCPU = new QAction(tr("Noise"), this);
     actNoiseCPU->setStatusTip(tr("Noise"));
     actNoiseCPU->setIcon(QIcon(":/icons/noise"));
+    actNoiseCPU->setCheckable(true);
 
     actLevelUnlevel = new QAction(tr("Level/Unlevel"), this);
     actLevelUnlevel->setStatusTip(tr("Level/Unlevel"));
     actLevelUnlevel->setIcon(QIcon(":/icons/level"));
+    actLevelUnlevel->setCheckable(true);
 
     actWaterErosion = new QAction(tr("Water Erosion"), this);
     actWaterErosion->setStatusTip(tr("Water Erosion"));
     actWaterErosion->setIcon(QIcon(":/icons/erosion"));
+    actWaterErosion->setCheckable(true);
 
     actPencilEraser = new QAction(tr("Eraser"), this);
     actPencilEraser->setStatusTip(tr("Eraser"));
     actPencilEraser->setIcon(QIcon(":/icons/ledge"));
+    actPencilEraser->setCheckable(true);
 
     actMaterialProps = new QAction(tr("Material"), this);
     actMaterialProps->setStatusTip(tr("Material Properties"));
@@ -156,6 +166,17 @@ void MainWindow::createActions()
     actImportPreset = new QAction(tr("Import Preset"), this);
     actImportPreset->setStatusTip(tr("Import Preset"));
     actImportPreset->setIcon(QIcon(":/icons/import"));
+
+    mToolActionGroup = new QActionGroup(this);
+    mToolActionGroup->addAction(actPencilEraserGPU);
+    mToolActionGroup->addAction(actDirectionalNoiseGPU);
+    mToolActionGroup->addAction(actNoiseGPU);
+    mToolActionGroup->addAction(actSoftenGPU);
+    mToolActionGroup->addAction(actSharpenSoften);
+    mToolActionGroup->addAction(actNoiseCPU);
+    mToolActionGroup->addAction(actLevelUnlevel);
+    mToolActionGroup->addAction(actWaterErosion);
+    mToolActionGroup->addAction(actPencilEraser);
 }
 
 void MainWindow::connectActions()
@@ -280,4 +301,5 @@ void MainWindow::propertyValueChanged(const std::string& key, const std::string&
     std::string ret = mEngineInterface->setUIElementPropertyValue(
         (ScapeEngine::EScapeUIElementGroupId)mSelectedToolElementGroupId,
         mSelectedToolElementName.toStdString(), key, value);
+    mPropertiesWidget->setValue(key, ret);
 }

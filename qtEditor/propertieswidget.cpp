@@ -7,7 +7,10 @@ PropertiesWidget::PropertiesWidget(QWidget* parent) : QtTreePropertyBrowser(pare
                         this, SLOT(valueChanged(QtProperty *, const QVariant &)));
 }
 
-PropertiesWidget::~PropertiesWidget() {}
+PropertiesWidget::~PropertiesWidget()
+{
+    delete mPropertyManager;
+}
 
 void PropertiesWidget::populate(const UIElementPropertyGridItemList& itemList,
                                 const std::map<std::string, std::string>& valueMap)

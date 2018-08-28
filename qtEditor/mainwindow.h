@@ -6,6 +6,7 @@
 #include <QtWidgets/QDockWidget>
 #include <QtWidgets/QToolBox>
 #include <QtCore/QTimer>
+#include <QActionGroup>
 
 class OgreWidget;
 class PropertiesWidget;
@@ -81,6 +82,8 @@ private:
     QTimer* mTimer;
 
     bool mAttachedInputToEngine;
+
+    QActionGroup* mToolActionGroup;
 
     QAction* actExit;
     QAction* actAbout;

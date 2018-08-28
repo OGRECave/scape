@@ -52,6 +52,7 @@ MainWindow::~MainWindow()
     delete mEngineInterface;
     delete ui;
     delete mTimer;
+    delete mToolActionGroup;
 }
 
 void MainWindow::resizeEvent(QResizeEvent* rEvent)
@@ -165,6 +166,17 @@ void MainWindow::createActions()
     actImportPreset = new QAction(tr("Import Preset"), this);
     actImportPreset->setStatusTip(tr("Import Preset"));
     actImportPreset->setIcon(QIcon(":/icons/import"));
+
+    mToolActionGroup = new QActionGroup(this);
+    mToolActionGroup->addAction(actPencilEraserGPU);
+    mToolActionGroup->addAction(actDirectionalNoiseGPU);
+    mToolActionGroup->addAction(actNoiseGPU);
+    mToolActionGroup->addAction(actSoftenGPU);
+    mToolActionGroup->addAction(actSharpenSoften);
+    mToolActionGroup->addAction(actNoiseCPU);
+    mToolActionGroup->addAction(actLevelUnlevel);
+    mToolActionGroup->addAction(actWaterErosion);
+    mToolActionGroup->addAction(actPencilEraser);
 }
 
 void MainWindow::connectActions()

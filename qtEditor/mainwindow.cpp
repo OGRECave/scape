@@ -280,4 +280,5 @@ void MainWindow::propertyValueChanged(const std::string& key, const std::string&
     std::string ret = mEngineInterface->setUIElementPropertyValue(
         (ScapeEngine::EScapeUIElementGroupId)mSelectedToolElementGroupId,
         mSelectedToolElementName.toStdString(), key, value);
+    mPropertiesWidget->setValue(key, ret);
 }

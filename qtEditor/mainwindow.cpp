@@ -5,6 +5,8 @@
 #include <sstream>
 #include "propertieswidget.h"
 #include <iostream>
+#include "ExportImageDialog.h"
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::MainWindow), mAttachedInputToEngine(false), mOgreWidget(0),
@@ -294,6 +296,53 @@ void MainWindow::populatePropertyGrid()
                                 mEngineInterface->getUIElementPropertyValueMap(
                                     (ScapeEngine::EScapeUIElementGroupId)mSelectedToolElementGroupId,
                                     mSelectedToolElementName.toStdString()));
+}
+
+void MainWindow::openExportImageDialog()
+{
+    ScapeEngine::StringStringStringPairMap fileFilterMap =
+        mEngineInterface->getFileFilterMap(ScapeEngine::SCAPEUIELEMENTGROUPID_FILEEXPORT);
+
+    ScapeEngine::StringList names = mEngineInterface->getUIElementNameList(
+        (ScapeEngine::EScapeUIElementGroupId)ScapeEngine::SCAPEUIELEMENTGROUPID_FILEEXPORT);
+
+    ExportImageDialog::FileExportItemVector itemVector;
+    ScapeEngine::StringList::const_iterator nameIt, nameItEnd = names.end();
+    for (nameIt = names.begin(); nameIt != nameItEnd; ++nameIt)
+    {
+        ExportImageDialog::FileExportItem item;
+        item.name = *nameIt;
+        item.label = mEngineInterface->getUIElementPropertyField(*nameIt, "LABEL", "SHORT");
+        item.description = mEngineInterface->getUIElementPropertyField(*nameIt, "LABEL", "LONG");
+
+        std::pair<string, string> fileFilter = fileFilterMap[*nameIt];
+        item.formatName = fileFilter.first;
+        item.formatExtensions = fileFilter.second;
+
+        itemVector.push_back(item);
+    }
+
+    ExportImageDialog* exportImageDialog = new ExportImageDialog(this);
+    exportImageDialog->populate(itemVector);
+    exportImageDialog->setModal(true);
+    exportImageDialog->setWindowModality(Qt::WindowModal);
+    int result = exportImageDialog->exec();
+    if (result == QDialog::Accepted)
+    {
+        mEngineInterface->setUIElementPropertyValue(ScapeEngine::SCAPEUIELEMENTGROUPID_FILEEXPORT,
+                                                    exportImageDialog->getSelectedFormatName(), "FLIPX",
+                                                    exportImageDialog->getFlipX() ? "1" : "0");
+        mEngineInterface->setUIElementPropertyValue(ScapeEngine::SCAPEUIELEMENTGROUPID_FILEEXPORT,
+                                                    exportImageDialog->getSelectedFormatName(), "FLIPY",
+                                                    exportImageDialog->getFlipY() ? "1" : "0");
+        std::string error;
+        if (!mEngineInterface->exportImageFile(exportImageDialog->getSelectedFormatName(),
+                                               exportImageDialog->getFilePath(), &error))
+        {
+            QMessageBox::critical(this, "Export failed!", QString(error.c_str()));
+        }
+    }
+    delete exportImageDialog;
 }
 
 void MainWindow::propertyValueChanged(const std::string& key, const std::string& value)

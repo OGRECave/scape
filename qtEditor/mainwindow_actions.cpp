@@ -16,7 +16,7 @@ void MainWindow::importImage()
 
 void MainWindow::exportImage()
 {
-    //
+    openExportImageDialog();
 }
 
 void MainWindow::pencilEraserGPU()

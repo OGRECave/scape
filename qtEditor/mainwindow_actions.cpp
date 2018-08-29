@@ -66,17 +66,17 @@ void MainWindow::pencilEraser()
 
 void MainWindow::materialProps()
 {
-    //
+    selectTool("MaterialSettings", ScapeEngine::SCAPEUIELEMENTGROUPID_MATERIAL);
 }
 
 void MainWindow::skyProps()
 {
-    //
+    selectTool("SkySettings", ScapeEngine::SCAPEUIELEMENTGROUPID_SKY);
 }
 
 void MainWindow::renderwindowProps()
 {
-    //
+    selectTool("RenderWindowSettings", ScapeEngine::SCAPEUIELEMENTGROUPID_RENDERWINDOW);
 }
 
 void MainWindow::createPreset()

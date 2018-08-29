@@ -140,14 +140,17 @@ void MainWindow::createActions()
     actMaterialProps = new QAction(tr("Material"), this);
     actMaterialProps->setStatusTip(tr("Material Properties"));
     actMaterialProps->setIcon(QIcon(":/icons/material"));
+    actMaterialProps->setCheckable(true);
 
     actSkyProps = new QAction(tr("Sky"), this);
     actSkyProps->setStatusTip(tr("Sky Properties"));
     actSkyProps->setIcon(QIcon(":/icons/light"));
+    actSkyProps->setCheckable(true);
 
     actRenderwindowProps = new QAction(tr("Renderwindow"), this);
     actRenderwindowProps->setStatusTip(tr("Renderwindow Properties"));
     actRenderwindowProps->setIcon(QIcon(":/icons/material"));
+    actRenderwindowProps->setCheckable(true);
 
     actCreatePreset = new QAction(tr("Create Preset"), this);
     actCreatePreset->setStatusTip(tr("Create Preset"));
@@ -179,6 +182,9 @@ void MainWindow::createActions()
     mToolActionGroup->addAction(actLevelUnlevel);
     mToolActionGroup->addAction(actWaterErosion);
     mToolActionGroup->addAction(actPencilEraser);
+    mToolActionGroup->addAction(actMaterialProps);
+    mToolActionGroup->addAction(actSkyProps);
+    mToolActionGroup->addAction(actRenderwindowProps);
 }
 
 void MainWindow::connectActions()

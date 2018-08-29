@@ -66,6 +66,8 @@ private:
     void selectTool(QString toolName, int category);
     void populatePropertyGrid();
 
+    void openExportImageDialog();
+
     QMenu* menuFile;
     QMenu* menuHelp;
     QToolBox* mPropertiesToolBox;

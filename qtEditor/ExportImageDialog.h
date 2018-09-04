@@ -5,7 +5,7 @@
 #include <vector>
 #include <QDialog>
 #include <QWidget>
-#include "ui_exportimagedialog.h"
+#include "ui_imagefiledialog.h"
 
 class ExportImageDialog : public QDialog
 {

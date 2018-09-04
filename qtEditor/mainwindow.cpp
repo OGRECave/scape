@@ -5,7 +5,7 @@
 #include <sstream>
 #include "propertieswidget.h"
 #include <iostream>
-#include "ImageFileDialog.h"
+#include "ExportImageDialog.h"
 #include <QMessageBox>
 
 MainWindow::MainWindow(QWidget* parent)

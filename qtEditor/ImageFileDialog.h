@@ -1,5 +1,5 @@
-#ifndef EXPORTIMAGEDIALOG_H
-#define EXPORTIMAGEDIALOG_H
+#ifndef IMAGEFILEDIALOG_H
+#define IMAGEFILEDIALOG_H
 
 #include <string>
 #include <vector>
@@ -7,7 +7,7 @@
 #include <QWidget>
 #include "ui_imagefiledialog.h"
 
-class ExportImageDialog : public QDialog
+class ImageFileDialog : public QDialog
 {
     Q_OBJECT
 
@@ -23,8 +23,8 @@ public:
 
     typedef std::vector<FileExportItem> FileExportItemVector;
 
-    ExportImageDialog(QWidget* parent = NULL);
-    virtual ~ExportImageDialog();
+    ImageFileDialog(QWidget* parent = NULL);
+    virtual ~ImageFileDialog();
 
     void populate(const FileExportItemVector& fileExportItemList);
 
@@ -44,4 +44,4 @@ private:
     Ui::ImageFileDialog* mImageFileDialogUI;
 };
 
-#endif // EXPORTIMAGEDIALOG_H
+#endif // IMAGEFILEDIALOG_H

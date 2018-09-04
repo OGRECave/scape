@@ -41,6 +41,7 @@ set(SRC_FILES
 ./presetswidget.cpp
 ./complexproperties.cpp
 ./ImageFileDialog.cpp
+./ExportImageDialog.cpp
 )
 
 set(HEADER_FILES
@@ -51,6 +52,7 @@ set(HEADER_FILES
 ./presetswidget.h
 ./complexproperties.h
 ./ImageFileDialog.h
+./ExportImageDialog.h
 )
 
 file(GLOB UI_FILES ./*.ui)

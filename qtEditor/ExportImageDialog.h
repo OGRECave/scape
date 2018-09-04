@@ -7,4 +7,7 @@ class ExportImageDialog : public ImageFileDialog
 public:
     ExportImageDialog(QWidget* parent = NULL);
     virtual ~ExportImageDialog();
+
+private:
+    void setupDialog();
 };

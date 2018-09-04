@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ExportImageDialog</class>
- <widget class="QDialog" name="ExportImageDialog">
+ <class>ImageFileDialog</class>
+ <widget class="QDialog" name="ImageFileDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>350</width>
-    <height>400</height>
+    <height>531</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Export Image</string>
+   <string/>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_3">
+  <layout class="QVBoxLayout" name="imageFileDialogLayout">
    <item>
     <widget class="QGroupBox" name="formatBox">
      <property name="title">
       <string>Format</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
+     <layout class="QVBoxLayout" name="formatBoxLayout">
       <item>
        <widget class="QComboBox" name="formatComboBox"/>
       </item>
@@ -38,20 +38,60 @@
      <property name="title">
       <string>Options</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
-      <item>
+     <layout class="QGridLayout" name="optionsGroupBoxLayout">
+      <item row="4" column="1">
+       <widget class="QComboBox" name="bppComboBox"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QCheckBox" name="flipyCheckBox">
+        <property name="text">
+         <string>Flip Y</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="heightLabel">
+        <property name="text">
+         <string>Height</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="widthLineEdit"/>
+      </item>
+      <item row="0" column="0">
        <widget class="QCheckBox" name="flipxCheckBox">
         <property name="text">
          <string>Flip X</string>
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QCheckBox" name="flipyCheckBox">
+      <item row="3" column="1">
+       <widget class="QLineEdit" name="heightLineEdit"/>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="bppLabel">
         <property name="text">
-         <string>Flip Y</string>
+         <string>Bits per pixel</string>
         </property>
        </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="widthLabel">
+        <property name="text">
+         <string>Width</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0">
+       <widget class="QLabel" name="endiannessLabel">
+        <property name="text">
+         <string>Endianness</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QComboBox" name="endiannessComboBox"/>
       </item>
      </layout>
     </widget>
@@ -61,7 +101,7 @@
      <property name="title">
       <string>File</string>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
+     <layout class="QHBoxLayout" name="fileGroupBoxLayout">
       <item>
        <widget class="QLineEdit" name="fileLineEdit"/>
       </item>
@@ -78,7 +118,7 @@
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
+      <set>QDialogButtonBox::Cancel</set>
      </property>
     </widget>
    </item>

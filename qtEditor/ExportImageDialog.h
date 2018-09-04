@@ -41,7 +41,7 @@ private:
     void connectActions();
 
     FileExportItemVector mFileExportItemVector;
-    Ui::ExportImageDialog* mExportImageDialogUI;
+    Ui::ImageFileDialog* mImageFileDialogUI;
 };
 
 #endif // EXPORTIMAGEDIALOG_H

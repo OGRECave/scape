@@ -6,53 +6,53 @@
 
 ExportImageDialog::ExportImageDialog(QWidget* parent) : QDialog(parent)
 {
-    mExportImageDialogUI = new Ui::ExportImageDialog();
-    mExportImageDialogUI->setupUi(this);
+    mImageFileDialogUI = new Ui::ImageFileDialog();
+    mImageFileDialogUI->setupUi(this);
 
     connectActions();
 }
 
-ExportImageDialog::~ExportImageDialog() { delete mExportImageDialogUI; }
+ExportImageDialog::~ExportImageDialog() { delete mImageFileDialogUI; }
 
 void ExportImageDialog::populate(const ExportImageDialog::FileExportItemVector& fileExportItemVector)
 {
-    mExportImageDialogUI->formatComboBox->clear();
+    mImageFileDialogUI->formatComboBox->clear();
 
     mFileExportItemVector = fileExportItemVector;
 
     for (FileExportItemVector::const_iterator it = mFileExportItemVector.begin();
          it != mFileExportItemVector.end(); it++)
     {
-        mExportImageDialogUI->formatComboBox->addItem(QString(it->label.c_str()));
+        mImageFileDialogUI->formatComboBox->addItem(QString(it->label.c_str()));
     }
 }
 
 std::string ExportImageDialog::getSelectedFormatName() const
 {
-    return mFileExportItemVector[mExportImageDialogUI->formatComboBox->currentIndex()].name;
+    return mFileExportItemVector[mImageFileDialogUI->formatComboBox->currentIndex()].name;
 }
 
-bool ExportImageDialog::getFlipX() const { return mExportImageDialogUI->flipxCheckBox->isChecked(); }
+bool ExportImageDialog::getFlipX() const { return mImageFileDialogUI->flipxCheckBox->isChecked(); }
 
-bool ExportImageDialog::getFlipY() const { return mExportImageDialogUI->flipyCheckBox->isChecked(); }
+bool ExportImageDialog::getFlipY() const { return mImageFileDialogUI->flipyCheckBox->isChecked(); }
 
 std::string ExportImageDialog::getFilePath() const
 {
-    return mExportImageDialogUI->fileLineEdit->text().toStdString();
+    return mImageFileDialogUI->fileLineEdit->text().toStdString();
 }
 
 void ExportImageDialog::selectedFormatChanged(int index)
 {
-    mExportImageDialogUI->formatDescriptionTextEdit->setPlainText(
+    mImageFileDialogUI->formatDescriptionTextEdit->setPlainText(
         QString(mFileExportItemVector[index].description.c_str()));
 }
 
 void ExportImageDialog::selectFileButtonClicked()
 {
     std::string formatName =
-        mFileExportItemVector[mExportImageDialogUI->formatComboBox->currentIndex()].formatName;
+        mFileExportItemVector[mImageFileDialogUI->formatComboBox->currentIndex()].formatName;
     std::string formatExtensions =
-        mFileExportItemVector[mExportImageDialogUI->formatComboBox->currentIndex()].formatExtensions;
+        mFileExportItemVector[mImageFileDialogUI->formatComboBox->currentIndex()].formatExtensions;
 
     Ogre::String formatExtensionsEdit = Ogre::String(formatExtensions);
     formatExtensionsEdit = Ogre::StringUtil::replaceAll(formatExtensionsEdit, ";", " ");
@@ -66,16 +66,16 @@ void ExportImageDialog::selectFileButtonClicked()
                                      Q_NULLPTR, QFileDialog::DontUseNativeDialog);
     if (!fileName.isEmpty())
     {
-        mExportImageDialogUI->fileLineEdit->setText(fileName);
+        mImageFileDialogUI->fileLineEdit->setText(fileName);
     }
 }
 
 void ExportImageDialog::connectActions()
 {
-    connect(mExportImageDialogUI->buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
-    connect(mExportImageDialogUI->buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
-    connect(mExportImageDialogUI->formatComboBox, SIGNAL(currentIndexChanged(int)), this,
+    connect(mImageFileDialogUI->buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+    connect(mImageFileDialogUI->buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+    connect(mImageFileDialogUI->formatComboBox, SIGNAL(currentIndexChanged(int)), this,
             SLOT(selectedFormatChanged(int)));
-    connect(mExportImageDialogUI->openFilePushButton, SIGNAL(clicked()), this,
+    connect(mImageFileDialogUI->openFilePushButton, SIGNAL(clicked()), this,
             SLOT(selectFileButtonClicked()));
 }

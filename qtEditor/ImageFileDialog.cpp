@@ -1,4 +1,4 @@
-#include "ExportImageDialog.h"
+#include "ImageFileDialog.h"
 
 #include <QFileDialog>
 

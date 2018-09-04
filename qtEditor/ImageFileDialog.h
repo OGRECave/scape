@@ -32,6 +32,10 @@ public:
     bool getFlipX() const;
     bool getFlipY() const;
     std::string getFilePath() const;
+    int getWidth() const;
+    int getHeight() const;
+    int getEndiannessIndex() const;
+    int getBppIndex() const;
 
 protected:
     FileExportItemVector mFileExportItemVector;

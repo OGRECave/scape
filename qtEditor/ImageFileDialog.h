@@ -33,15 +33,16 @@ public:
     bool getFlipY() const;
     std::string getFilePath() const;
 
+protected:
+    FileExportItemVector mFileExportItemVector;
+    Ui::ImageFileDialog* mImageFileDialogUI;
+
 private slots:
     void selectedFormatChanged(int index);
     void selectFileButtonClicked();
 
 private:
     void connectActions();
-
-    FileExportItemVector mFileExportItemVector;
-    Ui::ImageFileDialog* mImageFileDialogUI;
 };
 
 #endif // IMAGEFILEDIALOG_H

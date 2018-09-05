@@ -1,47 +1,23 @@
 #ifndef EXPORTIMAGEDIALOG_H
 #define EXPORTIMAGEDIALOG_H
 
-#include <string>
-#include <vector>
-#include <QDialog>
-#include <QWidget>
-#include "ui_exportimagedialog.h"
+#include "ImageFileDialog.h"
 
-class ExportImageDialog : public QDialog
+class ExportImageDialog : public ImageFileDialog
 {
     Q_OBJECT
 
 public:
-    struct FileExportItem
-    {
-        std::string name;
-        std::string label;
-        std::string description;
-        std::string formatName;
-        std::string formatExtensions;
-    };
-
-    typedef std::vector<FileExportItem> FileExportItemVector;
-
     ExportImageDialog(QWidget* parent = NULL);
     virtual ~ExportImageDialog();
 
-    void populate(const FileExportItemVector& fileExportItemList);
+    virtual void populate(const FormatItemVector& formatItemVector);
 
-    std::string getSelectedFormatName() const;
-    bool getFlipX() const;
-    bool getFlipY() const;
-    std::string getFilePath() const;
-
-private slots:
-    void selectedFormatChanged(int index);
-    void selectFileButtonClicked();
+protected:
+    virtual void selectFileButtonClicked();
 
 private:
-    void connectActions();
-
-    FileExportItemVector mFileExportItemVector;
-    Ui::ExportImageDialog* mExportImageDialogUI;
+    void setupDialog();
 };
 
 #endif // EXPORTIMAGEDIALOG_H

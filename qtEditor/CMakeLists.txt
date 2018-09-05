@@ -40,6 +40,8 @@ set(SRC_FILES
 ./propertieswidget.cpp
 ./presetswidget.cpp
 ./complexproperties.cpp
+./ImageFileDialog.cpp
+./ImportImageDialog.cpp
 ./ExportImageDialog.cpp
 )
 
@@ -50,6 +52,8 @@ set(HEADER_FILES
 ./propertieswidget.h
 ./presetswidget.h
 ./complexproperties.h
+./ImageFileDialog.h
+./ImportImageDialog.h
 ./ExportImageDialog.h
 )
 

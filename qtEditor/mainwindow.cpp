@@ -5,8 +5,10 @@
 #include <sstream>
 #include "propertieswidget.h"
 #include <iostream>
+#include "ImportImageDialog.h"
 #include "ExportImageDialog.h"
 #include <QMessageBox>
+#include <OgreStringConverter.h>
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::MainWindow), mAttachedInputToEngine(false), mOgreWidget(0),
@@ -304,6 +306,99 @@ void MainWindow::populatePropertyGrid()
                                     mSelectedToolElementName.toStdString()));
 }
 
+void MainWindow::openImportImageDialog()
+{
+    ScapeEngine::StringStringStringPairMap fileFilterMap =
+        mEngineInterface->getFileFilterMap(ScapeEngine::SCAPEUIELEMENTGROUPID_FILEIMPORT);
+
+    ScapeEngine::StringList names = mEngineInterface->getUIElementNameList(
+        (ScapeEngine::EScapeUIElementGroupId)ScapeEngine::SCAPEUIELEMENTGROUPID_FILEIMPORT);
+
+    ImportImageDialog::FormatItemVector itemVector;
+    ImportImageDialog::FormatOptionItemMap itemMap;
+
+    for (ScapeEngine::StringList::const_iterator nameIt = names.begin(); nameIt != names.end(); ++nameIt)
+    {
+        ImportImageDialog::FormatItem item;
+        item.name = *nameIt;
+        item.label = mEngineInterface->getUIElementPropertyField(*nameIt, "LABEL", "SHORT");
+        item.description = mEngineInterface->getUIElementPropertyField(*nameIt, "LABEL", "LONG");
+
+        std::pair<string, string> fileFilter = fileFilterMap[*nameIt];
+        item.formatName = fileFilter.first;
+        item.formatExtensions = fileFilter.second;
+
+        itemVector.push_back(item);
+
+        ScapeEngine::StringList subNameList = mEngineInterface->getUIElementPropertyNameList(
+            (ScapeEngine::EScapeUIElementGroupId)ScapeEngine::SCAPEUIELEMENTGROUPID_FILEIMPORT, *nameIt);
+
+        std::vector<ImportImageDialog::FormatOptionItem> subVector;
+        for (ScapeEngine::StringList::const_iterator subNameIt = subNameList.begin();
+             subNameIt != subNameList.end(); ++subNameIt)
+        {
+            ImportImageDialog::FormatOptionItem item;
+            item.name = *subNameIt;
+
+            item.label = mEngineInterface->getUIElementPropertyField(*nameIt, *subNameIt, "SHORT");
+            item.description = mEngineInterface->getUIElementPropertyField(*nameIt, *subNameIt, "LONG");
+            item.type = mEngineInterface->getUIElementPropertyField(*nameIt, *subNameIt, "TYPE");
+            item.options = mEngineInterface->getUIElementPropertyField(*nameIt, *subNameIt, "OPTIONS");
+            subVector.push_back(item);
+        }
+
+        itemMap[*nameIt] = subVector;
+    }
+
+    ImportImageDialog* importImageDialog = new ImportImageDialog(this);
+    importImageDialog->populate(itemVector, itemMap);
+    importImageDialog->setModal(true);
+    importImageDialog->setWindowModality(Qt::WindowModal);
+    int result = importImageDialog->exec();
+    if (result == QDialog::Accepted)
+    {
+        ScapeEngine::StringStringMap valueMap;
+        valueMap["FLIPX"] = importImageDialog->getFlipX() ? "1" : "0";
+        valueMap["FLIPY"] = importImageDialog->getFlipY() ? "1" : "0";
+
+        int width = importImageDialog->getWidth();
+        if (width >= 0)
+        {
+            valueMap["WIDTH"] = Ogre::StringConverter::toString(width);
+        }
+
+        int height = importImageDialog->getHeight();
+        if (height >= 0)
+        {
+            valueMap["HEIGHT"] = Ogre::StringConverter::toString(height);
+        }
+
+        int endianness = importImageDialog->getEndiannessIndex();
+        if (endianness >= 0)
+        {
+            valueMap["BIGENDIAN"] = Ogre::StringConverter::toString(endianness);
+        }
+
+        int bpp = importImageDialog->getBppIndex();
+        if (bpp >= 0)
+        {
+            valueMap["BPP"] = Ogre::StringConverter::toString(bpp);
+        }
+
+        mEngineInterface->setUIElementPropertyValueMap(
+            (ScapeEngine::EScapeUIElementGroupId)ScapeEngine::SCAPEUIELEMENTGROUPID_FILEIMPORT,
+            importImageDialog->getSelectedFormatName(), valueMap);
+
+        std::string error;
+        if (!mEngineInterface->importImageFile(importImageDialog->getSelectedFormatName(),
+                                               importImageDialog->getFilePath(), &error))
+        {
+            QMessageBox::critical(this, "Import failed!", QString(error.c_str()));
+        }
+    }
+    delete importImageDialog;
+}
+
 void MainWindow::openExportImageDialog()
 {
     ScapeEngine::StringStringStringPairMap fileFilterMap =
@@ -312,11 +407,11 @@ void MainWindow::openExportImageDialog()
     ScapeEngine::StringList names = mEngineInterface->getUIElementNameList(
         (ScapeEngine::EScapeUIElementGroupId)ScapeEngine::SCAPEUIELEMENTGROUPID_FILEEXPORT);
 
-    ExportImageDialog::FileExportItemVector itemVector;
+    ExportImageDialog::FormatItemVector itemVector;
     ScapeEngine::StringList::const_iterator nameIt, nameItEnd = names.end();
     for (nameIt = names.begin(); nameIt != nameItEnd; ++nameIt)
     {
-        ExportImageDialog::FileExportItem item;
+        ExportImageDialog::FormatItem item;
         item.name = *nameIt;
         item.label = mEngineInterface->getUIElementPropertyField(*nameIt, "LABEL", "SHORT");
         item.description = mEngineInterface->getUIElementPropertyField(*nameIt, "LABEL", "LONG");

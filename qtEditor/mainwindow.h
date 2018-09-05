@@ -66,6 +66,7 @@ private:
     void selectTool(QString toolName, int category);
     void populatePropertyGrid();
 
+    void openImportImageDialog();
     void openExportImageDialog();
 
     QMenu* menuFile;

@@ -312,11 +312,11 @@ void MainWindow::openExportImageDialog()
     ScapeEngine::StringList names = mEngineInterface->getUIElementNameList(
         (ScapeEngine::EScapeUIElementGroupId)ScapeEngine::SCAPEUIELEMENTGROUPID_FILEEXPORT);
 
-    ExportImageDialog::FileExportItemVector itemVector;
+    ExportImageDialog::FormatItemVector itemVector;
     ScapeEngine::StringList::const_iterator nameIt, nameItEnd = names.end();
     for (nameIt = names.begin(); nameIt != nameItEnd; ++nameIt)
     {
-        ExportImageDialog::FileExportItem item;
+        ExportImageDialog::FormatItem item;
         item.name = *nameIt;
         item.label = mEngineInterface->getUIElementPropertyField(*nameIt, "LABEL", "SHORT");
         item.description = mEngineInterface->getUIElementPropertyField(*nameIt, "LABEL", "LONG");

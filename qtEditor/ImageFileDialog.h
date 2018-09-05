@@ -12,7 +12,7 @@ class ImageFileDialog : public QDialog
     Q_OBJECT
 
 public:
-    struct FileExportItem
+    struct FormatItem
     {
         std::string name;
         std::string label;
@@ -21,12 +21,12 @@ public:
         std::string formatExtensions;
     };
 
-    typedef std::vector<FileExportItem> FileExportItemVector;
+    typedef std::vector<FormatItem> FormatItemVector;
 
     ImageFileDialog(QWidget* parent = NULL);
     virtual ~ImageFileDialog();
 
-    void populate(const FileExportItemVector& fileExportItemList);
+    void populate(const FormatItemVector& formatItemVector);
 
     std::string getSelectedFormatName() const;
     bool getFlipX() const;
@@ -38,7 +38,7 @@ public:
     int getBppIndex() const;
 
 protected:
-    FileExportItemVector mFileExportItemVector;
+    FormatItemVector mFormatItemVector;
     Ui::ImageFileDialog* mImageFileDialogUI;
 
 protected slots:

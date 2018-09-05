@@ -15,14 +15,14 @@ ImageFileDialog::ImageFileDialog(QWidget* parent) : QDialog(parent)
 
 ImageFileDialog::~ImageFileDialog() { delete mImageFileDialogUI; }
 
-void ImageFileDialog::populate(const ImageFileDialog::FileExportItemVector& fileExportItemVector)
+void ImageFileDialog::populate(const FormatItemVector& formatItemVector)
 {
     mImageFileDialogUI->formatComboBox->clear();
 
-    mFileExportItemVector = fileExportItemVector;
+    mFormatItemVector = formatItemVector;
 
-    for (FileExportItemVector::const_iterator it = mFileExportItemVector.begin();
-         it != mFileExportItemVector.end(); it++)
+    for (FormatItemVector::const_iterator it = mFormatItemVector.begin();
+         it != mFormatItemVector.end(); it++)
     {
         mImageFileDialogUI->formatComboBox->addItem(QString(it->label.c_str()));
     }
@@ -30,7 +30,7 @@ void ImageFileDialog::populate(const ImageFileDialog::FileExportItemVector& file
 
 std::string ImageFileDialog::getSelectedFormatName() const
 {
-    return mFileExportItemVector[mImageFileDialogUI->formatComboBox->currentIndex()].name;
+    return mFormatItemVector[mImageFileDialogUI->formatComboBox->currentIndex()].name;
 }
 
 bool ImageFileDialog::getFlipX() const { return mImageFileDialogUI->flipxCheckBox->isChecked(); }
@@ -85,15 +85,15 @@ int ImageFileDialog::getBppIndex() const
 void ImageFileDialog::selectedFormatChanged(int index)
 {
     mImageFileDialogUI->formatDescriptionTextEdit->setPlainText(
-        QString(mFileExportItemVector[index].description.c_str()));
+        QString(mFormatItemVector[index].description.c_str()));
 }
 
 void ImageFileDialog::selectFileButtonClicked()
 {
     std::string formatName =
-        mFileExportItemVector[mImageFileDialogUI->formatComboBox->currentIndex()].formatName;
+        mFormatItemVector[mImageFileDialogUI->formatComboBox->currentIndex()].formatName;
     std::string formatExtensions =
-        mFileExportItemVector[mImageFileDialogUI->formatComboBox->currentIndex()].formatExtensions;
+        mFormatItemVector[mImageFileDialogUI->formatComboBox->currentIndex()].formatExtensions;
 
     Ogre::String formatExtensionsEdit = Ogre::String(formatExtensions);
     formatExtensionsEdit = Ogre::StringUtil::replaceAll(formatExtensionsEdit, ";", " ");

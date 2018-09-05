@@ -38,6 +38,8 @@ public:
 protected:
     virtual void populate(const FormatItemVector& formatItemVector);
 
+    virtual int getFormatIndexFromExtension(const std::string& fileName);
+
     FormatItemVector mFormatItemVector;
     Ui::ImageFileDialog* mImageFileDialogUI;
 

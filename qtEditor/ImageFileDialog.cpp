@@ -80,6 +80,25 @@ void ImageFileDialog::populate(const FormatItemVector& formatItemVector)
     }
 }
 
+int ImageFileDialog::getFormatIndexFromExtension(const std::string& extension)
+{
+    for (FormatItemVector::const_iterator it = mFormatItemVector.begin(); it != mFormatItemVector.end();
+         it++)
+    {
+        Ogre::String fileFilterString = it->formatExtensions;
+        std::vector<Ogre::String> fileFilters = Ogre::StringUtil::split(fileFilterString, ";");
+        for (std::vector<Ogre::String>::const_iterator fileFilterIt = fileFilters.begin();
+             fileFilterIt != fileFilters.end(); fileFilterIt++)
+        {
+            if (Ogre::StringUtil::match(extension, *fileFilterIt, false))
+            {
+                return it - mFormatItemVector.begin();
+            }
+        }
+    }
+    return -1;
+}
+
 void ImageFileDialog::selectedFormatChanged(int index)
 {
     mImageFileDialogUI->formatDescriptionTextEdit->setPlainText(

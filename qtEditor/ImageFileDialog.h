@@ -41,9 +41,9 @@ protected:
     FileExportItemVector mFileExportItemVector;
     Ui::ImageFileDialog* mImageFileDialogUI;
 
-private slots:
-    void selectedFormatChanged(int index);
-    void selectFileButtonClicked();
+protected slots:
+    virtual void selectedFormatChanged(int index);
+    virtual void selectFileButtonClicked();
 
 private:
     void connectActions();

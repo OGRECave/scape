@@ -23,7 +23,8 @@ public:
     ImportImageDialog(QWidget* parent = NULL);
     virtual ~ImportImageDialog();
 
-    virtual void populate(const FormatItemVector& formatItemVector);
+    virtual void populate(const FormatItemVector& formatItemVector,
+                          const FormatOptionItemMap& formatOptionItemMap);
 
 protected:
     virtual void selectedFormatChanged(int index);
@@ -32,6 +33,8 @@ protected:
     virtual void accept();
 
 private:
+    FormatOptionItemMap mFormatOptionItemMap;
+
     void setupDialog();
 };
 

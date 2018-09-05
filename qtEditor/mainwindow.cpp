@@ -315,6 +315,7 @@ void MainWindow::openImportImageDialog()
         (ScapeEngine::EScapeUIElementGroupId)ScapeEngine::SCAPEUIELEMENTGROUPID_FILEIMPORT);
 
     ImportImageDialog::FormatItemVector itemVector;
+    ImportImageDialog::FormatOptionItemMap itemMap;
 
     for (ScapeEngine::StringList::const_iterator nameIt = names.begin(); nameIt != names.end(); ++nameIt)
     {
@@ -328,10 +329,29 @@ void MainWindow::openImportImageDialog()
         item.formatExtensions = fileFilter.second;
 
         itemVector.push_back(item);
+
+        ScapeEngine::StringList subNameList = mEngineInterface->getUIElementPropertyNameList(
+            (ScapeEngine::EScapeUIElementGroupId)ScapeEngine::SCAPEUIELEMENTGROUPID_FILEIMPORT, *nameIt);
+
+        std::vector<ImportImageDialog::FormatOptionItem> subVector;
+        for (ScapeEngine::StringList::const_iterator subNameIt = subNameList.begin();
+             subNameIt != subNameList.end(); ++subNameIt)
+        {
+            ImportImageDialog::FormatOptionItem item;
+            item.name = *subNameIt;
+
+            item.label = mEngineInterface->getUIElementPropertyField(*nameIt, *subNameIt, "SHORT");
+            item.description = mEngineInterface->getUIElementPropertyField(*nameIt, *subNameIt, "LONG");
+            item.type = mEngineInterface->getUIElementPropertyField(*nameIt, *subNameIt, "TYPE");
+            item.options = mEngineInterface->getUIElementPropertyField(*nameIt, *subNameIt, "OPTIONS");
+            subVector.push_back(item);
+        }
+
+        itemMap[*nameIt] = subVector;
     }
 
     ImportImageDialog* importImageDialog = new ImportImageDialog(this);
-    importImageDialog->populate(itemVector);
+    importImageDialog->populate(itemVector, itemMap);
     importImageDialog->setModal(true);
     importImageDialog->setWindowModality(Qt::WindowModal);
     int result = importImageDialog->exec();

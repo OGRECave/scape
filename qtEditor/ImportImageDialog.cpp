@@ -9,8 +9,10 @@ ImportImageDialog::ImportImageDialog(QWidget* parent) : ImageFileDialog(parent) 
 
 ImportImageDialog::~ImportImageDialog() {}
 
-void ImportImageDialog::populate(const FormatItemVector& formatItemVector)
+void ImportImageDialog::populate(const FormatItemVector& formatItemVector,
+                                 const FormatOptionItemMap& formatOptionItemMap)
 {
+    mFormatOptionItemMap = formatOptionItemMap;
     ImageFileDialog::populate(formatItemVector);
     mImageFileDialogUI->formatComboBox->insertItem(0, QString("Autodetect"));
     mImageFileDialogUI->formatComboBox->setCurrentIndex(0);

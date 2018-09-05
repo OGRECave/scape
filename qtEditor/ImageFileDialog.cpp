@@ -13,19 +13,6 @@ ImageFileDialog::ImageFileDialog(QWidget* parent) : QDialog(parent)
 
 ImageFileDialog::~ImageFileDialog() { delete mImageFileDialogUI; }
 
-void ImageFileDialog::populate(const FormatItemVector& formatItemVector)
-{
-    mImageFileDialogUI->formatComboBox->clear();
-
-    mFormatItemVector = formatItemVector;
-
-    for (FormatItemVector::const_iterator it = mFormatItemVector.begin();
-         it != mFormatItemVector.end(); it++)
-    {
-        mImageFileDialogUI->formatComboBox->addItem(QString(it->label.c_str()));
-    }
-}
-
 std::string ImageFileDialog::getSelectedFormatName() const
 {
     return mFormatItemVector[mImageFileDialogUI->formatComboBox->currentIndex()].name;
@@ -78,6 +65,19 @@ int ImageFileDialog::getBppIndex() const
         return mImageFileDialogUI->bppComboBox->currentIndex();
     }
     return -1;
+}
+
+void ImageFileDialog::populate(const FormatItemVector& formatItemVector)
+{
+    mImageFileDialogUI->formatComboBox->clear();
+
+    mFormatItemVector = formatItemVector;
+
+    for (FormatItemVector::const_iterator it = mFormatItemVector.begin();
+         it != mFormatItemVector.end(); it++)
+    {
+        mImageFileDialogUI->formatComboBox->addItem(QString(it->label.c_str()));
+    }
 }
 
 void ImageFileDialog::selectedFormatChanged(int index)

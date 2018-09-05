@@ -26,8 +26,6 @@ public:
     ImageFileDialog(QWidget* parent = NULL);
     virtual ~ImageFileDialog();
 
-    virtual void populate(const FormatItemVector& formatItemVector);
-
     std::string getSelectedFormatName() const;
     bool getFlipX() const;
     bool getFlipY() const;
@@ -38,6 +36,8 @@ public:
     int getBppIndex() const;
 
 protected:
+    virtual void populate(const FormatItemVector& formatItemVector);
+
     FormatItemVector mFormatItemVector;
     Ui::ImageFileDialog* mImageFileDialogUI;
 

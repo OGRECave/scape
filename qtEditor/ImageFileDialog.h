@@ -26,14 +26,14 @@ public:
     ImageFileDialog(QWidget* parent = NULL);
     virtual ~ImageFileDialog();
 
-    std::string getSelectedFormatName() const;
-    bool getFlipX() const;
-    bool getFlipY() const;
-    std::string getFilePath() const;
-    int getWidth() const;
-    int getHeight() const;
-    int getEndiannessIndex() const;
-    int getBppIndex() const;
+    virtual std::string getSelectedFormatName() const;
+    virtual bool getFlipX() const;
+    virtual bool getFlipY() const;
+    virtual std::string getFilePath() const;
+    virtual int getWidth() const;
+    virtual int getHeight() const;
+    virtual int getEndiannessIndex() const;
+    virtual int getBppIndex() const;
 
 protected:
     virtual void populate(const FormatItemVector& formatItemVector);

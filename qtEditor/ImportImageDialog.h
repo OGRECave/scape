@@ -13,6 +13,11 @@ public:
 
     virtual void populate(const FormatItemVector& formatItemVector);
 
+protected:
+    virtual void selectedFormatChanged(int index);
+    virtual void fileLineEditTextChanged(const QString& text);
+    virtual void accept();
+
 private:
     void setupDialog();
 };

@@ -11,7 +11,7 @@ void MainWindow::aboutApp()
 
 void MainWindow::importImage()
 {
-    //
+    openImportImageDialog();
 }
 
 void MainWindow::exportImage()

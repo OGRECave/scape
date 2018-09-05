@@ -26,7 +26,7 @@ public:
     ImageFileDialog(QWidget* parent = NULL);
     virtual ~ImageFileDialog();
 
-    void populate(const FormatItemVector& formatItemVector);
+    virtual void populate(const FormatItemVector& formatItemVector);
 
     std::string getSelectedFormatName() const;
     bool getFlipX() const;

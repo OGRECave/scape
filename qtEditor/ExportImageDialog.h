@@ -8,6 +8,8 @@ public:
     ExportImageDialog(QWidget* parent = NULL);
     virtual ~ExportImageDialog();
 
+    virtual void populate(const FormatItemVector& formatItemVector);
+
 protected:
     virtual void selectFileButtonClicked();
 

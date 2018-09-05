@@ -8,6 +8,11 @@ ExportImageDialog::ExportImageDialog(QWidget* parent) : ImageFileDialog(parent) 
 
 ExportImageDialog::~ExportImageDialog() {}
 
+void ExportImageDialog::populate(const FormatItemVector& formatItemVector)
+{
+    ImageFileDialog::populate(formatItemVector);
+}
+
 void ExportImageDialog::selectFileButtonClicked()
 {
     std::string formatName =

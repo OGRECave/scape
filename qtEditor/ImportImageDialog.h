@@ -1,6 +1,7 @@
 #ifndef IMPORTIMAGEDIALOG_H
 #define IMPORTIMAGEDIALOG_H
 
+#include <map>
 #include "ImageFileDialog.h"
 
 class ImportImageDialog : public ImageFileDialog
@@ -8,6 +9,17 @@ class ImportImageDialog : public ImageFileDialog
     Q_OBJECT
 
 public:
+    struct FormatOptionItem
+    {
+        std::string name;
+        std::string type;
+        std::string label;
+        std::string description;
+        std::string options;
+    };
+
+    typedef std::map<std::string, std::vector<FormatOptionItem>> FormatOptionItemMap;
+
     ImportImageDialog(QWidget* parent = NULL);
     virtual ~ImportImageDialog();
 

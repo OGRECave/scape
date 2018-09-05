@@ -28,6 +28,51 @@ void ImportImageDialog::selectedFormatChanged(int index)
     }
 }
 
+void ImportImageDialog::selectFileButtonClicked()
+{
+    int index = mImageFileDialogUI->formatComboBox->currentIndex();
+
+    std::string formatName;
+    std::string formatExtensions;
+    if (index == 0)
+    {
+        formatName = "Importable files";
+        formatExtensions = "";
+        for (FormatItemVector::const_iterator it = mFormatItemVector.begin(); it != mFormatItemVector.end();
+             it++)
+        {
+            Ogre::String fileFilterString = it->formatExtensions;
+            std::vector<Ogre::String> fileFilters = Ogre::StringUtil::split(fileFilterString, ";");
+            for (std::vector<Ogre::String>::const_iterator fileFilterIt = fileFilters.begin();
+                 fileFilterIt != fileFilters.end(); fileFilterIt++)
+            {
+                formatExtensions =
+                    formatExtensions + (formatExtensions.length() == 0 ? "" : " ") + *fileFilterIt;
+            }
+        }
+    }
+    else
+    {
+        formatName = mFormatItemVector[index - 1].formatName;
+        formatExtensions = mFormatItemVector[index - 1].formatExtensions;
+    }
+
+    Ogre::String formatExtensionsEdit = Ogre::String(formatExtensions);
+    formatExtensionsEdit = Ogre::StringUtil::replaceAll(formatExtensionsEdit, ";", " ");
+    Ogre::StringUtil::toLowerCase(formatExtensionsEdit);
+
+    Ogre::String format =
+        Ogre::String(formatName) + " (" + formatExtensionsEdit + ")" + ";;All files (*.*)";
+
+    QString fileName =
+        QFileDialog::getOpenFileName(this, QString(), QDir::currentPath(), QString(format.c_str()),
+                                     Q_NULLPTR, QFileDialog::DontUseNativeDialog);
+    if (!fileName.isEmpty())
+    {
+        mImageFileDialogUI->fileLineEdit->setText(fileName);
+    }
+}
+
 void ImportImageDialog::fileLineEditTextChanged(const QString& text)
 {
     if (mImageFileDialogUI->formatComboBox->currentIndex() == 0)

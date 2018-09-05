@@ -15,6 +15,7 @@ public:
 
 protected:
     virtual void selectedFormatChanged(int index);
+    virtual void selectFileButtonClicked();
     virtual void fileLineEditTextChanged(const QString& text);
     virtual void accept();
 

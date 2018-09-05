@@ -20,13 +20,74 @@ void ImportImageDialog::populate(const FormatItemVector& formatItemVector,
 
 void ImportImageDialog::selectedFormatChanged(int index)
 {
+    mImageFileDialogUI->flipxCheckBox->setEnabled(false);
+    mImageFileDialogUI->flipyCheckBox->setEnabled(false);
+    mImageFileDialogUI->widthLabel->setEnabled(false);
+    mImageFileDialogUI->widthLineEdit->setEnabled(false);
+    mImageFileDialogUI->heightLabel->setEnabled(false);
+    mImageFileDialogUI->heightLineEdit->setEnabled(false);
+    mImageFileDialogUI->bppLabel->setEnabled(false);
+    mImageFileDialogUI->bppComboBox->setEnabled(false);
+    mImageFileDialogUI->bppComboBox->clear();
+    mImageFileDialogUI->endiannessLabel->setEnabled(false);
+    mImageFileDialogUI->endiannessComboBox->setEnabled(false);
+    mImageFileDialogUI->endiannessComboBox->clear();
+
     if (index == 0)
     {
         mImageFileDialogUI->formatDescriptionTextEdit->setPlainText(QString("Autodetect by extension"));
+        mImageFileDialogUI->flipxCheckBox->setEnabled(true);
+        mImageFileDialogUI->flipyCheckBox->setEnabled(true);
     }
     else
     {
         ImageFileDialog::selectedFormatChanged(index - 1);
+
+        const std::vector<FormatOptionItem>& options =
+            mFormatOptionItemMap[mFormatItemVector[index - 1].name];
+        for (std::vector<FormatOptionItem>::const_iterator it = options.begin(); it != options.end(); it++)
+        {
+            std::vector<std::string> splitOptions = Ogre::StringUtil::split(it->options, ";");
+            if (it->name == "FLIPX")
+            {
+                mImageFileDialogUI->flipxCheckBox->setEnabled(true);
+            }
+            else if (it->name == "FLIPY")
+            {
+                mImageFileDialogUI->flipyCheckBox->setEnabled(true);
+            }
+            else if (it->name == "WIDTH")
+            {
+                mImageFileDialogUI->widthLabel->setEnabled(true);
+                mImageFileDialogUI->widthLineEdit->setEnabled(true);
+            }
+            else if (it->name == "HEIGHT")
+            {
+                mImageFileDialogUI->heightLabel->setEnabled(true);
+                mImageFileDialogUI->heightLineEdit->setEnabled(true);
+            }
+            else if (it->name == "BPP")
+            {
+                mImageFileDialogUI->bppLabel->setEnabled(true);
+                mImageFileDialogUI->bppComboBox->setEnabled(true);
+                for (std::vector<std::string>::const_iterator opIt = splitOptions.begin();
+                     opIt != splitOptions.end(); opIt++)
+                {
+                    mImageFileDialogUI->bppComboBox->addItem(QString(opIt->c_str()));
+                }
+            }
+            else if (it->name == "BIGENDIAN")
+            {
+                mImageFileDialogUI->endiannessLabel->setEnabled(true);
+                mImageFileDialogUI->endiannessComboBox->setEnabled(true);
+                for (std::vector<std::string>::const_iterator opIt = splitOptions.begin();
+                     opIt != splitOptions.end(); opIt++)
+                {
+                    mImageFileDialogUI->endiannessComboBox->addItem(QString("Little Endian (Intel)"));
+                    mImageFileDialogUI->endiannessComboBox->addItem(QString("Big Endian (MAC)"));
+                }
+            }
+        }
     }
 }
 

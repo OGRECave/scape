@@ -1,3 +1,6 @@
+#ifndef EXPORTIMAGEDIALOG_H
+#define EXPORTIMAGEDIALOG_H
+
 #include "ImageFileDialog.h"
 
 class ExportImageDialog : public ImageFileDialog
@@ -16,3 +19,5 @@ protected:
 private:
     void setupDialog();
 };
+
+#endif // EXPORTIMAGEDIALOG_H

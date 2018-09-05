@@ -9,6 +9,16 @@ ImportImageDialog::ImportImageDialog(QWidget* parent) : ImageFileDialog(parent) 
 
 ImportImageDialog::~ImportImageDialog() {}
 
+std::string ImportImageDialog::getSelectedFormatName() const
+{
+    int index = mImageFileDialogUI->formatComboBox->currentIndex();
+    if (index == 0)
+    {
+        return "";
+    }
+    return mFormatItemVector[index - 1].name;
+}
+
 void ImportImageDialog::populate(const FormatItemVector& formatItemVector,
                                  const FormatOptionItemMap& formatOptionItemMap)
 {

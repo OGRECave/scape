@@ -23,6 +23,8 @@ public:
     ImportImageDialog(QWidget* parent = NULL);
     virtual ~ImportImageDialog();
 
+    virtual std::string getSelectedFormatName() const;
+
     virtual void populate(const FormatItemVector& formatItemVector,
                           const FormatOptionItemMap& formatOptionItemMap);
 

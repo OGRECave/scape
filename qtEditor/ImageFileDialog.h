@@ -44,6 +44,7 @@ protected:
 protected slots:
     virtual void selectedFormatChanged(int index);
     virtual void selectFileButtonClicked();
+    virtual void fileLineEditTextChanged(const QString & text);
 
 private:
     void connectActions();

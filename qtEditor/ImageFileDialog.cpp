@@ -111,6 +111,8 @@ void ImageFileDialog::selectFileButtonClicked()
     }
 }
 
+void ImageFileDialog::fileLineEditTextChanged(const QString& text) {}
+
 void ImageFileDialog::connectActions()
 {
     connect(mImageFileDialogUI->buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
@@ -119,4 +121,6 @@ void ImageFileDialog::connectActions()
             SLOT(selectedFormatChanged(int)));
     connect(mImageFileDialogUI->openFilePushButton, SIGNAL(clicked()), this,
             SLOT(selectFileButtonClicked()));
+    connect(mImageFileDialogUI->fileLineEdit, SIGNAL(textChanged(const QString&)), this,
+            SLOT(fileLineEditTextChanged(const QString&)));
 }

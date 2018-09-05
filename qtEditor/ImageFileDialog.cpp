@@ -1,7 +1,5 @@
 #include "ImageFileDialog.h"
 
-#include <QFileDialog>
-
 #include <OgreString.h>
 #include <OgreStringConverter.h>
 
@@ -88,28 +86,7 @@ void ImageFileDialog::selectedFormatChanged(int index)
         QString(mFormatItemVector[index].description.c_str()));
 }
 
-void ImageFileDialog::selectFileButtonClicked()
-{
-    std::string formatName =
-        mFormatItemVector[mImageFileDialogUI->formatComboBox->currentIndex()].formatName;
-    std::string formatExtensions =
-        mFormatItemVector[mImageFileDialogUI->formatComboBox->currentIndex()].formatExtensions;
-
-    Ogre::String formatExtensionsEdit = Ogre::String(formatExtensions);
-    formatExtensionsEdit = Ogre::StringUtil::replaceAll(formatExtensionsEdit, ";", " ");
-    Ogre::StringUtil::toLowerCase(formatExtensionsEdit);
-
-    Ogre::String format =
-        Ogre::String(formatName) + " (" + formatExtensionsEdit + ")" + ";;All files (*.*)";
-
-    QString fileName =
-        QFileDialog::getSaveFileName(this, QString(), QDir::currentPath(), QString(format.c_str()),
-                                     Q_NULLPTR, QFileDialog::DontUseNativeDialog);
-    if (!fileName.isEmpty())
-    {
-        mImageFileDialogUI->fileLineEdit->setText(fileName);
-    }
-}
+void ImageFileDialog::selectFileButtonClicked() {}
 
 void ImageFileDialog::fileLineEditTextChanged(const QString& text) {}
 

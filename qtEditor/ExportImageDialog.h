@@ -8,6 +8,9 @@ public:
     ExportImageDialog(QWidget* parent = NULL);
     virtual ~ExportImageDialog();
 
+protected:
+    virtual void selectFileButtonClicked();
+
 private:
     void setupDialog();
 };

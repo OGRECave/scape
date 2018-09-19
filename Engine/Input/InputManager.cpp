@@ -39,12 +39,6 @@ InputManager::~InputManager()
     {
         SAFE_DELETE(buttonIt->second);
     }
-
-    if (mInputListener)
-    {
-        delete mInputListener;
-        mInputListener = NULL;
-    }
 }
 
 // ----------------------------------------------------------------------------

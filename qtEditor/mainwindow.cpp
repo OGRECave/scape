@@ -4,6 +4,7 @@
 #include "EngineCore/EngineInterface.h"
 #include <sstream>
 #include "propertieswidget.h"
+#include "presetswidget.h"
 #include <iostream>
 #include "ImportImageDialog.h"
 #include "ExportImageDialog.h"
@@ -220,6 +221,16 @@ void MainWindow::createDockWidgets()
     mPropertiesDockWidget->setWidget(mPropertiesToolBox);
     mPropertiesDockWidget->setMinimumWidth(180);
     addDockWidget(Qt::RightDockWidgetArea, mPropertiesDockWidget);
+
+    mPresetsWidget = new PresetsWidget();
+
+    mPresetsDockWidget = new QDockWidget(this);
+    mPresetsDockWidget->setWindowTitle(tr("Presets"));
+    mPresetsDockWidget->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+    mPresetsDockWidget->setObjectName(QString::fromUtf8("presetsDockWidget"));
+    mPresetsDockWidget->setWidget(mPresetsWidget);
+    mPresetsDockWidget->setMinimumWidth(180);
+    addDockWidget(Qt::RightDockWidgetArea, mPresetsDockWidget);
 }
 
 void MainWindow::populateToolbar()

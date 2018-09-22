@@ -2,6 +2,7 @@
 #define PRESETSWIDGET_H
 
 #include <QWidget>
+#include <QToolBar>
 
 namespace Ui
 {
@@ -16,8 +17,12 @@ public:
     explicit PresetsWidget(QWidget* parent = 0);
     ~PresetsWidget();
 
+    QToolBar* getToolBar() const;
+
 private:
     Ui::PresetsWidget* ui;
+
+    QToolBar* mToolBar;
 };
 
 #endif // PRESETSWIDGET_H

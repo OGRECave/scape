@@ -3,6 +3,10 @@
 
 #include <QWidget>
 #include <QToolBar>
+#include <QListWidget>
+
+#include <vector>
+#include <string>
 
 namespace Ui
 {
@@ -19,10 +23,14 @@ public:
 
     QToolBar* getToolBar() const;
 
+    void populate(const std::vector<std::string>& presets);
+
 private:
     Ui::PresetsWidget* ui;
 
     QToolBar* mToolBar;
+
+    std::vector<std::string> mPresets;
 };
 
 #endif // PRESETSWIDGET_H

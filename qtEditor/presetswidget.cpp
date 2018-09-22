@@ -15,3 +15,13 @@ QToolBar* PresetsWidget::getToolBar() const
 {
     return mToolBar;
 }
+
+void PresetsWidget::populate(const std::vector<std::string>& presets)
+{
+    ui->presetsListWidget->clear();
+    mPresets = presets;
+    for (std::vector<std::string>::const_iterator it = mPresets.begin(); it != mPresets.end(); it++)
+    {
+        ui->presetsListWidget->addItem(QString(it->c_str()));
+    }
+}

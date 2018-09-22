@@ -28,7 +28,20 @@ void PresetsWidget::populate(const std::vector<std::string>& presets)
     }
 }
 
+void PresetsWidget::itemDoubleClicked(QListWidgetItem* item)
+{
+    for (int i = 0; i < ui->presetsListWidget->count(); i++)
+    {
+        if (ui->presetsListWidget->item(i) == item)
+        {
+            emit presetLoading(mPresets[i]);
+            break;
+        }
+    }
+}
+
 void PresetsWidget::connectActions()
 {
-
+    connect(ui->presetsListWidget, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this,
+            SLOT(itemDoubleClicked(QListWidgetItem*)));
 }

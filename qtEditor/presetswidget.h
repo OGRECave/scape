@@ -25,6 +25,9 @@ public:
 
     void populate(const std::vector<std::string>& presets);
 
+protected slots:
+    void itemDoubleClicked(QListWidgetItem * item);
+
 signals:
     void presetLoading(const std::string& preset);
 

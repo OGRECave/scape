@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget* parent)
     ui->setupUi(this);
 
     createActions();
+    createDockWidgets();
     populateMainMenu();
     populateToolbar();
     connectActions();
@@ -28,21 +29,6 @@ MainWindow::MainWindow(QWidget* parent)
 
     mOgreWidget = new OgreWidget(mEngineInterface, this);
     setCentralWidget(mOgreWidget);
-
-    mPropertiesWidget = new PropertiesWidget(this);
-    connect(mPropertiesWidget, SIGNAL(propertyValueChanged(const std::string&, const std::string&)), this,
-            SLOT(propertyValueChanged(const std::string&, const std::string&)));
-
-    mPropertiesToolBox = new QToolBox(this);
-    mPropertiesToolBox->addItem(mPropertiesWidget, tr("General"));
-
-    mPropertiesDockWidget = new QDockWidget(this);
-    mPropertiesDockWidget->setWindowTitle(tr("Properties"));
-    mPropertiesDockWidget->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
-    mPropertiesDockWidget->setObjectName(QString::fromUtf8("propertiesDockWidget"));
-    mPropertiesDockWidget->setWidget(mPropertiesToolBox);
-    mPropertiesDockWidget->setMinimumWidth(180);
-    this->addDockWidget(Qt::RightDockWidgetArea, mPropertiesDockWidget);
 
     mTimer = new QTimer(this);
     mTimer->setInterval(0);
@@ -216,6 +202,24 @@ void MainWindow::connectActions()
     connect(actDeletePreset, SIGNAL(triggered()), this, SLOT(deletePreset()));
     connect(actExportPreset, SIGNAL(triggered()), this, SLOT(exportPreset()));
     connect(actImportPreset, SIGNAL(triggered()), this, SLOT(importPreset()));
+}
+
+void MainWindow::createDockWidgets()
+{
+    mPropertiesWidget = new PropertiesWidget(this);
+    connect(mPropertiesWidget, SIGNAL(propertyValueChanged(const std::string&, const std::string&)), this,
+            SLOT(propertyValueChanged(const std::string&, const std::string&)));
+
+    mPropertiesToolBox = new QToolBox(this);
+    mPropertiesToolBox->addItem(mPropertiesWidget, tr("General"));
+
+    mPropertiesDockWidget = new QDockWidget(this);
+    mPropertiesDockWidget->setWindowTitle(tr("Properties"));
+    mPropertiesDockWidget->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+    mPropertiesDockWidget->setObjectName(QString::fromUtf8("propertiesDockWidget"));
+    mPropertiesDockWidget->setWidget(mPropertiesToolBox);
+    mPropertiesDockWidget->setMinimumWidth(180);
+    addDockWidget(Qt::RightDockWidgetArea, mPropertiesDockWidget);
 }
 
 void MainWindow::populateToolbar()

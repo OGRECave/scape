@@ -61,6 +61,7 @@ protected:
 private:
     void createActions();
     void connectActions();
+    void createDockWidgets();
     void populateToolbar();
     void populateMainMenu();
     void selectTool(QString toolName, int category);

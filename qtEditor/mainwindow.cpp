@@ -223,6 +223,8 @@ void MainWindow::createDockWidgets()
     addDockWidget(Qt::RightDockWidgetArea, mPropertiesDockWidget);
 
     mPresetsWidget = new PresetsWidget();
+    connect(mPresetsWidget, SIGNAL(presetLoading(const std::string&)), this,
+            SLOT(presetLoading(const std::string&)));
 
     mPresetsDockWidget = new QDockWidget(this);
     mPresetsDockWidget->setWindowTitle(tr("Presets"));
@@ -483,4 +485,15 @@ void MainWindow::propertyValueChanged(const std::string& key, const std::string&
         (ScapeEngine::EScapeUIElementGroupId)mSelectedToolElementGroupId,
         mSelectedToolElementName.toStdString(), key, value);
     mPropertiesWidget->setValue(key, ret);
+}
+
+void MainWindow::presetLoading(const std::string& preset)
+{
+    ScapeEngine::StringStringMap valueMap = mEngineInterface->getUIElementPresetPropertyValueMap(
+        (ScapeEngine::EScapeUIElementGroupId)mSelectedToolElementGroupId,
+        mSelectedToolElementName.toStdString(), preset);
+    ScapeEngine::StringStringMap correctValueMap = mEngineInterface->setUIElementPropertyValueMap(
+        (ScapeEngine::EScapeUIElementGroupId)mSelectedToolElementGroupId,
+        mSelectedToolElementName.toStdString(), valueMap);
+    populatePropertyGrid();
 }

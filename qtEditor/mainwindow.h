@@ -56,6 +56,8 @@ public Q_SLOTS:
 
     void propertyValueChanged(const std::string& key, const std::string& value);
 
+    void presetLoading(const std::string& preset);
+
 protected:
     virtual void resizeEvent(QResizeEvent* rEvent);
 

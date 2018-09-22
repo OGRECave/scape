@@ -10,6 +10,7 @@
 
 class OgreWidget;
 class PropertiesWidget;
+class PresetsWidget;
 
 namespace Ui
 {
@@ -73,9 +74,10 @@ private:
     QMenu* menuFile;
     QMenu* menuHelp;
     QToolBox* mPropertiesToolBox;
-    QToolBox* mPresetsToolBox;
     QDockWidget* mPropertiesDockWidget;
     PropertiesWidget* mPropertiesWidget;
+    QDockWidget* mPresetsDockWidget;
+    PresetsWidget* mPresetsWidget;
 
     Ui::MainWindow* ui;
     ScapeEngine::EngineInterface* mEngineInterface;

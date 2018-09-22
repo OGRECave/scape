@@ -7,6 +7,8 @@ PresetsWidget::PresetsWidget(QWidget* parent) : QWidget(parent), ui(new Ui::Pres
 
     mToolBar = new QToolBar();
     ui->mainLayout->insertWidget(0, mToolBar);
+
+    connectActions();
 }
 
 PresetsWidget::~PresetsWidget() { delete ui; }
@@ -24,4 +26,9 @@ void PresetsWidget::populate(const std::vector<std::string>& presets)
     {
         ui->presetsListWidget->addItem(QString(it->c_str()));
     }
+}
+
+void PresetsWidget::connectActions()
+{
+
 }

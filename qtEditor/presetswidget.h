@@ -34,6 +34,8 @@ private:
     QToolBar* mToolBar;
 
     std::vector<std::string> mPresets;
+
+    void connectActions();
 };
 
 #endif // PRESETSWIDGET_H

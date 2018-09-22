@@ -252,11 +252,11 @@ void MainWindow::populateToolbar()
     ui->mToolBar->addAction(actSkyProps);
     ui->mToolBar->addAction(actRenderwindowProps);
 
-    // actCreatePreset;
-    // actSavePreset;
-    // actDeletePreset;
-    // actExportPreset;
-    // actImportPreset;
+    mPresetsWidget->getToolBar()->addAction(actCreatePreset);
+    mPresetsWidget->getToolBar()->addAction(actSavePreset);
+    mPresetsWidget->getToolBar()->addAction(actDeletePreset);
+    mPresetsWidget->getToolBar()->addAction(actExportPreset);
+    mPresetsWidget->getToolBar()->addAction(actImportPreset);
 }
 
 void MainWindow::populateMainMenu()

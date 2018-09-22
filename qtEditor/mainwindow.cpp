@@ -4,6 +4,7 @@
 #include "EngineCore/EngineInterface.h"
 #include <sstream>
 #include "propertieswidget.h"
+#include "presetswidget.h"
 #include <iostream>
 #include "ImportImageDialog.h"
 #include "ExportImageDialog.h"
@@ -17,6 +18,7 @@ MainWindow::MainWindow(QWidget* parent)
     ui->setupUi(this);
 
     createActions();
+    createDockWidgets();
     populateMainMenu();
     populateToolbar();
     connectActions();
@@ -28,21 +30,6 @@ MainWindow::MainWindow(QWidget* parent)
 
     mOgreWidget = new OgreWidget(mEngineInterface, this);
     setCentralWidget(mOgreWidget);
-
-    mPropertiesWidget = new PropertiesWidget(this);
-    connect(mPropertiesWidget, SIGNAL(propertyValueChanged(const std::string&, const std::string&)), this,
-            SLOT(propertyValueChanged(const std::string&, const std::string&)));
-
-    mPropertiesToolBox = new QToolBox(this);
-    mPropertiesToolBox->addItem(mPropertiesWidget, tr("General"));
-
-    mPropertiesDockWidget = new QDockWidget(this);
-    mPropertiesDockWidget->setWindowTitle(tr("Properties"));
-    mPropertiesDockWidget->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
-    mPropertiesDockWidget->setObjectName(QString::fromUtf8("propertiesDockWidget"));
-    mPropertiesDockWidget->setWidget(mPropertiesToolBox);
-    mPropertiesDockWidget->setMinimumWidth(180);
-    this->addDockWidget(Qt::RightDockWidgetArea, mPropertiesDockWidget);
 
     mTimer = new QTimer(this);
     mTimer->setInterval(0);
@@ -218,6 +205,36 @@ void MainWindow::connectActions()
     connect(actImportPreset, SIGNAL(triggered()), this, SLOT(importPreset()));
 }
 
+void MainWindow::createDockWidgets()
+{
+    mPropertiesWidget = new PropertiesWidget(this);
+    connect(mPropertiesWidget, SIGNAL(propertyValueChanged(const std::string&, const std::string&)), this,
+            SLOT(propertyValueChanged(const std::string&, const std::string&)));
+
+    mPropertiesToolBox = new QToolBox(this);
+    mPropertiesToolBox->addItem(mPropertiesWidget, tr("General"));
+
+    mPropertiesDockWidget = new QDockWidget(this);
+    mPropertiesDockWidget->setWindowTitle(tr("Properties"));
+    mPropertiesDockWidget->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+    mPropertiesDockWidget->setObjectName(QString::fromUtf8("propertiesDockWidget"));
+    mPropertiesDockWidget->setWidget(mPropertiesToolBox);
+    mPropertiesDockWidget->setMinimumWidth(180);
+    addDockWidget(Qt::RightDockWidgetArea, mPropertiesDockWidget);
+
+    mPresetsWidget = new PresetsWidget();
+    connect(mPresetsWidget, SIGNAL(presetLoading(const std::string&)), this,
+            SLOT(presetLoading(const std::string&)));
+
+    mPresetsDockWidget = new QDockWidget(this);
+    mPresetsDockWidget->setWindowTitle(tr("Presets"));
+    mPresetsDockWidget->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+    mPresetsDockWidget->setObjectName(QString::fromUtf8("presetsDockWidget"));
+    mPresetsDockWidget->setWidget(mPresetsWidget);
+    mPresetsDockWidget->setMinimumWidth(180);
+    addDockWidget(Qt::RightDockWidgetArea, mPresetsDockWidget);
+}
+
 void MainWindow::populateToolbar()
 {
     ui->mToolBar->addAction(actPencilEraserGPU);
@@ -237,11 +254,11 @@ void MainWindow::populateToolbar()
     ui->mToolBar->addAction(actSkyProps);
     ui->mToolBar->addAction(actRenderwindowProps);
 
-    // actCreatePreset;
-    // actSavePreset;
-    // actDeletePreset;
-    // actExportPreset;
-    // actImportPreset;
+    mPresetsWidget->getToolBar()->addAction(actCreatePreset);
+    mPresetsWidget->getToolBar()->addAction(actSavePreset);
+    mPresetsWidget->getToolBar()->addAction(actDeletePreset);
+    mPresetsWidget->getToolBar()->addAction(actExportPreset);
+    mPresetsWidget->getToolBar()->addAction(actImportPreset);
 }
 
 void MainWindow::populateMainMenu()
@@ -270,7 +287,7 @@ void MainWindow::selectTool(QString toolName, int category)
     }
 
     populatePropertyGrid();
-    // populatePresetPanel();
+    populatePresetPanel();
 }
 
 void MainWindow::populatePropertyGrid()
@@ -304,6 +321,22 @@ void MainWindow::populatePropertyGrid()
                                 mEngineInterface->getUIElementPropertyValueMap(
                                     (ScapeEngine::EScapeUIElementGroupId)mSelectedToolElementGroupId,
                                     mSelectedToolElementName.toStdString()));
+}
+
+void MainWindow::populatePresetPanel()
+{
+    std::vector<std::string> presets;
+
+    ScapeEngine::StringList presetList = mEngineInterface->getUIElementPresetPropertyNames(
+        (ScapeEngine::EScapeUIElementGroupId)mSelectedToolElementGroupId,
+        mSelectedToolElementName.toStdString());
+    for (ScapeEngine::StringList::const_iterator nameIt = presetList.begin(); nameIt != presetList.end();
+         ++nameIt)
+    {
+        presets.push_back(*nameIt);
+    }
+
+    mPresetsWidget->populate(presets);
 }
 
 void MainWindow::openImportImageDialog()
@@ -452,4 +485,15 @@ void MainWindow::propertyValueChanged(const std::string& key, const std::string&
         (ScapeEngine::EScapeUIElementGroupId)mSelectedToolElementGroupId,
         mSelectedToolElementName.toStdString(), key, value);
     mPropertiesWidget->setValue(key, ret);
+}
+
+void MainWindow::presetLoading(const std::string& preset)
+{
+    ScapeEngine::StringStringMap valueMap = mEngineInterface->getUIElementPresetPropertyValueMap(
+        (ScapeEngine::EScapeUIElementGroupId)mSelectedToolElementGroupId,
+        mSelectedToolElementName.toStdString(), preset);
+    ScapeEngine::StringStringMap correctValueMap = mEngineInterface->setUIElementPropertyValueMap(
+        (ScapeEngine::EScapeUIElementGroupId)mSelectedToolElementGroupId,
+        mSelectedToolElementName.toStdString(), valueMap);
+    populatePropertyGrid();
 }

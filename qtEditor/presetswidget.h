@@ -25,6 +25,9 @@ public:
 
     void populate(const std::vector<std::string>& presets);
 
+signals:
+    void presetLoading(const std::string& preset);
+
 private:
     Ui::PresetsWidget* ui;
 

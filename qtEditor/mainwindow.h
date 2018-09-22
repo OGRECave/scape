@@ -67,6 +67,7 @@ private:
     void populateMainMenu();
     void selectTool(QString toolName, int category);
     void populatePropertyGrid();
+    void populatePresetPanel();
 
     void openImportImageDialog();
     void openExportImageDialog();

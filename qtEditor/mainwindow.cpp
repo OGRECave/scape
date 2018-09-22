@@ -285,7 +285,7 @@ void MainWindow::selectTool(QString toolName, int category)
     }
 
     populatePropertyGrid();
-    // populatePresetPanel();
+    populatePresetPanel();
 }
 
 void MainWindow::populatePropertyGrid()
@@ -319,6 +319,22 @@ void MainWindow::populatePropertyGrid()
                                 mEngineInterface->getUIElementPropertyValueMap(
                                     (ScapeEngine::EScapeUIElementGroupId)mSelectedToolElementGroupId,
                                     mSelectedToolElementName.toStdString()));
+}
+
+void MainWindow::populatePresetPanel()
+{
+    std::vector<std::string> presets;
+
+    ScapeEngine::StringList presetList = mEngineInterface->getUIElementPresetPropertyNames(
+        (ScapeEngine::EScapeUIElementGroupId)mSelectedToolElementGroupId,
+        mSelectedToolElementName.toStdString());
+    for (ScapeEngine::StringList::const_iterator nameIt = presetList.begin(); nameIt != presetList.end();
+         ++nameIt)
+    {
+        presets.push_back(*nameIt);
+    }
+
+    mPresetsWidget->populate(presets);
 }
 
 void MainWindow::openImportImageDialog()

@@ -479,6 +479,31 @@ void MainWindow::openExportImageDialog()
     delete exportImageDialog;
 }
 
+void MainWindow::createPreset()
+{
+
+}
+
+void MainWindow::savePreset()
+{
+
+}
+
+void MainWindow::deletePreset()
+{
+
+}
+
+void MainWindow::exportPreset()
+{
+
+}
+
+void MainWindow::importPreset()
+{
+
+}
+
 void MainWindow::propertyValueChanged(const std::string& key, const std::string& value)
 {
     std::string ret = mEngineInterface->setUIElementPropertyValue(

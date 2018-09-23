@@ -9,6 +9,8 @@
 #include "ImportImageDialog.h"
 #include "ExportImageDialog.h"
 #include <QMessageBox>
+#include <QFileDialog>
+#include <QInputDialog>
 #include <OgreStringConverter.h>
 
 MainWindow::MainWindow(QWidget* parent)
@@ -477,6 +479,84 @@ void MainWindow::openExportImageDialog()
         }
     }
     delete exportImageDialog;
+}
+
+void MainWindow::createPreset()
+{
+    bool ok;
+    QString presetName =
+        QInputDialog::getText(this, "Create Preset", "Preset Name:", QLineEdit::Normal, "Preset", &ok);
+    if (ok && !presetName.isEmpty())
+    {
+        string uniquePresetName = mEngineInterface->makeUniquePresetName(
+            (ScapeEngine::EScapeUIElementGroupId)mSelectedToolElementGroupId,
+            mSelectedToolElementName.toStdString(), presetName.toStdString());
+        ScapeEngine::StringStringMap valueMap = mEngineInterface->getUIElementPropertyValueMap(
+            (ScapeEngine::EScapeUIElementGroupId)mSelectedToolElementGroupId,
+            mSelectedToolElementName.toStdString());
+        mEngineInterface->setUIElementPresetPropertyValueMap(
+            (ScapeEngine::EScapeUIElementGroupId)mSelectedToolElementGroupId,
+            mSelectedToolElementName.toStdString(), string(uniquePresetName), valueMap);
+        populatePresetPanel();
+    }
+}
+
+void MainWindow::savePreset()
+{
+    std::string presetName = mPresetsWidget->getSelectedPreset();
+    if (presetName.length() > 0)
+    {
+        ScapeEngine::StringStringMap valueMap = mEngineInterface->getUIElementPropertyValueMap(
+            (ScapeEngine::EScapeUIElementGroupId)mSelectedToolElementGroupId,
+            mSelectedToolElementName.toStdString());
+
+        mEngineInterface->setUIElementPresetPropertyValueMap(
+            (ScapeEngine::EScapeUIElementGroupId)mSelectedToolElementGroupId,
+            mSelectedToolElementName.toStdString(), presetName, valueMap);
+    }
+}
+
+void MainWindow::deletePreset()
+{
+    std::string presetName = mPresetsWidget->getSelectedPreset();
+    if (presetName.length() > 0)
+    {
+        mEngineInterface->deleteUIElementPreset(
+            (ScapeEngine::EScapeUIElementGroupId)mSelectedToolElementGroupId,
+            mSelectedToolElementName.toStdString(), presetName);
+        populatePresetPanel();
+    }
+}
+
+void MainWindow::exportPreset()
+{
+    std::string format = "Preset files (*.spe);;All files (*.*)";
+
+    QString fileName =
+        QFileDialog::getSaveFileName(this, QString(), QDir::currentPath(), QString(format.c_str()),
+                                     Q_NULLPTR, QFileDialog::DontUseNativeDialog);
+    if (!fileName.isEmpty())
+    {
+        mEngineInterface->exportUIElementPreset(
+            (ScapeEngine::EScapeUIElementGroupId)mSelectedToolElementGroupId,
+            mSelectedToolElementName.toStdString(), fileName.toStdString());
+    }
+}
+
+void MainWindow::importPreset()
+{
+    std::string format = "Preset files (*.spe);;All files (*.*)";
+
+    QString fileName =
+        QFileDialog::getOpenFileName(this, QString(), QDir::currentPath(), QString(format.c_str()),
+                                     Q_NULLPTR, QFileDialog::DontUseNativeDialog);
+    if (!fileName.isEmpty())
+    {
+        std::string presetName = mEngineInterface->importUIElementPreset(
+            (ScapeEngine::EScapeUIElementGroupId)mSelectedToolElementGroupId,
+            mSelectedToolElementName.toStdString(), fileName.toStdString());
+        populatePresetPanel();
+    }
 }
 
 void MainWindow::propertyValueChanged(const std::string& key, const std::string& value)

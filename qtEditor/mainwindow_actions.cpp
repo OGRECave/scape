@@ -79,29 +79,4 @@ void MainWindow::renderwindowProps()
     selectTool("RenderWindowSettings", ScapeEngine::SCAPEUIELEMENTGROUPID_RENDERWINDOW);
 }
 
-void MainWindow::createPreset()
-{
-    //
-}
-
-void MainWindow::savePreset()
-{
-    //
-}
-
-void MainWindow::deletePreset()
-{
-    //
-}
-
-void MainWindow::exportPreset()
-{
-    //
-}
-
-void MainWindow::importPreset()
-{
-    //
-}
-
 void MainWindow::exitApp() { close(); }

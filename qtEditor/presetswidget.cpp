@@ -18,6 +18,23 @@ QToolBar* PresetsWidget::getToolBar() const
     return mToolBar;
 }
 
+std::string PresetsWidget::getSelectedPreset() const
+{
+    QList<QListWidgetItem*> selectedItems = ui->presetsListWidget->selectedItems();
+    if (selectedItems.size() > 0)
+    {
+        QListWidgetItem* item = selectedItems.at(0);
+        for (int i = 0; i < ui->presetsListWidget->count(); i++)
+        {
+            if (ui->presetsListWidget->item(i) == item)
+            {
+                return mPresets[i];
+            }
+        }
+    }
+    return "";
+}
+
 void PresetsWidget::populate(const std::vector<std::string>& presets)
 {
     ui->presetsListWidget->clear();

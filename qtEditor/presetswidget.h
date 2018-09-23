@@ -23,6 +23,8 @@ public:
 
     QToolBar* getToolBar() const;
 
+    std::string getSelectedPreset() const;
+
     void populate(const std::vector<std::string>& presets);
 
 protected slots:

@@ -8,7 +8,7 @@
 #include <iostream>
 #include "ImportImageDialog.h"
 #include "ExportImageDialog.h"
-#include "aboutdialog.h"
+#include "AboutDialog.h"
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QInputDialog>

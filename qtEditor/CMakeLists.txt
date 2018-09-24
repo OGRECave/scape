@@ -35,7 +35,7 @@ set(SRC_FILES
 ./main.cpp
 ./mainwindow.cpp
 ./ogrewidget.cpp
-./aboutdialog.cpp
+./AboutDialog.cpp
 ./propertieswidget.cpp
 ./presetswidget.cpp
 ./complexproperties.cpp
@@ -47,7 +47,7 @@ set(SRC_FILES
 set(HEADER_FILES
 ./mainwindow.h
 ./ogrewidget.h
-./aboutdialog.h
+./AboutDialog.h
 ./propertieswidget.h
 ./presetswidget.h
 ./complexproperties.h

@@ -34,7 +34,7 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/Dependencies/QtPropertyBrowser QtPropertyBr
 set(SRC_FILES
 ./main.cpp
 ./mainwindow.cpp
-./ogrewidget.cpp
+./OgreWidget.cpp
 ./AboutDialog.cpp
 ./PropertiesWidget.cpp
 ./PresetsWidget.cpp
@@ -46,7 +46,7 @@ set(SRC_FILES
 
 set(HEADER_FILES
 ./mainwindow.h
-./ogrewidget.h
+./OgreWidget.h
 ./AboutDialog.h
 ./PropertiesWidget.h
 ./PresetsWidget.h

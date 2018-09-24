@@ -1,4 +1,4 @@
-#include "ogrewidget.h"
+#include "OgreWidget.h"
 #include <sstream>
 #include <QtGui/QFocusEvent>
 

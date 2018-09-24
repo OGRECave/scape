@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "ogrewidget.h"
+#include "OgreWidget.h"
 #include "EngineCore/EngineInterface.h"
 #include <sstream>
 #include "PropertiesWidget.h"

@@ -1,4 +1,4 @@
-#include "propertieswidget.h"
+#include "PropertiesWidget.h"
 
 #include <OgreString.h>
 

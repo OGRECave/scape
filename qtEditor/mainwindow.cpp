@@ -3,7 +3,7 @@
 #include "ogrewidget.h"
 #include "EngineCore/EngineInterface.h"
 #include <sstream>
-#include "propertieswidget.h"
+#include "PropertiesWidget.h"
 #include "presetswidget.h"
 #include <iostream>
 #include "ImportImageDialog.h"

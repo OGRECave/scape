@@ -4,7 +4,7 @@
 #include "EngineCore/EngineInterface.h"
 #include <sstream>
 #include "PropertiesWidget.h"
-#include "presetswidget.h"
+#include "PresetsWidget.h"
 #include <iostream>
 #include "ImportImageDialog.h"
 #include "ExportImageDialog.h"

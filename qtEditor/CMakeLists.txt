@@ -37,7 +37,7 @@ set(SRC_FILES
 ./ogrewidget.cpp
 ./AboutDialog.cpp
 ./PropertiesWidget.cpp
-./presetswidget.cpp
+./PresetsWidget.cpp
 ./complexproperties.cpp
 ./ImageFileDialog.cpp
 ./ImportImageDialog.cpp
@@ -49,7 +49,7 @@ set(HEADER_FILES
 ./ogrewidget.h
 ./AboutDialog.h
 ./PropertiesWidget.h
-./presetswidget.h
+./PresetsWidget.h
 ./complexproperties.h
 ./ImageFileDialog.h
 ./ImportImageDialog.h

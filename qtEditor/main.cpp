@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "MainWindow.h"
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QSplashScreen>
 #include <QtWidgets/QStyleFactory>

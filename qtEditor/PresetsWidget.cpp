@@ -1,4 +1,4 @@
-#include "presetswidget.h"
+#include "PresetsWidget.h"
 #include "ui_presetswidget.h"
 
 PresetsWidget::PresetsWidget(QWidget* parent) : QWidget(parent), ui(new Ui::PresetsWidget)

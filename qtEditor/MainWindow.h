@@ -76,7 +76,6 @@ private:
 
     QMenu* menuFile;
     QMenu* menuHelp;
-    QToolBox* mPropertiesToolBox;
     QDockWidget* mPropertiesDockWidget;
     PropertiesWidget* mPropertiesWidget;
     QDockWidget* mPresetsDockWidget;

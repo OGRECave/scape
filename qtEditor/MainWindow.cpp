@@ -214,14 +214,11 @@ void MainWindow::createDockWidgets()
     connect(mPropertiesWidget, SIGNAL(propertyValueChanged(const std::string&, const std::string&)), this,
             SLOT(propertyValueChanged(const std::string&, const std::string&)));
 
-    mPropertiesToolBox = new QToolBox(this);
-    mPropertiesToolBox->addItem(mPropertiesWidget, tr("General"));
-
     mPropertiesDockWidget = new QDockWidget(this);
     mPropertiesDockWidget->setWindowTitle(tr("Properties"));
     mPropertiesDockWidget->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
     mPropertiesDockWidget->setObjectName(QString::fromUtf8("propertiesDockWidget"));
-    mPropertiesDockWidget->setWidget(mPropertiesToolBox);
+    mPropertiesDockWidget->setWidget(mPropertiesWidget);
     mPropertiesDockWidget->setMinimumWidth(180);
     addDockWidget(Qt::RightDockWidgetArea, mPropertiesDockWidget);
 

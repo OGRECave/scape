@@ -57,8 +57,8 @@ public:                                                                         
 
 // ----------------------------------------------------------------------------
 #define LOADPROPERTIES_UIELEMENTCONTAINERSIMPLE_CLASS()                                                    \
-    initPersistentElementStringEnumMap(getPersistentElementStringEnumMap());                               \
-    initPersistentElementValueMap(getPersistentElementValueMap());                                         \
+    static bool init1 = initPersistentElementStringEnumMap(getPersistentElementStringEnumMap());           \
+    static bool init2 = initPersistentElementValueMap(getPersistentElementValueMap());                     \
     StringStringMap::iterator propertyIt, propertyItEnd = getPersistentElementValueMap().end();            \
     for (propertyIt = getPersistentElementValueMap().begin(); propertyIt != propertyItEnd; ++propertyIt)   \
     {                                                                                                      \

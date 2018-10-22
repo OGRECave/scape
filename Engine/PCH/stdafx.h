@@ -11,10 +11,15 @@
 
 #pragma warning(push, 3)
 
-#define _CRT_SECURE_NO_DEPRECATE
-#define WIN32_LEAN_AND_MEAN
-#define _WIN32_WINNT 0x0501
-#define NOMINMAX
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+    #define _CRT_SECURE_NO_DEPRECATE
+    #define WIN32_LEAN_AND_MEAN
+    #define _WIN32_WINNT 0x0501
+    #define NOMINMAX
+
+    #include <windows.h>
+    #include <direct.h>
+#endif
 
 #include "Ogre.h"
 //#include "OgreNoMemoryMacros.h"

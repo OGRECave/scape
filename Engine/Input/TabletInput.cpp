@@ -13,7 +13,7 @@ using namespace ScapeEngine;
 // ----------------------------------------------------------------------------
 TabletInput* TabletInput::create(const string& inputWindow)
 {
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+#ifdef _WINDOWS
     return new TabletInputWin32(inputWindow);
 #else
     return new TabletInput();

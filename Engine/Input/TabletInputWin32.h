@@ -12,7 +12,7 @@
 #define __TABLETINPUTWIN32_H__
 
 #include <OgrePlatform.h>
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+#if OGRE_PLATFORM == OGRE_PLATFORM_WINDOWS
 
 #include "TabletInput.h"
 #include "Wintab/wintab.h"

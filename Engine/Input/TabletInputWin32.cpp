@@ -5,7 +5,7 @@
  */
 
 #include <OgrePlatform.h>
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+#if OGRE_PLATFORM == OGRE_PLATFORM_WINDOWS
 #include "PCH/stdafx.h"
 #include "Wintab/wintab.h"
 

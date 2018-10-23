@@ -69,10 +69,11 @@ void PropertiesWidget::populate(const UIElementPropertyGridItemList& itemList,
         {
             qType = QVariant::Color;
         }
-        else if (type == "FILE")
+        /*else if (type == "FILE")
         {
+            // This part of the PropertyBrowser doesn't work!
             qType = QtVariantPropertyManager::filePathTypeId();
-        }
+        }*/
         else
         {
             qType = QVariant::String;

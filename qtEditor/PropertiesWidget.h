@@ -40,7 +40,7 @@ signals:
 
 private:
     QtVariantPropertyManager* mPropertyManager;
-    std::map<QtProperty*, std::string> mPropertyToKey;
+    std::map<QtProperty*, UIElementPropertyGridItem> mPropertyToItem;
 };
 
 #endif // PROPERTIESWIDGET_H

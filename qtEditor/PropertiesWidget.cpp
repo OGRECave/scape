@@ -19,7 +19,7 @@ void PropertiesWidget::populate(const UIElementPropertyGridItemList& itemList,
 {
     clear();
     mPropertyManager->clear();
-    mPropertyToKey.clear();
+    mPropertyToItem.clear();
 
     std::map<std::string, QtProperty*> categoryItems;
 
@@ -80,7 +80,7 @@ void PropertiesWidget::populate(const UIElementPropertyGridItemList& itemList,
         }
 
         QtVariantProperty* item = mPropertyManager->addProperty(qType, QString(name.c_str()));
-        mPropertyToKey[item] = itemIt->name;
+        mPropertyToItem[item] = *itemIt;
 
         std::map<std::string, std::string>::const_iterator pos = valueMap.find(itemIt->name);
         if (pos != valueMap.end())
@@ -107,10 +107,10 @@ void PropertiesWidget::setValue(const std::string& key, const std::string& value
 {
     Ogre::String keyTrimmed = Ogre::String(key);
     Ogre::StringUtil::trim(keyTrimmed);
-    for (std::map<QtProperty*, std::string>::const_iterator it = mPropertyToKey.begin();
-         it != mPropertyToKey.end(); it++)
+    for (std::map<QtProperty*, UIElementPropertyGridItem>::const_iterator it = mPropertyToItem.begin();
+         it != mPropertyToItem.end(); it++)
     {
-        Ogre::String curKeyTrimmed = Ogre::String(it->second);
+        Ogre::String curKeyTrimmed = Ogre::String(it->second.name);
         Ogre::StringUtil::trim(curKeyTrimmed);
         if (curKeyTrimmed == keyTrimmed)
         {
@@ -121,9 +121,10 @@ void PropertiesWidget::setValue(const std::string& key, const std::string& value
 
 void PropertiesWidget::valueChanged(QtProperty *property, const QVariant &value)
 {
-    std::map<QtProperty *, std::string>::const_iterator propertyKeyIt = mPropertyToKey.find(property);
-    if (propertyKeyIt != mPropertyToKey.end())
+    std::map<QtProperty*, UIElementPropertyGridItem>::const_iterator propertyKeyIt =
+        mPropertyToItem.find(property);
+    if (propertyKeyIt != mPropertyToItem.end())
     {
-        emit propertyValueChanged(propertyKeyIt->second, value.toString().toStdString());
+        emit propertyValueChanged(propertyKeyIt->second.name, value.toString().toStdString());
     }
 }

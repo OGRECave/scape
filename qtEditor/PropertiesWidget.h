@@ -38,6 +38,10 @@ private slots:
 signals:
     void propertyValueChanged(const std::string& key, const std::string& value);
 
+protected:
+    static QColor convertInternalColorToQColor(const std::string& internalColor);
+    static std::string convertQColorToInternalColor(const QColor qColor);
+
 private:
     QtVariantPropertyManager* mPropertyManager;
     std::map<QtProperty*, UIElementPropertyGridItem> mPropertyToItem;

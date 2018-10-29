@@ -1,6 +1,7 @@
 #include "PropertiesWidget.h"
 
 #include <OgreString.h>
+#include <OgreStringConverter.h>
 
 PropertiesWidget::PropertiesWidget(QWidget* parent) : QtTreePropertyBrowser(parent), mPropertyManager(NULL)
 {
@@ -127,4 +128,33 @@ void PropertiesWidget::valueChanged(QtProperty *property, const QVariant &value)
     {
         emit propertyValueChanged(propertyKeyIt->second.name, value.toString().toStdString());
     }
+}
+
+QColor PropertiesWidget::convertInternalColorToQColor(const std::string& internalColor)
+{
+    Ogre::String colorStr = Ogre::String(internalColor);
+    colorStr = Ogre::StringUtil::replaceAll(colorStr, "(", "");
+    colorStr = Ogre::StringUtil::replaceAll(colorStr, ")", "");
+    std::vector<Ogre::String> colorParts = Ogre::StringUtil::split(colorStr, ",");
+    QColor color;
+    if (colorParts.size() == 3)
+    {
+        int redValue = Ogre::StringConverter::parseInt(colorParts[0], 0);
+        int greenValue = Ogre::StringConverter::parseInt(colorParts[1], 0);
+        int blueValue = Ogre::StringConverter::parseInt(colorParts[2], 0);
+        color = QColor(redValue, greenValue, blueValue);
+    }
+    else
+    {
+        color = QColor();
+    }
+    return color;
+}
+
+std::string PropertiesWidget::convertQColorToInternalColor(const QColor qColor)
+{
+    Ogre::String redValue = Ogre::StringConverter::toString(qColor.red());
+    Ogre::String greenValue = Ogre::StringConverter::toString(qColor.green());
+    Ogre::String blueValue = Ogre::StringConverter::toString(qColor.blue());
+    return "(" + redValue + "," + greenValue + "," + blueValue + ")";
 }

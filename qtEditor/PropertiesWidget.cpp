@@ -87,7 +87,15 @@ void PropertiesWidget::populate(const UIElementPropertyGridItemList& itemList,
         if (pos != valueMap.end())
         {
             std::string value = pos->second;
-            item->setValue(QString(value.c_str()));
+            if (type == "COLOR")
+            {
+                QColor color = convertInternalColorToQColor(value);
+                item->setValue(color);
+            }
+            else
+            {
+                item->setValue(QString(value.c_str()));
+            }
         }
         item->setToolTip(QString(itemIt->description.c_str()));
 
@@ -115,7 +123,15 @@ void PropertiesWidget::setValue(const std::string& key, const std::string& value
         Ogre::StringUtil::trim(curKeyTrimmed);
         if (curKeyTrimmed == keyTrimmed)
         {
-            ((QtVariantProperty*)it->first)->setValue(QString(value.c_str()));
+            if (it->second.type == "COLOR")
+            {
+                QColor color = convertInternalColorToQColor(value.c_str());
+                ((QtVariantProperty*)it->first)->setValue(color);
+            }
+            else
+            {
+                ((QtVariantProperty*)it->first)->setValue(QString(value.c_str()));
+            }
         }
     }
 }
@@ -126,7 +142,16 @@ void PropertiesWidget::valueChanged(QtProperty *property, const QVariant &value)
         mPropertyToItem.find(property);
     if (propertyKeyIt != mPropertyToItem.end())
     {
-        emit propertyValueChanged(propertyKeyIt->second.name, value.toString().toStdString());
+        std::string valueStr;
+        if (propertyKeyIt->second.type == "COLOR")
+        {
+            valueStr = convertQColorToInternalColor(value.value<QColor>());
+        }
+        else
+        {
+            valueStr = value.toString().toStdString();
+        }
+        emit propertyValueChanged(propertyKeyIt->second.name, valueStr);
     }
 }
 

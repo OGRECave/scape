@@ -34,6 +34,7 @@ HeightfieldFileEncoderManager::HeightfieldFileEncoderManager()
 
     // 32-bit flat formats
     registerEncoder(new HeightfieldFileEncoderImageTIFF32F);
+    registerEncoder(new HeightfieldFileEncoderImageEXR32F);
     registerEncoder(new HeightfieldFileEncoderRaw32F);
 }
 

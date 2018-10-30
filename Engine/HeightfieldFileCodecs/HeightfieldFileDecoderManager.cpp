@@ -22,6 +22,7 @@ HeightfieldFileDecoderManager::HeightfieldFileDecoderManager()
     registerDecoder(new HeightfieldFileDecoderImagePNG);
     registerDecoder(new HeightfieldFileDecoderImageTGA);
     registerDecoder(new HeightfieldFileDecoderImageTIFF);
+    registerDecoder(new HeightfieldFileDecoderImageEXR);
     registerDecoder(new HeightfieldFileDecoderRaw);
 }
 

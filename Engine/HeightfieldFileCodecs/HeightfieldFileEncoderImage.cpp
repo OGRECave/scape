@@ -161,3 +161,5 @@ IMPLEMENT_HEIGHTFIELDFILEENCODERIMAGE_CLASS(HeightfieldFileEncoderImageTIFF16U, 
 
 IMPLEMENT_HEIGHTFIELDFILEENCODERIMAGE_CLASS(HeightfieldFileEncoderImageTIFF32F, _T("TIFF"),
                                             _T("*.TIF;*.TIFF"), Ogre::PF_FLOAT32_R);
+IMPLEMENT_HEIGHTFIELDFILEENCODERIMAGE_CLASS(HeightfieldFileEncoderImageEXR32F, _T("EXR"), _T("*.EXR"),
+                                            Ogre::PF_FLOAT32_R);

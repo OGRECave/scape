@@ -14,6 +14,9 @@
 #      http://www.ogre3d.org/tikiwiki/
 #-----------------------------------------------------------------------------
 #*/
+
+cmake_minimum_required(VERSION 3.3.0)
+
 # Works around warnings libraries linked against that don't
 # have absolute paths (e.g. -lOgreMain)
 cmake_policy(SET CMP0003 NEW)
@@ -28,8 +31,6 @@ cmake_policy(SET CMP0010 NEW)
 if("${CMAKE_VERSION}" VERSION_GREATER 2.8.11)
         cmake_policy(SET CMP0020 OLD)
 endif()
-
-cmake_minimum_required(VERSION 2.8)
  
 project(Scape)
  

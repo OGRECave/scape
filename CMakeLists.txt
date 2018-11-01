@@ -45,7 +45,7 @@ if(WIN32)
    )
 endif(WIN32)
   
-find_package(OGRE REQUIRED)
+find_package(OGRE 1.11 REQUIRED)
 
 include_directories(
    ${OGRE_INCLUDE_DIRS}

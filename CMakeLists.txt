@@ -20,11 +20,6 @@ cmake_minimum_required(VERSION 3.3.0)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-
-# CMake policy introduced in relation to Qt 5.1
-if("${CMAKE_VERSION}" VERSION_GREATER 2.8.11)
-        cmake_policy(SET CMP0020 OLD)
-endif()
  
 project(Scape)
  

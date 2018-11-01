@@ -21,16 +21,6 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Works around warnings libraries linked against that don't
-# have absolute paths (e.g. -lOgreMain)
-cmake_policy(SET CMP0003 NEW)
-
-# Works around warnings about escaped quotes in ADD_DEFINITIONS
-# statements.
-cmake_policy(SET CMP0005 NEW)
-
-cmake_policy(SET CMP0010 NEW)
-
 # CMake policy introduced in relation to Qt 5.1
 if("${CMAKE_VERSION}" VERSION_GREATER 2.8.11)
         cmake_policy(SET CMP0020 OLD)

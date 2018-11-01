@@ -46,10 +46,6 @@ if(WIN32)
 endif(WIN32)
   
 find_package(OGRE REQUIRED)
- 
-#if(NOT "${OGRE_VERSION_NAME}" STREQUAL "Cthugha")
-#  message(SEND_ERROR "You need Ogre 1.7 Cthugha to build this.")
-#endif()
 
 include_directories(
    ${OGRE_INCLUDE_DIRS}

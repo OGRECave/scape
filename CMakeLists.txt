@@ -56,5 +56,4 @@ include_directories(
  
 ADD_SUBDIRECTORY(Engine)
 ADD_SUBDIRECTORY(Dependencies)
-#ADD_SUBDIRECTORY(wxEditor)
 ADD_SUBDIRECTORY(qtEditor)

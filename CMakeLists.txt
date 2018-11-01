@@ -17,6 +17,10 @@
 
 cmake_minimum_required(VERSION 3.3.0)
 
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 # Works around warnings libraries linked against that don't
 # have absolute paths (e.g. -lOgreMain)
 cmake_policy(SET CMP0003 NEW)

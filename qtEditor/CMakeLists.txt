@@ -117,7 +117,6 @@ if(UNIX)
 elseif(WIN32)
     qt5_use_modules(qtEditor Core Gui Widgets)
     set_target_properties(qtEditor PROPERTIES DEBUG_POSTFIX _d)
-    set_target_properties(qtEditor PROPERTIES COMPILE_DEFINITIONS QT_QTPROPERTYBROWSER_IMPORT)
     set_property(TARGET qtEditor PROPERTY WIN32_EXECUTABLE 0)
 
     target_link_libraries(qtEditor

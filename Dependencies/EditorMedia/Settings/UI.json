@@ -1,0 +1,1097 @@
+{
+    "UI": {
+        "HeightfieldFileDecoderImageEXR": {
+            "LABEL": {
+                "SHORT": "32-bit OpenEXR",
+                "LONG": "32-bit float greyscale OpenEXR"
+            }
+        },
+        "HeightfieldFileEncoderImagePGM16U": {
+            "LABEL": {
+                "SHORT": "16-bit PGM",
+                "LONG": "Unsigned 16-bit greyscale PGM (RAW)"
+            }
+        },
+        "HeightfieldOperationGPUPencil": {
+            "PENCILMODE": {
+                "SHORT": "Use as pencil",
+                "TYPE": "BOOL",
+                "LONG": "Interpolate and smooth stroke path, instead of using individual instances"
+            },
+            "LEVELEFFECT": {
+                "SHORT": "Level effect (%)",
+                "TYPE": "INT",
+                "LONG": "Amount of levelling (or, gap filling) (0% = disable, 100% = maximum)"
+            },
+            "STRENGTH": {
+                "SHORT": "Strength (%)",
+                "TYPE": "INT",
+                "LONG": "Amount of change"
+            },
+            "PATHSPACING": {
+                "SHORT": "Pencil path spacing (%)",
+                "TYPE": "INT",
+                "LONG": "Space between pencil brush instances, relative to brush falloff"
+            },
+            "LABEL": {
+                "SHORT": "Pencil/Eraser (GPU)",
+                "LONG": "Pencil/Eraser (GPU)",
+                "ICON": "ICON_TOOL_PENCIL24"
+            }
+        },
+        "HeightfieldFileEncoderImageTGA8U": {
+            "LABEL": {
+                "SHORT": "8-bit TGA",
+                "LONG": "Unsigned 8-bit greyscale TGA"
+            }
+        },
+        "HeightfieldFileEncoderUnrealBMPG16": {
+            "FLIPY": {
+                "SHORT": "Vertical flip",
+                "TYPE": "BOOL",
+                "LONg": "Vertical flip"
+            },
+            "FLIPX": {
+                "SHORT": "Horizontal flip",
+                "TYPE": "BOOL",
+                "LONG": "Horizontal flip"
+            },
+            "LABEL": {
+                "SHORT": "16-bit U3 BMP",
+                "LONG": "Unsigned 16-bit BMP (Unreal format)"
+            }
+        },
+        "HeightfieldFileEncoderImageBMP8U": {
+            "LABEL": {
+                "SHORT": "8-bit BMP",
+                "LONG": "Unsigned 8-bit greyscale BMP"
+            }
+        },
+        "HeightfieldOperationGPUNoiseDrag": {
+            "NOISELARGESTFEAT": {
+                "CATEGORY": "Noise Signal",
+                "SHORT": "Largest feature (u)",
+                "TYPE": "INT",
+                "LONG": "Largest feature (u)"
+            },
+            "STRENGTH": {
+                "SHORT": "Strength (%)",
+                "TYPE": "INT",
+                "LONG": "Amount of change"
+            },
+            "DISTORTLARGESTFEAT": {
+                "CATEGORY": "Noise Distortion",
+                "SHORT": "Largest feature (u)",
+                "TYPE": "INT",
+                "LONG": "Largest feature (u)"
+            },
+            "PATHSPACING": {
+                "SHORT": "Pencil path spacing (%)",
+                "TYPE": "INT",
+                "LONG": "Space between pencil brush instances, relative to brush falloff"
+            },
+            "NOISESEED": {
+                "CATEGORY": "Noise Signal",
+                "SHORT": "Noise seed",
+                "TYPE": "INT",
+                "LONG": "Noise seed"
+            },
+            "NOISECOARSEROUGH": {
+                "CATEGORY": "Noise Signal",
+                "SHORT": "Roughness coarse detail",
+                "TYPE": "INT",
+                "LONG": "Roughness coarse detail"
+            },
+            "DISTORTTYPE": {
+                "CATEGORY": "Noise Distortion",
+                "SHORT": "Distort type",
+                "TYPE": "INT",
+                "LONG": "Distort type"
+            },
+            "NOISEALLOWDOWN": {
+                "CATEGORY": "Noise Signal",
+                "SHORT": "Allow down (%)",
+                "TYPE": "INT",
+                "LONG": "Allow down (%). 0% means only up"
+            },
+            "DISTORTCOARSEROUGH": {
+                "CATEGORY": "Noise Distortion",
+                "SHORT": "Roughness coarse detail",
+                "TYPE": "INT",
+                "LONG": "Roughness coarse detail"
+            },
+            "NOISEALLOWUP": {
+                "CATEGORY": "Noise Signal",
+                "SHORT": "Allow up (%)",
+                "TYPE": "INT",
+                "LONG": "Allow up (%). 0% means only down"
+            },
+            "LABEL": {
+                "SHORT": "Directional GPU noise",
+                "LONG": "Directional GPU noise",
+                "ICON": "ICON_TOOL_PENCIL24"
+            },
+            "DISTORTSCALEFINE": {
+                "CATEGORY": "Noise Distortion",
+                "SHORT": "Distortion amount (all scales)",
+                "TYPE": "INT",
+                "LONG": "Distortion amount (all scales)"
+            },
+            "DISTORTSCALECOARSE": {
+                "CATEGORY": "Noise Distortion",
+                "SHORT": "Distortion amount (coarse scales)",
+                "TYPE": "INT",
+                "LONG": "Distortion amount (coarse scales)"
+            },
+            "DIRECTIONSTRETCHRATIO": {
+                "CATEGORY": "Direction Stretching",
+                "SHORT": "Stretch ratio (%)",
+                "TYPE": "INT",
+                "LONG": "Stretch ratio (%)"
+            },
+            "NOISEPEAKIFY": {
+                "CATEGORY": "Noise Signal",
+                "SHORT": "Peak warp (%)",
+                "TYPE": "INT",
+                "LONG": "Peak warp (%). 100% means no distortion"
+            },
+            "NOISEBLEND": {
+                "CATEGORY": "Noise Signal",
+                "SHORT": "Amount of noise (%)",
+                "TYPE": "INT",
+                "LONG": "0% = Pencil, 100% = Full noise"
+            },
+            "DISTORTFINEROUGH": {
+                "CATEGORY": "Noise Distortion",
+                "SHORT": "Roughness fine detail",
+                "TYPE": "INT",
+                "LONG": "Roughness fine detail"
+            },
+            "NOISEFINEROUGH": {
+                "CATEGORY": "Noise Signal",
+                "SHORT": "Roughness fine detail",
+                "TYPE": "INT",
+                "LONG": "Roughness fine detail"
+            },
+            "PENCILMODE": {
+                "SHORT": "Use as pencil",
+                "TYPE": "BOOL",
+                "LONG": "Interpolate and smooth stroke path, instead of using individual instances"
+            },
+            "DIRECTIONSTRETCHANGLE": {
+                "CATEGORY": "Direction Stretching",
+                "SHORT": "Stretch direction (deg)",
+                "TYPE": "INT",
+                "LONG": "Stretch direction (deg)"
+            }
+        },
+        "HeightfieldFileEncoderImageTIFF16U": {
+            "LABEL": {
+                "SHORT": "16-bit TIFF",
+                "LONG": "Unsigned 16-bit greyscale TIFF"
+            }
+        },
+        "HeightfieldOperationCPUBrush2": {
+            "STRENGTH": {
+                "SHORT": "Strength (%)",
+                "TYPE": "INT",
+                "LONG": "Amount of change"
+            },
+            "PENCILMODE": {
+                "SHORT": "Use as pencil",
+                "TYPE": "BOOL",
+                "LONG": "Interpolate and smooth stroke path, instead of using individual instances"
+            },
+            "PATHSPACING": {
+                "SHORT": "Pencil path spacing (%)",
+                "TYPE": "INT",
+                "LONG": "Space between pencil brush instances, relative to brush falloff"
+            },
+            "LABEL": {
+                "SHORT": "Pencil/Eraser",
+                "LONG": "Move terrain up/down (CPU)",
+                "ICON": "ICON_TOOL_PENCIL24"
+            }
+        },
+        "HeightfieldFileDecoderImageTGA": {
+            "LABEL": {
+                "SHORT": "8-bit TGA",
+                "LONG": "Unsigned 8-bit greyscale TGA"
+            }
+        },
+        "HeightfieldFileEncoderImageTIFF32F": {
+            "LABEL": {
+                "SHORT": "32-bit TIFF",
+                "LONG": "32-bit normalized IEEE754 float grayscale TIFF"
+            }
+        },
+        "HeightfieldFileEncoderImagePNG8U": {
+            "LABEL": {
+                "SHORT": "8-bit PNG",
+                "LONG": "Unsigned 8-bit greyscale PNG"
+            }
+        },
+        "RenderWindowSettings": {
+            "DEBUGINFO": {
+                "CATEGORY": "General",
+                "SHORT": "Show debug info",
+                "TYPE": "BOOL",
+                "LONG": "Show debug text (e.g. fps)"
+            },
+            "PIXELSIZE": {
+                "CATEGORY": "General",
+                "SHORT": "Pixel size",
+                "TYPE": "REAL",
+                "LONG": "Pixel zoom scale"
+            },
+            "WIREFRAME": {
+                "CATEGORY": "General",
+                "SHORT": "Wireframe",
+                "TYPE": "BOOL",
+                "LONG": "Render as wireframe"
+            },
+            "LABEL": {
+                "SHORT": "Render window",
+                "LONG": "Render window settings",
+                "ICON": "ICON_TOOL_MATERIAL24"
+            }
+        },
+        "HeightfieldOperationGPUBrush": {
+            "PENCILMODE": {
+                "SHORT": "Use as pencil",
+                "TYPE": "BOOL",
+                "LONG": "Interpolate and smooth stroke path, instead of using individual instances"
+            },
+            "STRENGTH": {
+                "SHORT": "Strength (%)",
+                "TYPE": "INT",
+                "LONG": "Amount of change"
+            },
+            "PATHSPACING": {
+                "SHORT": "Pencil path spacing (%)",
+                "TYPE": "INT",
+                "LONG": "Space between pencil brush instances, relative to brush falloff"
+            },
+            "SHOWDEBUG": {
+                "SHORT": "Show debug",
+                "TYPE": "BOOL",
+                "LONG": "Show debug information"
+            },
+            "LABEL": {
+                "SHORT": "Soften (GPU)",
+                "LONG": "Smoothen terrain EXPERIMENTAL (GPU)",
+                "ICON": "ICON_TOOL_PENCIL24"
+            }
+        },
+        "HeightfieldFileEncoderImagePNG16U": {
+            "LABEL": {
+                "SHORT": "16-bit PNG",
+                "LONG": "Unsigned 16-bit greyscale PNG"
+            }
+        },
+        "HeightfieldFileEncoderRaw32F": {
+            "LABEL": {
+                "SHORT": "32-bit RAW",
+                "LONG": "32-bit normalized IEEE754 float RAW"
+            }
+        },
+        "MaterialSettings": {
+            "LAYER1TEXTURE": {
+                "CATEGORY": "Layer 1",
+                "SHORT": "Detail texture",
+                "TYPE": "FILE",
+                "LONG": "Filename of layer 1's detail texture"
+            },
+            "LAYER2SLOPE": {
+                "CATEGORY": "Layer 2",
+                "SHORT": "Slope (deg)",
+                "TYPE": "REAL",
+                "LONG": "Average slope (0..90 degrees) at which layer 2 should start fading in/out. 0 is horizontal"
+            },
+            "LAYER3HEIGHT": {
+                "CATEGORY": "Layer 3",
+                "SHORT": "Height (units)",
+                "TYPE": "REAL",
+                "LONG": "Average height at which layer 3 should start fading in/out"
+            },
+            "ISOXZ": {
+                "CATEGORY": "Iso lines",
+                "SHORT": "Show XZ iso-lines",
+                "TYPE": "BOOL",
+                "LONG": "Show grid of quads, 1 unit spacing"
+            },
+            "LAYER4SLOPEVAR": {
+                "CATEGORY": "Layer 4",
+                "SHORT": "Slope spread (deg)",
+                "TYPE": "REAL",
+                "LONG": "Spread/softness of slope threshold of layer 4"
+            },
+            "SLOPEDISTORTLO": {
+                "CATEGORY": "Noise",
+                "SHORT": "Fine slope distortion scale",
+                "TYPE": "REAL",
+                "LONG": "Amount of added fine-grained noise in all slope-depedent layer transparancies"
+            },
+            "LAYER2TEXTURE": {
+                "CATEGORY": "Layer 2",
+                "SHORT": "Detail texture",
+                "TYPE": "FILE",
+                "LONG": "Filename of layer 2's detail texture"
+            },
+            "ISOFADE": {
+                "CATEGORY": "Iso lines",
+                "SHORT": "Iso-line fade factor",
+                "TYPE": "REAL",
+                "LONG": "Controls the sharpness and visibility of iso-lines at distance"
+            },
+            "LAYER2HEIGHTVAR": {
+                "CATEGORY": "Layer 2",
+                "SHORT": "Height spread (units)",
+                "TYPE": "REAL",
+                "LONG": "Spread/softness of height threshold of layer 2"
+            },
+            "LAYER3DISTORTMID": {
+                "CATEGORY": "Layer 3",
+                "SHORT": "Distort medium scale",
+                "TYPE": "REAL",
+                "LONG": "Amount of added medium-grained noise in height-depedent layer transparancy"
+            },
+            "LAYER2SLOPEVAR": {
+                "CATEGORY": "Layer 2",
+                "SHORT": "Slope spread (deg)",
+                "TYPE": "REAL",
+                "LONG": "Spread/softness of slope threshold of layer 2"
+            },
+            "LAYER3TEXTURE": {
+                "CATEGORY": "Layer 3",
+                "SHORT": "Detail texture",
+                "TYPE": "FILE",
+                "LONG": "Filename of layer 3's detail texture"
+            },
+            "INTENSITYDISTORTHI": {
+                "CATEGORY": "Noise",
+                "SHORT": "Course light distortion scale",
+                "TYPE": "REAL",
+                "LONG": "Amount of macro texture course-grained noise in the light intensity"
+            },
+            "LAYER2HEIGHT": {
+                "CATEGORY": "Layer 2",
+                "SHORT": "Height (units)",
+                "TYPE": "REAL",
+                "LONG": "Average height at which layer 2 should start fading in/out"
+            },
+            "LAYER4SLOPE": {
+                "CATEGORY": "Layer 4",
+                "SHORT": "Slope (deg)",
+                "TYPE": "REAL",
+                "LONG": "Average slope (0..90 degrees) at which layer 4 should start fading in/out. 0 is horizontal"
+            },
+            "SLOPEDISTORTHI": {
+                "CATEGORY": "Noise",
+                "SHORT": "Course slope distortion scale",
+                "TYPE": "REAL",
+                "LONG": "Amount of added course-grained noise in all slope-depedent layer transparancies"
+            },
+            "LAYER4HEIGHTVAR": {
+                "CATEGORY": "Layer 4",
+                "SHORT": "Height spread (units)",
+                "TYPE": "REAL",
+                "LONG": "Spread/softness of height threshold of layer 4"
+            },
+            "LAYER3HEIGHTVAR": {
+                "CATEGORY": "Layer 3",
+                "SHORT": "Height spread (units)",
+                "TYPE": "REAL",
+                "LONG": "Spread/softness of height threshold of layer 3"
+            },
+            "UVSCALEGLOBAL": {
+                "CATEGORY": "Projection",
+                "SHORT": "Macro texture UV scale",
+                "TYPE": "REAL",
+                "LONG": "UV scale of the macro intensity noise effect"
+            },
+            "LAYER4DISTORTHI": {
+                "CATEGORY": "Layer 4",
+                "SHORT": "Distort course scale",
+                "TYPE": "REAL",
+                "LONG": "Amount of added course-grained noise in height-depedent layer transparancy"
+            },
+            "NOISETEXTURE": {
+                "CATEGORY": "Noise",
+                "SHORT": "Noise texture",
+                "TYPE": "FILE",
+                "LONG": "Filename of a texture that contains tiling course-medium-fine-grained fractal noise as its R-G-B channels"
+            },
+            "LAYER2DISTORTHI": {
+                "CATEGORY": "Layer 2",
+                "SHORT": "Distort course scale",
+                "TYPE": "REAL",
+                "LONG": "Amount of added course-grained noise in height-depedent layer transparancy"
+            },
+            "LAYER3HEIGHTUP": {
+                "CATEGORY": "Layer 3",
+                "SHORT": "Height fill above",
+                "TYPE": "BOOL",
+                "LONG": "Start from threshold height (instead of ending at the threshold height)"
+            },
+            "SLOPEDISTORTMID": {
+                "CATEGORY": "Noise",
+                "SHORT": "Medium slope distortion scale",
+                "TYPE": "REAL",
+                "LONG": "Amount of added medium-grained noise in all slope-depedent layer transparancies"
+            },
+            "MULTIPROJECT": {
+                "CATEGORY": "Projection",
+                "SHORT": "Multi projection",
+                "TYPE": "BOOL",
+                "LONG": "Use multiple projects to reduce texture stretching"
+            },
+            "LAYER4HEIGHT": {
+                "CATEGORY": "Layer 4",
+                "SHORT": "Height (units)",
+                "TYPE": "REAL",
+                "LONG": "Average height at which layer 4 should start fading in/out"
+            },
+            "LAYER4DISTORTLO": {
+                "CATEGORY": "Layer 4",
+                "SHORT": "Distort fine scale",
+                "TYPE": "REAL",
+                "LONG": "Amount of added fine-grained noise in height-depedent layer transparancy"
+            },
+            "LAYER4HEIGHTUP": {
+                "CATEGORY": "Layer 4",
+                "SHORT": "Height fill above",
+                "TYPE": "BOOL",
+                "LONG": "Start from threshold height (instead of ending at the threshold height)"
+            },
+            "LAYER2DISTORTMID": {
+                "CATEGORY": "Layer 2",
+                "SHORT": "Distort medium scale",
+                "TYPE": "REAL",
+                "LONG": "Amount of added medium-grained noise in height-depedent layer transparancy"
+            },
+            "ISOY": {
+                "CATEGORY": "Iso lines",
+                "SHORT": "Show Y iso-lines",
+                "TYPE": "BOOL",
+                "LONG": "Show height iso-lines, 1 unit spacing"
+            },
+            "INTENSITYDISTORTLO": {
+                "CATEGORY": "Noise",
+                "SHORT": "Fine light distortion scale",
+                "TYPE": "REAL",
+                "LONG": "Amount of macro texture fine-grained noise in the light intensity"
+            },
+            "LABEL": {
+                "SHORT": "Material",
+                "LONG": "Material settings",
+                "ICON": "ICON_TOOL_MATERIAL24"
+            },
+            "LAYER2SLOPEUP": {
+                "CATEGORY": "Layer 2",
+                "SHORT": "Slope fill steeper",
+                "TYPE": "BOOL",
+                "LONG": "Start from threshold slope (instead of ending at the threshold slope)"
+            },
+            "LAYER3DISTORTLO": {
+                "CATEGORY": "Layer 3",
+                "SHORT": "Distort fine scale",
+                "TYPE": "REAL",
+                "LONG": "Amount of added fine-grained noise in height-depedent layer transparancy"
+            },
+            "LAYER3SLOPEVAR": {
+                "CATEGORY": "Layer 3",
+                "SHORT": "Slope spread (deg)",
+                "TYPE": "REAL",
+                "LONG": "Spread/softness of slope threshold of layer 3"
+            },
+            "LODERROR": {
+                "CATEGORY": "LOD",
+                "SHORT": "Pixel error",
+                "TYPE": "REAL",
+                "LONG": "Target error of the terrain's level of detail (in pixels)"
+            },
+            "LAYER4SLOPEUP": {
+                "CATEGORY": "Layer 4",
+                "SHORT": "Slope fill steeper",
+                "TYPE": "BOOL",
+                "LONG": "Start from threshold slope (instead of ending at the threshold slope)"
+            },
+            "LAYER3DISTORTHI": {
+                "CATEGORY": "Layer 3",
+                "SHORT": "Distort course scale",
+                "TYPE": "REAL",
+                "LONG": "Amount of added course-grained noise in height-depedent layer transparancy"
+            },
+            "LIGHTANGLESCALE": {
+                "CATEGORY": "Lighting",
+                "SHORT": "Light angle effect scale",
+                "TYPE": "REAL",
+                "LONG": "Shadow effect enhance scale"
+            },
+            "LAYER2HEIGHTUP": {
+                "CATEGORY": "Layer 2",
+                "SHORT": "Height fill above",
+                "TYPE": "BOOL",
+                "LONG": "Start from threshold height (instead of ending at the threshold height)"
+            },
+            "LAYER3SLOPE": {
+                "CATEGORY": "Layer 3",
+                "SHORT": "Slope (deg)",
+                "TYPE": "REAL",
+                "LONG": "Average slope (0..90 degrees) at which layer 3 should start fading in/out"
+            },
+            "LAYER3SLOPEUP": {
+                "CATEGORY": "Layer 3",
+                "SHORT": "Slope fill steeper",
+                "TYPE": "BOOL",
+                "LONG": "Start from threshold slope (instead of ending at the threshold slope)"
+            },
+            "LAYER2DISTORTLO": {
+                "CATEGORY": "Layer 2",
+                "SHORT": "Distort fine scale",
+                "TYPE": "REAL",
+                "LONG": "Amount of added fine-grained noise in height-depedent layer transparancy"
+            },
+            "LODPOWER": {
+                "CATEGORY": "LOD",
+                "SHORT": "LOD power",
+                "TYPE": "REAL",
+                "LONG": "Extra LOD error deteriorate factor for distant pixels (default behavior: 100.0)"
+            },
+            "LAYER4DISTORTMID": {
+                "CATEGORY": "Layer 4",
+                "SHORT": "Distort medium scale",
+                "TYPE": "REAL",
+                "LONG": "Amount of added medium-grained noise in height-depedent layer transparancy"
+            },
+            "UVSCALELOCAL": {
+                "CATEGORY": "Projection",
+                "SHORT": "Detail texture UV scale",
+                "TYPE": "REAL",
+                "LONG": "UV scale of the detail textures"
+            },
+            "LAYER4TEXTURE": {
+                "CATEGORY": "Layer 4",
+                "SHORT": "Detail texture",
+                "TYPE": "FILE",
+                "LONG": "Filename of layer 4's detail texture"
+            },
+            "INTENSITYDISTORTMID": {
+                "CATEGORY": "Noise",
+                "SHORT": "Medium light distortion scale",
+                "TYPE": "REAL",
+                "LONG": "Amount of macro texture medium-grained noise in the light intensity"
+            }
+        },
+        "HeightfieldFileEncoderImageEXR32F": {
+            "LABEL": {
+                "SHORT": "32-bit OpenEXR",
+                "LONG": "32-bit float greyscale OpenEXR"
+            }
+        },
+        "SkySettings": {
+            "SKYBOX_TOP": {
+                "CATEGORY": "Sky Box",
+                "SHORT": "Top texture",
+                "TYPE": "FILE",
+                "LONG": "Top side texture of sky cubemap"
+            },
+            "SUNDIRECTION": {
+                "CATEGORY": "Lighting",
+                "SHORT": "Sun direction (deg)",
+                "TYPE": "REAL",
+                "LONG": "Sun direction in horizontal plane"
+            },
+            "SKYOVERBRIGHT": {
+                "CATEGORY": "Lighting",
+                "SHORT": "Sky overbright",
+                "TYPE": "REAL",
+                "LONG": "Sky color intensity scale"
+            },
+            "SKYBOX_RIGHT": {
+                "CATEGORY": "Sky Box",
+                "SHORT": "Right texture",
+                "TYPE": "FILE",
+                "LONG": "Right side texture of sky cubemap"
+            },
+            "SKYCOLOR": {
+                "CATEGORY": "Lighting",
+                "SHORT": "Sky color",
+                "TYPE": "COLOR",
+                "LONG": "Sky color"
+            },
+            "SUNOVERBRIGHT": {
+                "CATEGORY": "Lighting",
+                "SHORT": "Sun overbright",
+                "TYPE": "REAL",
+                "LONG": "Sun color intensity scale"
+            },
+            "SUNHEIGHT": {
+                "CATEGORY": "Lighting",
+                "SHORT": "Sun height (deg)",
+                "TYPE": "REAL",
+                "LONG": "Height of sun in the sky (0 = horizontal, 90 = vertical)"
+            },
+            "LABEL": {
+                "SHORT": "Sky",
+                "LONG": "Sky and lighting settings",
+                "ICON": "ICON_TOOL_LIGHT24"
+            },
+            "SKYBOX_FRONT": {
+                "CATEGORY": "Sky Box",
+                "SHORT": "Front texture",
+                "TYPE": "FILE",
+                "LONG": "Front side texture of sky cubemap"
+            },
+            "FOGDISTANCE": {
+                "CATEGORY": "Lighting",
+                "SHORT": "Fog distance",
+                "TYPE": "REAL",
+                "LONG": "Distance at which fog is completely opaque"
+            },
+            "SUNCOLOR": {
+                "CATEGORY": "Lighting",
+                "SHORT": "Sun color",
+                "TYPE": "COLOR",
+                "LONG": "Sun color"
+            },
+            "FOGCOLOR": {
+                "CATEGORY": "Lighting",
+                "SHORT": "Fog color",
+                "TYPE": "COLOR",
+                "LONG": "Fog color"
+            },
+            "SKYBOX_BACK": {
+                "CATEGORY": "Sky Box",
+                "SHORT": "Back texture",
+                "TYPE": "FILE",
+                "LONG": "Back ide texture of sky cubemap"
+            },
+            "SKYBOX_LEFT": {
+                "CATEGORY": "Sky Box",
+                "SHORT": "Left texture",
+                "TYPE": "FILE",
+                "LONG": "Left side texture of sky cubemap"
+            },
+            "SKYBOX_BOTTOM": {
+                "CATEGORY": "Sky Box",
+                "SHORT": "Bottom texture",
+                "TYPE": "FILE",
+                "LONG": "Bottom side texture of sky cubemap"
+            }
+        },
+        "HeightfieldOperationCPUErosion": {
+            "KC": {
+                "SHORT": "Sediment capacity (%)",
+                "TYPE": "INT",
+                "LONG": "Maximum dissolved material density (0..1000)"
+            },
+            "KA": {
+                "SHORT": "Diffusion rate (%)",
+                "TYPE": "INT",
+                "LONG": "Amount of detail smoothing (0..1000)"
+            },
+            "STRENGTH": {
+                "SHORT": "Strength (%)",
+                "TYPE": "INT",
+                "LONG": "Amount of change"
+            },
+            "KD": {
+                "SHORT": "Deposition rate (%)",
+                "TYPE": "INT",
+                "LONG": "Rate of depositing carried material at sink holes (0..1000)"
+            },
+            "PATHSPACING": {
+                "SHORT": "Pencil path spacing (%)",
+                "TYPE": "INT",
+                "LONG": "Space between pencil brush instances, relative to brush falloff"
+            },
+            "LABEL": {
+                "SHORT": "Water erosion",
+                "LONG": "Simulate effects of rainfall (CPU)",
+                "ICON": "ICON_TOOL_EROSION24"
+            },
+            "KS": {
+                "SHORT": "Soil softness (%)",
+                "TYPE": "INT",
+                "LONG": "Rate of material dissolvement at sources (0..1000)"
+            },
+            "KR": {
+                "SHORT": "Flood amount (%)",
+                "TYPE": "INT",
+                "LONG": "Amount of water dropped (0..1000)"
+            },
+            "PENCILMODE": {
+                "SHORT": "Use as pencil",
+                "TYPE": "BOOL",
+                "LONG": "Interpolate and smooth stroke path, instead of using individual instances"
+            }
+        },
+        "HeightfieldOperationGPUNoise": {
+            "NOISELARGESTFEAT": {
+                "CATEGORY": "Noise Signal",
+                "SHORT": "Largest feature (u)",
+                "TYPE": "INT",
+                "LONG": "Largest feature (u)"
+            },
+            "STRENGTH": {
+                "SHORT": "Strength (%)",
+                "TYPE": "INT",
+                "LONG": "Amount of change"
+            },
+            "DISTORTTYPE": {
+                "CATEGORY": "Noise Distortion",
+                "SHORT": "Distort type",
+                "TYPE": "INT",
+                "LONG": "Distort type"
+            },
+            "DISTORTLARGESTFEAT": {
+                "CATEGORY": "Noise Distortion",
+                "SHORT": "Largest feature (u)",
+                "TYPE": "INT",
+                "LONG": "Largest feature (u)"
+            },
+            "PATHSPACING": {
+                "SHORT": "Pencil path spacing (%)",
+                "TYPE": "INT",
+                "LONG": "Space between pencil brush instances, relative to brush falloff"
+            },
+            "NOISESEED": {
+                "CATEGORY": "Noise Signal",
+                "SHORT": "Noise seed",
+                "TYPE": "INT",
+                "LONG": "Noise seed"
+            },
+            "NOISECOARSEROUGH": {
+                "CATEGORY": "Noise Signal",
+                "SHORT": "Roughness coarse detail",
+                "TYPE": "INT",
+                "LONG": "Roughness coarse detail"
+            },
+            "DISTORTSTRETCHANGLE": {
+                "CATEGORY": "Noise Distortion",
+                "SHORT": "Stretch direction (deg)",
+                "TYPE": "INT",
+                "LONG": "Stretch direction (deg)"
+            },
+            "NOISESTRETCHRATIO": {
+                "CATEGORY": "Noise Signal",
+                "SHORT": "Stretch ratio (%)",
+                "TYPE": "INT",
+                "LONG": "Stretch ratio (%)"
+            },
+            "LABEL": {
+                "SHORT": "GPU Noise",
+                "LONG": "Add fractal detail (GPU)",
+                "ICON": "ICON_TOOL_PENCIL24"
+            },
+            "DISTORTSCALEFINE": {
+                "CATEGORY": "Noise Distortion",
+                "SHORT": "Distortion amount (all scales)",
+                "TYPE": "INT",
+                "LONG": "Distortion amount (all scales)"
+            },
+            "NOISESTRETCHANGLE": {
+                "CATEGORY": "Noise Signal",
+                "SHORT": "Stretch direction (deg)",
+                "TYPE": "INT",
+                "LONG": "Stretch direction (deg)"
+            },
+            "DISTORTSCALECOARSE": {
+                "CATEGORY": "Noise Distortion",
+                "SHORT": "Distortion amount (coarse scales)",
+                "TYPE": "INT",
+                "LONG": "Distortion amount (coarse scales)"
+            },
+            "DISTORTCOARSEROUGH": {
+                "CATEGORY": "Noise Distortion",
+                "SHORT": "Roughness coarse detail",
+                "TYPE": "INT",
+                "LONG": "Roughness coarse detail"
+            },
+            "NOISEPEAKIFY": {
+                "CATEGORY": "Noise Signal",
+                "SHORT": "Peak warp (%)",
+                "TYPE": "INT",
+                "LONG": "Peak warp (%). 100% means no distortion"
+            },
+            "NOISEBLEND": {
+                "CATEGORY": "Noise Signal",
+                "SHORT": "Amount of noise (%)",
+                "TYPE": "INT",
+                "LONG": "0% = Pencil, 100% = Full noise"
+            },
+            "DISTORTFINEROUGH": {
+                "CATEGORY": "Noise Distortion",
+                "SHORT": "Roughness fine detail",
+                "TYPE": "INT",
+                "LONG": "Roughness fine detail"
+            },
+            "NOISEFINEROUGH": {
+                "CATEGORY": "Noise Signal",
+                "SHORT": "Roughness fine detail",
+                "TYPE": "INT",
+                "LONG": "Roughness fine detail"
+            },
+            "PENCILMODE": {
+                "SHORT": "Use as pencil",
+                "TYPE": "BOOL",
+                "LONG": "Interpolate and smooth stroke path, instead of using individual instances"
+            },
+            "DISTORTSTRETCHRATIO": {
+                "CATEGORY": "Noise Distortion",
+                "SHORT": "Stretch ratio (%)",
+                "TYPE": "INT",
+                "LONG": "Stretch ratio (%)"
+            },
+            "NOISETYPE": {
+                "CATEGORY": "Noise Signal",
+                "SHORT": "Noise type",
+                "TYPE": "INT",
+                "LONG": "Noise type"
+            }
+        },
+        "HeightfieldOperationCPUSmooth": {
+            "STRENGTH": {
+                "SHORT": "Strength (%)",
+                "TYPE": "INT",
+                "LONG": "Amount of change"
+            },
+            "PENCILMODE": {
+                "SHORT": "Use as pencil",
+                "TYPE": "BOOL",
+                "LONG": "Interpolate and smooth stroke path, instead of using individual instances"
+            },
+            "PATHSPACING": {
+                "SHORT": "Pencil path spacing (%)",
+                "TYPE": "INT",
+                "LONG": "Space between pencil brush instances, relative to brush falloff"
+            },
+            "LABEL": {
+                "SHORT": "Sharpen/Soften",
+                "LONG": "Locally amplify detail / Smooth terrain (CPU)",
+                "ICON": "ICON_TOOL_SMOOTH24"
+            }
+        },
+        "HeightfieldFileDecoderImageBMP": {
+            "LABEL": {
+                "SHORT": "8/16-bit BMP",
+                "LONG": "Unsigned 8-16 greyscale BMP / 16-bit Unreal3 BMP"
+            }
+        },
+        "HeightfieldFileDecoderImage": {
+            "FLIPX": {
+                "SHORT": "Horizontal flip",
+                "TYPE": "BOOL",
+                "LONG": "Horizontal flip"
+            },
+            "FLIPY": {
+                "SHORT": "Vertical flip",
+                "TYPE": "BOOL",
+                "LONG": "Vertical flip"
+            }
+        },
+        "HeightfieldFileEncoderImagePGM8U": {
+            "LABEL": {
+                "SHORT": "8-bit PGM",
+                "LONG": "Unsigned 8-bit greyscale RAW PGM"
+            }
+        },
+        "HeightfieldFileEncoderImageTIFF8U": {
+            "LABEL": {
+                "SHORT": "8-bit TIFF",
+                "LONG": "Unsigned 8-bit greyscale TIFF"
+            }
+        },
+        "HeightfieldFileDecoderRaw": {
+            "WIDTH": {
+                "SHORT": "Width",
+                "TYPE": "INT",
+                "LONG": "Width (in pixels)"
+            },
+            "FLIPX": {
+                "SHORT": "Horizontal flip",
+                "TYPE": "BOOL",
+                "LONG": "Horizontal flip"
+            },
+            "FLIPY": {
+                "SHORT": "Vertical flip",
+                "TYPE": "BOOL",
+                "LONG": "Vertical flip"
+            },
+            "LABEL": {
+                "SHORT": "8/16/32-bit RAW",
+                "LONG": "Unsigned 8/16-bit and 32-bit normalized IEEE754 float RAW"
+            },
+            "BPP": {
+                "SHORT": "Bpp",
+                "TYPE": "RADIO",
+                "OPTIONS": "8-bit;16-bit;32-bit",
+                "LONG": "Bitdepth (bits per pixel)"
+            },
+            "BIGENDIAN": {
+                "SHORT": "Big endian",
+                "TYPE": "BOOL",
+                "LONG": "Use big-endian byte order"
+            },
+            "HEIGHT": {
+                "SHORT": "Height",
+                "TYPE": "INT",
+                "LONG": "Height (in pixels)"
+            }
+        },
+        "HeightfieldFileEncoderRaw": {
+            "FLIPX": {
+                "SHORT": "Horizontal flip",
+                "TYPE": "BOOL",
+                "LONG": "Horizontal flip"
+            },
+            "FLIPY": {
+                "SHORT": "Vertical flip",
+                "TYPE": "BOOL",
+                "LONg": "Vertical flip"
+            }
+        },
+        "HeightfieldFileEncoderImage": {
+            "FLIPX": {
+                "SHORT": "Horizontal flip",
+                "TYPE": "BOOL",
+                "LONG": "Horizontal flip"
+            },
+            "FLIPY": {
+                "SHORT": "Vertical flip",
+                "TYPE": "BOOL",
+                "LONg": "Vertical flip"
+            }
+        },
+        "HeightfieldFileDecoderImageTIFF": {
+            "LABEL": {
+                "SHORT": "8/16/32-bit TIFF",
+                "LONG": "Unsigned 8/16-bit and 32-bit normalized IEEE754 float greyscale TIFF"
+            }
+        },
+        "HeightfieldOperationCPULevel": {
+            "STRENGTH": {
+                "SHORT": "Strength (%)",
+                "TYPE": "INT",
+                "LONG": "Amount of change"
+            },
+            "PENCILMODE": {
+                "SHORT": "Use as pencil",
+                "TYPE": "BOOL",
+                "LONG": "Interpolate and smooth stroke path, instead of using individual instances"
+            },
+            "PATHSPACING": {
+                "SHORT": "Pencil path spacing (%)",
+                "TYPE": "INT",
+                "LONG": "Space between pencil brush instances, relative to brush falloff"
+            },
+            "LABEL": {
+                "SHORT": "Level/Unlevel",
+                "LONG": "Level sloped area / Amplify sloped area (CPU)",
+                "ICON": "ICON_TOOL_LEVEL24"
+            }
+        },
+        "HeightfieldFileDecoderImagePGM": {
+            "LABEL": {
+                "SHORT": "8/16-bit PGM",
+                "LONG": "Unsigned 8/16-bit greyscale PGM (RAW)"
+            }
+        },
+        "HeightfieldFileEncoderRaw16B": {
+            "LABEL": {
+                "SHORT": "16-bit RAW, MAC",
+                "LONG": "Unsigned 16-bit RAW, big endian"
+            }
+        },
+        "HeightfieldOperationCPUNoise": {
+            "MAX_RANGE": {
+                "SHORT": "Large feature range (u)",
+                "TYPE": "INT",
+                "LONG": "Large feature range (u)"
+            },
+            "STRENGTH": {
+                "SHORT": "Strength (%)",
+                "TYPE": "INT",
+                "LONG": "Amount of change"
+            },
+            "PATHSPACING": {
+                "SHORT": "Pencil path spacing (%)",
+                "TYPE": "INT",
+                "LONG": "Space between pencil brush instances, relative to brush falloff"
+            },
+            "MIN_RANGE": {
+                "SHORT": "Fine detail range (u)",
+                "TYPE": "INT",
+                "LONG": "Fine detail range (u)"
+            },
+            "LABEL": {
+                "SHORT": "CPU Noise",
+                "LONG": "Add fractal detail (CPU)",
+                "ICON": "ICON_TOOL_NOISE24"
+            },
+            "HI_AMP": {
+                "SHORT": "Fine detail strength (%)",
+                "TYPE": "INT",
+                "LONG": "Fine detail strength (%)"
+            },
+            "MID_AMP": {
+                "SHORT": "Mid-range strength %",
+                "TYPE": "INT",
+                "LONG": "Mid-range strength %"
+            },
+            "PENCILMODE": {
+                "SHORT": "Use as pencil",
+                "TYPE": "BOOL",
+                "LONG": "Interpolate and smooth stroke path, instead of using individual instances"
+            }
+        },
+        "HeightfieldFileEncoderRaw8": {
+            "LABEL": {
+                "SHORT": "8-bit RAW",
+                "LONG": "Unsigned 8-bit RAW"
+            }
+        },
+        "HeightfieldFileDecoderImagePNG": {
+            "LABEL": {
+                "SHORT": "8/16-bit PNG",
+                "LONG": "Unsigned 8/16-bit greyscale PNG"
+            }
+        },
+        "HeightfieldFileEncoderRaw16L": {
+            "LABEL": {
+                "SHORT": "16-bit RAW, Intel",
+                "LONG": "Unsigned 16-bit RAW, little endian"
+            }
+        },
+        "HeightfieldOperationCPUBrush": {
+            "LEDGEMODE": {
+                "SHORT": "Ledge effect",
+                "TYPE": "BOOL",
+                "LONG": "Make results as steep as possible"
+            },
+            "STRENGTH": {
+                "SHORT": "Strength (%)",
+                "TYPE": "INT",
+                "LONG": "Amount of change"
+            },
+            "PENCILMODE": {
+                "SHORT": "Use as pencil",
+                "TYPE": "BOOL",
+                "LONG": "Interpolate and smooth stroke path, instead of using individual instances"
+            },
+            "PATHSPACING": {
+                "SHORT": "Pencil path spacing (%)",
+                "TYPE": "INT",
+                "LONG": "Space between pencil brush instances, relative to brush falloff"
+            },
+            "LABEL": {
+                "SHORT": "Pencil/Eraser",
+                "LONG": "Move terrain up/down (CPU)",
+                "ICON": "ICON_TOOL_PENCIL24"
+            }
+        }
+    }
+}
+

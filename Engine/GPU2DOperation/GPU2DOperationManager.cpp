@@ -56,8 +56,8 @@ GPU2DOperationPtr GPU2DOperationManager::getGPU2DOperation(const Ogre::Rect& ren
     for (listIt = instanceList.begin(); listIt != listItEnd; ++listIt)
     {
         printf("%s: %d\n", listIt->ptr->getRenderTargetTexture()->getName().c_str(),
-               listIt->ptr.useCount());
-        if (listIt->ptr.useCount() == 1) // GPU2DOperation object not referenced outside manager
+               listIt->ptr.use_count());
+        if (listIt->ptr.use_count() == 1) // GPU2DOperation object not referenced outside manager
         {
             gpu2DRenderPtr = listIt->ptr;
             listIt->timestamp = Ogre::Root::getSingleton().getTimer()->getMilliseconds();
@@ -65,7 +65,7 @@ GPU2DOperationPtr GPU2DOperationManager::getGPU2DOperation(const Ogre::Rect& ren
         }
     }
 
-    if (gpu2DRenderPtr.isNull())
+    if (!gpu2DRenderPtr)
     {
         string textureName = _T("GPU2DOperation") + Ogre::StringConverter().toString(renderGroup.width) +
                              _T("x") + Ogre::StringConverter().toString(renderGroup.height) + _T(":") +
@@ -83,7 +83,7 @@ GPU2DOperationPtr GPU2DOperationManager::getGPU2DOperation(const Ogre::Rect& ren
 
         Ogre::HardwarePixelBufferSharedPtr renderBuffer = renderTexture->getBuffer();
 
-        gpu2DRenderPtr.bind(new GPU2DOperation());
+        gpu2DRenderPtr.reset(new GPU2DOperation());
         gpu2DRenderPtr->bindMultiRenderTarget(renderTexture);
 
         //
@@ -137,7 +137,7 @@ size_t GPU2DOperationManager::getActiveGPU2DOperationCount()
         GPU2DOperationInstanceList::iterator listIt, listItEnd = instanceList.end();
         for (listIt = instanceList.begin(); listIt != listItEnd; ++listIt)
         {
-            if (listIt->ptr.useCount() != 1)
+            if (listIt->ptr.use_count() != 1)
             {
                 ++mActiveGPU2DOperationCount;
             }
@@ -162,7 +162,7 @@ void GPU2DOperationManager::onPostFrameTick()
         GPU2DOperationInstanceList::iterator listIt, listItEnd = instanceList.end();
         for (listIt = instanceList.begin(); listIt != listItEnd;)
         {
-            if (listIt->ptr.useCount() == 1)
+            if (listIt->ptr.use_count() == 1)
             {
                 if (listIt->timestamp + (int)(1000 * SECONDS_KEEP_UNUSED_GPU2DOPERATIONRENDERS) <
                     currentMillis)

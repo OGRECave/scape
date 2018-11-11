@@ -46,7 +46,7 @@ protected:
     bool mDirtyBrushWeights;
 };
 
-typedef Ogre::SharedPtr<GPU2DOperationQuadBrush> GPU2DOperationQuadBrushPtr;
+typedef std::shared_ptr<GPU2DOperationQuadBrush> GPU2DOperationQuadBrushPtr;
 }
 
 #endif // __GPU2DOPERATIONQUADBRUSH_H__

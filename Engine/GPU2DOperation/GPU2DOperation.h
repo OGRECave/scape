@@ -55,7 +55,7 @@ protected:
     Ogre::RenderTarget* mSingleRenderTarget;
 };
 
-typedef Ogre::SharedPtr<GPU2DOperation> GPU2DOperationPtr;
+typedef std::shared_ptr<GPU2DOperation> GPU2DOperationPtr;
 }
 
 #endif // __GPU2DOPERATION_H__

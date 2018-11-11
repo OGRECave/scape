@@ -24,7 +24,7 @@ HeightfieldOperationBrushBase::HeightfieldOperationBrushBase()
       mHeightfieldGeom(NULL), mPathSpacing(0.0f), mLastTickMillis(0), mWasActiveStroke(false),
       mIsActiveStroke(false), mPencilMode(false)
 {
-    mDeltaBufferPtr.setNull();
+    mDeltaBufferPtr.reset();
 }
 
 // ----------------------------------------------------------------------------
@@ -43,7 +43,7 @@ HeightfieldOperationBrushBase::~HeightfieldOperationBrushBase()
         mTempHeightfieldBuffer = NULL;
     }
 
-    mDeltaBufferPtr.setNull();
+    mDeltaBufferPtr.reset();
 }
 
 // ----------------------------------------------------------------------------

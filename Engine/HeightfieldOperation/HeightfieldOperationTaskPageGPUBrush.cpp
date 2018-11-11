@@ -72,7 +72,7 @@ void HeightfieldOperationTaskPageGPUBrush::tickActive()
     {
         Ogre::TexturePtr previousTexturePtr;
 
-        if (mCurrentGPU2DOperationPtr.isNull())
+        if (!mCurrentGPU2DOperationPtr)
         {
             brushQuadPtr = GPU2DOperationQuadBrushPtr(
                 new GPU2DOperationQuadBrush(mBrushMaterialName, mSupportedBrushInstanceCount));
@@ -100,7 +100,7 @@ void HeightfieldOperationTaskPageGPUBrush::tickActive()
         }
         else
         {
-            if (mPreviousGPU2DOperationPtr.isNull())
+            if (!mPreviousGPU2DOperationPtr)
             {
                 mPreviousGPU2DOperationPtr = getEngineCore()->getGPU2DOperationManager()->getGPU2DOperation(
                     inPage->getAbsoluteRect(), inPage->getHeightTexture()->getFormat());
@@ -178,7 +178,7 @@ void HeightfieldOperationTaskPageGPUBrush::tickActive()
                 }
 
                 Ogre::Rect dirtyRegion = mCurrentGPU2DOperationPtr->getDirtyRegion();
-                if (!mPreviousGPU2DOperationPtr.isNull())
+                if (mPreviousGPU2DOperationPtr)
                     dirtyRegion =
                         Utils::unionTRect(dirtyRegion, mPreviousGPU2DOperationPtr->getDirtyRegion());
 
@@ -209,7 +209,7 @@ void HeightfieldOperationTaskPageGPUBrush::tickActive()
         {
             mMaskDone = true;
 
-            if (mPreviousGPU2DOperationPtr.isNull())
+            if (!mPreviousGPU2DOperationPtr)
             {
                 mPreviousGPU2DOperationPtr = getEngineCore()->getGPU2DOperationManager()->getGPU2DOperation(
                     inPage->getAbsoluteRect(), inPage->getHeightTexture()->getFormat());
@@ -361,7 +361,7 @@ void HeightfieldOperationTaskPageGPUBrush::tickActive()
     {
         if (mBrushInstances.empty())
         {
-            if (!mCurrentGPU2DOperationPtr.isNull())
+            if (mCurrentGPU2DOperationPtr)
             {
                 HeightfieldBufferPage* outPage = mOperation->getTempHeightfieldBuffer()->getPage(
                     mPageCoords.first, mPageCoords.second, HeightfieldBuffer::PAGEACCESSMODE_WRITE_DISCARD);
@@ -398,8 +398,8 @@ void HeightfieldOperationTaskPageGPUBrush::tickActive()
                 outPage->increaseVersion();
             }
 
-            mCurrentGPU2DOperationPtr.setNull();
-            mPreviousGPU2DOperationPtr.setNull();
+            mCurrentGPU2DOperationPtr.reset();
+            mPreviousGPU2DOperationPtr.reset();
 
             mCurrentState = STATE_COMPLETED;
         }

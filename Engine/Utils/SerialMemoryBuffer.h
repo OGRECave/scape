@@ -62,8 +62,8 @@ protected:
 };
 
 // ----------------------------------------------------------------------------
-typedef Ogre::SharedPtr<SerialMemoryBuffer> SerialMemoryBufferPtr;
-typedef Ogre::SharedPtr<const SerialMemoryBuffer> SerialMemoryBufferConstPtr;
+typedef std::shared_ptr<SerialMemoryBuffer> SerialMemoryBufferPtr;
+typedef std::shared_ptr<const SerialMemoryBuffer> SerialMemoryBufferConstPtr;
 
 // ----------------------------------------------------------------------------
 class SerialMemoryBufferReader
@@ -71,12 +71,12 @@ class SerialMemoryBufferReader
 public:
     SerialMemoryBufferReader(SerialMemoryBufferPtr bufferPtr) : mBufferPtr(bufferPtr), mPosition(0)
     {
-        assert(!bufferPtr.isNull());
+        assert(bufferPtr);
     }
 
     SerialMemoryBufferReader(SerialMemoryBufferConstPtr bufferPtr) : mBufferPtr(bufferPtr), mPosition(0)
     {
-        assert(!bufferPtr.isNull());
+        assert(bufferPtr);
     }
 
     inline size_t getPosition() { return mPosition; }
@@ -110,7 +110,7 @@ class SerialMemoryBufferWriter
 public:
     SerialMemoryBufferWriter(SerialMemoryBufferPtr bufferPtr) : mBufferPtr(bufferPtr), mPosition(0)
     {
-        assert(!bufferPtr.isNull());
+        assert(bufferPtr);
     }
 
     inline size_t getPosition() { return mPosition; }

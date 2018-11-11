@@ -23,7 +23,7 @@ HeightfieldOperationCPU::HeightfieldOperationCPU()
       mIsStateActive(false), mHasBeenStateActive(false), mBrushName(_T("HeightfieldOperationCPU")),
       mHeightfieldGeom(NULL), mPathSpacing(0.0f), mPencilMode(false)
 {
-    mDeltaBufferPtr.setNull();
+    mDeltaBufferPtr.reset();
 }
 
 // ----------------------------------------------------------------------------
@@ -36,7 +36,7 @@ HeightfieldOperationCPU::~HeightfieldOperationCPU()
         mOriginalHeightfieldBuffer = NULL;
     }
 
-    mDeltaBufferPtr.setNull();
+    mDeltaBufferPtr.reset();
 }
 
 // ----------------------------------------------------------------------------

@@ -28,7 +28,7 @@ public:
                                                  bool flipX = false, bool flipY = false);
 };
 
-typedef Ogre::SharedPtr<GPU2DOperationQuadCustom> GPU2DOperationQuadCustomPtr;
+typedef std::shared_ptr<GPU2DOperationQuadCustom> GPU2DOperationQuadCustomPtr;
 }
 
 #endif // __GPU2DOPERATIONQUADCUSTOM_H__

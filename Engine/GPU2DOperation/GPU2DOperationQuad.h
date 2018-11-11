@@ -35,7 +35,7 @@ protected:
     GPU2DOperationRenderableQuad* mGPU2DOperationableQuad;
 };
 
-typedef Ogre::SharedPtr<GPU2DOperationQuad> GPU2DOperationQuadPtr;
+typedef std::shared_ptr<GPU2DOperationQuad> GPU2DOperationQuadPtr;
 }
 
 #endif // __GPU2DOPERATIONQUAD_H__

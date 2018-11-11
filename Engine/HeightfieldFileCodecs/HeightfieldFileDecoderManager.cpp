@@ -74,8 +74,8 @@ string HeightfieldFileDecoderManager::getDecoderNameFromExtension(const string& 
     for (decoderIt = mDecoderMap.begin(); decoderIt != decoderItEnd; ++decoderIt)
     {
         string fileFilterString = decoderIt->second->getFileFilter();
-        Ogre::vector<string>::type fileFilters = Ogre::StringUtil::split(fileFilterString, _T(";"));
-        Ogre::vector<string>::iterator fileFilterIt, fileFilterItEnd = fileFilters.end();
+        std::vector<Ogre::String> fileFilters = Ogre::StringUtil::split(fileFilterString, _T(";"));
+        std::vector<Ogre::String>::iterator fileFilterIt, fileFilterItEnd = fileFilters.end();
         for (fileFilterIt = fileFilters.begin(); fileFilterIt != fileFilterItEnd; ++fileFilterIt)
         {
             if (Ogre::StringUtil::match(extension, *fileFilterIt, false))
@@ -98,16 +98,16 @@ void HeightfieldFileDecoderManager::registerDecoder(HeightfieldFileDecoder* deco
         std::pair<string, string>(decoder->getFileExtension(), decoder->getFileFilter());
 
     string& combinedFileFilterString = mFileFilterMap[Utils::emptyString].second;
-    Ogre::vector<string>::type combinedFileFilters =
+    std::vector<Ogre::String> combinedFileFilters =
         Ogre::StringUtil::split(combinedFileFilterString, FILEFILTERSEPERATOR);
 
     string fileFilterString = decoder->getFileFilter();
-    Ogre::vector<string>::type fileFilters = Ogre::StringUtil::split(fileFilterString, FILEFILTERSEPERATOR);
-    Ogre::vector<string>::iterator fileFilterIt, fileFilterItEnd = fileFilters.end();
+    std::vector<Ogre::String> fileFilters = Ogre::StringUtil::split(fileFilterString, FILEFILTERSEPERATOR);
+    std::vector<Ogre::String>::iterator fileFilterIt, fileFilterItEnd = fileFilters.end();
     for (fileFilterIt = fileFilters.begin(); fileFilterIt != fileFilterItEnd; ++fileFilterIt)
     {
         bool unique = true;
-        Ogre::vector<string>::iterator combinedFileFilterIt,
+        std::vector<Ogre::String>::iterator combinedFileFilterIt,
             combinedFileFilterItEnd = combinedFileFilters.end();
         for (combinedFileFilterIt = combinedFileFilters.begin();
              combinedFileFilterIt != combinedFileFilterItEnd; ++combinedFileFilterIt)

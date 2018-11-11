@@ -295,7 +295,7 @@ Ogre::ColourValue Utils::getColourValueFromString(const string& colorString)
             last -= first;
         string trimmedString = colorString.substr(first, last);
 
-        Ogre::vector<string>::type vec = Ogre::StringUtil::split(trimmedString, _T("\t\n;, "));
+        std::vector<Ogre::String> vec = Ogre::StringUtil::split(trimmedString, _T("\t\n;, "));
 
         for (size_t i = 0; i < 4 && i < vec.size(); ++i)
         {

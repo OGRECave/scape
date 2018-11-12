@@ -261,10 +261,10 @@ void GPU2DOperationRenderableQuad::prepareForRender(Ogre::ushort zOrder)
     for (Ogre::ushort i = 0; i < technique->getNumPasses(); ++i)
     {
         Ogre::Pass* pass = technique->getPass(i);
-        Ogre::Pass::TextureUnitStateIterator tusIt = pass->getTextureUnitStateIterator();
-        while (tusIt.hasMoreElements())
+        const Ogre::Pass::TextureUnitStates& tus = pass->getTextureUnitStates();
+        for(Ogre::Pass::TextureUnitStates::const_iterator it = tus.begin(); it != tus.end(); it++)
         {
-            Ogre::TextureUnitState* unitState = tusIt.getNext();
+            Ogre::TextureUnitState* unitState = *it;
             const string& textureName = unitState->getTextureName();
             if (textureName.length())
             {

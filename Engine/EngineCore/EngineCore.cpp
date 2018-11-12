@@ -179,18 +179,16 @@ void EngineCore::loadResourceLocations()
     Ogre::LogManager::getSingleton().logMessage("Loaded resource paths from '" +
                                                 string(RESOURCES_FILENAME) + "'");
 
-    Ogre::ConfigFile::SectionIterator seci = cf.getSectionIterator();
-
-    string secName, typeName, archName;
-    while (seci.hasMoreElements())
+    const Ogre::ConfigFile::SettingsBySection_& settings = cf.getSettingsBySection();
+    for (Ogre::ConfigFile::SettingsBySection_::const_iterator it = settings.begin(); it != settings.end(); it++)
     {
-        secName = seci.peekNextKey();
-        Ogre::ConfigFile::SettingsMultiMap* settings = seci.getNext();
-        Ogre::ConfigFile::SettingsMultiMap::iterator i;
-        for (i = settings->begin(); i != settings->end(); ++i)
+        const Ogre::String& secName = it->first;
+        const Ogre::ConfigFile::SettingsMultiMap& settings = it->second;
+
+        for (Ogre::ConfigFile::SettingsMultiMap::const_iterator sit = settings.begin(); sit != settings.end(); sit++)
         {
-            typeName = i->first;
-            archName = i->second;
+            const Ogre::String& typeName = sit->first;
+            const Ogre::String& archName = sit->second;
             Ogre::ResourceGroupManager::getSingleton().addResourceLocation(archName, typeName, secName);
         }
     }
@@ -597,10 +595,10 @@ void EngineCore::loadSkyBox()
 
     Ogre::MaterialPtr matPtr = Ogre::MaterialManager::getSingleton().getByName(_T("SkyBox"));
     matPtr->load();
-    Ogre::Material::TechniqueIterator ti = matPtr->getSupportedTechniqueIterator();
-    while (ti.hasMoreElements())
+    const Ogre::Material::Techniques& techniques = matPtr->getSupportedTechniques();
+    for (Ogre::Material::Techniques::const_iterator it = techniques.begin(); it != techniques.end(); it++)
     {
-        Ogre::Technique* tech = ti.getNext();
+        Ogre::Technique* tech = (*it);
 
         for (int side = 0; side < 6; ++side)
         {

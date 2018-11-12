@@ -119,11 +119,10 @@ bool Utils::bindShaderCustomAutoConstant(Ogre::Technique* technique, size_t cons
         if (pass->hasFragmentProgram())
         {
             Ogre::GpuProgramParametersSharedPtr params = pass->getFragmentProgramParameters();
-            Ogre::GpuProgramParameters::AutoConstantIterator constantIt = params->getAutoConstantIterator();
-
-            while (constantIt.hasMoreElements())
+            const Ogre::GpuProgramParameters::AutoConstantList& constants = params->getAutoConstants();
+            for (Ogre::GpuProgramParameters::AutoConstantList::const_iterator it = constants.begin(); it != constants.end(); it++)
             {
-                const Ogre::GpuProgramParameters::AutoConstantEntry& constantEntry = constantIt.getNext();
+                const Ogre::GpuProgramParameters::AutoConstantEntry& constantEntry = *it;
                 if (constantEntry.paramType == Ogre::GpuProgramParameters::ACT_CUSTOM &&
                     constantEntry.data == constantIndex)
                 {
@@ -149,11 +148,11 @@ bool Utils::bindShaderCustomAutoConstant(Ogre::Technique* technique, size_t cons
         if (pass->hasVertexProgram())
         {
             Ogre::GpuProgramParametersSharedPtr params = pass->getVertexProgramParameters();
-            Ogre::GpuProgramParameters::AutoConstantIterator constantIt = params->getAutoConstantIterator();
+            const Ogre::GpuProgramParameters::AutoConstantList& constants = params->getAutoConstants();
 
-            while (constantIt.hasMoreElements())
+            for (Ogre::GpuProgramParameters::AutoConstantList::const_iterator it = constants.begin(); it != constants.end(); it++)
             {
-                const Ogre::GpuProgramParameters::AutoConstantEntry& constantEntry = constantIt.getNext();
+                const Ogre::GpuProgramParameters::AutoConstantEntry& constantEntry = *it;
                 if (constantEntry.paramType == Ogre::GpuProgramParameters::ACT_CUSTOM &&
                     constantEntry.data == constantIndex)
                 {
@@ -429,16 +428,15 @@ void Utils::reloadMaterial(const Ogre::String& materialName)
     Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().getByName(materialName);
     if (material)
     {
-        Ogre::Material::TechniqueIterator techniqueIterator = material->getTechniqueIterator();
-
-        while (techniqueIterator.hasMoreElements())
+        const Ogre::Material::Techniques& techniques = material->getTechniques();
+        for (Ogre::Material::Techniques::const_iterator it = techniques.begin(); it != techniques.end(); it++)
         {
-            Ogre::Technique* technique = techniqueIterator.getNext();
+            Ogre::Technique* technique = (*it);
 
-            Ogre::Technique::PassIterator passIterator = technique->getPassIterator();
-            while (passIterator.hasMoreElements())
+            const Ogre::Technique::Passes& passes = technique->getPasses();
+            for (Ogre::Technique::Passes::const_iterator pit = passes.begin(); pit != passes.end(); pit++)
             {
-                Ogre::Pass* pass = passIterator.getNext();
+                Ogre::Pass* pass = (*pit);
 
                 const Ogre::GpuProgramPtr& fragmentProgramPtr = pass->getFragmentProgram();
                 if (fragmentProgramPtr)

@@ -60,7 +60,7 @@ HeightfieldGeomTile::HeightfieldGeomTile(HeightfieldGeom* heightfieldGeom,
       mFrameLeastSquaredPixelsWorldQuad(-1.0f), mQuadColumnSpacing(1024), mQuadRowSpacing(1024)
 {
     setCastShadows(false);
-    mMaterial.setNull(); // GDC ported
+    mMaterial.reset();
 
     mRenderOp.vertexData = new Ogre::VertexData();
     mRenderOp.indexData = new Ogre::IndexData();

@@ -69,12 +69,12 @@ void GPU2DOperationRenderableQuad::reset()
 // ----------------------------------------------------------------------------
 GPU2DOperationRenderableQuad::~GPU2DOperationRenderableQuad()
 {
-    if (!getMaterial().isNull())
+    if (getMaterial())
     {
         Ogre::ResourcePtr resource(mMaterial);
-        mMaterial.setNull();
+        mMaterial.reset();
         Ogre::MaterialManager::getSingleton().remove(resource);
-        resource.setNull();
+        resource.reset();
     }
     delete mRenderOp.vertexData;
     delete mShaderCustomAutoConstants;
@@ -313,7 +313,7 @@ void GPU2DOperationRenderableQuad::prepareForRender(Ogre::ushort zOrder)
 void GPU2DOperationRenderableQuad::loadMaterial(const string& materialName)
 {
     Ogre::MaterialPtr originalMaterial = Ogre::MaterialManager::getSingleton().getByName(materialName);
-    if (originalMaterial.isNull())
+    if (!originalMaterial)
     {
         OGRE_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND, "Could not find material " + mMaterialName,
                     "GPU2DOperationRenderableQuad::setMaterial");

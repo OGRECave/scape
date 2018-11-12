@@ -45,7 +45,7 @@ GPU2DOperation::~GPU2DOperation()
 // ----------------------------------------------------------------------------
 void GPU2DOperation::bindMultiRenderTarget(Ogre::TexturePtr renderTargetTexture)
 {
-    assert(!renderTargetTexture.isNull());
+    assert(renderTargetTexture);
 
     static int mrttId = 0;
 

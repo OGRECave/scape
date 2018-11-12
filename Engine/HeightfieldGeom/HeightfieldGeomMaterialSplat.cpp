@@ -538,7 +538,7 @@ Ogre::MaterialPtr HeightfieldGeomMaterialSplat::createMaterial()
 {
     Ogre::ResourcePtr resource = Ogre::MaterialManager::getSingleton().load(
         mMaterialName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-    Ogre::MaterialPtr material = resource.staticCast<Ogre::Material>();
+    Ogre::MaterialPtr material = std::static_pointer_cast<Ogre::Material>(resource);
 
     return material;
 }

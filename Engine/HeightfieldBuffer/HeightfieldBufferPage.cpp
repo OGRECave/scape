@@ -16,7 +16,7 @@ HeightfieldBufferPage::HeightfieldBufferPage(HeightfieldBuffer* heightfieldBuffe
                                              int pageRow)
     : mVersion(Utils::createGUID()), mPageColumn(pageColumn), mPageRow(pageRow)
 {
-    _mHeightTexture.setNull();
+    _mHeightTexture.reset();
     mHeightfieldBuffers.push_back(heightfieldBuffer);
     mHeightfieldBufferSet = heightfieldBuffer->getHeightfieldBufferSet();
     mHeightElementFormat = heightfieldBuffer->getHeightElementFormat();
@@ -59,7 +59,7 @@ void HeightfieldBufferPage::removeHeightfieldBuffer(HeightfieldBuffer* heightfie
 }
 
 // ----------------------------------------------------------------------------
-bool HeightfieldBufferPage::containsData() { return !_mHeightTexture.isNull(); }
+bool HeightfieldBufferPage::containsData() { return (bool)_mHeightTexture; }
 
 // ----------------------------------------------------------------------------
 void HeightfieldBufferPage::clearData()
@@ -68,8 +68,8 @@ void HeightfieldBufferPage::clearData()
     if (containsData())
     {
         Ogre::TextureManager::getSingleton().remove(_mHeightTexture->getHandle());
-        assert(_mHeightTexture.useCount() == 1);
-        _mHeightTexture.setNull();
+        assert(_mHeightTexture.use_count() == 1);
+        _mHeightTexture.reset();
     }
 }
 
@@ -163,7 +163,7 @@ void HeightfieldBufferPage::cloneDataFrom(HeightfieldBufferPage* const heightfie
     }
     else
     {
-        _mHeightTexture.setNull();
+        _mHeightTexture.reset();
     }
 
     //	increaseVersion();

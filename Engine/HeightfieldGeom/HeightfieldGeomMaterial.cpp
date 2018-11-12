@@ -21,7 +21,7 @@ IMPLEMENT_UIELEMENTCONTAINERSIMPLE_CLASS(HeightfieldGeomMaterial)
 HeightfieldGeomMaterial::HeightfieldGeomMaterial()
     : mInitialized(false), mBrush(NULL), mHasDirtySettings(true)
 {
-    mMaterial.setNull();
+    mMaterial.reset();
 }
 
 // ----------------------------------------------------------------------------
@@ -40,10 +40,10 @@ void HeightfieldGeomMaterial::initialize()
 // ----------------------------------------------------------------------------
 const Ogre::MaterialPtr& HeightfieldGeomMaterial::getMaterial()
 {
-    if (mMaterial.isNull())
+    if (!mMaterial)
     {
         mMaterial = createMaterial();
-        assert(!mMaterial.isNull());
+        assert(mMaterial);
     }
 
     return mMaterial;
@@ -214,7 +214,7 @@ void HeightfieldGeomMaterial::updateShaderConstantsGeomTile(
 void HeightfieldGeomMaterial::bindShaderConstants()
 {
     Ogre::MaterialPtr material = getMaterial();
-    assert(!material.isNull());
+    assert(material);
 
     Ogre::Technique* technique = material->getBestTechnique();
     assert(technique);

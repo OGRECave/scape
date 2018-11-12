@@ -312,7 +312,7 @@ bool Utils::getTextureFromInternalFile(const string& textureName, const string& 
     Ogre::ResourcePtr resourcePtr = Ogre::TextureManager::getSingleton().getByName(textureName);
     bool successful = true;
 
-    if (resourcePtr.isNull())
+    if (!resourcePtr)
     {
         successful = false;
 
@@ -348,7 +348,7 @@ bool Utils::getTextureFromExternalFile(const string& textureName, const string& 
     Ogre::ResourcePtr resourcePtr = Ogre::TextureManager::getSingleton().getByName(textureName);
     bool successful = true;
 
-    if (resourcePtr.isNull())
+    if (!resourcePtr)
     {
         successful = false;
 
@@ -427,7 +427,7 @@ string Utils::getWorkingPath()
 void Utils::reloadMaterial(const Ogre::String& materialName)
 {
     Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().getByName(materialName);
-    if (!material.isNull())
+    if (material)
     {
         Ogre::Material::TechniqueIterator techniqueIterator = material->getTechniqueIterator();
 
@@ -441,14 +441,14 @@ void Utils::reloadMaterial(const Ogre::String& materialName)
                 Ogre::Pass* pass = passIterator.getNext();
 
                 const Ogre::GpuProgramPtr& fragmentProgramPtr = pass->getFragmentProgram();
-                if (!fragmentProgramPtr.isNull())
+                if (fragmentProgramPtr)
                 {
                     fragmentProgramPtr->reload();
                     fragmentProgramPtr->createParameters();
                 }
 
                 const Ogre::GpuProgramPtr& vertexProgramPtr = pass->getVertexProgram();
-                if (!vertexProgramPtr.isNull())
+                if (vertexProgramPtr)
                 {
                     vertexProgramPtr->reload();
                     vertexProgramPtr->createParameters();

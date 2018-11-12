@@ -62,7 +62,7 @@ protected:
 
     virtual Ogre::MaterialPtr createMaterial() = 0;
 
-    void resetMaterial() { mMaterial.setNull(); }
+    void resetMaterial() { mMaterial.reset(); }
 
     virtual void bindShaderConstants();
 

@@ -241,7 +241,7 @@ std::pair<void*, size_t> Utils::readBinaryFile(const string& fileName)
 // ----------------------------------------------------------------------------
 string Utils::makeUniqueName(const string& baseName, const std::list<string>& existingNames)
 {
-    long nextIndex = 1;
+    Ogre::uint32 nextIndex = 1;
     size_t indexStart = baseName.find_last_not_of(_T("0123456789"));
 
     if (indexStart == string::npos)
@@ -253,10 +253,11 @@ string Utils::makeUniqueName(const string& baseName, const std::list<string>& ex
         ++indexStart; // next index is first digit of last block of digits
     }
 
-    string indexString = baseName.substr(indexStart);
-    if (indexString.length())
+    const Ogre::String indexString = Ogre::String(baseName.substr(indexStart));
+    if (indexString.length() > 0)
     {
-        nextIndex = Ogre::StringConverter::parseLong(indexString);
+        Ogre::uint32 convIndex;
+        nextIndex = Ogre::StringConverter::parse(indexString, convIndex) ? convIndex : nextIndex;
     }
 
     string base = baseName.substr(0, indexStart);
@@ -265,7 +266,7 @@ string Utils::makeUniqueName(const string& baseName, const std::list<string>& ex
     std::list<string>::const_iterator it, itEnd = existingNames.end();
     for (bool unique = false; !unique; ++nextIndex)
     {
-        uniqueName = base + Ogre::StringConverter::toString(nextIndex);
+        uniqueName = base + std::to_string(nextIndex);
 
         unique = true;
         for (it = existingNames.begin(); it != itEnd; ++it)

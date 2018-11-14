@@ -29,7 +29,7 @@ public:
 
     void setSize(size_t bytes, bool copyContents)
     {
-        void* newData = new Ogre::uint8[bytes];
+        Ogre::uint8* newData = new Ogre::uint8[bytes];
 
         if (!newData)
         {
@@ -53,11 +53,11 @@ public:
     inline void* getData() const { return mData; }
     inline void* getRelativeData(int bytePosition) const
     {
-        return static_cast<unsigned char*>(mData) + bytePosition;
+        return mData + bytePosition;
     }
 
 protected:
-    void* mData;
+    Ogre::uint8* mData;
     size_t mSize;
 };
 

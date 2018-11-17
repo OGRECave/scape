@@ -10,7 +10,7 @@
 using namespace ScapeEngine;
 
 #if defined(ENUMID)
-#error ENUMID shouldn't be defined at this point
+#error "ENUMID shouldn't be defined at this point"
 #endif
 
 // ----------------------------------------------------------------------------

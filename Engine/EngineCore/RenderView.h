@@ -31,6 +31,9 @@ public:
     // Get globally unique view identifier
     inline long viewId() const { return mViewId; }
 
+    // Get scene node which holds the camera
+    Ogre::SceneNode* getCameraSceneNode() const;
+
     // Get attached camera
     inline class Ogre::Camera* getCamera() const { return mCamera; }
 
@@ -74,6 +77,8 @@ protected:
 
     // Attached render window
     class Ogre::RenderWindow* mRenderWindow;
+
+    Ogre::SceneNode* mCameraSceneNode;
 
     // Attached camera
     class Ogre::Camera* mCamera;

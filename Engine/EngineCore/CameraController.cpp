@@ -29,8 +29,8 @@ void CameraController::attach(RenderView* renderView)
 {
     mRenderView = renderView;
 
-    Ogre::Vector3 cameraPosition = mRenderView->getCamera()->getPosition();
-    Ogre::Quaternion cameraOrientation = mRenderView->getCamera()->getOrientation();
+    Ogre::Vector3 cameraPosition = mRenderView->getCameraSceneNode()->getPosition();
+    Ogre::Quaternion cameraOrientation = mRenderView->getCameraSceneNode()->getOrientation();
 
     mCameraEulerAngles =
         DVector3(cameraOrientation.getPitch(true).valueRadians(), cameraOrientation.getYaw().valueRadians(),
@@ -138,9 +138,9 @@ void CameraController::onFrameTick()
         }
     }
 
-    Ogre::Camera* camera = mRenderView->getCamera();
-    camera->setOrientation(mCameraTransform.toOgreMatrix4().extractQuaternion());
-    camera->setPosition(mCameraTransform.col3.asVector3().toOgreVector3());
+    Ogre::SceneNode* cameraSceneNode = mRenderView->getCameraSceneNode();
+    cameraSceneNode->setOrientation(Ogre::Quaternion(mCameraTransform.toOgreMatrix4().linear()));
+    cameraSceneNode->setPosition(mCameraTransform.col3.asVector3().toOgreVector3());
 }
 
 // ----------------------------------------------------------------------------

@@ -94,12 +94,15 @@ string RenderView::setUIElementPropertyValue(const string& elementName, const st
 
 // ----------------------------------------------------------------------------
 RenderView::RenderView(long viewId)
-    : mViewId(viewId), mRenderWindow(NULL), mCamera(NULL), mViewport(NULL), mCameraController(NULL),
+    : mViewId(viewId), mRenderWindow(NULL), mCameraSceneNode(NULL), mCamera(NULL), mViewport(NULL),
+      mCameraController(NULL),
       // mOverlay(NULL),
       mDirtyRect(false), mDirtyWireframe(true)
 {
     LOADPROPERTIES_UIELEMENTCONTAINERSIMPLE_CLASS();
 }
+
+Ogre::SceneNode* RenderView::getCameraSceneNode() const { return mCameraSceneNode; }
 
 // ----------------------------------------------------------------------------
 void RenderView::attach(const string& windowHandle, int left, int top, int width, int height)
@@ -134,7 +137,9 @@ void RenderView::attach(const string& windowHandle, int left, int top, int width
 
     if (mCamera == NULL)
     {
+        mCameraSceneNode = sceneManager->getRootSceneNode()->createChildSceneNode();
         mCamera = sceneManager->createCamera(cameraName.str());
+        mCameraSceneNode->attachObject(mCamera);
     }
 
     mCamera->setAspectRatio(Ogre::Real(width) / Ogre::Real(height));
@@ -143,8 +148,8 @@ void RenderView::attach(const string& windowHandle, int left, int top, int width
     mCamera->setFarClipDistance(10000);
     // mCamera->setPolygonMode(Ogre::PM_WIREFRAME);
 
-    mCamera->setPosition(2048, 2000, 2048);
-    mCamera->lookAt(0, 0, 0);
+    mCameraSceneNode->setPosition(Ogre::Vector3(2048, 2000, 2048));
+    mCameraSceneNode->lookAt(Ogre::Vector3(0, 0, 0), Ogre::SceneNode::TransformSpace::TS_WORLD);
 
     Ogre::ColourValue fadeColour(0.8, 0.8, 0.9);
 

@@ -49,7 +49,7 @@ const Ogre::Vector3& InputPointer::PointerState::get3DPoint() const
     {
         if (mFocusedRenderView)
         {
-            Ogre::Vector3 cameraPosition = mFocusedRenderView->getCamera()->getPosition();
+            Ogre::Vector3 cameraPosition = mFocusedRenderView->getCameraSceneNode()->getPosition();
             std::pair<RenderView*, Ogre::Vector2> renderView2DPoint = getRenderView2DPoint();
             if (renderView2DPoint.first)
             {

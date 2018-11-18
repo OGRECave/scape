@@ -32,6 +32,8 @@
 #include "HeightfieldFileCodecs/HeightfieldFileEncoderManager.h"
 #include "HeightfieldFileCodecs/HeightfieldFileDecoderManager.h"
 
+#include "Input/ButtonDefinitionXMLSerializer.h"
+
 #define EXTERNAL_TEXTURE_BASENAME _T("file:")
 
 using namespace ScapeEngine;
@@ -103,6 +105,10 @@ void EngineCore::initialize()
     mHeightfieldFileEncoderManager = new HeightfieldFileEncoderManager();
     mHeightfieldFileDecoderManager = new HeightfieldFileDecoderManager();
 
+    std::shared_ptr<ButtonDefinitionDataAccessObject> dao =
+        std::shared_ptr<ButtonDefinitionDataAccessObject>(new ButtonDefinitionXMLSerializer(
+            "ButtonDefinitions.xml", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME));
+    getInputManager()->setButtonDefinitionDataAccessObject(dao);
     getInputManager()->loadButtonDefinitions();
 
     mFrameTimerMilliseconds = Ogre::Root::getSingleton().getTimer()->getMilliseconds();

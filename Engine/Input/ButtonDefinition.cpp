@@ -8,6 +8,11 @@
 
 using namespace ScapeEngine;
 
+ButtonDefinition::ButtonDefinition(ButtonId::EButtonId buttonId, int priority)
+    : mButtonId(buttonId), mPriority(priority)
+{
+}
+
 #if 0
 // ----------------------------------------------------------------------------
 ButtonDefinition::ButtonDefinition(ButtonId::EButtonId buttonId) 

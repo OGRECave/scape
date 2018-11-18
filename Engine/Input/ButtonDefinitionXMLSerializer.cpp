@@ -12,7 +12,7 @@
 using namespace ScapeEngine;
 
 static void _readElementBUTTON(const TiXmlElement& buttonElem);
-static void _readElementDEF(const TiXmlElement& buttonDefinitionElem, ButtonId::EButtonId buttonId);
+static void _readElementDEF(const TiXmlElement& buttonDefinitionElem, ButtonId::EButtonId buttonId, int priority);
 static void _readElementDBUTTON(const TiXmlElement& deviceButtonElem, ButtonDefinition& buttonDefinition);
 
 // ----------------------------------------------------------------------------
@@ -82,16 +82,16 @@ void _readElementBUTTON(const TiXmlElement& buttonElem)
     for (const TiXmlElement* buttonDefinitionElem = buttonElem.FirstChildElement(_T("DEF"));
          buttonDefinitionElem; buttonDefinitionElem = buttonDefinitionElem->NextSiblingElement(_T("DEF")))
     {
-        _readElementDEF(*buttonDefinitionElem, buttonId);
+        _readElementDEF(*buttonDefinitionElem, buttonId, priority);
     }
 
     getEngineCore()->getInputManager()->getButton(buttonId)->setPriority(priority);
 }
 
 // ----------------------------------------------------------------------------
-void _readElementDEF(const TiXmlElement& buttonDefinitionElem, ButtonId::EButtonId buttonId)
+void _readElementDEF(const TiXmlElement& buttonDefinitionElem, ButtonId::EButtonId buttonId, int priority)
 {
-    ButtonDefinition buttonDefinition(buttonId);
+    ButtonDefinition buttonDefinition(buttonId, priority);
 
     for (const TiXmlElement* deviceButtonElem = buttonDefinitionElem.FirstChildElement(_T("DBUTTON"));
          deviceButtonElem; deviceButtonElem = deviceButtonElem->NextSiblingElement(_T("DBUTTON")))

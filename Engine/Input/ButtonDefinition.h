@@ -11,6 +11,8 @@
 #ifndef __BUTTONDEFINITION_H__
 #define __BUTTONDEFINITION_H__
 
+#include <list>
+
 #include "ButtonId.h"
 #include "AnalogInputId.h"
 #include "DeviceButtonId.h"
@@ -27,7 +29,7 @@ class ButtonDefinition
 
 public:
     // Construct a new definition of the given button identifier
-    ButtonDefinition(ButtonId::EButtonId buttonId) { mButtonId = buttonId; }
+    ButtonDefinition(ButtonId::EButtonId buttonId, int priority);
 
     // Add a device button button to this definition
     void addDeviceButton(DeviceButtonId::EDeviceButtonId buttonId) { mDeviceButtons.push_front(buttonId); }
@@ -35,6 +37,8 @@ public:
 protected:
     // Identifier of defined button
     ButtonId::EButtonId mButtonId;
+
+    int mPriority;
 
     // Device button ordered container type
     typedef std::list<DeviceButtonId::EDeviceButtonId> DeviceButtonList;

@@ -245,3 +245,14 @@ void InputManager::onRenderViewKillFocus(long viewId)
         mInputListener->setActive(false);
     }
 }
+
+std::shared_ptr<ButtonDefinitionDataAccessObject> InputManager::getButtonDefinitionDataAccessObject()
+{
+    return mButtonDefinitionDataAccessObject;
+}
+
+void InputManager::setButtonDefinitionDataAccessObject(
+    std::shared_ptr<ButtonDefinitionDataAccessObject> buttonDefinitionDataAccessObject)
+{
+    mButtonDefinitionDataAccessObject = buttonDefinitionDataAccessObject;
+}

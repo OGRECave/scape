@@ -15,6 +15,7 @@
 #include "AnalogInputId.h"
 #include "Button.h"
 #include "ButtonDefinition.h"
+#include "ButtonDefinitionDataAccessObject.h"
 #include "Utils/Utils.h"
 
 namespace ScapeEngine
@@ -76,6 +77,11 @@ public:
 
     void onRenderViewKillFocus(long viewId);
 
+    std::shared_ptr<ButtonDefinitionDataAccessObject> getButtonDefinitionDataAccessObject();
+
+    void setButtonDefinitionDataAccessObject(
+        std::shared_ptr<ButtonDefinitionDataAccessObject> buttonDefinitionDataAccessObject);
+
 protected:
     // Button definition container type
     typedef std::list<ButtonDefinition> ButtonDefinitions;
@@ -106,6 +112,8 @@ protected:
     class InputListener* mInputListener;
 
     InputPointer* mInputPointer;
+
+    std::shared_ptr<ButtonDefinitionDataAccessObject> mButtonDefinitionDataAccessObject;
 };
 }
 

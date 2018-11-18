@@ -124,10 +124,19 @@ RenderView* InputManager::getFocusedRenderView() const
 }
 
 // ----------------------------------------------------------------------------
-void InputManager::loadButtonDefinitionsFromXML(const string& filename)
+void InputManager::loadButtonDefinitions()
 {
-    ButtonDefinitionXMLSerializer::importSceneFromResource(
-        filename, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+    if (mButtonDefinitionDataAccessObject)
+    {
+        const ButtonDefinitionDataAccessObject::ButtonDefinitions def =
+            mButtonDefinitionDataAccessObject->getButtonDefinitions();
+        for (ButtonDefinitionDataAccessObject::ButtonDefinitions::const_iterator it = def.begin();
+             it != def.end(); it++)
+        {
+            addButtonDefinition(*it);
+            getButton(it->mButtonId)->setPriority(it->mPriority);
+        }
+    }
 }
 
 // ----------------------------------------------------------------------------

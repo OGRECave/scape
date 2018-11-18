@@ -45,7 +45,7 @@ public:
     void clearButtonDefinitions();
 
     // Load a button definition XML file
-    void loadButtonDefinitionsFromXML(const string& filename);
+    void loadButtonDefinitions();
 
     // Capture all input events and update state. Call this at the beginning of each renderloop cycle
     void captureInput();

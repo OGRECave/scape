@@ -103,7 +103,7 @@ void EngineCore::initialize()
     mHeightfieldFileEncoderManager = new HeightfieldFileEncoderManager();
     mHeightfieldFileDecoderManager = new HeightfieldFileDecoderManager();
 
-    getInputManager()->loadButtonDefinitionsFromXML(_T("ButtonDefinitions.xml"));
+    getInputManager()->loadButtonDefinitions();
 
     mFrameTimerMilliseconds = Ogre::Root::getSingleton().getTimer()->getMilliseconds();
     mLastFrameTimerMilliseconds = mFrameTimerMilliseconds - 1;

@@ -9,27 +9,35 @@
 #include "InputManager.h"
 #include "ButtonDefinitionXMLSerializer.h"
 
-using namespace ScapeEngine;
-
-static void _readElementBUTTON(const TiXmlElement& buttonElem);
-static void _readElementDEF(const TiXmlElement& buttonDefinitionElem, ButtonId::EButtonId buttonId, int priority);
-static void _readElementDBUTTON(const TiXmlElement& deviceButtonElem, ButtonDefinition& buttonDefinition);
-
-// ----------------------------------------------------------------------------
-void ScapeEngine::ButtonDefinitionXMLSerializer::importSceneFromResource(const string& fileName,
-                                                                         const string& groupName)
+namespace ScapeEngine
 {
-    Ogre::LogManager::getSingleton().logMessage(
-        _T("ButtonDefinitionXMLReader::importXML: reading XML data from ") + fileName + _T("..."));
 
-    string contents;
-    Utils::readResource(fileName, groupName, contents);
-    importXML(contents);
+ButtonDefinitionXMLSerializer::ButtonDefinitionXMLSerializer(std::string fileName,
+                                                             std::string resourceGroupName)
+    : mFileName(fileName), mResourceGroupName(resourceGroupName)
+{
 }
 
-// ----------------------------------------------------------------------------
-void ScapeEngine::ButtonDefinitionXMLSerializer::importXML(const string& rawData)
+ButtonDefinitionXMLSerializer::~ButtonDefinitionXMLSerializer() {}
+
+const ButtonDefinitionDataAccessObject::ButtonDefinitions
+ButtonDefinitionXMLSerializer::getButtonDefinitions() const
 {
+    Ogre::LogManager::getSingleton().logMessage(
+        _T("ButtonDefinitionXMLReader::importXML: reading XML data from ") + mFileName + _T("..."));
+
+    string contents;
+    Utils::readResource(mFileName, mResourceGroupName, contents);
+    const ButtonDefinitionDataAccessObject::ButtonDefinitions ret = importXML(contents);
+
+    return ret;
+}
+
+const ButtonDefinitionDataAccessObject::ButtonDefinitions
+ButtonDefinitionXMLSerializer::importXML(const string& rawData) const
+{
+    ButtonDefinitionDataAccessObject::ButtonDefinitions ret;
+
     Ogre::LogManager::getSingleton().logMessage(_T("ButtonDefinitionXMLReader::importXML: parsing..."));
 
     TiXmlDocument tiXMLDoc(_T(""));
@@ -40,7 +48,7 @@ void ScapeEngine::ButtonDefinitionXMLSerializer::importXML(const string& rawData
         Ogre::LogManager::getSingleton().logMessage(
             _T("ButtonDefinitionXMLReader::importXML: TinyXML error ") +
             Ogre::StringConverter::toString(tiXMLDoc.ErrorId()) + _T(": ") + tiXMLDoc.ErrorDesc());
-        return;
+        return ret;
     }
 
     const TiXmlElement *elem, *rootElem = tiXMLDoc.RootElement();
@@ -51,15 +59,17 @@ void ScapeEngine::ButtonDefinitionXMLSerializer::importXML(const string& rawData
         for (const TiXmlElement* buttonElem = elem->FirstChildElement(_T("BUTTON")); buttonElem;
              buttonElem = buttonElem->NextSiblingElement(_T("BUTTON")))
         {
-            _readElementBUTTON(*buttonElem);
+            _readElementBUTTON(*buttonElem, ret);
         }
     }
 
     Ogre::LogManager::getSingleton().logMessage(_T("InputManager::importButtonDefinitions: Finished."));
+
+    return ret;
 }
 
-// ----------------------------------------------------------------------------
-void _readElementBUTTON(const TiXmlElement& buttonElem)
+void ButtonDefinitionXMLSerializer::_readElementBUTTON(const TiXmlElement& buttonElem,
+                                                       ButtonDefinitions& definitions)
 {
     const char* buttonIdString = buttonElem.Attribute(_T("id"));
     if (!buttonIdString)
@@ -82,14 +92,13 @@ void _readElementBUTTON(const TiXmlElement& buttonElem)
     for (const TiXmlElement* buttonDefinitionElem = buttonElem.FirstChildElement(_T("DEF"));
          buttonDefinitionElem; buttonDefinitionElem = buttonDefinitionElem->NextSiblingElement(_T("DEF")))
     {
-        _readElementDEF(*buttonDefinitionElem, buttonId, priority);
+        _readElementDEF(*buttonDefinitionElem, definitions, buttonId, priority);
     }
-
-    getEngineCore()->getInputManager()->getButton(buttonId)->setPriority(priority);
 }
 
-// ----------------------------------------------------------------------------
-void _readElementDEF(const TiXmlElement& buttonDefinitionElem, ButtonId::EButtonId buttonId, int priority)
+void ButtonDefinitionXMLSerializer::_readElementDEF(const TiXmlElement& buttonDefinitionElem,
+                                                    ButtonDefinitions& definitions,
+                                                    ButtonId::EButtonId buttonId, int priority)
 {
     ButtonDefinition buttonDefinition(buttonId, priority);
 
@@ -99,11 +108,11 @@ void _readElementDEF(const TiXmlElement& buttonDefinitionElem, ButtonId::EButton
         _readElementDBUTTON(*deviceButtonElem, buttonDefinition);
     }
 
-    getEngineCore()->getInputManager()->addButtonDefinition(buttonDefinition);
+    definitions.push_back(buttonDefinition);
 }
 
-// ----------------------------------------------------------------------------
-void _readElementDBUTTON(const TiXmlElement& deviceButtonElem, ButtonDefinition& buttonDefinition)
+void ButtonDefinitionXMLSerializer::_readElementDBUTTON(const TiXmlElement& deviceButtonElem,
+                                                        ButtonDefinition& buttonDefinition)
 {
     const char* deviceButtonIdString = deviceButtonElem.Attribute(_T("id"));
     if (!deviceButtonIdString)
@@ -116,4 +125,5 @@ void _readElementDBUTTON(const TiXmlElement& deviceButtonElem, ButtonDefinition&
     DeviceButtonId::EDeviceButtonId deviceButtonId =
         DeviceButtonId::getDeviceButtonIdFromUpperName(deviceButtonIdString);
     buttonDefinition.addDeviceButton(deviceButtonId);
+}
 }

@@ -11,16 +11,32 @@
 #ifndef __BUTTONDEFINITIONXMLSERIALIZER_H__
 #define __BUTTONDEFINITIONXMLSERIALIZER_H__
 
+#include "ButtonDefinitionDataAccessObject.h"
+
 namespace ScapeEngine
 {
-namespace ButtonDefinitionXMLSerializer
-{
-// Load button definitions from a file
-void importSceneFromResource(const string& fileName, const string& groupName);
 
-// Load button definitions from a memory buffer
-void importXML(const string& rawData);
-}
+class ButtonDefinitionXMLSerializer : public ButtonDefinitionDataAccessObject
+{
+public:
+    ButtonDefinitionXMLSerializer(std::string fileName, std::string resourceGroupName);
+    virtual ~ButtonDefinitionXMLSerializer();
+
+    virtual const ButtonDefinitions getButtonDefinitions() const;
+
+protected:
+    // Load button definitions from a memory buffer
+    const ButtonDefinitions importXML(const string& rawData) const;
+
+    static void _readElementBUTTON(const TiXmlElement& buttonElem, ButtonDefinitions& definitions);
+    static void _readElementDEF(const TiXmlElement& buttonDefinitionElem, ButtonDefinitions& definitions,
+                                ButtonId::EButtonId buttonId, int priority);
+    static void _readElementDBUTTON(const TiXmlElement& deviceButtonElem,
+                                    ButtonDefinition& buttonDefinition);
+
+    std::string mFileName;
+    std::string mResourceGroupName;
+};
 }
 
 #endif // __BUTTONDEFINITIONXMLSERIALIZER_H__

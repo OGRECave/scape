@@ -44,39 +44,6 @@ SettingsDataset::~SettingsDataset()
 const SettingsDataset::SectionMapStruct& SettingsDataset::getSections() { return *mSectionMapStruct; }
 
 // ----------------------------------------------------------------------------
-SettingsDataset::SectionIterator SettingsDataset::getSectionIterator()
-{
-    return SectionIterator(*mSectionMapStruct);
-}
-
-// ----------------------------------------------------------------------------
-SettingsDataset::SubsectionIterator SettingsDataset::getSubsectionIterator(const string& section)
-{
-    SectionMapStruct::MapType::const_iterator sectionIt = mSectionMapStruct->map.find(section);
-    if (sectionIt != mSectionMapStruct->map.end())
-    {
-        return SubsectionIterator(*sectionIt->second);
-    }
-    return SubsectionIterator();
-}
-
-// ----------------------------------------------------------------------------
-SettingsDataset::KeyIterator SettingsDataset::getKeyIterator(const string& section,
-                                                             const string& subsection)
-{
-    SectionMapStruct::MapType::const_iterator sectionIt = mSectionMapStruct->map.find(section);
-    if (sectionIt != mSectionMapStruct->map.end())
-    {
-        SubsectionMapStruct::MapType::const_iterator subsectionIt = sectionIt->second->map.find(subsection);
-        if (subsectionIt != sectionIt->second->map.end())
-        {
-            return KeyIterator(*subsectionIt->second);
-        }
-    }
-    return KeyIterator();
-}
-
-// ----------------------------------------------------------------------------
 string SettingsDataset::getSetting(const string& section, const string& subsection, const string& key) const
 {
     SectionMapStruct::MapType::const_iterator sectionIt = mSectionMapStruct->map.find(section);

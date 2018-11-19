@@ -22,10 +22,6 @@ public:
     typedef Utils::MapStruct<string, KeyMapStruct*> SubsectionMapStruct;
     typedef Utils::MapStruct<string, SubsectionMapStruct*> SectionMapStruct;
 
-    typedef Utils::MapStructReadIterator<KeyMapStruct, const string&> KeyIterator;
-    typedef Utils::MapStructReadIterator<SubsectionMapStruct, KeyIterator> SubsectionIterator;
-    typedef Utils::MapStructReadIterator<SectionMapStruct, SubsectionIterator> SectionIterator;
-
     SettingsDataset(const string& datasetName);
     ~SettingsDataset();
 
@@ -45,10 +41,6 @@ public:
     // Also, keys should not be empty or contain a colon.
     bool load(const string& fileName, bool appendSettings = false);
     bool save(const string& fileName, bool appendFile = false);
-
-    SectionIterator getSectionIterator();
-    SubsectionIterator getSubsectionIterator(const string& section);
-    KeyIterator getKeyIterator(const string& section, const string& subsection);
 
     string getSetting(const string& section, const string& subsection, const string& key) const;
     void setSetting(const string& section, const string& subsection, const string& key,

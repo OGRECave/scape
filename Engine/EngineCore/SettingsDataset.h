@@ -17,12 +17,11 @@ class SettingsFile;
 
 class SettingsDataset
 {
-protected:
+public:
     typedef Utils::MapStruct<string, string*> KeyMapStruct;
     typedef Utils::MapStruct<string, KeyMapStruct*> SubsectionMapStruct;
     typedef Utils::MapStruct<string, SubsectionMapStruct*> SectionMapStruct;
 
-public:
     typedef Utils::MapStructReadIterator<KeyMapStruct, const string&> KeyIterator;
     typedef Utils::MapStructReadIterator<SubsectionMapStruct, KeyIterator> SubsectionIterator;
     typedef Utils::MapStructReadIterator<SectionMapStruct, SubsectionIterator> SectionIterator;
@@ -31,6 +30,8 @@ public:
     ~SettingsDataset();
 
     const string& getDatasetName() { return mDatasetName; }
+
+    const SectionMapStruct& getSections();
 
     void clear();
     void clear(const string& section);

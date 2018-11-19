@@ -41,6 +41,8 @@ SettingsDataset::~SettingsDataset()
     delete mSectionMapStruct;
 }
 
+const SettingsDataset::SectionMapStruct& SettingsDataset::getSections() { return *mSectionMapStruct; }
+
 // ----------------------------------------------------------------------------
 SettingsDataset::SectionIterator SettingsDataset::getSectionIterator()
 {

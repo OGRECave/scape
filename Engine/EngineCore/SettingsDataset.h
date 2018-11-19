@@ -12,15 +12,16 @@
 #define __SETTINGSDATASET_H__
 
 #include <string>
+#include <map>
 
 namespace ScapeEngine
 {
 class SettingsDataset
 {
 public:
-    typedef Utils::MapStruct<std::string, std::string*> KeyMapStruct;
-    typedef Utils::MapStruct<std::string, KeyMapStruct*> SubsectionMapStruct;
-    typedef Utils::MapStruct<std::string, SubsectionMapStruct*> SectionMapStruct;
+    typedef std::map<std::string, std::string> KeyMapStruct;
+    typedef std::map<std::string, KeyMapStruct> SubsectionMapStruct;
+    typedef std::map<std::string, SubsectionMapStruct> SectionMapStruct;
 
     SettingsDataset(const std::string& datasetName);
     ~SettingsDataset();
@@ -47,7 +48,7 @@ public:
 protected:
     std::string mDatasetName;
     bool mIsDirty;
-    SectionMapStruct* mSectionMapStruct;
+    SectionMapStruct mSectionMapStruct;
 };
 }
 

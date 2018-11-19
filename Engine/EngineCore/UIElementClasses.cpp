@@ -152,12 +152,12 @@ StringList UIElementPresetContainerSimple::getUIElementPresetPropertyNames()
     StringList presetNames;
 
     const SettingsDataset::SectionMapStruct& sections = dataset->getSections();
-    SettingsDataset::SectionMapStruct::MapType::const_iterator secIt = sections.map.find(getContainerName());
-    if(secIt != sections.map.end())
+    SettingsDataset::SectionMapStruct::const_iterator secIt = sections.find(getContainerName());
+    if (secIt != sections.end())
     {
-        SettingsDataset::SubsectionMapStruct* subSections = secIt->second;
-        for(SettingsDataset::SubsectionMapStruct::MapType::const_iterator subSectionIt = subSections->map.begin();
-                subSectionIt != subSections->map.end(); subSectionIt++)
+        const SettingsDataset::SubsectionMapStruct& subSections = secIt->second;
+        for (SettingsDataset::SubsectionMapStruct::const_iterator subSectionIt = subSections.begin();
+             subSectionIt != subSections.end(); subSectionIt++)
         {
             presetNames.push_back(subSectionIt->first);
         }
@@ -178,22 +178,21 @@ string UIElementPresetContainerSimple::importUIElementPreset(const string& fileN
     string presetName;
 
     const SettingsDataset::SectionMapStruct& sections = importedDataset.getSections();
-    SettingsDataset::SectionMapStruct::MapType::const_iterator secIt = sections.map.find(getContainerName());
-    if(secIt != sections.map.end())
+    SettingsDataset::SectionMapStruct::const_iterator secIt = sections.find(getContainerName());
+    if (secIt != sections.end())
     {
-        SettingsDataset::SubsectionMapStruct* subSections = secIt->second;
-        for(SettingsDataset::SubsectionMapStruct::MapType::const_iterator subSectionIt = subSections->map.begin();
-                subSectionIt != subSections->map.end(); subSectionIt++)
+        const SettingsDataset::SubsectionMapStruct& subSections = secIt->second;
+        for (SettingsDataset::SubsectionMapStruct::const_iterator subSectionIt = subSections.begin();
+             subSectionIt != subSections.end(); subSectionIt++)
         {
             presetName = subSectionIt->first;
             presetName = makeUniquePresetName(presetName);
 
-            SettingsDataset::KeyMapStruct* keys = subSectionIt->second;
-            for(SettingsDataset::KeyMapStruct::MapType::const_iterator keyIt = keys->map.begin();
-                    keyIt != keys->map.end(); keyIt++)
+            const SettingsDataset::KeyMapStruct& keys = subSectionIt->second;
+            for (SettingsDataset::KeyMapStruct::const_iterator keyIt = keys.begin(); keyIt != keys.end();
+                 keyIt++)
             {
-                dataset->setSetting(getContainerName(), presetName, keyIt->first,
-                        *keyIt->second);
+                dataset->setSetting(getContainerName(), presetName, keyIt->first, keyIt->second);
             }
         }
     }

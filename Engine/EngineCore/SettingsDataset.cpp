@@ -11,57 +11,33 @@ using namespace ScapeEngine;
 
 // ----------------------------------------------------------------------------
 SettingsDataset::SettingsDataset(const std::string& datasetName)
-    : mDatasetName(datasetName), mIsDirty(false)
+    : mDatasetName(datasetName), mIsDirty(false), mSectionMapStruct()
 {
-    mSectionMapStruct = new SectionMapStruct();
 }
 
 // ----------------------------------------------------------------------------
-SettingsDataset::~SettingsDataset()
-{
-    SectionMapStruct::MapType::iterator sectionIt, sectionItEnd = mSectionMapStruct->map.end();
-    for (sectionIt = mSectionMapStruct->map.begin(); sectionIt != sectionItEnd; ++sectionIt)
-    {
-        SubsectionMapStruct* subsectionMapStruct = sectionIt->second;
-        SubsectionMapStruct::MapType::iterator subsectionIt,
-            subsectionItEnd = subsectionMapStruct->map.end();
-        for (subsectionIt = subsectionMapStruct->map.begin(); subsectionIt != subsectionItEnd;
-             ++subsectionIt)
-        {
-            KeyMapStruct* keyMapStruct = subsectionIt->second;
-            KeyMapStruct::MapType::iterator keyIt, keyItEnd = keyMapStruct->map.end();
-            for (keyIt = keyMapStruct->map.begin(); keyIt != keyItEnd; ++keyIt)
-            {
-                std::string* key = keyIt->second;
-                delete key;
-            }
-            delete keyMapStruct;
-        }
-        delete subsectionMapStruct;
-    }
-    delete mSectionMapStruct;
-}
+SettingsDataset::~SettingsDataset() {}
 
 const std::string& SettingsDataset::getDatasetName() { return mDatasetName; }
 
 bool SettingsDataset::isDirty() { return mIsDirty; }
 
-const SettingsDataset::SectionMapStruct& SettingsDataset::getSections() { return *mSectionMapStruct; }
+const SettingsDataset::SectionMapStruct& SettingsDataset::getSections() { return mSectionMapStruct; }
 
 // ----------------------------------------------------------------------------
 std::string SettingsDataset::getSetting(const std::string& section, const std::string& subsection,
                                         const std::string& key) const
 {
-    SectionMapStruct::MapType::const_iterator sectionIt = mSectionMapStruct->map.find(section);
-    if (sectionIt != mSectionMapStruct->map.end())
+    SectionMapStruct::const_iterator sectionIt = mSectionMapStruct.find(section);
+    if (sectionIt != mSectionMapStruct.end())
     {
-        SubsectionMapStruct::MapType::const_iterator subsectionIt = sectionIt->second->map.find(subsection);
-        if (subsectionIt != sectionIt->second->map.end())
+        SubsectionMapStruct::const_iterator subsectionIt = sectionIt->second.find(subsection);
+        if (subsectionIt != sectionIt->second.end())
         {
-            KeyMapStruct::MapType::const_iterator keyIt = subsectionIt->second->map.find(key);
-            if (keyIt != subsectionIt->second->map.end())
+            KeyMapStruct::const_iterator keyIt = subsectionIt->second.find(key);
+            if (keyIt != subsectionIt->second.end())
             {
-                return *keyIt->second;
+                return keyIt->second;
             }
         }
     }
@@ -72,112 +48,64 @@ std::string SettingsDataset::getSetting(const std::string& section, const std::s
 void SettingsDataset::setSetting(const std::string& section, const std::string& subsection,
                                  const std::string& key, const std::string& value)
 {
-    SectionMapStruct::MapType::iterator sectionIt = mSectionMapStruct->map.find(section);
-    if (sectionIt == mSectionMapStruct->map.end())
+    SectionMapStruct::iterator sectionIt = mSectionMapStruct.find(section);
+    if (sectionIt == mSectionMapStruct.end())
     {
-        sectionIt = mSectionMapStruct->map.insert(
-            mSectionMapStruct->map.begin(),
-            SectionMapStruct::MapType::value_type(section, new SubsectionMapStruct()));
+        sectionIt = mSectionMapStruct.insert(mSectionMapStruct.begin(),
+                                             SectionMapStruct::value_type(section, SubsectionMapStruct()));
     }
-    SubsectionMapStruct* subsectionMapStruct = sectionIt->second;
+    SubsectionMapStruct& subsectionMapStruct = sectionIt->second;
 
-    SubsectionMapStruct::MapType::iterator subsectionIt = subsectionMapStruct->map.find(subsection);
-    if (subsectionIt == subsectionMapStruct->map.end())
+    SubsectionMapStruct::iterator subsectionIt = subsectionMapStruct.find(subsection);
+    if (subsectionIt == subsectionMapStruct.end())
     {
-        subsectionIt = subsectionMapStruct->map.insert(
-            subsectionMapStruct->map.begin(),
-            SubsectionMapStruct::MapType::value_type(subsection, new KeyMapStruct()));
+        subsectionIt = subsectionMapStruct.insert(
+            subsectionMapStruct.begin(), SubsectionMapStruct::value_type(subsection, KeyMapStruct()));
     }
-    KeyMapStruct* keyMapStruct = subsectionIt->second;
+    KeyMapStruct& keyMapStruct = subsectionIt->second;
 
-    KeyMapStruct::MapType::iterator keyIt = keyMapStruct->map.find(key);
-    if (keyIt == keyMapStruct->map.end())
+    KeyMapStruct::iterator keyIt = keyMapStruct.find(key);
+    if (keyIt == keyMapStruct.end())
     {
-        keyMapStruct->map.insert(KeyMapStruct::MapType::value_type(key, new std::string(value)));
+        keyMapStruct.insert(KeyMapStruct::value_type(key, value));
     }
     else
     {
-        delete keyIt->second;
-        keyIt->second = new std::string(value);
+        keyIt->second = value;
     }
 
     mIsDirty = true;
 }
 
 // ----------------------------------------------------------------------------
-void SettingsDataset::clear()
-{
-    SectionMapStruct::MapType::iterator sectionIt, sectionItEnd = mSectionMapStruct->map.end();
-    for (sectionIt = mSectionMapStruct->map.begin(); sectionIt != sectionItEnd; ++sectionIt)
-    {
-        SubsectionMapStruct* subsectionMapStruct = sectionIt->second;
-        SubsectionMapStruct::MapType::iterator subsectionIt,
-            subsectionItEnd = subsectionMapStruct->map.end();
-        for (subsectionIt = subsectionMapStruct->map.begin(); subsectionIt != subsectionItEnd;
-             ++subsectionIt)
-        {
-            KeyMapStruct* keyMapStruct = subsectionIt->second;
-            KeyMapStruct::MapType::iterator keyIt, keyItEnd = keyMapStruct->map.end();
-            for (keyIt = keyMapStruct->map.begin(); keyIt != keyItEnd; ++keyIt)
-            {
-                std::string* key = keyIt->second;
-                delete key;
-                mIsDirty = true;
-            }
-            delete keyMapStruct;
-        }
-        delete subsectionMapStruct;
-    }
-    mSectionMapStruct->map.clear();
+void SettingsDataset::clear() {
+    mSectionMapStruct.clear();
+    mIsDirty = true;
 }
 
 // ----------------------------------------------------------------------------
 void SettingsDataset::clear(const std::string& section)
 {
-    SectionMapStruct::MapType::iterator sectionIt = mSectionMapStruct->map.find(section);
-    if (sectionIt != mSectionMapStruct->map.end())
+    SectionMapStruct::iterator sectionIt = mSectionMapStruct.find(section);
+    if (sectionIt != mSectionMapStruct.end())
     {
-        SubsectionMapStruct* subsectionMapStruct = sectionIt->second;
-        SubsectionMapStruct::MapType::iterator subsectionIt,
-            subsectionItEnd = subsectionMapStruct->map.end();
-        for (subsectionIt = subsectionMapStruct->map.begin(); subsectionIt != subsectionItEnd;
-             ++subsectionIt)
-        {
-            KeyMapStruct* keyMapStruct = subsectionIt->second;
-            KeyMapStruct::MapType::iterator keyIt, keyItEnd = keyMapStruct->map.end();
-            for (keyIt = keyMapStruct->map.begin(); keyIt != keyItEnd; ++keyIt)
-            {
-                std::string* key = keyIt->second;
-                delete key;
-                mIsDirty = true;
-            }
-            delete keyMapStruct;
-        }
-        delete subsectionMapStruct;
-        mSectionMapStruct->map.erase(sectionIt);
+        mSectionMapStruct.erase(sectionIt);
+        mIsDirty = true;
     }
 }
 
 // ----------------------------------------------------------------------------
 void SettingsDataset::clear(const std::string& section, const std::string& subsection)
 {
-    SectionMapStruct::MapType::iterator sectionIt = mSectionMapStruct->map.find(section);
-    if (sectionIt != mSectionMapStruct->map.end())
+    SectionMapStruct::iterator sectionIt = mSectionMapStruct.find(section);
+    if (sectionIt != mSectionMapStruct.end())
     {
-        SubsectionMapStruct* subsectionMapStruct = sectionIt->second;
-        SubsectionMapStruct::MapType::iterator subsectionIt = subsectionMapStruct->map.find(subsection);
-        if (subsectionIt != subsectionMapStruct->map.end())
+        SubsectionMapStruct& subsectionMapStruct = sectionIt->second;
+        SubsectionMapStruct::iterator subsectionIt = subsectionMapStruct.find(subsection);
+        if (subsectionIt != subsectionMapStruct.end())
         {
-            KeyMapStruct* keyMapStruct = subsectionIt->second;
-            KeyMapStruct::MapType::iterator keyIt, keyItEnd = keyMapStruct->map.end();
-            for (keyIt = keyMapStruct->map.begin(); keyIt != keyItEnd; ++keyIt)
-            {
-                std::string* key = keyIt->second;
-                delete key;
-                mIsDirty = true;
-            }
-            delete keyMapStruct;
-            subsectionMapStruct->map.erase(subsectionIt);
+            subsectionMapStruct.erase(subsectionIt);
+            mIsDirty = true;
         }
     }
 }
@@ -186,20 +114,18 @@ void SettingsDataset::clear(const std::string& section, const std::string& subse
 void SettingsDataset::clear(const std::string& section, const std::string& subsection,
                             const std::string& key)
 {
-    SectionMapStruct::MapType::iterator sectionIt = mSectionMapStruct->map.find(section);
-    if (sectionIt != mSectionMapStruct->map.end())
+    SectionMapStruct::iterator sectionIt = mSectionMapStruct.find(section);
+    if (sectionIt != mSectionMapStruct.end())
     {
-        SubsectionMapStruct* subsectionMapStruct = sectionIt->second;
-        SubsectionMapStruct::MapType::iterator subsectionIt = subsectionMapStruct->map.find(subsection);
-        if (subsectionIt != subsectionMapStruct->map.end())
+        SubsectionMapStruct& subsectionMapStruct = sectionIt->second;
+        SubsectionMapStruct::iterator subsectionIt = subsectionMapStruct.find(subsection);
+        if (subsectionIt != subsectionMapStruct.end())
         {
-            KeyMapStruct* keyMapStruct = subsectionIt->second;
-            KeyMapStruct::MapType::iterator keyIt = keyMapStruct->map.find(key);
-            if (keyIt != keyMapStruct->map.end())
+            KeyMapStruct& keyMapStruct = subsectionIt->second;
+            KeyMapStruct::iterator keyIt = keyMapStruct.find(key);
+            if (keyIt != keyMapStruct.end())
             {
-                std::string* key = keyIt->second;
-                delete key;
-                keyMapStruct->map.erase(keyIt);
+                keyMapStruct.erase(keyIt);
                 mIsDirty = true;
             }
         }
@@ -274,41 +200,37 @@ bool SettingsDataset::load(const std::string& fileName, bool appendSettings)
 
                     if (!subsectionMapStruct)
                     {
-                        SectionMapStruct::MapType::iterator sectionIt =
-                            mSectionMapStruct->map.find(sectionName);
-                        if (sectionIt == mSectionMapStruct->map.end())
+                        SectionMapStruct::iterator sectionIt = mSectionMapStruct.find(sectionName);
+                        if (sectionIt == mSectionMapStruct.end())
                         {
-                            sectionIt =
-                                mSectionMapStruct->map.insert(mSectionMapStruct->map.begin(),
-                                                              SectionMapStruct::MapType::value_type(
-                                                                  sectionName, new SubsectionMapStruct()));
+                            sectionIt = mSectionMapStruct.insert(
+                                mSectionMapStruct.begin(),
+                                SectionMapStruct::value_type(sectionName, SubsectionMapStruct()));
                         }
-                        subsectionMapStruct = sectionIt->second;
+                        subsectionMapStruct = &sectionIt->second;
                     }
 
                     if (!keyMapStruct)
                     {
-                        SubsectionMapStruct::MapType::iterator subsectionIt =
-                            subsectionMapStruct->map.find(subsectionName);
-                        if (subsectionIt == subsectionMapStruct->map.end())
+                        SubsectionMapStruct::iterator subsectionIt =
+                            subsectionMapStruct->find(subsectionName);
+                        if (subsectionIt == subsectionMapStruct->end())
                         {
-                            subsectionIt = subsectionMapStruct->map.insert(
-                                subsectionMapStruct->map.begin(), SubsectionMapStruct::MapType::value_type(
-                                                                      subsectionName, new KeyMapStruct()));
+                            subsectionIt = subsectionMapStruct->insert(
+                                subsectionMapStruct->begin(),
+                                SubsectionMapStruct::value_type(subsectionName, KeyMapStruct()));
                         }
-                        keyMapStruct = subsectionIt->second;
+                        keyMapStruct = &subsectionIt->second;
                     }
 
-                    KeyMapStruct::MapType::iterator keyIt = keyMapStruct->map.find(key);
-                    if (keyIt == keyMapStruct->map.end())
+                    KeyMapStruct::iterator keyIt = keyMapStruct->find(key);
+                    if (keyIt == keyMapStruct->end())
                     {
-                        keyMapStruct->map.insert(
-                            KeyMapStruct::MapType::value_type(key, new std::string(value)));
+                        keyMapStruct->insert(KeyMapStruct::value_type(key, value));
                     }
                     else
                     {
-                        delete keyIt->second;
-                        keyIt->second = new std::string(value);
+                        keyIt->second = value;
                     }
                     mIsDirty = true;
                 }
@@ -347,21 +269,19 @@ bool SettingsDataset::save(const std::string& fileName, bool appendFile)
 
     bool writeDatasetName = true;
     assert(mDatasetName.length() == 0 || mDatasetName.at(0) != _T(':'));
-    SectionMapStruct::MapType::iterator sectionIt, sectionItEnd = mSectionMapStruct->map.end();
-    for (sectionIt = mSectionMapStruct->map.begin(); sectionIt != sectionItEnd; ++sectionIt)
+    SectionMapStruct::iterator sectionIt, sectionItEnd = mSectionMapStruct.end();
+    for (sectionIt = mSectionMapStruct.begin(); sectionIt != sectionItEnd; ++sectionIt)
     {
         bool writeSectionName = true;
         assert(mDatasetName.length() == 0 || sectionIt->first.at(0) != _T(':'));
-        SubsectionMapStruct* subsectionMapStruct = sectionIt->second;
-        SubsectionMapStruct::MapType::iterator subsectionIt,
-            subsectionItEnd = subsectionMapStruct->map.end();
-        for (subsectionIt = subsectionMapStruct->map.begin(); subsectionIt != subsectionItEnd;
-             ++subsectionIt)
+        SubsectionMapStruct& subsectionMapStruct = sectionIt->second;
+        SubsectionMapStruct::iterator subsectionIt, subsectionItEnd = subsectionMapStruct.end();
+        for (subsectionIt = subsectionMapStruct.begin(); subsectionIt != subsectionItEnd; ++subsectionIt)
         {
             bool writeSubsectionName = true;
-            KeyMapStruct* keyMapStruct = subsectionIt->second;
-            KeyMapStruct::MapType::iterator keyIt, keyItEnd = keyMapStruct->map.end();
-            for (keyIt = keyMapStruct->map.begin(); keyIt != keyItEnd; ++keyIt)
+            KeyMapStruct& keyMapStruct = subsectionIt->second;
+            KeyMapStruct::iterator keyIt, keyItEnd = keyMapStruct.end();
+            for (keyIt = keyMapStruct.begin(); keyIt != keyItEnd; ++keyIt)
             {
                 if (writeSubsectionName)
                 {
@@ -380,7 +300,7 @@ bool SettingsDataset::save(const std::string& fileName, bool appendFile)
                 }
                 assert(keyIt->first.length() &&
                        keyIt->first.find_first_of(assignmentInfix) == std::string::npos);
-                fp << keyIt->first << assignmentInfix << *keyIt->second << lineFeed;
+                fp << keyIt->first << assignmentInfix << keyIt->second << lineFeed;
             }
         }
     }

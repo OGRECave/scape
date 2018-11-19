@@ -11,38 +11,41 @@
 #ifndef __SETTINGSDATASET_H__
 #define __SETTINGSDATASET_H__
 
+#include <string>
+
 namespace ScapeEngine
 {
 class SettingsDataset
 {
 public:
-    typedef Utils::MapStruct<string, string*> KeyMapStruct;
-    typedef Utils::MapStruct<string, KeyMapStruct*> SubsectionMapStruct;
-    typedef Utils::MapStruct<string, SubsectionMapStruct*> SectionMapStruct;
+    typedef Utils::MapStruct<std::string, std::string*> KeyMapStruct;
+    typedef Utils::MapStruct<std::string, KeyMapStruct*> SubsectionMapStruct;
+    typedef Utils::MapStruct<std::string, SubsectionMapStruct*> SectionMapStruct;
 
-    SettingsDataset(const string& datasetName);
+    SettingsDataset(const std::string& datasetName);
     ~SettingsDataset();
 
-    const string& getDatasetName();
+    const std::string& getDatasetName();
 
     bool isDirty();
 
     const SectionMapStruct& getSections();
 
-    string getSetting(const string& section, const string& subsection, const string& key) const;
-    void setSetting(const string& section, const string& subsection, const string& key,
-                    const string& value);
+    std::string getSetting(const std::string& section, const std::string& subsection,
+                           const std::string& key) const;
+    void setSetting(const std::string& section, const std::string& subsection, const std::string& key,
+                    const std::string& value);
 
     void clear();
-    void clear(const string& section);
-    void clear(const string& section, const string& subsection);
-    void clear(const string& section, const string& subsection, const string& key);
+    void clear(const std::string& section);
+    void clear(const std::string& section, const std::string& subsection);
+    void clear(const std::string& section, const std::string& subsection, const std::string& key);
 
-    bool load(const string& fileName, bool appendSettings = false);
-    bool save(const string& fileName, bool appendFile = false);
+    bool load(const std::string& fileName, bool appendSettings = false);
+    bool save(const std::string& fileName, bool appendFile = false);
 
 protected:
-    string mDatasetName;
+    std::string mDatasetName;
     bool mIsDirty;
     SectionMapStruct* mSectionMapStruct;
 };

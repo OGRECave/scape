@@ -10,7 +10,8 @@
 using namespace ScapeEngine;
 
 // ----------------------------------------------------------------------------
-SettingsDataset::SettingsDataset(const string& datasetName) : mDatasetName(datasetName), mIsDirty(false)
+SettingsDataset::SettingsDataset(const std::string& datasetName)
+    : mDatasetName(datasetName), mIsDirty(false)
 {
     mSectionMapStruct = new SectionMapStruct();
 }
@@ -31,7 +32,7 @@ SettingsDataset::~SettingsDataset()
             KeyMapStruct::MapType::iterator keyIt, keyItEnd = keyMapStruct->map.end();
             for (keyIt = keyMapStruct->map.begin(); keyIt != keyItEnd; ++keyIt)
             {
-                string* key = keyIt->second;
+                std::string* key = keyIt->second;
                 delete key;
             }
             delete keyMapStruct;
@@ -41,14 +42,15 @@ SettingsDataset::~SettingsDataset()
     delete mSectionMapStruct;
 }
 
-const string& SettingsDataset::getDatasetName() { return mDatasetName; }
+const std::string& SettingsDataset::getDatasetName() { return mDatasetName; }
 
 bool SettingsDataset::isDirty() { return mIsDirty; }
 
 const SettingsDataset::SectionMapStruct& SettingsDataset::getSections() { return *mSectionMapStruct; }
 
 // ----------------------------------------------------------------------------
-string SettingsDataset::getSetting(const string& section, const string& subsection, const string& key) const
+std::string SettingsDataset::getSetting(const std::string& section, const std::string& subsection,
+                                        const std::string& key) const
 {
     SectionMapStruct::MapType::const_iterator sectionIt = mSectionMapStruct->map.find(section);
     if (sectionIt != mSectionMapStruct->map.end())
@@ -67,8 +69,8 @@ string SettingsDataset::getSetting(const string& section, const string& subsecti
 }
 
 // ----------------------------------------------------------------------------
-void SettingsDataset::setSetting(const string& section, const string& subsection, const string& key,
-                                 const string& value)
+void SettingsDataset::setSetting(const std::string& section, const std::string& subsection,
+                                 const std::string& key, const std::string& value)
 {
     SectionMapStruct::MapType::iterator sectionIt = mSectionMapStruct->map.find(section);
     if (sectionIt == mSectionMapStruct->map.end())
@@ -91,12 +93,12 @@ void SettingsDataset::setSetting(const string& section, const string& subsection
     KeyMapStruct::MapType::iterator keyIt = keyMapStruct->map.find(key);
     if (keyIt == keyMapStruct->map.end())
     {
-        keyMapStruct->map.insert(KeyMapStruct::MapType::value_type(key, new string(value)));
+        keyMapStruct->map.insert(KeyMapStruct::MapType::value_type(key, new std::string(value)));
     }
     else
     {
         delete keyIt->second;
-        keyIt->second = new string(value);
+        keyIt->second = new std::string(value);
     }
 
     mIsDirty = true;
@@ -118,7 +120,7 @@ void SettingsDataset::clear()
             KeyMapStruct::MapType::iterator keyIt, keyItEnd = keyMapStruct->map.end();
             for (keyIt = keyMapStruct->map.begin(); keyIt != keyItEnd; ++keyIt)
             {
-                string* key = keyIt->second;
+                std::string* key = keyIt->second;
                 delete key;
                 mIsDirty = true;
             }
@@ -130,7 +132,7 @@ void SettingsDataset::clear()
 }
 
 // ----------------------------------------------------------------------------
-void SettingsDataset::clear(const string& section)
+void SettingsDataset::clear(const std::string& section)
 {
     SectionMapStruct::MapType::iterator sectionIt = mSectionMapStruct->map.find(section);
     if (sectionIt != mSectionMapStruct->map.end())
@@ -145,7 +147,7 @@ void SettingsDataset::clear(const string& section)
             KeyMapStruct::MapType::iterator keyIt, keyItEnd = keyMapStruct->map.end();
             for (keyIt = keyMapStruct->map.begin(); keyIt != keyItEnd; ++keyIt)
             {
-                string* key = keyIt->second;
+                std::string* key = keyIt->second;
                 delete key;
                 mIsDirty = true;
             }
@@ -157,7 +159,7 @@ void SettingsDataset::clear(const string& section)
 }
 
 // ----------------------------------------------------------------------------
-void SettingsDataset::clear(const string& section, const string& subsection)
+void SettingsDataset::clear(const std::string& section, const std::string& subsection)
 {
     SectionMapStruct::MapType::iterator sectionIt = mSectionMapStruct->map.find(section);
     if (sectionIt != mSectionMapStruct->map.end())
@@ -170,7 +172,7 @@ void SettingsDataset::clear(const string& section, const string& subsection)
             KeyMapStruct::MapType::iterator keyIt, keyItEnd = keyMapStruct->map.end();
             for (keyIt = keyMapStruct->map.begin(); keyIt != keyItEnd; ++keyIt)
             {
-                string* key = keyIt->second;
+                std::string* key = keyIt->second;
                 delete key;
                 mIsDirty = true;
             }
@@ -181,7 +183,8 @@ void SettingsDataset::clear(const string& section, const string& subsection)
 }
 
 // ----------------------------------------------------------------------------
-void SettingsDataset::clear(const string& section, const string& subsection, const string& key)
+void SettingsDataset::clear(const std::string& section, const std::string& subsection,
+                            const std::string& key)
 {
     SectionMapStruct::MapType::iterator sectionIt = mSectionMapStruct->map.find(section);
     if (sectionIt != mSectionMapStruct->map.end())
@@ -194,7 +197,7 @@ void SettingsDataset::clear(const string& section, const string& subsection, con
             KeyMapStruct::MapType::iterator keyIt = keyMapStruct->map.find(key);
             if (keyIt != keyMapStruct->map.end())
             {
-                string* key = keyIt->second;
+                std::string* key = keyIt->second;
                 delete key;
                 keyMapStruct->map.erase(keyIt);
                 mIsDirty = true;
@@ -204,7 +207,7 @@ void SettingsDataset::clear(const string& section, const string& subsection, con
 }
 
 // ----------------------------------------------------------------------------
-bool SettingsDataset::load(const string& fileName, bool appendSettings)
+bool SettingsDataset::load(const std::string& fileName, bool appendSettings)
 {
     Ogre::LogManager::getSingleton().logMessage(_T("Loading dataset from '") + fileName + _T("'"));
 
@@ -223,14 +226,14 @@ bool SettingsDataset::load(const string& fileName, bool appendSettings)
         clear();
     }
 
-    string datasetName = Utils::emptyString;
-    string sectionName = Utils::emptyString;
+    std::string datasetName = Utils::emptyString;
+    std::string sectionName = Utils::emptyString;
     string subsectionName = Utils::emptyString;
     bool correctDataset = false;
     SubsectionMapStruct* subsectionMapStruct = NULL;
     KeyMapStruct* keyMapStruct = NULL;
 
-    string line, key, value;
+    std::string line, key, value;
     while (!stream->eof())
     {
         line = stream->getLine();
@@ -299,12 +302,13 @@ bool SettingsDataset::load(const string& fileName, bool appendSettings)
                     KeyMapStruct::MapType::iterator keyIt = keyMapStruct->map.find(key);
                     if (keyIt == keyMapStruct->map.end())
                     {
-                        keyMapStruct->map.insert(KeyMapStruct::MapType::value_type(key, new string(value)));
+                        keyMapStruct->map.insert(
+                            KeyMapStruct::MapType::value_type(key, new std::string(value)));
                     }
                     else
                     {
                         delete keyIt->second;
-                        keyIt->second = new string(value);
+                        keyIt->second = new std::string(value);
                     }
                     mIsDirty = true;
                 }
@@ -323,7 +327,7 @@ bool SettingsDataset::load(const string& fileName, bool appendSettings)
 }
 
 // ----------------------------------------------------------------------------
-bool SettingsDataset::save(const string& fileName, bool appendFile)
+bool SettingsDataset::save(const std::string& fileName, bool appendFile)
 {
     Ogre::LogManager::getSingleton().logMessage(_T("Saving dataset to '") + fileName + _T("'"));
 
@@ -335,11 +339,11 @@ bool SettingsDataset::save(const string& fileName, bool appendFile)
         return false;
     }
 
-    string lineFeed = _T("\n");
-    string datasetNamePrefix = _T(":");
-    string sectionNamePrefix = _T("::");
-    string subsectionNamePrefix = _T(":::");
-    string assignmentInfix = _T(":");
+    std::string lineFeed = _T("\n");
+    std::string datasetNamePrefix = _T(":");
+    std::string sectionNamePrefix = _T("::");
+    std::string subsectionNamePrefix = _T(":::");
+    std::string assignmentInfix = _T(":");
 
     bool writeDatasetName = true;
     assert(mDatasetName.length() == 0 || mDatasetName.at(0) != _T(':'));

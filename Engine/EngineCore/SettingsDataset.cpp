@@ -41,6 +41,10 @@ SettingsDataset::~SettingsDataset()
     delete mSectionMapStruct;
 }
 
+const string& SettingsDataset::getDatasetName() { return mDatasetName; }
+
+bool SettingsDataset::isDirty() { return mIsDirty; }
+
 const SettingsDataset::SectionMapStruct& SettingsDataset::getSections() { return *mSectionMapStruct; }
 
 // ----------------------------------------------------------------------------
@@ -383,53 +387,3 @@ bool SettingsDataset::save(const string& fileName, bool appendFile)
 
     return true;
 }
-
-/*
-/*
-// ----------------------------------------------------------------------------
-void SettingsDataset::setDatasetPath(const string& datasetPath)
-{
-        mDatasetPath = Utils::emptyString;
-        if (datasetPath.length() > 0)
-        {
-                mDatasetPath = Ogre::StringUtil::standardisePath(datasetPath);
-        }
-}
-
-// ----------------------------------------------------------------------------
-void SettingsDataset::save(const string& dataset)
-{
-        SettingsFile* settingsFile = getSettingsFile(dataset);
-        settingsFile->save(getSettingsFileName(dataset), false);
-}
-*/
-
-/*
-
-// ----------------------------------------------------------------------------
-SettingsFile* SettingsDataset::getSettingsFile(const string& dataset)
-{
-        SettingsFileMap::iterator settingsFileMapIt = mSettingsFileMap.find(dataset);
-        SettingsFile* settingsFile = NULL;
-
-        if (settingsFileMapIt == mSettingsFileMap.end())
-        {
-                settingsFile = new SettingsFile();
-                mSettingsFileMap[dataset] = settingsFile;
-                settingsFile->load(getSettingsFileName(dataset), false);
-        }
-        else
-        {
-                settingsFile = settingsFileMapIt->second;
-        }
-        return settingsFile;
-}
-*/
-
-/*
-// ----------------------------------------------------------------------------
-string SettingsDataset::getSettingsFileName(const string& dataset)
-{
-        return mResourcePath + dataset + _T(".settings");
-}
-*/

@@ -13,8 +13,6 @@
 
 namespace ScapeEngine
 {
-class SettingsFile;
-
 class SettingsDataset
 {
 public:
@@ -25,37 +23,28 @@ public:
     SettingsDataset(const string& datasetName);
     ~SettingsDataset();
 
-    const string& getDatasetName() { return mDatasetName; }
+    const string& getDatasetName();
+
+    bool isDirty();
 
     const SectionMapStruct& getSections();
+
+    string getSetting(const string& section, const string& subsection, const string& key) const;
+    void setSetting(const string& section, const string& subsection, const string& key,
+                    const string& value);
 
     void clear();
     void clear(const string& section);
     void clear(const string& section, const string& subsection);
     void clear(const string& section, const string& subsection, const string& key);
 
-    bool isDirty() { return mIsDirty; }
-    void setDirty(bool dirty) { mIsDirty = dirty; }
-
-    // None of the dataset, section and subsection names should begin with a colon.
-    // Also, keys should not be empty or contain a colon.
     bool load(const string& fileName, bool appendSettings = false);
     bool save(const string& fileName, bool appendFile = false);
 
-    string getSetting(const string& section, const string& subsection, const string& key) const;
-    void setSetting(const string& section, const string& subsection, const string& key,
-                    const string& value);
-
-    /*
-    void insert(const SectionIterator& sectionIterator);
-    void insert(const string& section, const SubsectionIterator& subsectionIterator);
-    void insert(const string& section, const string& subsection, const KeyIterator& keyIterator);
-    */
-
 protected:
-    SectionMapStruct* mSectionMapStruct;
     string mDatasetName;
     bool mIsDirty;
+    SectionMapStruct* mSectionMapStruct;
 };
 }
 

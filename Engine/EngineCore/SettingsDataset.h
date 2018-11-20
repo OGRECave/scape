@@ -13,9 +13,12 @@
 
 #include <string>
 #include <map>
+#include <memory>
 
 namespace ScapeEngine
 {
+class SettingsDatasetDataAccessObject;
+
 class SettingsDataset
 {
 public:
@@ -29,6 +32,10 @@ public:
     const std::string& getDatasetName();
 
     bool isDirty();
+
+    std::shared_ptr<SettingsDatasetDataAccessObject> getSettingsDatasetDataAccessObject() const;
+    void setSettingsDatasetDataAccessObject(
+        std::shared_ptr<SettingsDatasetDataAccessObject> settingsDatasetDataAccessObject);
 
     const SectionMapStruct& getSections();
 
@@ -48,6 +55,7 @@ public:
 protected:
     std::string mDatasetName;
     bool mIsDirty;
+    std::shared_ptr<SettingsDatasetDataAccessObject> mSettingsDatasetDataAccessObject;
     SectionMapStruct mSectionMapStruct;
 };
 }

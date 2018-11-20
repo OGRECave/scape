@@ -6,6 +6,7 @@
 
 #include "PCH/stdafx.h"
 #include "SettingsDataset.h"
+#include "SettingsDatasetDataAccessObject.h"
 
 using namespace ScapeEngine;
 
@@ -21,6 +22,17 @@ SettingsDataset::~SettingsDataset() {}
 const std::string& SettingsDataset::getDatasetName() { return mDatasetName; }
 
 bool SettingsDataset::isDirty() { return mIsDirty; }
+
+std::shared_ptr<SettingsDatasetDataAccessObject> SettingsDataset::getSettingsDatasetDataAccessObject() const
+{
+    return mSettingsDatasetDataAccessObject;
+}
+
+void SettingsDataset::setSettingsDatasetDataAccessObject(
+    std::shared_ptr<SettingsDatasetDataAccessObject> settingsDatasetDataAccessObject)
+{
+    mSettingsDatasetDataAccessObject = settingsDatasetDataAccessObject;
+}
 
 const SettingsDataset::SectionMapStruct& SettingsDataset::getSections() { return mSectionMapStruct; }
 

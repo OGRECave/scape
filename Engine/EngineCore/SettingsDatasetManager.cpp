@@ -39,7 +39,7 @@ SettingsDataset* SettingsDatasetManager::getDataset(const string& datasetName) c
         datasetIt = mDatasetMap.insert(
             mDatasetMap.begin(), DatasetMap::value_type(datasetName, new SettingsDataset(datasetName)));
 
-        datasetIt->second->load(getPathFromDatasetName(datasetName), false);
+        datasetIt->second->load();
     }
     return datasetIt->second;
 }
@@ -73,7 +73,7 @@ void SettingsDatasetManager::saveAllDirty()
         SettingsDataset* dataset = datasetIt->second;
         if (dataset->isDirty())
         {
-            dataset->save(getPathFromDatasetName(datasetIt->first), false);
+            dataset->save();
         }
     }
 }

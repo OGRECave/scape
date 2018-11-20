@@ -49,8 +49,8 @@ public:
     void clear(const std::string& section, const std::string& subsection);
     void clear(const std::string& section, const std::string& subsection, const std::string& key);
 
-    bool load(const std::string& fileName, bool appendSettings = false);
-    bool save(const std::string& fileName, bool appendFile = false);
+    void load(bool appendSettings = false);
+    void save();
 
 protected:
     std::string mDatasetName;

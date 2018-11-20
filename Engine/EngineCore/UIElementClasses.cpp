@@ -173,7 +173,7 @@ string UIElementPresetContainerSimple::importUIElementPreset(const string& fileN
     assert(dataset);
 
     SettingsDataset importedDataset(PRESET_DATASETNAME);
-    importedDataset.load(fileName);
+    importedDataset.load();
 
     string presetName;
 
@@ -218,7 +218,7 @@ void UIElementPresetContainerSimple::exportUIElementPreset(const string& fileNam
         exportedDataset.setSetting(getContainerName(), presetName, valueIt->first, valueIt->second);
     }
 
-    exportedDataset.save(fileName);
+    exportedDataset.save();
 }
 
 // ----------------------------------------------------------------------------

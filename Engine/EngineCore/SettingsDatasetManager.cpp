@@ -8,6 +8,8 @@
 #include "SettingsDataset.h"
 #include "SettingsDatasetManager.h"
 
+#include "LegacySettingsDatasetDataAccessObject.h"
+
 using namespace ScapeEngine;
 
 // ----------------------------------------------------------------------------
@@ -39,6 +41,8 @@ SettingsDataset* SettingsDatasetManager::getDataset(const string& datasetName) c
         datasetIt = mDatasetMap.insert(
             mDatasetMap.begin(), DatasetMap::value_type(datasetName, new SettingsDataset(datasetName)));
 
+        datasetIt->second->setSettingsDatasetDataAccessObject(
+            getSettingsDatasetDataAccessObjectFromDatasetName(datasetName));
         datasetIt->second->load();
     }
     return datasetIt->second;
@@ -59,9 +63,13 @@ void SettingsDatasetManager::setSetting(const string& datasetName, const string&
 }
 
 // ----------------------------------------------------------------------------
-string SettingsDatasetManager::getPathFromDatasetName(const string& dataset) const
+std::shared_ptr<SettingsDatasetDataAccessObject>
+SettingsDatasetManager::getSettingsDatasetDataAccessObjectFromDatasetName(const std::string& dataset) const
 {
-    return mDatasetResourcePath + dataset + _T(".conf");
+    std::string path = mDatasetResourcePath + dataset + ".conf";
+    std::shared_ptr<SettingsDatasetDataAccessObject> dao =
+        std::shared_ptr<SettingsDatasetDataAccessObject>(new LegacySettingsDatasetDataAccessObject(path));
+    return dao;
 }
 
 // ----------------------------------------------------------------------------

@@ -8,12 +8,15 @@
  * See Docs/ScapeLicense.txt for details.
  */
 
+#include <memory>
+
 #ifndef __SETTINGSDATASETMANAGER_H__
 #define __SETTINGSDATASETMANAGER_H__
 
 namespace ScapeEngine
 {
 class SettingsDataset;
+class SettingsDatasetDataAccessObject;
 
 class SettingsDatasetManager
 {
@@ -37,7 +40,8 @@ protected:
     mutable DatasetMap mDatasetMap;
     string mDatasetResourcePath;
 
-    string getPathFromDatasetName(const string& dataset) const;
+    std::shared_ptr<SettingsDatasetDataAccessObject>
+    getSettingsDatasetDataAccessObjectFromDatasetName(const std::string& dataset) const;
 };
 }
 

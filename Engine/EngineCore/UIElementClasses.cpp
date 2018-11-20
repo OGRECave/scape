@@ -9,6 +9,10 @@
 #include "EngineCore/SettingsDatasetManager.h"
 #include "EngineCore/SettingsDataset.h"
 
+#include "LegacySettingsDatasetDataAccessObject.h"
+
+#include <memory>
+
 const string ScapeEngine::defaultPresetString = _T("Default");
 
 using namespace ScapeEngine;
@@ -173,6 +177,9 @@ string UIElementPresetContainerSimple::importUIElementPreset(const string& fileN
     assert(dataset);
 
     SettingsDataset importedDataset(PRESET_DATASETNAME);
+    std::shared_ptr<SettingsDatasetDataAccessObject> dao = std::shared_ptr<SettingsDatasetDataAccessObject>(
+        new LegacySettingsDatasetDataAccessObject(fileName));
+    importedDataset.setSettingsDatasetDataAccessObject(dao);
     importedDataset.load();
 
     string presetName;
@@ -218,6 +225,9 @@ void UIElementPresetContainerSimple::exportUIElementPreset(const string& fileNam
         exportedDataset.setSetting(getContainerName(), presetName, valueIt->first, valueIt->second);
     }
 
+    std::shared_ptr<SettingsDatasetDataAccessObject> dao = std::shared_ptr<SettingsDatasetDataAccessObject>(
+        new LegacySettingsDatasetDataAccessObject(fileName));
+    exportedDataset.setSettingsDatasetDataAccessObject(dao);
     exportedDataset.save();
 }
 

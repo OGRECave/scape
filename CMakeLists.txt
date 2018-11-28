@@ -29,21 +29,11 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY  ${CMAKE_INSTALL_PREFIX})
 
 if(WIN32)
    set(CMAKE_MODULE_PATH "$ENV{OGRE_HOME}/CMake/;${CMAKE_MODULE_PATH}")
-   set(OGRE_SAMPLES_INCLUDEPATH
-      $ENV{OGRE_HOME}/Samples/include
-   )
 endif(WIN32)
   
 find_package(OGRE 1.11 REQUIRED)
 find_package(Qt5 COMPONENTS Core Gui Widgets REQUIRED)
 
-include_directories(
-   ${OGRE_INCLUDE_DIRS}
-   ${OGRE_SAMPLES_INCLUDEPATH}
-   ${OGRE_Overlay_INCLUDE_DIRS}
-    Engine
-)
- 
-ADD_SUBDIRECTORY(Engine)
-ADD_SUBDIRECTORY(Dependencies)
-ADD_SUBDIRECTORY(qtEditor)
+add_subdirectory(Engine)
+add_subdirectory(Dependencies)
+add_subdirectory(qtEditor)

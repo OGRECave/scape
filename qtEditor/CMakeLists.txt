@@ -7,11 +7,9 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY  ${CMAKE_INSTALL_PREFIX})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG  ${CMAKE_INSTALL_PREFIX})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE  ${CMAKE_INSTALL_PREFIX})
 
-# Tell CMake to run moc when necessary:
-set(CMAKE_AUTOMOC ON)
-# As moc files are generated in the binary dir, tell CMake
-# to always look for includes there:
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
@@ -41,13 +39,6 @@ set(HEADER_FILES
 ./ExportImageDialog.h
 )
 
-file(GLOB UI_FILES ./*.ui)
-
-# if we don't include this CMake will not include ui headers properly:
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
-
-qt5_wrap_ui(UI_SRCS ${UI_FILES})
-
 qt5_add_resources(RESOURCE_SRCS ./res/editor.qrc)
 
 if(WIN32)
@@ -59,7 +50,6 @@ add_executable(qtEditor WIN32
     ${HEADER_FILES}
     ${SRC_FILES}
     ${RESOURCE_SRCS}
-    ${UI_SRCS}
 )
 
 if(WIN32)

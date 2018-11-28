@@ -10,6 +10,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE  ${CMAKE_INSTALL_PREFIX})
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
@@ -39,7 +40,7 @@ set(HEADER_FILES
 ./ExportImageDialog.h
 )
 
-qt5_add_resources(RESOURCE_SRCS ./res/editor.qrc)
+set(RESOURCE_SRCS ./res/editor.qrc)
 
 if(WIN32)
         file(GLOB RES ./res/*.rc)

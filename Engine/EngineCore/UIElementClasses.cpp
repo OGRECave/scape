@@ -8,8 +8,7 @@
 #include "UIElementClasses.h"
 #include "EngineCore/SettingsDatasetManager.h"
 #include "EngineCore/SettingsDataset.h"
-
-#include "LegacySettingsDatasetDataAccessObject.h"
+#include "EngineCore/QtJSONSettingsDatasetDataAccessObject.h"
 
 #include <memory>
 
@@ -178,7 +177,7 @@ string UIElementPresetContainerSimple::importUIElementPreset(const string& fileN
 
     SettingsDataset importedDataset(PRESET_DATASETNAME);
     std::shared_ptr<SettingsDatasetDataAccessObject> dao = std::shared_ptr<SettingsDatasetDataAccessObject>(
-        new LegacySettingsDatasetDataAccessObject(fileName));
+        new QtJSONSettingsDatasetDataAccessObject(fileName));
     importedDataset.setSettingsDatasetDataAccessObject(dao);
     importedDataset.load();
 
@@ -226,7 +225,7 @@ void UIElementPresetContainerSimple::exportUIElementPreset(const string& fileNam
     }
 
     std::shared_ptr<SettingsDatasetDataAccessObject> dao = std::shared_ptr<SettingsDatasetDataAccessObject>(
-        new LegacySettingsDatasetDataAccessObject(fileName));
+        new QtJSONSettingsDatasetDataAccessObject(fileName));
     exportedDataset.setSettingsDatasetDataAccessObject(dao);
     exportedDataset.save();
 }

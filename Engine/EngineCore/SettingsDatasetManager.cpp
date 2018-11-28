@@ -7,8 +7,7 @@
 #include "PCH/stdafx.h"
 #include "SettingsDataset.h"
 #include "SettingsDatasetManager.h"
-
-#include "LegacySettingsDatasetDataAccessObject.h"
+#include "EngineCore/QtJSONSettingsDatasetDataAccessObject.h"
 
 using namespace ScapeEngine;
 
@@ -66,9 +65,15 @@ void SettingsDatasetManager::setSetting(const string& datasetName, const string&
 std::shared_ptr<SettingsDatasetDataAccessObject>
 SettingsDatasetManager::getSettingsDatasetDataAccessObjectFromDatasetName(const std::string& dataset) const
 {
-    std::string path = mDatasetResourcePath + dataset + ".conf";
+    std::string path = dataset;
+    if (dataset == "Startup")
+    {
+        path = "config";
+    }
+    path = mDatasetResourcePath + path + ".json";
+
     std::shared_ptr<SettingsDatasetDataAccessObject> dao =
-        std::shared_ptr<SettingsDatasetDataAccessObject>(new LegacySettingsDatasetDataAccessObject(path));
+        std::shared_ptr<SettingsDatasetDataAccessObject>(new QtJSONSettingsDatasetDataAccessObject(path));
     return dao;
 }
 

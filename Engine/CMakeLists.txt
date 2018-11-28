@@ -51,5 +51,5 @@ add_library(Engine STATIC ${SRCS} ${DEFS} ${HDRS})
 
 set_target_properties(Engine PROPERTIES DEBUG_POSTFIX _d)
  
-target_link_libraries(Engine ${Boost_SYSTEM_LIBRARY} ${OGRE_LIBRARIES} ${OIS_LIBRARIES} ${OGRE_Overlay_LIBRARIES})
+target_link_libraries(Engine ${OGRE_LIBRARIES})
  

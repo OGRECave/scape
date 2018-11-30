@@ -30,7 +30,6 @@
 #include "OgreException.h"
 #include "OgreStringConverter.h"
 #include "OgreBitwise.h"
-#include "Tinyxml/tinyxml.h"
 #include <string>
 #include <list>
 #include <map>

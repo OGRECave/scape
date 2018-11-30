@@ -13,6 +13,8 @@
 
 #include "ButtonDefinitionDataAccessObject.h"
 
+#include <Tinyxml/tinyxml.h>
+
 namespace ScapeEngine
 {
 

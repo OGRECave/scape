@@ -11,7 +11,6 @@
 #include "DeviceButtonId.h"
 #include "Utils/Utils.h"
 #include "EngineCore/RenderViewManager.h"
-#include "ButtonDefinitionXMLSerializer.h"
 
 using namespace ScapeEngine;
 using namespace ScapeEngine::AnalogInputId;

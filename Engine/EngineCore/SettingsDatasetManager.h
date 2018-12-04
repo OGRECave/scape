@@ -25,10 +25,10 @@ public:
 
     void setDatasetResourcePath(const string& path);
 
-    SettingsDataset* getDataset(const string& datasetName) const;
+    SettingsDataset* getDataset(const string& datasetName);
 
     string getSetting(const string& datasetName, const string& section, const string& subsection,
-                      const string& key) const;
+                      const string& key);
 
     void setSetting(const string& datasetName, const string& section, const string& subsection,
                     const string& key, const string& value);
@@ -37,7 +37,7 @@ public:
 
 protected:
     typedef std::map<string, SettingsDataset*> DatasetMap;
-    mutable DatasetMap mDatasetMap;
+    DatasetMap mDatasetMap;
     string mDatasetResourcePath;
 
     std::shared_ptr<SettingsDatasetDataAccessObject>

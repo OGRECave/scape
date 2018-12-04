@@ -32,7 +32,7 @@ void SettingsDatasetManager::setDatasetResourcePath(const string& path)
 }
 
 // ----------------------------------------------------------------------------
-SettingsDataset* SettingsDatasetManager::getDataset(const string& datasetName) const
+SettingsDataset* SettingsDatasetManager::getDataset(const string& datasetName)
 {
     DatasetMap::const_iterator datasetIt = mDatasetMap.find(datasetName);
     if (datasetIt == mDatasetMap.end())
@@ -49,7 +49,7 @@ SettingsDataset* SettingsDatasetManager::getDataset(const string& datasetName) c
 
 // ----------------------------------------------------------------------------
 string SettingsDatasetManager::getSetting(const string& datasetName, const string& section,
-                                          const string& subsection, const string& key) const
+                                          const string& subsection, const string& key)
 {
     return getDataset(datasetName)->getSetting(section, subsection, key);
 }

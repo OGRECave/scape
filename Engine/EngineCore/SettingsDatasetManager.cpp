@@ -14,11 +14,6 @@ using namespace ScapeEngine;
 // ----------------------------------------------------------------------------
 SettingsDatasetManager::~SettingsDatasetManager()
 {
-    DatasetMap::const_iterator datasetIt, datasetItEnd = mDatasetMap.end();
-    for (datasetIt = mDatasetMap.begin(); datasetIt != datasetItEnd; ++datasetIt)
-    {
-        delete datasetIt->second;
-    }
 }
 
 // ----------------------------------------------------------------------------
@@ -34,17 +29,17 @@ void SettingsDatasetManager::setDatasetResourcePath(const string& path)
 // ----------------------------------------------------------------------------
 SettingsDataset* SettingsDatasetManager::getDataset(const string& datasetName)
 {
-    DatasetMap::const_iterator datasetIt = mDatasetMap.find(datasetName);
+    DatasetMap::iterator datasetIt = mDatasetMap.find(datasetName);
     if (datasetIt == mDatasetMap.end())
     {
         datasetIt = mDatasetMap.insert(
-            mDatasetMap.begin(), DatasetMap::value_type(datasetName, new SettingsDataset(datasetName)));
+            mDatasetMap.begin(), DatasetMap::value_type(datasetName, SettingsDataset(datasetName)));
 
-        datasetIt->second->setSettingsDatasetDataAccessObject(
+        datasetIt->second.setSettingsDatasetDataAccessObject(
             getSettingsDatasetDataAccessObjectFromDatasetName(datasetName));
-        datasetIt->second->load();
+        datasetIt->second.load();
     }
-    return datasetIt->second;
+    return &datasetIt->second;
 }
 
 // ----------------------------------------------------------------------------
@@ -80,13 +75,13 @@ SettingsDatasetManager::getSettingsDatasetDataAccessObjectFromDatasetName(const 
 // ----------------------------------------------------------------------------
 void SettingsDatasetManager::saveAllDirty()
 {
-    DatasetMap::const_iterator datasetIt, datasetItEnd = mDatasetMap.end();
+    DatasetMap::iterator datasetIt, datasetItEnd = mDatasetMap.end();
     for (datasetIt = mDatasetMap.begin(); datasetIt != datasetItEnd; ++datasetIt)
     {
-        SettingsDataset* dataset = datasetIt->second;
-        if (dataset->isDirty())
+        SettingsDataset& dataset = datasetIt->second;
+        if (dataset.isDirty())
         {
-            dataset->save();
+            dataset.save();
         }
     }
 }

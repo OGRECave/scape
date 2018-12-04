@@ -36,7 +36,7 @@ public:
     void saveAllDirty();
 
 protected:
-    typedef std::map<string, SettingsDataset*> DatasetMap;
+    typedef std::map<string, SettingsDataset> DatasetMap;
     DatasetMap mDatasetMap;
     string mDatasetResourcePath;
 

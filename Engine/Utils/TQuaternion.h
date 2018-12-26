@@ -1,7 +1,7 @@
 #ifndef __TQUATERNION_H__
 #define __TQUATERNION_H__
 
-namespace Engine
+namespace ScapeEngine
 {
 template <class T> class TQuaternion
 {

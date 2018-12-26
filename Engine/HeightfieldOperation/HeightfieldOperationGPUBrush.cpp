@@ -26,12 +26,6 @@ using namespace ScapeEngine;
 IMPLEMENT_UIELEMENTCONTAINERSIMPLE_CLASS(HeightfieldOperationGPUBrush);
 
 // ----------------------------------------------------------------------------
-class HeightfieldOperationGPUBrushTask
-{
-protected:
-};
-
-// ----------------------------------------------------------------------------
 enum EPropertyId
 {
     PROPERTYID_STRENGTH,

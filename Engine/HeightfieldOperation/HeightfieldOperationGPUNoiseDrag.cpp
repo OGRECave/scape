@@ -29,12 +29,6 @@ IMPLEMENT_UIELEMENTCONTAINERSIMPLE_CLASS(HeightfieldOperationGPUNoiseDrag);
 #define DEGTORAD(a) ((3.141592f / 180.0f) * (a))
 
 // ----------------------------------------------------------------------------
-class HeightfieldOperationGPUNoiseDragTask
-{
-protected:
-};
-
-// ----------------------------------------------------------------------------
 enum EPropertyId
 {
     PROPERTYID_STRENGTH,

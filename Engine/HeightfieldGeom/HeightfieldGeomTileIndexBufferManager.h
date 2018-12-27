@@ -18,12 +18,6 @@
 
 namespace ScapeEngine
 {
-namespace HeightfieldGeomTileIndexBufferManagerNS
-{
-struct CachedBufferDescription;
-struct CachedBufferReference;
-}
-
 class HeightfieldGeomTileIndexBufferManager : public Tickable
 {
 public:

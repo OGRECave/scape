@@ -11,6 +11,7 @@
 #ifndef __HEIGHTFIELDOPERATIONPOLICYSCHEDULERTASKPAGEBATCH_H__
 #define __HEIGHTFIELDOPERATIONPOLICYSCHEDULERTASKPAGEBATCH_H__
 
+#include "HeightfieldBuffer/HeightfieldBuffer.h"
 #include "HeightfieldOperationPolicyScheduler.h"
 #include "HeightfieldOperationTaskPage.h"
 

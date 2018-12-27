@@ -12,6 +12,8 @@
 #ifndef __HEIGHTFIELDOPERATIONPOLICYBRUSHINSTANCERSPACER_H__
 #define __HEIGHTFIELDOPERATIONPOLICYBRUSHINSTANCERSPACER_H__
 
+#include "HeightfieldBrush/HeightfieldBrush.h"
+#include "HeightfieldGeom/HeightfieldGeom.h"
 #include "HeightfieldOperationPolicyBrushInstancer.h"
 
 namespace ScapeEngine

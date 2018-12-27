@@ -11,6 +11,8 @@
 #ifndef __DEVICEBUTTONID_H__
 #define __DEVICEBUTTONID_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #if defined(ENUMID)
 #error "ENUMID shouldn't be defined at this point"
 #endif

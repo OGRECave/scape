@@ -11,6 +11,8 @@
 #ifndef __GPU2DOPERATION_H__
 #define __GPU2DOPERATION_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "GPU2DOperationQuad.h"
 
 namespace ScapeEngine

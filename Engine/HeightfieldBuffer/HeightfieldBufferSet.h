@@ -11,6 +11,8 @@
 #ifndef __HEIGHTFIELDBUFFERSET_H__
 #define __HEIGHTFIELDBUFFERSET_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "HeightfieldBuffer.h"
 
 namespace ScapeEngine

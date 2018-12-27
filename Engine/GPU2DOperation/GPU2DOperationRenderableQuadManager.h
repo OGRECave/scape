@@ -11,6 +11,8 @@
 #ifndef __GPU2DOPERATIONRENDERABLEQUADMANAGER_H__
 #define __GPU2DOPERATIONRENDERABLEQUADMANAGER_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 namespace ScapeEngine
 {
 class GPU2DOperationRenderableQuad;

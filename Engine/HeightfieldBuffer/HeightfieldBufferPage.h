@@ -11,6 +11,8 @@
 #ifndef __HEIGHTFIELDBUFFERPAGE_H__
 #define __HEIGHTFIELDBUFFERPAGE_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 namespace ScapeEngine
 {
 class HeightfieldBuffer;

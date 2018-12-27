@@ -11,6 +11,8 @@
 #ifndef __HEIGHTFIELDFILEDECODERMANAGER_H__
 #define __HEIGHTFIELDFILEDECODERMANAGER_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "EngineCore/UIElementClasses.h"
 
 namespace ScapeEngine

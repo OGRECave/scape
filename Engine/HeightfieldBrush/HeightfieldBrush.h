@@ -11,6 +11,8 @@
 #ifndef __HEIGHTFIELDBRUSH_H__
 #define __HEIGHTFIELDBRUSH_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 namespace ScapeEngine
 {
 class HeightfieldBrush

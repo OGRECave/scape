@@ -11,6 +11,8 @@
 #ifndef __TICKABLEMANAGER_H__
 #define __TICKABLEMANAGER_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 namespace ScapeEngine
 {
 

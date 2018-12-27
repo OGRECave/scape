@@ -11,6 +11,8 @@
 #ifndef __PROCEDURALLOOKUPTEXTURES_H__
 #define __PROCEDURALLOOKUPTEXTURES_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 namespace ScapeEngine
 {
 namespace Utils

@@ -11,6 +11,8 @@
 #ifndef __HEIGHTFIELDOPERATION_H__
 #define __HEIGHTFIELDOPERATION_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "EngineCore/UIElementClasses.h"
 
 namespace ScapeEngine

@@ -11,6 +11,8 @@
 #ifndef __HEIGHTFIELDSERIALIZERINCREMENTAL_H__
 #define __HEIGHTFIELDSERIALIZERINCREMENTAL_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "Utils/SerialMemoryBuffer.h"
 
 namespace ScapeEngine

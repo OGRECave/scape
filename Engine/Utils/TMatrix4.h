@@ -12,6 +12,8 @@
 #ifndef __TMATRIX4__
 #define __TMATRIX4__
 
+#include "ScapeEnginePrerequisites.h"
+
 namespace ScapeEngine
 {
 

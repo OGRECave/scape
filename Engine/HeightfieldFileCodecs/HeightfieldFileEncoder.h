@@ -11,6 +11,8 @@
 #ifndef __HEIGHTFIELDFILEENCODER_H__
 #define __HEIGHTFIELDFILEENCODER_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "EngineCore/UIElementClasses.h"
 
 // ----------------------------------------------------------------------------

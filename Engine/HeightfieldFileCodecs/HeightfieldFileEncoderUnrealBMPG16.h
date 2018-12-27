@@ -11,6 +11,8 @@
 #ifndef __HEIGHTFIELDFILEENCODERUNREALBMPG16_H__
 #define __HEIGHTFIELDFILEENCODERUNREALBMPG16_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "HeightfieldFileEncoder.h"
 
 // ----------------------------------------------------------------------------

@@ -11,6 +11,8 @@
 #ifndef __HEIGHTFIELDFILEENCODERRAW_H__
 #define __HEIGHTFIELDFILEENCODERRAW_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "HeightfieldFileEncoder.h"
 
 // ----------------------------------------------------------------------------

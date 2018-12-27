@@ -12,6 +12,8 @@
 #ifndef __TVECTOR2_H__
 #define __TVECTOR2_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 namespace ScapeEngine
 {
 

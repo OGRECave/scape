@@ -11,6 +11,8 @@
 #ifndef __GPU2DOPERATIONMANAGER_H__
 #define __GPU2DOPERATIONMANAGER_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "EngineCore/Tickable.h"
 #include "GPU2DOperation.h"
 

@@ -11,6 +11,8 @@
 #ifndef __HEIGHTFIELDGEOMTILE_H__
 #define __HEIGHTFIELDGEOMTILE_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 namespace ScapeEngine
 {
 

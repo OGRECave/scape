@@ -1,6 +1,8 @@
 #ifndef __QTJSONSETTINGSDATASETDATAACCESSOBJECT_H__
 #define __QTJSONSETTINGSDATASETDATAACCESSOBJECT_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "SettingsDatasetDataAccessObject.h"
 
 #include <string>

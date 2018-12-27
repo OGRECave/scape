@@ -11,6 +11,8 @@
 #ifndef __SHADERCUSTOMAUTOCONSTANTS_H__
 #define __SHADERCUSTOMAUTOCONSTANTS_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 namespace ScapeEngine
 {
 class ShaderCustomAutoConstants

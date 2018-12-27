@@ -13,6 +13,8 @@
 #ifndef __RENDERVIEW_H__
 #define __RENDERVIEW_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "OgreCommon.h"
 #include "Utils/Utils.h"
 #include "EngineCore/UIElementClasses.h"

@@ -11,6 +11,8 @@
 #ifndef __HEIGHTFIELDOPERATIONBRUSH_H__
 #define __HEIGHTFIELDOPERATIONBRUSH_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "HeightfieldOperation.h"
 
 namespace ScapeEngine

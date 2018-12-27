@@ -12,6 +12,8 @@
 #ifndef __TICKABLE_H__
 #define __TICKABLE_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "OgrePlatform.h"
 
 namespace ScapeEngine

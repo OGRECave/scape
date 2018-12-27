@@ -11,6 +11,8 @@
 #ifndef __INPUTPOINTER_H__
 #define __INPUTPOINTER_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "InputPointer.h"
 
 namespace ScapeEngine

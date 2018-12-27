@@ -11,6 +11,8 @@
 #ifndef __TABLETINPUTWIN32_H__
 #define __TABLETINPUTWIN32_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include <OgrePlatform.h>
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 

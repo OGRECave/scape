@@ -12,6 +12,8 @@
 #ifndef __RENDERVIEWMANAGER_H__
 #define __RENDERVIEWMANAGER_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "OgreCommon.h"
 #include "Utils/Utils.h"
 

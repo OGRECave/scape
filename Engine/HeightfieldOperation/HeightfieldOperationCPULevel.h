@@ -11,6 +11,8 @@
 #ifndef __HEIGHTFIELDOPERATIONCPULEVEL_H__
 #define __HEIGHTFIELDOPERATIONCPULEVEL_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "HeightfieldOperationCPU.h"
 #include "Utils/SerialMemoryBuffer.h"
 

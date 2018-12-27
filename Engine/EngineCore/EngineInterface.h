@@ -11,6 +11,8 @@
 #ifndef __ENGINEINTERFACE_H__
 #define __ENGINEINTERFACE_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 //#include "UIElementTypes.h"
 /*
 #ifdef ENGINE_EXPORTS

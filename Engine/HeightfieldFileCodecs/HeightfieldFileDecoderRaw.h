@@ -12,6 +12,8 @@
 #ifndef __HEIGHTFIELDFILEDECODERRAW_H__
 #define __HEIGHTFIELDFILEDECODERRAW_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "EngineCore/UIElementClasses.h"
 #include "HeightfieldFileDecoder.h"
 

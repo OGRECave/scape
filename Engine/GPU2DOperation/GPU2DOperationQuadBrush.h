@@ -11,6 +11,8 @@
 #ifndef __GPU2DOPERATIONQUADBRUSH_H__
 #define __GPU2DOPERATIONQUADBRUSH_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "GPU2DOperationQuadCustom.h"
 
 namespace ScapeEngine

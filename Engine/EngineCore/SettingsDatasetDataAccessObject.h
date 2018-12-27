@@ -1,6 +1,8 @@
 #ifndef __SETTINGSDATASETDATAACCESSOBJECT_H__
 #define __SETTINGSDATASETDATAACCESSOBJECT_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "SettingsDataset.h"
 
 #include <string>

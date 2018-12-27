@@ -11,6 +11,8 @@
 #ifndef __HEIGHTFIELDGEOMMATERIALSPLAT_H__
 #define __HEIGHTFIELDGEOMMATERIALSPLAT_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "HeightfieldGeomMaterial.h"
 #include "EngineCore/SkySettings.h"
 

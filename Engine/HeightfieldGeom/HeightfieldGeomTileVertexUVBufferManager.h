@@ -12,6 +12,8 @@
 #ifndef __HEIGHTFIELDGEOMTILEVERTEXUVBUFFERMANAGER_H__
 #define __HEIGHTFIELDGEOMTILEVERTEXUVBUFFERMANAGER_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "EngineCore/Tickable.h"
 
 namespace ScapeEngine

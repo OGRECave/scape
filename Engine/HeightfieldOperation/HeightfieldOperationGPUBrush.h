@@ -11,6 +11,8 @@
 #ifndef __HEIGHTFIELDOPERATIONGPUBRUSH_H__
 #define __HEIGHTFIELDOPERATIONGPUBRUSH_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "HeightfieldOperationBrushBase.h"
 #include "HeightfieldOperationTaskPageGPU.h"
 #include "Utils/SerialMemoryBuffer.h"

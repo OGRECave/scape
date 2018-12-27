@@ -11,6 +11,8 @@
 #ifndef __HEIGHTFIELDOPERATIONPOLICYSCHEDULERDIRECTTASK_H__
 #define __HEIGHTFIELDOPERATIONPOLICYSCHEDULERDIRECTTASK_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "HeightfieldOperationTaskDirect.h"
 #include "HeightfieldOperationPolicyScheduler.h"
 #include "HeightfieldOperationPolicyBrushInstancerSpacer.h"

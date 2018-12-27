@@ -11,6 +11,8 @@
 #ifndef __HEIGHTFIELDOPERATIONTASKPAGEGPUBRUSH_H__
 #define __HEIGHTFIELDOPERATIONTASKPAGEGPUBRUSH_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "HeightfieldOperationTaskPageGPU.h"
 //#include "HeightfieldOperationGPU.h"
 #include "GPU2DOperation/GPU2DOperation.h"

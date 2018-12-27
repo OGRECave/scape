@@ -11,6 +11,8 @@
 #ifndef __GPU2DOPERATIONRENDERABLEQUAD_H__
 #define __GPU2DOPERATIONRENDERABLEQUAD_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 namespace ScapeEngine
 {
 class ShaderCustomAutoConstants;

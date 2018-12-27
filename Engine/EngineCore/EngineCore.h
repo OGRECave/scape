@@ -11,6 +11,8 @@
 #ifndef __ENGINECORE_H__
 #define __ENGINECORE_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "SkySettings.h"
 
 namespace ScapeEngine

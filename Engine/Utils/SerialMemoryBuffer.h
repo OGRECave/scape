@@ -11,6 +11,8 @@
 #ifndef __SERIALMEMORYBUFFER_H__
 #define __SERIALMEMORYBUFFER_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 namespace ScapeEngine
 {
 namespace Utils

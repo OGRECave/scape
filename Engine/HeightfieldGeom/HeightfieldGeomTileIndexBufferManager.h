@@ -12,6 +12,8 @@
 #ifndef __HEIGHTFIELDGEOMTILEINDEXBUFFERMANAGER_H__
 #define __HEIGHTFIELDGEOMTILEINDEXBUFFERMANAGER_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "EngineCore/Tickable.h"
 
 namespace ScapeEngine

@@ -1,6 +1,8 @@
 #ifndef __TQUATERNION_H__
 #define __TQUATERNION_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 namespace ScapeEngine
 {
 template <class T> class TQuaternion

@@ -11,13 +11,7 @@
 
 #include "ScapeEnginePrerequisites.h"
 
-#pragma warning(push, 3)
-
 #include "Utils/Utils.h"
 #include "EngineCore/EngineCore.h"
-
-#pragma warning(pop)
-
-#pragma warning(disable : 4100) // unreferenced formal parameter
 
 #endif // __STDAFXENGINE_H__

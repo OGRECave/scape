@@ -20,7 +20,6 @@
 // ----------------------------------------------------------------------------
 namespace ScapeEngine
 {
-class HeightfieldBuffer;
 
 // ----------------------------------------------------------------------------
 class HeightfieldFileEncoderImageBase : public HeightfieldFileEncoder

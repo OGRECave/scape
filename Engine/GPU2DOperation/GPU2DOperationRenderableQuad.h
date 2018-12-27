@@ -15,7 +15,6 @@
 
 namespace ScapeEngine
 {
-class ShaderCustomAutoConstants;
 
 class GPU2DOperationRenderableQuad : public Ogre::SimpleRenderable
 {

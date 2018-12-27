@@ -22,7 +22,6 @@
 namespace ScapeEngine
 {
 
-class InputManager;
 
 class ButtonDefinition
 {

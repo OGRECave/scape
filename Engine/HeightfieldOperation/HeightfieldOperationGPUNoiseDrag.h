@@ -19,9 +19,6 @@
 
 namespace ScapeEngine
 {
-class HeightfieldGeom;
-class HeightfieldBufferPage;
-class HeightfieldOperationTaskPage;
 
 class HeightfieldOperationGPUNoiseDrag
     : public HeightfieldOperationTaskPageGPUListener,

@@ -19,7 +19,6 @@
 
 namespace ScapeEngine
 {
-class HeightfieldGeom;
 
 class HeightfieldOperationCPUBrush
     : public HeightfieldOperationPolicyBrushInstancerSpacer<

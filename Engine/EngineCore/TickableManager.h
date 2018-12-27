@@ -16,7 +16,6 @@
 namespace ScapeEngine
 {
 
-class Tickable;
 
 class TickableManager
 {

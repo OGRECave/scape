@@ -23,8 +23,6 @@
 namespace ScapeEngine
 {
 
-class InputPointer;
-class InputListener;
 
 class InputManager
 {

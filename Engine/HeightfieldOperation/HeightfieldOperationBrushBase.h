@@ -21,7 +21,6 @@
 
 namespace ScapeEngine
 {
-class HeightfieldGeom;
 
 class HeightfieldOperationBrushBase : public HeightfieldOperationBrush,
                                       public HeightfieldOperationPolicyScheduler,

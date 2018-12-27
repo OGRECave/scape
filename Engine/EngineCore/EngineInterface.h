@@ -44,7 +44,6 @@ enum EScapeUIElementGroupId
     SCAPEUIELEMENTGROUPID_FILEIMPORT,
 };
 
-class UIElementContainer;
 
 class ENGINE_API EngineInterface
 {

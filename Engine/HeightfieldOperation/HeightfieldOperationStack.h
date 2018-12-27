@@ -17,7 +17,6 @@
 
 namespace ScapeEngine
 {
-class HeightfieldOperation;
 
 class HeightfieldOperationStack : public Tickable
 {

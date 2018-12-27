@@ -24,7 +24,6 @@
 namespace ScapeEngine
 {
 static const int MINWORKMILLIS = 100;
-class HeightfieldOperationTaskDirect;
 
 template <class SubClass, class ParentClass>
 class HeightfieldOperationPolicySchedulerTaskDirect : public ParentClass

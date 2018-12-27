@@ -18,7 +18,6 @@
 // ----------------------------------------------------------------------------
 namespace ScapeEngine
 {
-class HeightfieldBuffer;
 
 // ----------------------------------------------------------------------------
 class HeightfieldFileEncoderRawBase : public HeightfieldFileEncoder

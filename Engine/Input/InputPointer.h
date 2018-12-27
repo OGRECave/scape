@@ -17,8 +17,6 @@
 
 namespace ScapeEngine
 {
-class RenderView;
-class HeightfieldGeom;
 
 class InputPointer
 {

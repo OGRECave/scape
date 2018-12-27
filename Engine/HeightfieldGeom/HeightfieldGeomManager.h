@@ -17,7 +17,6 @@
 
 namespace ScapeEngine
 {
-class HeightfieldGeom;
 
 class HeightfieldGeomManager : public Tickable
 {

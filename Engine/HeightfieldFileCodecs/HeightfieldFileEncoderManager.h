@@ -17,7 +17,6 @@
 
 namespace ScapeEngine
 {
-class HeightfieldFileEncoder;
 
 class HeightfieldFileEncoderManager
 {

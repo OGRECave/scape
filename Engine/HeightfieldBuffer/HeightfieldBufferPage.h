@@ -15,8 +15,6 @@
 
 namespace ScapeEngine
 {
-class HeightfieldBuffer;
-class HeightfieldBufferSet;
 
 typedef Utils::GUID HeightfieldBufferPageVersion;
 

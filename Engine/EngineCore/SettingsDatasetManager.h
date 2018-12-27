@@ -17,8 +17,6 @@
 
 namespace ScapeEngine
 {
-class SettingsDataset;
-class SettingsDatasetDataAccessObject;
 
 class SettingsDatasetManager
 {

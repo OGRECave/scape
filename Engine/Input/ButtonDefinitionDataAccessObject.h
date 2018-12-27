@@ -8,7 +8,6 @@
 namespace ScapeEngine
 {
 
-class ButtonDefinition;
 
 class ButtonDefinitionDataAccessObject
 {

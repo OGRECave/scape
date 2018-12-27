@@ -18,7 +18,6 @@
 
 namespace ScapeEngine
 {
-class HeightfieldGeom;
 
 class HeightfieldOperationCPUNoise : public HeightfieldOperationCPU
 {

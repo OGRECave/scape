@@ -19,8 +19,6 @@
 
 namespace ScapeEngine
 {
-class HeightfieldBrush;
-class HeightfieldOperationTaskPage;
 
 template <class SubClass, class ParentClass>
 class HeightfieldOperationPolicySchedulerTaskPageBatch : public ParentClass

@@ -21,7 +21,6 @@
 
 namespace ScapeEngine
 {
-class HeightfieldBuffer;
 
 class HeightfieldOperationTaskPageGPUListener
 {

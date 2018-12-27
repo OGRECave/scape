@@ -17,9 +17,6 @@
 
 namespace ScapeEngine
 {
-class HeightfieldBrush;
-class HeightfieldOperationTaskPage;
-class HeightfieldOperationTaskDirect;
 
 struct BrushInstance
 {

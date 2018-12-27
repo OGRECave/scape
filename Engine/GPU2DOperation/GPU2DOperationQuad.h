@@ -16,8 +16,6 @@
 
 namespace ScapeEngine
 {
-class ShaderCustomAutoConstants;
-class GPU2DOperationRenderableQuad;
 
 class GPU2DOperationQuad
 {

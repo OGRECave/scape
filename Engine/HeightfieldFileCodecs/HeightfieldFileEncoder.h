@@ -18,7 +18,6 @@
 // ----------------------------------------------------------------------------
 namespace ScapeEngine
 {
-class HeightfieldBuffer;
 
 // ----------------------------------------------------------------------------
 class HeightfieldFileEncoder : public UIElementContainerSimple, public FactoryClass<HeightfieldFileEncoder>

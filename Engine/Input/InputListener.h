@@ -18,7 +18,6 @@
 
 namespace ScapeEngine
 {
-class TabletInput;
 
 class InputListener
 {

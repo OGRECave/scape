@@ -17,9 +17,6 @@
 
 namespace ScapeEngine
 {
-class HeightfieldBrush;
-class HeightfieldBuffer;
-class HeightfieldOperationTaskPage;
 
 class HeightfieldOperation : public UIElementPresetContainerSimple,
                              public FactoryClass<HeightfieldOperation>

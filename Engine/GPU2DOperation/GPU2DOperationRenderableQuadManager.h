@@ -15,7 +15,6 @@
 
 namespace ScapeEngine
 {
-class GPU2DOperationRenderableQuad;
 
 class GPU2DOperationRenderableQuadManager
 {

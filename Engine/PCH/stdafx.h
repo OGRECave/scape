@@ -9,6 +9,8 @@
 #ifndef __STDAFXENGINE_H__
 #define __STDAFXENGINE_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #pragma warning(push, 3)
 
 #include <OgrePlatform.h>

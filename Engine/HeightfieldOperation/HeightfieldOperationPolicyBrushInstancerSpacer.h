@@ -12,13 +12,14 @@
 #ifndef __HEIGHTFIELDOPERATIONPOLICYBRUSHINSTANCERSPACER_H__
 #define __HEIGHTFIELDOPERATIONPOLICYBRUSHINSTANCERSPACER_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "HeightfieldBrush/HeightfieldBrush.h"
 #include "HeightfieldGeom/HeightfieldGeom.h"
 #include "HeightfieldOperationPolicyBrushInstancer.h"
 
 namespace ScapeEngine
 {
-class HeightfieldBrush;
 
 template <class SubClass, class ParentClass>
 class HeightfieldOperationPolicyBrushInstancerSpacer : public ParentClass

@@ -11,15 +11,14 @@
 #ifndef __HEIGHTFIELDOPERATIONGPUNOISE_H__
 #define __HEIGHTFIELDOPERATIONGPUNOISE_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "HeightfieldOperationBrushBase.h"
 #include "HeightfieldOperationTaskPageGPU.h"
 #include "Utils/SerialMemoryBuffer.h"
 
 namespace ScapeEngine
 {
-class HeightfieldGeom;
-class HeightfieldBufferPage;
-class HeightfieldOperationTaskPage;
 
 class HeightfieldOperationGPUNoise
     : public HeightfieldOperationTaskPageGPUListener,

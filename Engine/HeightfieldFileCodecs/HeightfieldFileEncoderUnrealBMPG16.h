@@ -11,12 +11,13 @@
 #ifndef __HEIGHTFIELDFILEENCODERUNREALBMPG16_H__
 #define __HEIGHTFIELDFILEENCODERUNREALBMPG16_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "HeightfieldFileEncoder.h"
 
 // ----------------------------------------------------------------------------
 namespace ScapeEngine
 {
-class HeightfieldBuffer;
 
 // ----------------------------------------------------------------------------
 class HeightfieldFileEncoderUnrealBMPG16 : public HeightfieldFileEncoder

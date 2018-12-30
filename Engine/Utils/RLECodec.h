@@ -11,6 +11,8 @@
 #ifndef __RLECODEC_H__
 #define __RLECODEC_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "Utils/SerialMemoryBuffer.h"
 
 namespace ScapeEngine

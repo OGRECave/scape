@@ -11,6 +11,8 @@
 #ifndef __HEIGHTFIELDGEOMMATERIAL_H__
 #define __HEIGHTFIELDGEOMMATERIAL_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "EngineCore/UIElementClasses.h"
 
 namespace ScapeEngine

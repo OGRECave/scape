@@ -11,11 +11,12 @@
 #ifndef __HEIGHTFIELDSERIALIZER_H__
 #define __HEIGHTFIELDSERIALIZER_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "Utils/SerialMemoryBuffer.h"
 
 namespace ScapeEngine
 {
-class HeightfieldBuffer;
 
 namespace HeightfieldSerializer
 {

@@ -11,12 +11,13 @@
 #ifndef __HEIGHTFIELDFILEDECODER_H__
 #define __HEIGHTFIELDFILEDECODER_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "EngineCore/UIElementClasses.h"
 
 // ----------------------------------------------------------------------------
 namespace ScapeEngine
 {
-class HeightfieldBuffer;
 
 // ----------------------------------------------------------------------------
 class HeightfieldFileDecoder : public UIElementContainerSimple, public FactoryClass<HeightfieldFileDecoder>

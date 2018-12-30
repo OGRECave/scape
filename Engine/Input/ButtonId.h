@@ -9,6 +9,8 @@
 #ifndef __BUTTONID_H__
 #define __BUTTONID_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 namespace ScapeEngine
 {
 namespace ButtonId

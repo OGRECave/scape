@@ -11,13 +11,12 @@
 #ifndef __HEIGHTFIELDOPERATIONBRUSH_H__
 #define __HEIGHTFIELDOPERATIONBRUSH_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "HeightfieldOperation.h"
 
 namespace ScapeEngine
 {
-class HeightfieldBrush;
-class HeightfieldOperationTaskPage;
-class HeightfieldOperationTaskDirect;
 
 struct BrushInstance
 {

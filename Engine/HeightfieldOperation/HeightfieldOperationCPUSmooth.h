@@ -11,12 +11,13 @@
 #ifndef __HEIGHTFIELDOPERATIONCPUSMOOTH_H__
 #define __HEIGHTFIELDOPERATIONCPUSMOOTH_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "HeightfieldOperationCPU.h"
 #include "Utils/SerialMemoryBuffer.h"
 
 namespace ScapeEngine
 {
-class HeightfieldGeom;
 
 class HeightfieldOperationCPUSmooth : public HeightfieldOperationCPU
 {

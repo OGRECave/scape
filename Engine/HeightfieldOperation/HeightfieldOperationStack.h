@@ -11,11 +11,12 @@
 #ifndef __HEIGHTFIELDOPERATIONSTACK_H__
 #define __HEIGHTFIELDOPERATIONSTACK_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "EngineCore/Tickable.h"
 
 namespace ScapeEngine
 {
-class HeightfieldOperation;
 
 class HeightfieldOperationStack : public Tickable
 {

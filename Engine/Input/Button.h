@@ -11,13 +11,14 @@
 #ifndef __BUTTON_H__
 #define __BUTTON_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "ButtonId.h"
 #include "AnalogInputId.h"
 
 namespace ScapeEngine
 {
 
-class InputManager;
 
 class Button
 {

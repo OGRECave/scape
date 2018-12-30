@@ -11,6 +11,8 @@
 #ifndef __BUTTONDEFINITION_H__
 #define __BUTTONDEFINITION_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include <list>
 
 #include "ButtonId.h"
@@ -20,7 +22,6 @@
 namespace ScapeEngine
 {
 
-class InputManager;
 
 class ButtonDefinition
 {

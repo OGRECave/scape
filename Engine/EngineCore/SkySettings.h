@@ -11,6 +11,8 @@
 #ifndef __SKYSETTINGS_H__
 #define __SKYSETTINGS_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "EngineCore/UIElementClasses.h"
 #include "EngineCore/Tickable.h"
 

@@ -7,6 +7,8 @@
 #ifndef __ANALOGINPUTID_H__
 #define __ANALOGINPUTID_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 namespace ScapeEngine
 {
 namespace AnalogInputId

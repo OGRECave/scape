@@ -1,6 +1,8 @@
 #ifndef __QTJSONBUTTONDEFINITIONDATAACCESOBJECT_H__
 #define __QTJSONBUTTONDEFINITIONDATAACCESOBJECT_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "ButtonDefinitionDataAccessObject.h"
 
 #include <string>

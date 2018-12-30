@@ -11,13 +11,12 @@
 #ifndef __HEIGHTFIELDBUFFER_H__
 #define __HEIGHTFIELDBUFFER_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 //#include "HeightfieldBufferSet.h"
 
 namespace ScapeEngine
 {
-class HeightfieldBufferPage;
-class HeightfieldBufferSet;
-class HeightfieldGeom;
 
 typedef Utils::GUID HeightfieldBufferHandle;
 typedef Utils::GUID HeightfieldBufferVersion;

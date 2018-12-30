@@ -11,6 +11,8 @@
 #ifndef __HEIGHTFIELDOPERATIONPOLICYSCHEDULERDIRECTTASK_H__
 #define __HEIGHTFIELDOPERATIONPOLICYSCHEDULERDIRECTTASK_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "HeightfieldOperationTaskDirect.h"
 #include "HeightfieldOperationPolicyScheduler.h"
 #include "HeightfieldOperationPolicyBrushInstancerSpacer.h"
@@ -22,7 +24,6 @@
 namespace ScapeEngine
 {
 static const int MINWORKMILLIS = 100;
-class HeightfieldOperationTaskDirect;
 
 template <class SubClass, class ParentClass>
 class HeightfieldOperationPolicySchedulerTaskDirect : public ParentClass

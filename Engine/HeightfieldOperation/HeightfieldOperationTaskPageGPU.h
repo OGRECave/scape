@@ -11,6 +11,8 @@
 #ifndef __HEIGHTFIELDOPERATIONTASKPAGEGPU_H__
 #define __HEIGHTFIELDOPERATIONTASKPAGEGPU_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "HeightfieldOperationTaskPage.h"
 //#include "HeightfieldOperationGPU.h"
 #include "GPU2DOperation/GPU2DOperation.h"
@@ -19,7 +21,6 @@
 
 namespace ScapeEngine
 {
-class HeightfieldBuffer;
 
 class HeightfieldOperationTaskPageGPUListener
 {

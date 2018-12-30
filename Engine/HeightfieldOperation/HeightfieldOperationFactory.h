@@ -11,6 +11,8 @@
 #ifndef __HEIGHTFIELDOPERATIONFACTORY_H__
 #define __HEIGHTFIELDOPERATIONFACTORY_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #define REGISTER_HEIGHTFIELDOPERATION_CLASS(factoryObject, className)                                      \
     {                                                                                                      \
         factoryObject->registerClass(className::getStaticClassName(), className::create);                  \

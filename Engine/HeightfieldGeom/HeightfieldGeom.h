@@ -11,6 +11,8 @@
 #ifndef __HEIGHTFIELDGEOM_H__
 #define __HEIGHTFIELDGEOM_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "EngineCore/Tickable.h"
 
 namespace ScapeEngine

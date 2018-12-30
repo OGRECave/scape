@@ -11,6 +11,8 @@
 #ifndef __UIELEMENTCLASSES__
 #define __UIELEMENTCLASSES__
 
+#include "ScapeEnginePrerequisites.h"
+
 //#include "UIElementTypes.h"
 
 namespace ScapeEngine

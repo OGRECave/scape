@@ -12,6 +12,8 @@
 #ifndef __CAMERACONTROLLER_H__
 #define __CAMERACONTROLLER_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "Tickable.h"
 #include "Utils/Utils.h"
 

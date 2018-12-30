@@ -11,14 +11,14 @@
 #ifndef __HEIGHTFIELDOPERATIONPOLICYSCHEDULERTASKPAGEBATCH_H__
 #define __HEIGHTFIELDOPERATIONPOLICYSCHEDULERTASKPAGEBATCH_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "HeightfieldBuffer/HeightfieldBuffer.h"
 #include "HeightfieldOperationPolicyScheduler.h"
 #include "HeightfieldOperationTaskPage.h"
 
 namespace ScapeEngine
 {
-class HeightfieldBrush;
-class HeightfieldOperationTaskPage;
 
 template <class SubClass, class ParentClass>
 class HeightfieldOperationPolicySchedulerTaskPageBatch : public ParentClass

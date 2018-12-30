@@ -11,6 +11,8 @@
 #ifndef __TABLETINPUT_H__
 #define __TABLETINPUT_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 namespace ScapeEngine
 {
 class TabletInput

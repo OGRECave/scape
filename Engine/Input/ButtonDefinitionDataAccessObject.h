@@ -1,12 +1,13 @@
 #ifndef __BUTTONDEFINITIONDATAACCESSOBJECT_H__
 #define __BUTTONDEFINITIONDATAACCESSOBJECT_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include <vector>
 
 namespace ScapeEngine
 {
 
-class ButtonDefinition;
 
 class ButtonDefinitionDataAccessObject
 {

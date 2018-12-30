@@ -11,6 +11,8 @@
 #ifndef __HEIGHTFIELDGEOMTILEBUFFERFACTORY_H__
 #define __HEIGHTFIELDGEOMTILEBUFFERFACTORY_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "HeightfieldGeomTile.h"
 
 namespace ScapeEngine

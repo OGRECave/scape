@@ -11,6 +11,8 @@
 #ifndef __UTILS_H__
 #define __UTILS_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "TVector2.h"
 #include "TVector3.h"
 #include "TVector4.h"

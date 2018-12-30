@@ -10,13 +10,14 @@
 #ifndef __INPUTLISTENER_H__
 #define __INPUTLISTENER_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "ButtonId.h"
 #include "AnalogInputId.h"
 #include "DeviceButtonId.h"
 
 namespace ScapeEngine
 {
-class TabletInput;
 
 class InputListener
 {

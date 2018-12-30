@@ -13,10 +13,10 @@
 #ifndef __SETTINGSDATASETMANAGER_H__
 #define __SETTINGSDATASETMANAGER_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 namespace ScapeEngine
 {
-class SettingsDataset;
-class SettingsDatasetDataAccessObject;
 
 class SettingsDatasetManager
 {

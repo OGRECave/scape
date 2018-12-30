@@ -11,13 +11,14 @@
 #ifndef __SETTINGSDATASET_H__
 #define __SETTINGSDATASET_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include <string>
 #include <map>
 #include <memory>
 
 namespace ScapeEngine
 {
-class SettingsDatasetDataAccessObject;
 
 class SettingsDataset
 {

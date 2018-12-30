@@ -11,6 +11,8 @@
 #ifndef __INPUTMANAGER_H__
 #define __INPUTMANAGER_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "ButtonId.h"
 #include "AnalogInputId.h"
 #include "Button.h"
@@ -21,8 +23,6 @@
 namespace ScapeEngine
 {
 
-class InputPointer;
-class InputListener;
 
 class InputManager
 {

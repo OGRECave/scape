@@ -12,10 +12,10 @@
 #ifndef __GPU2DOPERATIONQUAD_H__
 #define __GPU2DOPERATIONQUAD_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 namespace ScapeEngine
 {
-class ShaderCustomAutoConstants;
-class GPU2DOperationRenderableQuad;
 
 class GPU2DOperationQuad
 {

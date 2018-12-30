@@ -11,13 +11,14 @@
 #ifndef __HEIGHTFIELDOPERATIONCPUBRUSH_H__
 #define __HEIGHTFIELDOPERATIONCPUBRUSH_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "HeightfieldOperationBrushBase.h"
 //#include "HeightfieldOperationPolicySchedulerTaskDirect.h"
 #include "Utils/SerialMemoryBuffer.h"
 
 namespace ScapeEngine
 {
-class HeightfieldGeom;
 
 class HeightfieldOperationCPUBrush
     : public HeightfieldOperationPolicyBrushInstancerSpacer<

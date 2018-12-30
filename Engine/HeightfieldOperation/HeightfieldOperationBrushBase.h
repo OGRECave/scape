@@ -12,6 +12,8 @@
 #ifndef __HEIGHTFIELDOPERATIONBASE_H__
 #define __HEIGHTFIELDOPERATIONBASE_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include "HeightfieldOperationBrush.h"
 #include "HeightfieldOperationPolicySchedulerTaskDirect.h"
 #include "HeightfieldOperationPolicySchedulerTaskPageBatch.h"
@@ -19,7 +21,6 @@
 
 namespace ScapeEngine
 {
-class HeightfieldGeom;
 
 class HeightfieldOperationBrushBase : public HeightfieldOperationBrush,
                                       public HeightfieldOperationPolicyScheduler,

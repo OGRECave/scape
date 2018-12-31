@@ -4,7 +4,7 @@
  * See Docs/ScapeLicense.txt for details.
  */
 
-#include "PCH/stdafx.h"
+#include "ScapeEngineStableHeaders.h"
 #include "SettingsDataset.h"
 #include "SettingsDatasetManager.h"
 #include "EngineCore/QtJSONSettingsDatasetDataAccessObject.h"

@@ -4,7 +4,7 @@
  * See Docs/ScapeLicense.txt for details.
  */
 
-#include "PCH/stdafx.h"
+#include "ScapeEngineStableHeaders.h"
 #include "TickableManager.h"
 #include "Tickable.h"
 #include "Utils/Utils.h"

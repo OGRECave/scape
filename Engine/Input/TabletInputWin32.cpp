@@ -6,7 +6,7 @@
 
 #include <OgrePlatform.h>
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-#include "PCH/stdafx.h"
+#include "ScapeEngineStableHeaders.h"
 #include "Wintab/wintab.h"
 
 #define PACKETDATA (PK_CURSOR | PK_BUTTONS | PK_NORMAL_PRESSURE)

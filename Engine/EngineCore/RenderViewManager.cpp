@@ -4,7 +4,7 @@
  * See Docs/ScapeLicense.txt for details.
  */
 
-#include "PCH/stdafx.h"
+#include "ScapeEngineStableHeaders.h"
 #include "RenderViewManager.h"
 #include "RenderView.h"
 #include "Input/InputManager.h"

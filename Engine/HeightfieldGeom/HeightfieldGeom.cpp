@@ -4,7 +4,7 @@
  * See Docs/ScapeLicense.txt for details.
  */
 
-#include "PCH/stdafx.h"
+#include "ScapeEngineStableHeaders.h"
 #include "HeightfieldGeom.h"
 #include "HeightfieldGeomTile.h"
 #include "Utils/ShaderCustomAutoConstants.h"

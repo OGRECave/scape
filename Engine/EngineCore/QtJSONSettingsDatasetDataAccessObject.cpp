@@ -1,4 +1,4 @@
-#include "PCH/stdafx.h"
+#include "ScapeEngineStableHeaders.h"
 #include "EngineCore/QtJSONSettingsDatasetDataAccessObject.h"
 
 #include <QJsonDocument>

@@ -4,7 +4,7 @@
  * See Docs/ScapeLicense.txt for details.
  */
 
-#include "PCH/stdafx.h"
+#include "ScapeEngineStableHeaders.h"
 #include "HeightfieldGeomTileIndexBufferManager.h"
 
 #define PACK4UINT8(a, b, c, d) ((d << 24) | (c << 16) | (b << 8) | (a))

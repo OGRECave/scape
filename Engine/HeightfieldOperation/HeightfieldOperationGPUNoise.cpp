@@ -4,7 +4,7 @@
  * See Docs/ScapeLicense.txt for details.
   */
 
-#include "PCH/stdafx.h"
+#include "ScapeEngineStableHeaders.h"
 #include "EngineCore/SettingsDatasetManager.h"
 #include "HeightfieldOperationGPUNoise.h"
 #include "HeightfieldOperationTaskPageGPUBrush.h"

@@ -2,7 +2,7 @@
  * G.J.P. de Carpentier, 2007
  */
 
-#include "PCH/stdafx.h"
+#include "ScapeEngineStableHeaders.h"
 //#include "DeviceButton.h"
 #include "ButtonDefinition.h"
 

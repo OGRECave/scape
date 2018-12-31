@@ -1,4 +1,4 @@
-#include "PCH/stdafx.h"
+#include "ScapeEngineStableHeaders.h"
 #include "InputManager.h"
 
 #include "QtJSONButtonDefinitionDataAccesObject.h"

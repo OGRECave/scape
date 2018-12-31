@@ -2,7 +2,7 @@
 #include <sstream>
 #include <QtGui/QFocusEvent>
 
-#include "PCH/stdafx.h"
+#include "ScapeEngineStableHeaders.h"
 #include "Input/InputManager.h"
 
 OgreWidget::OgreWidget(ScapeEngine::EngineInterface* engineInterface, QWidget* parent)

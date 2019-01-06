@@ -108,7 +108,6 @@ class TabletInputWin32;
 class Tickable;
 class TickableManager;
 /*template <class T> class TMatrix4;
-template <class T> class TQuaternion;
 template <class T> class TVector2;
 template <class T> class TVector3;
 template <class T> class TVector4;*/

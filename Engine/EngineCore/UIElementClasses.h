@@ -44,12 +44,7 @@ public:                                                                         
 #define IMPLEMENT_UIELEMENTCONTAINERSIMPLE_CLASS(className)
 
 // ----------------------------------------------------------------------------
-#define LOADPROPERTIES_UIELEMENTCONTAINERSIMPLE_CLASS()                                                    \
-    StringStringMap::iterator propertyIt, propertyItEnd = getPersistentElementValueMap().end();            \
-    for (propertyIt = getPersistentElementValueMap().begin(); propertyIt != propertyItEnd; ++propertyIt)   \
-    {                                                                                                      \
-        setUIElementPropertyValue(propertyIt->first, propertyIt->second);                                  \
-    }
+#define LOADPROPERTIES_UIELEMENTCONTAINERSIMPLE_CLASS() loadPersistentProperties()
 
 // ----------------------------------------------------------------------------
 class UIElementContainer
@@ -101,6 +96,8 @@ protected:
 
     virtual bool initPersistentElementValueMap(StringStringMap& map) = 0;
     virtual bool initPersistentElementStringEnumMap(StringEnumMap& map) = 0;
+
+    virtual void loadPersistentProperties();
 };
 
 // ----------------------------------------------------------------------------

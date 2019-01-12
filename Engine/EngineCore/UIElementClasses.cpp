@@ -46,6 +46,16 @@ StringStringMap& UIElementContainerSimple::getPersistentElementValueMap()
     }
     return it->second;
 }
+
+void UIElementContainerSimple::loadPersistentProperties()
+{
+    StringStringMap::iterator propertyIt, propertyItEnd = getPersistentElementValueMap().end();
+    for (propertyIt = getPersistentElementValueMap().begin(); propertyIt != propertyItEnd; ++propertyIt)
+    {
+        setUIElementPropertyValue(propertyIt->first, propertyIt->second);
+    }
+}
+
 // ----------------------------------------------------------------------------
 StringList UIElementContainerSimple::getUIElementPropertyFieldNameList()
 {

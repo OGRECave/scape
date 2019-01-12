@@ -28,6 +28,7 @@ StringEnumMap& UIElementContainerSimple::getPersistentElementStringEnumMap()
     if (it == maps.end())
     {
         it = maps.insert(std::make_pair(containerName, StringEnumMap())).first;
+        initPersistentElementStringEnumMap(it->second);
     }
     return it->second;
 }
@@ -41,6 +42,7 @@ StringStringMap& UIElementContainerSimple::getPersistentElementValueMap()
     if (it == maps.end())
     {
         it = maps.insert(std::make_pair(containerName, StringStringMap())).first;
+        initPersistentElementValueMap(it->second);
     }
     return it->second;
 }

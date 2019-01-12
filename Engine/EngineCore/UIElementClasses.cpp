@@ -11,6 +11,7 @@
 #include "EngineCore/QtJSONSettingsDatasetDataAccessObject.h"
 
 #include <memory>
+#include <map>
 
 const string ScapeEngine::defaultPresetString = _T("Default");
 
@@ -18,6 +19,31 @@ using namespace ScapeEngine;
 
 #define PRESET_DATASETNAME _T("Presets")
 
+StringEnumMap& UIElementContainerSimple::getPersistentElementStringEnumMap()
+{
+    std::string containerName = getContainerName();
+
+    static std::map<std::string, StringEnumMap> maps;
+    std::map<std::string, StringEnumMap>::iterator it = maps.find(containerName);
+    if (it == maps.end())
+    {
+        it = maps.insert(std::make_pair(containerName, StringEnumMap())).first;
+    }
+    return it->second;
+}
+
+StringStringMap& UIElementContainerSimple::getPersistentElementValueMap()
+{
+    std::string containerName = getContainerName();
+
+    static std::map<std::string, StringStringMap> maps;
+    std::map<std::string, StringStringMap>::iterator it = maps.find(containerName);
+    if (it == maps.end())
+    {
+        it = maps.insert(std::make_pair(containerName, StringStringMap())).first;
+    }
+    return it->second;
+}
 // ----------------------------------------------------------------------------
 StringList UIElementContainerSimple::getUIElementPropertyFieldNameList()
 {

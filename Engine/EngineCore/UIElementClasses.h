@@ -112,8 +112,8 @@ public:
     virtual string setUIElementPropertyValue(const string& elementName, const string& value) = 0;
 
 protected:
-    virtual StringEnumMap& getPersistentElementStringEnumMap() = 0;
-    virtual StringStringMap& getPersistentElementValueMap() = 0;
+    virtual StringEnumMap& getPersistentElementStringEnumMap();
+    virtual StringStringMap& getPersistentElementValueMap();
 
     virtual bool initPersistentElementValueMap(StringStringMap& map) = 0;
     virtual bool initPersistentElementStringEnumMap(StringEnumMap& map) = 0;

@@ -82,7 +82,7 @@ public:
 };
 
 // ----------------------------------------------------------------------------
-class UIElementPresetContainer : public UIElementContainer
+class UIElementPresetContainer : virtual public UIElementContainer
 {
 public:
     virtual const _TCHAR* getContainerName() = 0;
@@ -103,7 +103,7 @@ public:
 };
 
 // ----------------------------------------------------------------------------
-class UIElementContainerSimple : public UIElementContainer
+class UIElementContainerSimple : virtual public UIElementContainer
 {
 public:
     virtual StringList getUIElementPropertyFieldNameList();

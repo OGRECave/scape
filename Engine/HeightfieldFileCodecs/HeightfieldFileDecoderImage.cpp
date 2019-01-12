@@ -141,7 +141,6 @@ bool HeightfieldFileDecoderImageBase::decode(HeightfieldBuffer* outBuffer, const
     {                                                                                                      \
         LOADPROPERTIES_UIELEMENTCONTAINERSIMPLE_CLASS();                                                   \
     }                                                                                                      \
-    IMPLEMENT_UIELEMENTCONTAINERSIMPLE_CLASS(className)                                                    \
     const string& className::getFileExtension()                                                            \
     {                                                                                                      \
         static string fileExtension(extension);                                                            \

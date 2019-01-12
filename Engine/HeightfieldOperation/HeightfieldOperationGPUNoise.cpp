@@ -24,7 +24,6 @@
 
 using namespace ScapeEngine;
 
-IMPLEMENT_UIELEMENTCONTAINERSIMPLE_CLASS(HeightfieldOperationGPUNoise);
 
 #define DEGTORAD(a) ((3.141592f / 180.0f) * (a))
 

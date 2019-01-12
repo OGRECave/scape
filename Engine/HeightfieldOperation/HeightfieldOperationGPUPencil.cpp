@@ -24,7 +24,6 @@
 
 using namespace ScapeEngine;
 
-IMPLEMENT_UIELEMENTCONTAINERSIMPLE_CLASS(HeightfieldOperationGPUPencil);
 
 // ----------------------------------------------------------------------------
 enum EPropertyId

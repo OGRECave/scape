@@ -17,7 +17,6 @@
 
 using namespace ScapeEngine;
 
-IMPLEMENT_UIELEMENTCONTAINERSIMPLE_CLASS(HeightfieldOperationCPULevel);
 
 // ----------------------------------------------------------------------------
 enum EPropertyId

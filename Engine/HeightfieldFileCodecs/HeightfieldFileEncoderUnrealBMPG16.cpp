@@ -23,7 +23,6 @@ enum EPropertyId
 
 using namespace ScapeEngine;
 
-IMPLEMENT_UIELEMENTCONTAINERSIMPLE_CLASS(HeightfieldFileEncoderUnrealBMPG16);
 
 // ----------------------------------------------------------------------------
 HeightfieldFileEncoderUnrealBMPG16::HeightfieldFileEncoderUnrealBMPG16()

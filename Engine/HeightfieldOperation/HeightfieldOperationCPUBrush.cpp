@@ -18,7 +18,6 @@
 
 using namespace ScapeEngine;
 
-IMPLEMENT_UIELEMENTCONTAINERSIMPLE_CLASS(HeightfieldOperationCPUBrush);
 
 // ----------------------------------------------------------------------------
 class HeightfieldOperationDirectCPUBrush : public HeightfieldOperationTaskDirect

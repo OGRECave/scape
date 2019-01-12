@@ -15,7 +15,6 @@
 
 using namespace ScapeEngine;
 
-IMPLEMENT_UIELEMENTCONTAINERSIMPLE_CLASS(HeightfieldGeomMaterial)
 
 // ----------------------------------------------------------------------------
 HeightfieldGeomMaterial::HeightfieldGeomMaterial()

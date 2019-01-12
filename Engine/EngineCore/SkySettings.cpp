@@ -11,7 +11,6 @@
 using namespace ScapeEngine;
 
 // ----------------------------------------------------------------------------
-IMPLEMENT_UIELEMENTCONTAINERSIMPLE_CLASS(SkySettings)
 
 // ----------------------------------------------------------------------------
 enum EPropertyId

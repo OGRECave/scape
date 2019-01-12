@@ -78,7 +78,6 @@ enum EPropertyId
     PROPERTYID_LODPOWER,
 };
 
-IMPLEMENT_UIELEMENTCONTAINERSIMPLE_CLASS(HeightfieldGeomMaterialSplat)
 
 // ----------------------------------------------------------------------------
 bool HeightfieldGeomMaterialSplat::initPersistentElementValueMap(StringStringMap& map)

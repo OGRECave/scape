@@ -36,7 +36,6 @@ HeightfieldFileDecoderRaw::HeightfieldFileDecoderRaw()
     LOADPROPERTIES_UIELEMENTCONTAINERSIMPLE_CLASS();
 }
 
-IMPLEMENT_UIELEMENTCONTAINERSIMPLE_CLASS(HeightfieldFileDecoderRaw)
 
 const string& HeightfieldFileDecoderRaw::getFileExtension()
 {

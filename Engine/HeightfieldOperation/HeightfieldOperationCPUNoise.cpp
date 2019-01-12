@@ -16,7 +16,6 @@
 
 using namespace ScapeEngine;
 
-IMPLEMENT_UIELEMENTCONTAINERSIMPLE_CLASS(HeightfieldOperationCPUNoise)
 
 Ogre::Vector3 HeightfieldOperationCPUNoise::mNoiseOrigin;
 

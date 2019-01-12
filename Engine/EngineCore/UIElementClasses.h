@@ -37,25 +37,11 @@ public:
 
 // ----------------------------------------------------------------------------
 #define DEFINE_UIELEMENTCONTAINERSIMPLE_CLASS(className)                                                   \
-protected:                                                                                                 \
-    virtual StringEnumMap& getPersistentElementStringEnumMap();                                            \
-    virtual StringStringMap& getPersistentElementValueMap();                                               \
-                                                                                                           \
 public:                                                                                                    \
     virtual const _TCHAR* getContainerName() { return _T(#className); }
 
 // ----------------------------------------------------------------------------
-#define IMPLEMENT_UIELEMENTCONTAINERSIMPLE_CLASS(className)                                                \
-    StringEnumMap& className::getPersistentElementStringEnumMap()                                          \
-    {                                                                                                      \
-        static StringEnumMap map;                                                                          \
-        return map;                                                                                        \
-    }                                                                                                      \
-    StringStringMap& className::getPersistentElementValueMap()                                             \
-    {                                                                                                      \
-        static StringStringMap map;                                                                        \
-        return map;                                                                                        \
-    }
+#define IMPLEMENT_UIELEMENTCONTAINERSIMPLE_CLASS(className)
 
 // ----------------------------------------------------------------------------
 #define LOADPROPERTIES_UIELEMENTCONTAINERSIMPLE_CLASS()                                                    \

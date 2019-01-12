@@ -85,8 +85,6 @@ public:
 class UIElementPresetContainer : virtual public UIElementContainer
 {
 public:
-    virtual const _TCHAR* getContainerName() = 0;
-
     virtual string getUIElementPresetPropertyValue(const string& presetName, const string& elementName) = 0;
     virtual void setUIElementPresetPropertyValue(const string& presetName, const string& elementName,
                                                  const string& value) = 0;

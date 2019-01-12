@@ -58,46 +58,6 @@ string UIElementContainerSimple::getUIElementPropertyFieldValue(const string& el
 }
 
 // ----------------------------------------------------------------------------
-StringList UIElementPresetContainerSimple::getUIElementPropertyFieldNameList()
-{
-    std::list<string> names;
-
-    StringEnumMap::iterator elementIt, elementItEnd = getPersistentElementStringEnumMap().end();
-    for (elementIt = getPersistentElementStringEnumMap().begin(); elementIt != elementItEnd; ++elementIt)
-    {
-        names.push_back(elementIt->first);
-    }
-
-    return names;
-}
-
-// ----------------------------------------------------------------------------
-StringStringMap
-UIElementPresetContainerSimple::setUIElementPropertyValueMap(const StringStringMap& valueMap)
-{
-    StringStringMap correctedValueMap;
-    StringStringMap::const_iterator valueIt, valueItEnd = valueMap.end();
-    for (valueIt = valueMap.begin(); valueIt != valueItEnd; ++valueIt)
-    {
-        string correctedValue = setUIElementPropertyValue(valueIt->first, valueIt->second);
-        correctedValueMap.insert(StringStringMap::value_type(valueIt->first, correctedValue));
-    }
-    return correctedValueMap;
-}
-
-// ----------------------------------------------------------------------------
-string UIElementPresetContainerSimple::getUIElementPropertyFieldValue(const string& elementName)
-{
-    StringStringMap& valueMap = getPersistentElementValueMap();
-    StringStringMap::iterator elementIt = valueMap.find(elementName);
-    if (elementIt != valueMap.end())
-    {
-        return elementIt->second;
-    }
-    return Utils::emptyString;
-}
-
-// ----------------------------------------------------------------------------
 string UIElementPresetContainerSimple::getUIElementPresetPropertyValue(const string& presetName,
                                                                        const string& elementName)
 {

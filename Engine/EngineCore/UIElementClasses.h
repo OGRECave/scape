@@ -125,12 +125,6 @@ protected:
 class UIElementPresetContainerSimple : public UIElementContainerSimple, public UIElementPresetContainer
 {
 public:
-    virtual StringList getUIElementPropertyFieldNameList();
-
-    virtual string getUIElementPropertyFieldValue(const string& elementName);
-    virtual StringStringMap getUIElementPropertyFieldValueMap() { return getPersistentElementValueMap(); }
-    virtual StringStringMap setUIElementPropertyValueMap(const StringStringMap& valueMap);
-
     virtual string getUIElementPresetPropertyValue(const string& presetName, const string& elementName);
     virtual void setUIElementPresetPropertyValue(const string& presetName, const string& elementName,
                                                  const string& value);
@@ -144,15 +138,6 @@ public:
     virtual void exportUIElementPreset(const string& fileName);
 
     virtual string makeUniquePresetName(const string& baseName);
-
-    virtual string setUIElementPropertyValue(const string& elementName, const string& value) = 0;
-
-protected:
-    virtual StringEnumMap& getPersistentElementStringEnumMap() = 0;
-    virtual StringStringMap& getPersistentElementValueMap() = 0;
-
-    virtual bool initPersistentElementValueMap(StringStringMap& map) = 0;
-    virtual bool initPersistentElementStringEnumMap(StringEnumMap& map) = 0;
 };
 }
 

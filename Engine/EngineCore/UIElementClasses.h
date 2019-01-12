@@ -122,7 +122,7 @@ protected:
 };
 
 // ----------------------------------------------------------------------------
-class UIElementPresetContainerSimple : public UIElementPresetContainer
+class UIElementPresetContainerSimple : public UIElementContainerSimple, public UIElementPresetContainer
 {
 public:
     virtual StringList getUIElementPropertyFieldNameList();

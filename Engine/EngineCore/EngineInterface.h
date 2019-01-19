@@ -14,15 +14,6 @@
 #include "ScapeEnginePrerequisites.h"
 
 //#include "UIElementTypes.h"
-/*
-#ifdef ENGINE_EXPORTS
-#define ENGINE_API __declspec(dllexport)
-#else
-#define ENGINE_API __declspec(dllimport)
-#endif
-*/
-
-#define ENGINE_API
 
 #define MATERIALTOOLNAME _T("Material")
 

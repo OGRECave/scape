@@ -139,7 +139,7 @@ bool HeightfieldFileDecoderImageBase::decode(HeightfieldBuffer* outBuffer, const
 #define IMPLEMENT_HEIGHTFIELDFILEDECODERIMAGE_CLASS(className, extension, filter)                          \
     className::className() : HeightfieldFileDecoderImageBase()                                             \
     {                                                                                                      \
-        LOADPROPERTIES_UIELEMENTCONTAINERSIMPLE_CLASS();                                                   \
+        loadPersistentProperties();                                                                        \
     }                                                                                                      \
     const string& className::getFileExtension()                                                            \
     {                                                                                                      \

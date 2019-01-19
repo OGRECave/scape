@@ -94,7 +94,7 @@ HeightfieldOperationCPULevel::HeightfieldOperationCPULevel() : HeightfieldOperat
     //	mBrushName = "HeightfieldOperationCPULevel";
     mBrushName = _T("HeightfieldBrush");
 
-    LOADPROPERTIES_UIELEMENTCONTAINERSIMPLE_CLASS();
+    loadPersistentProperties();
 }
 
 // ----------------------------------------------------------------------------

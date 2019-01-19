@@ -98,7 +98,7 @@ RenderView::RenderView(long viewId)
       // mOverlay(NULL),
       mDirtyRect(false), mDirtyWireframe(true)
 {
-    LOADPROPERTIES_UIELEMENTCONTAINERSIMPLE_CLASS();
+    loadPersistentProperties();
 }
 
 Ogre::SceneNode* RenderView::getCameraSceneNode() const { return mCameraSceneNode; }

@@ -516,7 +516,7 @@ string HeightfieldGeomMaterialSplat::setUIElementPropertyValue(const string& ele
 // ----------------------------------------------------------------------------
 HeightfieldGeomMaterialSplat::HeightfieldGeomMaterialSplat() : HeightfieldGeomMaterial()
 {
-    LOADPROPERTIES_UIELEMENTCONTAINERSIMPLE_CLASS();
+    loadPersistentProperties();
     assert(getEngineCore()->getSkySettings());
     getEngineCore()->getSkySettings()->addListener(this);
     updateMaterialType();

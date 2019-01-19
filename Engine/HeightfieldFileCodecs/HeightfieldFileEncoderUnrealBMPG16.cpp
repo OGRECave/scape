@@ -28,7 +28,7 @@ using namespace ScapeEngine;
 HeightfieldFileEncoderUnrealBMPG16::HeightfieldFileEncoderUnrealBMPG16()
     : mPixelFormat(Ogre::PF_SHORT_L), mBigEndian(false)
 {
-    LOADPROPERTIES_UIELEMENTCONTAINERSIMPLE_CLASS();
+    loadPersistentProperties();
 }
 
 // ----------------------------------------------------------------------------

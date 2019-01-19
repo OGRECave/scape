@@ -131,7 +131,7 @@ bool HeightfieldFileEncoderRawBase::encode(HeightfieldBuffer* inBuffer, FILE* fi
 #define IMPLEMENT_HEIGHTFIELDFILEENCODERRAW_CLASS(className, extension, filter, format, bigendian)         \
     className::className() : HeightfieldFileEncoderRawBase(format, bigendian)                              \
     {                                                                                                      \
-        LOADPROPERTIES_UIELEMENTCONTAINERSIMPLE_CLASS();                                                   \
+        loadPersistentProperties();                                                                        \
     }                                                                                                      \
     const string& className::getFileExtension()                                                            \
     {                                                                                                      \

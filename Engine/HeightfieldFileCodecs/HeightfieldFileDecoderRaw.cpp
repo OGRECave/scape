@@ -33,7 +33,7 @@ enum EPropertyId
 HeightfieldFileDecoderRaw::HeightfieldFileDecoderRaw()
     : mCodecExtension(_T("RAW")), mFlipX(false), mFlipY(false)
 {
-    LOADPROPERTIES_UIELEMENTCONTAINERSIMPLE_CLASS();
+    loadPersistentProperties();
 }
 
 

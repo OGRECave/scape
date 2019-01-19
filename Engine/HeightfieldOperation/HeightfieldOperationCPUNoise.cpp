@@ -133,7 +133,7 @@ HeightfieldOperationCPUNoise::HeightfieldOperationCPUNoise() : HeightfieldOperat
     //	mBrushName = "HeightfieldOperationCPUNoise";
     mBrushName = _T("HeightfieldBrush");
 
-    LOADPROPERTIES_UIELEMENTCONTAINERSIMPLE_CLASS();
+    loadPersistentProperties();
 }
 
 // ----------------------------------------------------------------------------

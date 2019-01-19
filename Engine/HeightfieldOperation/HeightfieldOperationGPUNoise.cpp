@@ -267,7 +267,7 @@ HeightfieldOperationGPUNoise::HeightfieldOperationGPUNoise()
     //	mBrushName = _T("HeightfieldOperationGPUNoise");
     mBrushName = _T("HeightfieldBrush");
 
-    LOADPROPERTIES_UIELEMENTCONTAINERSIMPLE_CLASS();
+    loadPersistentProperties();
 }
 
 #include "Input/InputManager.h"

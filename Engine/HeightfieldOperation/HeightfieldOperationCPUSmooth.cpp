@@ -94,7 +94,7 @@ HeightfieldOperationCPUSmooth::HeightfieldOperationCPUSmooth() : HeightfieldOper
     //	mBrushName = "HeightfieldOperationCPUSmooth";
     mBrushName = _T("HeightfieldBrush");
 
-    LOADPROPERTIES_UIELEMENTCONTAINERSIMPLE_CLASS();
+    loadPersistentProperties();
 }
 
 // ----------------------------------------------------------------------------

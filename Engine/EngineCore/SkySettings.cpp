@@ -186,7 +186,7 @@ SkySettings::SkySettings()
       mFogDistance(1.0E6f)
 {
     wantsPreFrameTick();
-    LOADPROPERTIES_UIELEMENTCONTAINERSIMPLE_CLASS();
+    loadPersistentProperties();
 }
 
 // ----------------------------------------------------------------------------

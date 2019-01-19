@@ -220,7 +220,7 @@ HeightfieldOperationCPUBrush2::HeightfieldOperationCPUBrush2()
     //	mBrushName = _T("HeightfieldOperationCPUBrush");
     mBrushName = _T("HeightfieldBrush");
 
-    LOADPROPERTIES_UIELEMENTCONTAINERSIMPLE_CLASS();
+    loadPersistentProperties();
 }
 
 // ----------------------------------------------------------------------------

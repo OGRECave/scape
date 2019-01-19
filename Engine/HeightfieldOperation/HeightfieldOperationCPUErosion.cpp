@@ -140,7 +140,7 @@ HeightfieldOperationCPUErosion::HeightfieldOperationCPUErosion() : HeightfieldOp
     //	mBrushName = _T("HeightfieldOperationCPUErosion");
     mBrushName = _T("HeightfieldBrush");
 
-    LOADPROPERTIES_UIELEMENTCONTAINERSIMPLE_CLASS();
+    loadPersistentProperties();
 }
 
 // ----------------------------------------------------------------------------

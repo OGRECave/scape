@@ -13,5 +13,7 @@
     #include <direct.h>
 #endif
 
+#define _ScapeEngineExport
+
 #endif // __SCAPEENGINEPLATFORM_H__
 

@@ -41,9 +41,6 @@ public:                                                                         
     virtual const _TCHAR* getContainerName() { return _T(#className); }
 
 // ----------------------------------------------------------------------------
-#define LOADPROPERTIES_UIELEMENTCONTAINERSIMPLE_CLASS() loadPersistentProperties()
-
-// ----------------------------------------------------------------------------
 class UIElementContainer
 {
 public:

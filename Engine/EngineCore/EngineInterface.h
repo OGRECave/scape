@@ -13,8 +13,6 @@
 
 #include "ScapeEnginePrerequisites.h"
 
-//#include "UIElementTypes.h"
-
 #define MATERIALTOOLNAME _T("Material")
 
 namespace ScapeEngine

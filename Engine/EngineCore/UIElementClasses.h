@@ -94,7 +94,7 @@ protected:
     virtual bool initPersistentElementValueMap(StringStringMap& map) = 0;
     virtual bool initPersistentElementStringEnumMap(StringEnumMap& map) = 0;
 
-    virtual void loadPersistentProperties();
+    void loadPersistentProperties();
 };
 
 // ----------------------------------------------------------------------------

@@ -45,7 +45,7 @@ enum EScapeUIElementGroupId
 };
 
 
-class ENGINE_API EngineInterface
+class _ScapeEngineExport EngineInterface
 {
 
 public:

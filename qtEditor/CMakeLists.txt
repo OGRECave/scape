@@ -67,9 +67,3 @@ target_link_libraries(qtEditor
     QtPropertyBrowser
 )
 
-# Installation
-if(WIN32)
-    include(${CMAKE_CURRENT_SOURCE_DIR}/windows.cmake)
-elseif(UNIX)
-    include(${CMAKE_CURRENT_SOURCE_DIR}/unix.cmake)
-endif()

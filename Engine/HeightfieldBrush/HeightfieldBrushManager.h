@@ -13,6 +13,8 @@
 
 #include "ScapeEnginePrerequisites.h"
 
+#include "HeightfieldBrushSettings.h"
+
 namespace ScapeEngine
 {
 
@@ -26,9 +28,13 @@ public:
 
     HeightfieldBrush* getCurrentBrush() const;
 
+    HeightfieldBrushSettings& getHeightfieldBrushSettings();
+
 private:
     typedef std::map<string, HeightfieldBrush*> Brushes;
     Brushes mBrushes;
+
+    HeightfieldBrushSettings mHeightfieldBrushSettings;
 };
 }
 

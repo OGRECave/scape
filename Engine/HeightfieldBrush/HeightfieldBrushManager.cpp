@@ -7,12 +7,17 @@
 #include "ScapeEngineStableHeaders.h"
 #include "HeightfieldBrush.h"
 #include "HeightfieldBrushManager.h"
+#include "HeightfieldBrushSettings.h"
 #include "HeightfieldOperation/HeightfieldOperation.h"
 #include "HeightfieldOperation/HeightfieldOperationStack.h"
 
 using namespace ScapeEngine;
 
-HeightfieldBrushManager::HeightfieldBrushManager() {}
+HeightfieldBrushManager::HeightfieldBrushManager() : mHeightfieldBrushSettings()
+{
+    mHeightfieldBrushSettings.setInnerRadius(50.f);
+    mHeightfieldBrushSettings.setOuterRadius(250.f);
+}
 
 HeightfieldBrushManager::~HeightfieldBrushManager()
 {
@@ -49,4 +54,9 @@ HeightfieldBrush* HeightfieldBrushManager::getBrush(const string& brushName)
     }
     // printf("%s %p\n", brushName.c_str(), brush);
     return brush;
+}
+
+HeightfieldBrushSettings& HeightfieldBrushManager::getHeightfieldBrushSettings()
+{
+    return mHeightfieldBrushSettings;
 }

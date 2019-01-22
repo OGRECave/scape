@@ -24,7 +24,6 @@
 using namespace ScapeEngine;
 
 
-// ----------------------------------------------------------------------------
 enum EPropertyId
 {
     PROPERTYID_STRENGTH,
@@ -33,14 +32,12 @@ enum EPropertyId
     PROPERTYID_SHOWDEBUG
 };
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationGPUBrush::initPersistentElementValueMap(StringStringMap& map)
 {
     setUIElementPropertyValueMap(getUIElementPresetPropertyValueMap(defaultPresetString));
     return true;
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationGPUBrush::initPersistentElementStringEnumMap(StringEnumMap& map)
 {
     ADD_STRINGENUM(map, PROPERTYID_, STRENGTH);
@@ -51,7 +48,6 @@ bool HeightfieldOperationGPUBrush::initPersistentElementStringEnumMap(StringEnum
     return true;
 }
 
-// ----------------------------------------------------------------------------
 string HeightfieldOperationGPUBrush::setUIElementPropertyValue(const string& elementName,
                                                                const string& value)
 {
@@ -102,7 +98,6 @@ string HeightfieldOperationGPUBrush::setUIElementPropertyValue(const string& ele
     return outValue;
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldOperationGPUBrush::HeightfieldOperationGPUBrush()
     : HeightfieldOperationPolicyBrushInstancerSpacer<
           HeightfieldOperationGPUBrush, HeightfieldOperationPolicySchedulerTaskPageBatch<
@@ -115,7 +110,6 @@ HeightfieldOperationGPUBrush::HeightfieldOperationGPUBrush()
     loadPersistentProperties();
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldOperationTaskPage*
 HeightfieldOperationGPUBrush::createTaskPage(const BrushPageCoords& pageCoords,
                                              const BrushInstances& brushInstances)

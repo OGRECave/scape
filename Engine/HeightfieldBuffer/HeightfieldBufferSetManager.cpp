@@ -10,10 +10,8 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 HeightfieldBufferSetManager::HeightfieldBufferSetManager() {}
 
-// ----------------------------------------------------------------------------
 HeightfieldBufferSetManager::~HeightfieldBufferSetManager()
 {
     HeightfieldBufferSetMap::iterator it = mHeightfieldBufferSetMap.begin(),
@@ -24,7 +22,6 @@ HeightfieldBufferSetManager::~HeightfieldBufferSetManager()
     }
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldBufferSetHandle
 HeightfieldBufferSetManager::create(const string& name, int elementColumnCount, int elementRowCount,
                                     Ogre::Real heightRangeMin, Ogre::Real heightRangeMax,
@@ -40,7 +37,6 @@ HeightfieldBufferSetManager::create(const string& name, int elementColumnCount, 
     return handle;
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldBufferSetHandle HeightfieldBufferSetManager::findHandle(const string& name)
 {
     HeightfieldBufferSetMap::iterator it = mHeightfieldBufferSetMap.begin(),
@@ -55,7 +51,6 @@ HeightfieldBufferSetHandle HeightfieldBufferSetManager::findHandle(const string&
     return 0;
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldBufferSetManager::destroy(HeightfieldBufferHandle handle)
 {
     HeightfieldBufferSetMap::iterator it = mHeightfieldBufferSetMap.find(handle);
@@ -70,7 +65,6 @@ bool HeightfieldBufferSetManager::destroy(HeightfieldBufferHandle handle)
     return false;
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldBufferSet* HeightfieldBufferSetManager::get(HeightfieldBufferSetHandle handle)
 {
     HeightfieldBufferSetMap::iterator it = mHeightfieldBufferSetMap.find(handle);
@@ -78,7 +72,6 @@ HeightfieldBufferSet* HeightfieldBufferSetManager::get(HeightfieldBufferSetHandl
     return it != mHeightfieldBufferSetMap.end() ? it->second : NULL;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldBufferSetManager::unlockAll()
 {
     HeightfieldBufferSetMap::iterator it = mHeightfieldBufferSetMap.begin(),

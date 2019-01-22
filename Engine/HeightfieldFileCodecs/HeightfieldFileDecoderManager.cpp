@@ -14,7 +14,6 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 HeightfieldFileDecoderManager::HeightfieldFileDecoderManager()
 {
     registerDecoder(new HeightfieldFileDecoderImageBMP);
@@ -26,7 +25,6 @@ HeightfieldFileDecoderManager::HeightfieldFileDecoderManager()
     registerDecoder(new HeightfieldFileDecoderRaw);
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldFileDecoderManager::~HeightfieldFileDecoderManager()
 {
     DecoderMap::iterator decoderIt, decoderItEnd = mDecoderMap.end();
@@ -36,7 +34,6 @@ HeightfieldFileDecoderManager::~HeightfieldFileDecoderManager()
     }
 }
 
-// ----------------------------------------------------------------------------
 StringList HeightfieldFileDecoderManager::getDecoderNameList()
 {
     StringList list;
@@ -50,10 +47,8 @@ StringList HeightfieldFileDecoderManager::getDecoderNameList()
     return list;
 }
 
-// ----------------------------------------------------------------------------
 StringStringStringPairMap HeightfieldFileDecoderManager::getFileFilterMap() { return mFileFilterMap; }
 
-// ----------------------------------------------------------------------------
 HeightfieldFileDecoder* HeightfieldFileDecoderManager::getDecoder(const string& name)
 {
     HeightfieldFileDecoder* decoder = NULL;
@@ -67,7 +62,6 @@ HeightfieldFileDecoder* HeightfieldFileDecoderManager::getDecoder(const string& 
     return decoder;
 }
 
-// ----------------------------------------------------------------------------
 string HeightfieldFileDecoderManager::getDecoderNameFromExtension(const string& extension)
 {
     DecoderMap::iterator decoderIt, decoderItEnd = mDecoderMap.end();
@@ -87,7 +81,6 @@ string HeightfieldFileDecoderManager::getDecoderNameFromExtension(const string& 
     return Utils::emptyString;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldFileDecoderManager::registerDecoder(HeightfieldFileDecoder* decoder)
 {
     assert(mDecoderMap.find(decoder->getClassName()) == mDecoderMap.end());

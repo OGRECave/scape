@@ -19,21 +19,17 @@
 using namespace ScapeEngine;
 
 
-// ----------------------------------------------------------------------------
 class HeightfieldOperationDirectCPUBrush : public HeightfieldOperationTaskDirect
 {
 public:
-    // ----------------------------------------------------------------------------
     HeightfieldOperationDirectCPUBrush(HeightfieldOperationBrush* operation,
                                        const BrushInstance& brushInstance)
         : HeightfieldOperationTaskDirect(operation, brushInstance)
     {
     }
 
-    // ----------------------------------------------------------------------------
     virtual void tickPending() { mCurrentState = STATE_ACTIVE; }
 
-    // ----------------------------------------------------------------------------
     virtual void tickActive()
     {
         // assert(mBrush);
@@ -121,7 +117,6 @@ public:
     }
 };
 
-// ----------------------------------------------------------------------------
 enum EPropertyId
 {
     PROPERTYID_STRENGTH,
@@ -130,14 +125,12 @@ enum EPropertyId
     PROPERTYID_LEDGEMODE,
 };
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationCPUBrush::initPersistentElementValueMap(StringStringMap& map)
 {
     setUIElementPropertyValueMap(getUIElementPresetPropertyValueMap(defaultPresetString));
     return true;
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationCPUBrush::initPersistentElementStringEnumMap(StringEnumMap& map)
 {
     ADD_STRINGENUM(map, PROPERTYID_, STRENGTH);
@@ -148,7 +141,6 @@ bool HeightfieldOperationCPUBrush::initPersistentElementStringEnumMap(StringEnum
     return true;
 }
 
-// ----------------------------------------------------------------------------
 string HeightfieldOperationCPUBrush::setUIElementPropertyValue(const string& elementName,
                                                                const string& value)
 {
@@ -199,7 +191,6 @@ string HeightfieldOperationCPUBrush::setUIElementPropertyValue(const string& ele
     return outValue;
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldOperationCPUBrush::HeightfieldOperationCPUBrush()
     : HeightfieldOperationPolicyBrushInstancerSpacer<
           HeightfieldOperationCPUBrush, HeightfieldOperationPolicySchedulerTaskDirect<
@@ -211,7 +202,6 @@ HeightfieldOperationCPUBrush::HeightfieldOperationCPUBrush()
     loadPersistentProperties();
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldOperationTaskDirect*
 HeightfieldOperationCPUBrush::createTaskDirect(const BrushInstance& brushInstance)
 {
@@ -220,7 +210,6 @@ HeightfieldOperationCPUBrush::createTaskDirect(const BrushInstance& brushInstanc
 
 #ifdef __BLA__
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationCPUBrush::applyPrimary(const Ogre::Vector3& position, Ogre::Real strength)
 {
     assert(mBrush);
@@ -299,7 +288,6 @@ void HeightfieldOperationCPUBrush::applyPrimary(const Ogre::Vector3& position, O
     delete data;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationCPUBrush::applySecondary(const Ogre::Vector3& position, Ogre::Real strength)
 {
     assert(mBrush);
@@ -371,7 +359,6 @@ void HeightfieldOperationCPUBrush::applySecondary(const Ogre::Vector3& position,
     delete data;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationCPUBrush::applySecondary(const Ogre::Vector3& position, Ogre::Real strength)
 {
     HeightfieldBuffer* heightfieldBuffer = mBrush->getHeightfieldGeom()->getHeightfieldBuffer();

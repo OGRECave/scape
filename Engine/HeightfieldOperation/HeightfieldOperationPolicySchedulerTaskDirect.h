@@ -31,7 +31,6 @@ class HeightfieldOperationPolicySchedulerTaskDirect : public ParentClass
 protected:
     HeightfieldOperationPolicySchedulerTaskDirect() : ParentClass() {}
 
-    // ----------------------------------------------------------------------------
     virtual void schedulerTick()
     {
         SubClass* operation = static_cast<SubClass*>(this);
@@ -99,7 +98,6 @@ protected:
         // mLastTickMillis = Ogre::Root::getSingleton().getTimer()->getMilliseconds();
     }
 
-    // ----------------------------------------------------------------------------
     virtual bool isSchedulerDone() { return mHeightfieldOperationTaskDirectList.empty(); }
 
 private:

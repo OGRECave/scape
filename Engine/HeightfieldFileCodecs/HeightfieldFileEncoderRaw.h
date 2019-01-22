@@ -15,11 +15,9 @@
 
 #include "HeightfieldFileEncoder.h"
 
-// ----------------------------------------------------------------------------
 namespace ScapeEngine
 {
 
-// ----------------------------------------------------------------------------
 class HeightfieldFileEncoderRawBase : public HeightfieldFileEncoder
 {
 public:
@@ -43,7 +41,6 @@ protected:
     virtual string setUIElementPropertyValue(const string& elementName, const string& value);
 };
 
-// ----------------------------------------------------------------------------
 #define DEFINE_HEIGHTFIELDFILEENCODERRAW_CLASS(className)                                                  \
     class className : public HeightfieldFileEncoderRawBase                                                 \
     {                                                                                                      \
@@ -55,7 +52,6 @@ protected:
         virtual const string& getFileFilter();                                                             \
     };
 
-// ----------------------------------------------------------------------------
 DEFINE_HEIGHTFIELDFILEENCODERRAW_CLASS(HeightfieldFileEncoderRaw8);
 DEFINE_HEIGHTFIELDFILEENCODERRAW_CLASS(HeightfieldFileEncoderRaw16L);
 DEFINE_HEIGHTFIELDFILEENCODERRAW_CLASS(HeightfieldFileEncoderRaw16B);

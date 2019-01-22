@@ -13,9 +13,7 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 
-// ----------------------------------------------------------------------------
 enum EPropertyId
 {
     PROPERTYID_PIXELSIZE,
@@ -23,14 +21,12 @@ enum EPropertyId
     PROPERTYID_DEBUGINFO,
 };
 
-// ----------------------------------------------------------------------------
 bool RenderView::initPersistentElementValueMap(StringStringMap& map)
 {
     setUIElementPropertyValueMap(getUIElementPresetPropertyValueMap(defaultPresetString));
     return true;
 }
 
-// ----------------------------------------------------------------------------
 bool RenderView::initPersistentElementStringEnumMap(StringEnumMap& map)
 {
     // lighting properties
@@ -41,7 +37,6 @@ bool RenderView::initPersistentElementStringEnumMap(StringEnumMap& map)
     return true;
 }
 
-// ----------------------------------------------------------------------------
 string RenderView::setUIElementPropertyValue(const string& elementName, const string& value)
 {
     EPropertyId propertyId =
@@ -91,7 +86,6 @@ string RenderView::setUIElementPropertyValue(const string& elementName, const st
     return outValue;
 }
 
-// ----------------------------------------------------------------------------
 RenderView::RenderView(long viewId)
     : mViewId(viewId), mRenderWindow(NULL), mCameraSceneNode(NULL), mCamera(NULL), mViewport(NULL),
       mCameraController(NULL),
@@ -103,13 +97,11 @@ RenderView::RenderView(long viewId)
 
 Ogre::SceneNode* RenderView::getCameraSceneNode() const { return mCameraSceneNode; }
 
-// ----------------------------------------------------------------------------
 void RenderView::attach(const string& windowHandle, int left, int top, int width, int height)
 {
     assert(mRenderWindow == NULL);
     assert(mViewport == NULL);
 
-    // --------------------
     // Create a new parameters list according to compiled OS
     Ogre::NameValuePairList params;
     params["vsync"] = "true";
@@ -177,7 +169,6 @@ void RenderView::attach(const string& windowHandle, int left, int top, int width
     getEngineCore()->loadScene();
 }
 
-// ----------------------------------------------------------------------------
 void RenderView::onMovedOrResized(int left, int top, int width, int height)
 {
     if (mRenderWindow)
@@ -195,7 +186,6 @@ void RenderView::onMovedOrResized(int left, int top, int width, int height)
     }
 }
 
-// ----------------------------------------------------------------------------
 void RenderView::detach()
 {
     if (mRenderWindow != NULL && mViewport != NULL)
@@ -214,14 +204,12 @@ void RenderView::detach()
     mViewport = NULL;
 }
 
-// ----------------------------------------------------------------------------
 void RenderView::destroy()
 {
     // detach();
     SAFE_DISPOSE(mCameraController);
 }
 
-// ----------------------------------------------------------------------------
 bool RenderView::fromRootToNormalizedLocalSpace(const IVector2& in, Ogre::Vector2& out) const
 {
     out.x = (Ogre::Real)(in.x - mViewportRect.left) / (mViewportRect.right - mViewportRect.left);
@@ -229,7 +217,6 @@ bool RenderView::fromRootToNormalizedLocalSpace(const IVector2& in, Ogre::Vector
     return out.x >= 0 && out.x <= 1.0f && out.y >= 0 && out.y <= 1.0f;
 }
 
-// ----------------------------------------------------------------------------
 void RenderView::update()
 {
     if (mDirtyWireframe)

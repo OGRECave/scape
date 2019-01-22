@@ -21,20 +21,16 @@ template <class T> class TMatrix4
 {
 
 public:
-    // ----------------------------------------------------------------------------
     // The four columns of this matrix
     TVector4<T> col0, col1, col2, col3;
 
-    // ----------------------------------------------------------------------------
     // Predefined zero and identity matrix
     static const TMatrix4<T> IDENTITY;
     static const TMatrix4<T> ZERO;
 
-    // ----------------------------------------------------------------------------
     // Non-initializing constructor
     inline TMatrix4<T>() {}
 
-    // ----------------------------------------------------------------------------
     // Column-filling constructor
     inline TMatrix4<T>(const TVector4<T>& _col0, const TVector4<T>& _col1, const TVector4<T>& _col2,
                        const TVector4<T>& _col3)
@@ -42,7 +38,6 @@ public:
     {
     }
 
-    // ----------------------------------------------------------------------------
     // Cell-filling constructor
     inline TMatrix4<T>(const Ogre::Matrix4& mtx)
         : col0(mtx[0][0], mtx[1][0], mtx[2][0], mtx[3][0]),
@@ -51,7 +46,6 @@ public:
     {
     }
 
-    // ----------------------------------------------------------------------------
     // Convert TMatrix4 to an Ogre::Matrix4 matrix
     inline Ogre::Matrix4 toOgreMatrix4() const
     {
@@ -68,7 +62,6 @@ public:
                              static_cast<Ogre::Real>(col2.w), static_cast<Ogre::Real>(col3.w));
     }
 
-    // ----------------------------------------------------------------------------
     // Concatenate the given matrix with this matrix
     inline TMatrix4<T> operator*(const TMatrix4<T>& m2) const
     {
@@ -97,7 +90,6 @@ public:
         return r;
     }
 
-    // ----------------------------------------------------------------------------
     // Transform (and normalize) a 3D vector with this homogeneous matrix.
     inline TVector3<T> operator*(const TVector3<T>& v) const
     {
@@ -108,7 +100,6 @@ public:
                            (col0.z * v.x + col1.z * v.y + col2.z * v.z + col3.z) * fInvW);
     }
 
-    // ----------------------------------------------------------------------------
     // Inverse this matrix
     inline void inverse()
     {
@@ -170,7 +161,6 @@ public:
         *this = result;
     }
 
-    // ----------------------------------------------------------------------------
     // Fill this matrix with a rotation-translation matrix, specified by a translation vector,
     // a yaw and a pitch angle.
     inline void fromEulerAngles(const TVector3<T>& eulerAngles, TVector3<T> translation = TVector3<T>::ZERO)
@@ -192,7 +182,6 @@ public:
     }
 };
 
-// ----------------------------------------------------------------------------
 // Constant identity matrix
 template <class T>
 const TMatrix4<T> TMatrix4<T>::IDENTITY(TVector4<T>(1, 0, 0, 0), TVector4<T>(0, 1, 0, 0),
@@ -203,7 +192,6 @@ template <class T>
 const TMatrix4<T> TMatrix4<T>::ZERO(TVector4<T>(0, 0, 0, 0), TVector4<T>(0, 0, 0, 0),
                                     TVector4<T>(0, 0, 0, 0), TVector4<T>(0, 0, 0, 0));
 
-// ----------------------------------------------------------------------------
 // TMatrix class specialization for integers
 typedef TMatrix4<int> IMatrix4;
 

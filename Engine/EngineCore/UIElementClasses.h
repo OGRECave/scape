@@ -19,7 +19,6 @@ namespace ScapeEngine
 {
 extern const string defaultPresetString;
 
-// ----------------------------------------------------------------------------
 template <class FactoryBaseClass> class FactoryClass
 {
 public:
@@ -29,18 +28,15 @@ public:
     virtual ~FactoryClass() {}
 };
 
-// ----------------------------------------------------------------------------
 #define DEFINE_FACTORYCLASS(className, baseClassName)                                                      \
     static baseClassName* create() { return new className(); }                                             \
     static const _TCHAR* getStaticClassName() { return _T(#className); }                                   \
     virtual const _TCHAR* getClassName() { return _T(#className); }
 
-// ----------------------------------------------------------------------------
 #define DEFINE_UIELEMENTCONTAINERSIMPLE_CLASS(className)                                                   \
 public:                                                                                                    \
     virtual const _TCHAR* getContainerName() { return _T(#className); }
 
-// ----------------------------------------------------------------------------
 class UIElementContainer
 {
 public:
@@ -54,7 +50,6 @@ public:
     virtual StringStringMap setUIElementPropertyValueMap(const StringStringMap& valueMap) = 0;
 };
 
-// ----------------------------------------------------------------------------
 class UIElementPresetContainer : virtual public UIElementContainer
 {
 public:
@@ -73,7 +68,6 @@ public:
     virtual string makeUniquePresetName(const string& baseName) = 0;
 };
 
-// ----------------------------------------------------------------------------
 class UIElementContainerSimple : virtual public UIElementContainer
 {
 public:
@@ -94,7 +88,6 @@ protected:
     void loadPersistentProperties();
 };
 
-// ----------------------------------------------------------------------------
 class UIElementPresetContainerSimple : public UIElementContainerSimple, public UIElementPresetContainer
 {
 public:

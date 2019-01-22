@@ -12,7 +12,6 @@
 using namespace ScapeEngine;
 using namespace ScapeEngine::DeviceButtonId;
 
-// ----------------------------------------------------------------------------
 InputListener::InputListener(InputManager* inputManager)
     : mInputManager(inputManager), mPointerPosition(IVector3::ZERO), mPointerDeltaPosition(IVector3::ZERO),
       mPointerMovement(IVector3::ZERO)
@@ -27,7 +26,6 @@ InputListener::InputListener(InputManager* inputManager)
     }
 }
 
-// ----------------------------------------------------------------------------
 InputListener::~InputListener()
 {
     if (mTabletInput)
@@ -37,7 +35,6 @@ InputListener::~InputListener()
     }
 }
 
-// ----------------------------------------------------------------------------
 void InputListener::captureInput()
 {
     if (mActive)
@@ -54,7 +51,6 @@ void InputListener::captureInput()
     }
 }
 
-// ----------------------------------------------------------------------------
 int InputListener::getAnalogInput(AnalogInputId::EAnalogInputId analogInputId) const
 {
     switch (analogInputId)
@@ -92,13 +88,11 @@ int InputListener::getAnalogInput(AnalogInputId::EAnalogInputId analogInputId) c
     return 0;
 }
 
-// ----------------------------------------------------------------------------
 bool InputListener::isDeviceButtonPressed(DeviceButtonId::EDeviceButtonId deviceButton) const
 {
     return mDeviceButtonPressed[deviceButton];
 }
 
-// ----------------------------------------------------------------------------
 void InputListener::setActive(bool active)
 {
     if (mActive != active && mInputManager)

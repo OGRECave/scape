@@ -15,11 +15,9 @@
 
 #include "HeightfieldFileEncoder.h"
 
-// ----------------------------------------------------------------------------
 namespace ScapeEngine
 {
 
-// ----------------------------------------------------------------------------
 class HeightfieldFileEncoderUnrealBMPG16 : public HeightfieldFileEncoder
 {
     DEFINE_UIELEMENTCONTAINERSIMPLE_CLASS(className)

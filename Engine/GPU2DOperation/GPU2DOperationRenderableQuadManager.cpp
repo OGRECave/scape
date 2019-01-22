@@ -10,10 +10,8 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 GPU2DOperationRenderableQuadManager::GPU2DOperationRenderableQuadManager() {}
 
-// ----------------------------------------------------------------------------
 GPU2DOperationRenderableQuadManager::~GPU2DOperationRenderableQuadManager()
 {
     FreeQuads::iterator it, itEnd = mFreeQuads.end();
@@ -23,7 +21,6 @@ GPU2DOperationRenderableQuadManager::~GPU2DOperationRenderableQuadManager()
     }
 }
 
-// ----------------------------------------------------------------------------
 GPU2DOperationRenderableQuad* GPU2DOperationRenderableQuadManager::getNewQuad()
 {
     if (mFreeQuads.empty())
@@ -38,7 +35,6 @@ GPU2DOperationRenderableQuad* GPU2DOperationRenderableQuadManager::getNewQuad()
     }
 }
 
-// ----------------------------------------------------------------------------
 void GPU2DOperationRenderableQuadManager::returnQuad(GPU2DOperationRenderableQuad* quad)
 {
     assert(quad);

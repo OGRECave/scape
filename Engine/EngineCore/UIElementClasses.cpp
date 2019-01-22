@@ -56,7 +56,6 @@ void UIElementContainerSimple::loadPersistentProperties()
     }
 }
 
-// ----------------------------------------------------------------------------
 StringList UIElementContainerSimple::getUIElementPropertyFieldNameList()
 {
     std::list<string> names;
@@ -70,7 +69,6 @@ StringList UIElementContainerSimple::getUIElementPropertyFieldNameList()
     return names;
 }
 
-// ----------------------------------------------------------------------------
 StringStringMap UIElementContainerSimple::setUIElementPropertyValueMap(const StringStringMap& valueMap)
 {
     StringStringMap correctedValueMap;
@@ -83,7 +81,6 @@ StringStringMap UIElementContainerSimple::setUIElementPropertyValueMap(const Str
     return correctedValueMap;
 }
 
-// ----------------------------------------------------------------------------
 string UIElementContainerSimple::getUIElementPropertyFieldValue(const string& elementName)
 {
     StringStringMap& valueMap = getPersistentElementValueMap();
@@ -95,7 +92,6 @@ string UIElementContainerSimple::getUIElementPropertyFieldValue(const string& el
     return Utils::emptyString;
 }
 
-// ----------------------------------------------------------------------------
 string UIElementPresetContainerSimple::getUIElementPresetPropertyValue(const string& presetName,
                                                                        const string& elementName)
 {
@@ -103,7 +99,6 @@ string UIElementPresetContainerSimple::getUIElementPresetPropertyValue(const str
                                                                     presetName, elementName);
 }
 
-// ----------------------------------------------------------------------------
 void UIElementPresetContainerSimple::setUIElementPresetPropertyValue(const string& presetName,
                                                                      const string& elementName,
                                                                      const string& value)
@@ -112,7 +107,6 @@ void UIElementPresetContainerSimple::setUIElementPresetPropertyValue(const strin
                                                                     presetName, elementName, value);
 }
 
-// ----------------------------------------------------------------------------
 StringStringMap UIElementPresetContainerSimple::getUIElementPresetPropertyValueMap(const string& presetName)
 {
     StringStringMap valueMap;
@@ -125,7 +119,6 @@ StringStringMap UIElementPresetContainerSimple::getUIElementPresetPropertyValueM
     return valueMap;
 }
 
-// ----------------------------------------------------------------------------
 void UIElementPresetContainerSimple::setUIElementPresetPropertyValueMap(const string& presetName,
                                                                         const StringStringMap& valueMap)
 {
@@ -136,7 +129,6 @@ void UIElementPresetContainerSimple::setUIElementPresetPropertyValueMap(const st
     }
 }
 
-// ----------------------------------------------------------------------------
 void UIElementPresetContainerSimple::deleteUIElementPreset(const string& presetName)
 {
     SettingsDataset* dataset = getEngineCore()->getSettingsDatasetManager()->getDataset(PRESET_DATASETNAME);
@@ -144,7 +136,6 @@ void UIElementPresetContainerSimple::deleteUIElementPreset(const string& presetN
     return dataset->clear(getContainerName(), presetName);
 }
 
-// ----------------------------------------------------------------------------
 StringList UIElementPresetContainerSimple::getUIElementPresetPropertyNames()
 {
     SettingsDataset* dataset = getEngineCore()->getSettingsDatasetManager()->getDataset(PRESET_DATASETNAME);
@@ -167,7 +158,6 @@ StringList UIElementPresetContainerSimple::getUIElementPresetPropertyNames()
     return presetNames;
 }
 
-// ----------------------------------------------------------------------------
 string UIElementPresetContainerSimple::importUIElementPreset(const string& fileName)
 {
     SettingsDataset* dataset = getEngineCore()->getSettingsDatasetManager()->getDataset(PRESET_DATASETNAME);
@@ -204,7 +194,6 @@ string UIElementPresetContainerSimple::importUIElementPreset(const string& fileN
     return presetName;
 }
 
-// ----------------------------------------------------------------------------
 void UIElementPresetContainerSimple::exportUIElementPreset(const string& fileName)
 {
     StringStringMap valueMap = getUIElementPropertyFieldValueMap();
@@ -228,7 +217,6 @@ void UIElementPresetContainerSimple::exportUIElementPreset(const string& fileNam
     exportedDataset.save();
 }
 
-// ----------------------------------------------------------------------------
 string UIElementPresetContainerSimple::makeUniquePresetName(const string& baseName)
 {
     return Utils::makeUniqueName(baseName, getUIElementPresetPropertyNames());

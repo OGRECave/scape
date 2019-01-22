@@ -62,7 +62,6 @@
         map[#val] = enumprefix##val;                                                                       \
     }
 
-// ----------------------------------------------------------------------------
 namespace ScapeEngine
 {
 typedef std::map<string, int> StringEnumMap;
@@ -73,7 +72,6 @@ typedef std::map<string, std::pair<string, string>> StringStringStringPairMap;
 
 namespace Utils
 {
-// ----------------------------------------------------------------------------
 inline int findEnumFromStringEnumMap(const StringEnumMap& stringEnumMap, const string& name,
                                      int notFoundValue = -1)
 {
@@ -83,21 +81,18 @@ inline int findEnumFromStringEnumMap(const StringEnumMap& stringEnumMap, const s
     return notFoundValue;
 }
 
-// ----------------------------------------------------------------------------
 // Get the smaller of the two values/objects
 template <class T> inline const T& min(const T& left, const T& right)
 {
     return (left < right ? left : right);
 }
 
-// ----------------------------------------------------------------------------
 // Get the larger of the two values/objects
 template <class T> inline const T& max(const T& left, const T& right)
 {
     return (left > right ? left : right);
 }
 
-// ----------------------------------------------------------------------------
 // Clamp value/object between min and max.
 // pre: min <= max
 template <class T> inline const T& clamp(const T& value, const T& min, const T& max)
@@ -105,7 +100,6 @@ template <class T> inline const T& clamp(const T& value, const T& min, const T& 
     return (value > max ? max : (value < min ? min : value));
 }
 
-// ----------------------------------------------------------------------------
 // Linearly interpolates src and dest.
 // blendFactor = 0 returns src. blendFactor = 1 returns dest.
 template <class T> inline T lerp(const T& src, const T& dest, Ogre::Real blendFactor)
@@ -113,14 +107,12 @@ template <class T> inline T lerp(const T& src, const T& dest, Ogre::Real blendFa
     return src + (dest - src) * blendFactor;
 }
 
-// ----------------------------------------------------------------------------
 // Get remaining halflife ratio after deltaTime given the halfLife
 template <class T> inline T getHalfLifeBlendFactor(T halfLife, T deltaTime)
 {
     return (T)1.0 - expf((T)-LN_HALF * deltaTime / halfLife);
 }
 
-// ----------------------------------------------------------------------------
 // Calculate Euler yaw and pitch angles between two vectors
 template <class T>
 TVector3<T> getYawPitchFromVectorDifference(const TVector3<T>& first, const TVector3<T>& second)
@@ -141,7 +133,6 @@ TVector3<T> getYawPitchFromVectorDifference(const TVector3<T>& first, const TVec
     return eulerAngles;
 }
 
-// ----------------------------------------------------------------------------
 // Return absolute value of the given integer
 // pre: T is an integer type (e.g. int, short, char)
 template <class T> inline T intAbs(T x)
@@ -151,7 +142,6 @@ template <class T> inline T intAbs(T x)
     return (x ^ shifted) - shifted;
 }
 
-// ----------------------------------------------------------------------------
 template <class T> inline bool fpAlmostZero(T x)
 {
     if (sizeof(T) == sizeof(float))
@@ -160,7 +150,6 @@ template <class T> inline bool fpAlmostZero(T x)
         return intAbs(*(SQWORD*)&x) <= DOUBLE_ALMOSTEQUAL_MAXULPS;
 }
 
-// ----------------------------------------------------------------------------
 template <class T> inline bool fpAlmostEqual(T a, T b)
 {
     if (sizeof(T) == sizeof(float))
@@ -169,14 +158,12 @@ template <class T> inline bool fpAlmostEqual(T a, T b)
         return intAbs(*(SQWORD*)&a - *(SQWORD*)&b) <= DOUBLE_ALMOSTEQUAL_MAXULPS;
 }
 
-// ----------------------------------------------------------------------------
 template <class T1, class T2> struct MapStruct
 {
     typedef std::map<T1, T2> MapType;
     MapType map;
 };
 
-// ----------------------------------------------------------------------------
 template <class MapStructType, class ValueType> class MapStructReadIterator
 {
 public:
@@ -197,7 +184,6 @@ protected:
     bool mValid;
 };
 
-// ----------------------------------------------------------------------------
 class MooreNeighborhood
 {
 public:
@@ -232,7 +218,6 @@ private:
     static const char* mDirectionToName[DIRECTION_ENUM_LENGTH];
 };
 
-// ----------------------------------------------------------------------------
 class VonNeumannNeighborhood
 {
 public:
@@ -263,7 +248,6 @@ private:
     static const char* mDirectionToName[DIRECTION_ENUM_LENGTH];
 };
 
-// ----------------------------------------------------------------------------
 template <class T> Ogre::TRect<T> unionTRect(const Ogre::TRect<T>& a, const Ogre::TRect<T>& b)
 {
     if (a.width() == 0 || a.height() == 0)
@@ -280,7 +264,6 @@ template <class T> Ogre::TRect<T> unionTRect(const Ogre::TRect<T>& a, const Ogre
     return rect;
 }
 
-// ----------------------------------------------------------------------------
 template <class T> Ogre::TRect<T> intersectTRect(const Ogre::TRect<T>& a, const Ogre::TRect<T>& b)
 {
     Ogre::TRect<T> rect;
@@ -295,7 +278,6 @@ template <class T> Ogre::TRect<T> intersectTRect(const Ogre::TRect<T>& a, const 
     return rect;
 }
 
-// ----------------------------------------------------------------------------
 template <class T> Ogre::TRect<T> subtractTRect(const Ogre::TRect<T>& a, const Ogre::TRect<T>& b)
 {
     Ogre::TRect<T> rect(a);
@@ -318,13 +300,11 @@ template <class T> Ogre::TRect<T> subtractTRect(const Ogre::TRect<T>& a, const O
     return rect;
 }
 
-// ----------------------------------------------------------------------------
 inline Ogre::Box rectToBox(const Ogre::Rect& rect)
 {
     return Ogre::Box(rect.left, rect.top, 0, rect.right, rect.bottom, 1);
 }
 
-// ----------------------------------------------------------------------------
 inline void translateRect(Ogre::Rect& rect, int offsetX = 0, int offsetY = 0)
 {
     rect.left += offsetX;
@@ -333,7 +313,6 @@ inline void translateRect(Ogre::Rect& rect, int offsetX = 0, int offsetY = 0)
     rect.bottom += offsetY;
 }
 
-// ----------------------------------------------------------------------------
 inline Ogre::Rect translatedRect(const Ogre::Rect& rect, int offsetX = 0, int offsetY = 0)
 {
     Ogre::Rect out = rect;
@@ -341,7 +320,6 @@ inline Ogre::Rect translatedRect(const Ogre::Rect& rect, int offsetX = 0, int of
     return out;
 }
 
-// ----------------------------------------------------------------------------
 inline void translateBox(Ogre::Box& box, int offsetX = 0, int offsetY = 0, int offsetZ = 0)
 {
     box.left += offsetX;
@@ -352,7 +330,6 @@ inline void translateBox(Ogre::Box& box, int offsetX = 0, int offsetY = 0, int o
     box.back += offsetZ;
 }
 
-// ----------------------------------------------------------------------------
 inline Ogre::Rect boxToRect(const Ogre::Box& box)
 {
     assert(box.getDepth() == 1);
@@ -361,43 +338,31 @@ inline Ogre::Rect boxToRect(const Ogre::Box& box)
 
 Ogre::Vector4 getCatmullRomeSplineWeights(Ogre::Real param);
 
-// ----------------------------------------------------------------------------
 Ogre::PixelBox clipPixelBox(const Ogre::PixelBox& pixelBox, const Ogre::Rect& relativeRect, int offsetX = 0,
                             int offsetY = 0);
 
-// ----------------------------------------------------------------------------
 Ogre::Real getTypicalVertexElementRangeMin(Ogre::VertexElementType type);
 
-// ----------------------------------------------------------------------------
 Ogre::Real getTypicalVertexElementRangeMax(Ogre::VertexElementType type);
 
-// ----------------------------------------------------------------------------
 bool bindShaderCustomAutoConstant(Ogre::Technique* technique, size_t constantIndex,
                                   const string& constantName);
 
-// ----------------------------------------------------------------------------
 bool readResource(const string& fileName, const string& groupName, string& contents);
 
-// ----------------------------------------------------------------------------
 typedef long long GUID;
 GUID createGUID();
 
-// ----------------------------------------------------------------------------
 Ogre::uint32 randHash(int in);
 
-// ----------------------------------------------------------------------------
 extern const string emptyString;
 
-// ----------------------------------------------------------------------------
 void writeBinaryFile(const string& fileName, const void* data, int bytes, bool append = false);
 
-// ----------------------------------------------------------------------------
 std::pair<void*, size_t> readBinaryFile(const string& fileName);
 
-// ----------------------------------------------------------------------------
 string makeUniqueName(const string& baseName, const std::list<string>& existingNames);
 
-// ----------------------------------------------------------------------------
 inline void flipByteOrder(void* data, size_t totalBytes)
 {
     char left;
@@ -412,7 +377,6 @@ inline void flipByteOrder(void* data, size_t totalBytes)
     }
 }
 
-// ----------------------------------------------------------------------------
 inline void flipByteOrder(unsigned char* data) { flipByteOrder(data, sizeof(unsigned char)); }
 inline void flipByteOrder(unsigned short* data) { flipByteOrder(data, sizeof(unsigned short)); }
 inline void flipByteOrder(unsigned int* data) { flipByteOrder(data, sizeof(unsigned int)); }
@@ -424,7 +388,6 @@ inline void flipByteOrder(signed int* data) { flipByteOrder(data, sizeof(signed 
 inline void flipByteOrder(signed long* data) { flipByteOrder(data, sizeof(signed long)); }
 inline void flipByteOrder(signed long long* data) { flipByteOrder(data, sizeof(signed long long)); }
 
-// ----------------------------------------------------------------------------
 inline void flipSubWordOrder(void* data, size_t totalWords, size_t wordBytes)
 {
     char left;
@@ -444,7 +407,6 @@ inline void flipSubWordOrder(void* data, size_t totalWords, size_t wordBytes)
     }
 }
 
-// ----------------------------------------------------------------------------
 inline void flipSuperWordOrder(void* data, size_t totalWords, size_t wordBytes)
 {
     char left;
@@ -464,17 +426,13 @@ inline void flipSuperWordOrder(void* data, size_t totalWords, size_t wordBytes)
     }
 }
 
-// ----------------------------------------------------------------------------
 Ogre::ColourValue getColourValueFromString(const string& colorString);
 
-// ----------------------------------------------------------------------------
 bool getTextureFromInternalFile(const string& textureName, const string& group, const string& fileName);
 bool getTextureFromExternalFile(const string& textureName, const string& group, const string& fileName);
 
-// ----------------------------------------------------------------------------
 string getRelativePath(const string& absolutePath, const string& basePath);
 
-// ----------------------------------------------------------------------------
 string getWorkingPath();
 
 void reloadMaterial(const Ogre::String& materialName);

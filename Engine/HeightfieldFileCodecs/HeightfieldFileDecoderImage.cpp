@@ -23,7 +23,6 @@ enum EPropertyId
     PROPERTYID_FLIPY,
 };
 
-// ----------------------------------------------------------------------------
 bool HeightfieldFileDecoderImageBase::initPersistentElementValueMap(StringStringMap& map)
 {
     setUIElementPropertyValue(UIELEMENTPROPERTY_FLIPX, _T("0"));
@@ -31,7 +30,6 @@ bool HeightfieldFileDecoderImageBase::initPersistentElementValueMap(StringString
     return true;
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldFileDecoderImageBase::initPersistentElementStringEnumMap(StringEnumMap& map)
 {
     map[UIELEMENTPROPERTY_FLIPX] = PROPERTYID_FLIPX;
@@ -39,7 +37,6 @@ bool HeightfieldFileDecoderImageBase::initPersistentElementStringEnumMap(StringE
     return true;
 }
 
-// ----------------------------------------------------------------------------
 string HeightfieldFileDecoderImageBase::setUIElementPropertyValue(const string& elementName,
                                                                   const string& value)
 {
@@ -55,7 +52,6 @@ string HeightfieldFileDecoderImageBase::setUIElementPropertyValue(const string& 
     return outValue;
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldFileDecoderImageBase::decode(HeightfieldBuffer* outBuffer, const string& fileName,
                                              string* error)
 {
@@ -135,7 +131,6 @@ bool HeightfieldFileDecoderImageBase::decode(HeightfieldBuffer* outBuffer, const
     return false;
 }
 
-// ----------------------------------------------------------------------------
 #define IMPLEMENT_HEIGHTFIELDFILEDECODERIMAGE_CLASS(className, extension, filter)                          \
     className::className() : HeightfieldFileDecoderImageBase()                                             \
     {                                                                                                      \

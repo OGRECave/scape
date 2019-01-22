@@ -16,23 +16,19 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 HeightfieldOperationStack::HeightfieldOperationStack() : mLastOperationIndex(-1), mNewOperation(NULL)
 {
     wantsPreFrameTick();
     getLastOperation();
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldOperationStack::~HeightfieldOperationStack() { clearAll(); }
 
-// ----------------------------------------------------------------------------
 HeightfieldOperation* HeightfieldOperationStack::getLastOperation()
 {
     return getOperation(mLastOperationIndex);
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationStack::setNewOperationClassName(const string& className)
 {
     if (getEngineCore()->getHeightfieldOperationFactory()->isRegistered(className))
@@ -52,7 +48,6 @@ bool HeightfieldOperationStack::setNewOperationClassName(const string& className
     }
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldOperation* HeightfieldOperationStack::getNewOperation()
 {
     if (!mNewOperation && mNewOperationClassName != Utils::emptyString)
@@ -62,7 +57,6 @@ HeightfieldOperation* HeightfieldOperationStack::getNewOperation()
     return mNewOperation;
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldOperation* HeightfieldOperationStack::getOperation(size_t index)
 {
     if (index >= 0 && index < mOperationHistory.size())
@@ -72,7 +66,6 @@ HeightfieldOperation* HeightfieldOperationStack::getOperation(size_t index)
     return NULL;
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationStack::doOperation()
 {
     if (mNewOperation && mNewOperation->canInitiate(HeightfieldOperation::STATE_DO))
@@ -98,7 +91,6 @@ bool HeightfieldOperationStack::doOperation()
     return false;
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationStack::undoOperation()
 {
     for (int newIndex = mLastOperationIndex; newIndex >= 0; --newIndex)
@@ -120,7 +112,6 @@ bool HeightfieldOperationStack::undoOperation()
     return false;
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationStack::redoOperation()
 {
     if (getLastOperation())
@@ -140,7 +131,6 @@ bool HeightfieldOperationStack::redoOperation()
     return false;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationStack::onPreFrameTick()
 {
     bool active = false;
@@ -199,7 +189,6 @@ void HeightfieldOperationStack::onPreFrameTick()
     }
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationStack::clearAll()
 {
     for (size_t index = 0; index < mOperationHistory.size(); ++index)

@@ -14,7 +14,6 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 HeightfieldOperationTaskPage::HeightfieldOperationTaskPage(HeightfieldOperationBrush* operation,
                                                            const BrushPageCoords pageCoords,
                                                            const BrushInstances& brushInstances)
@@ -23,10 +22,8 @@ HeightfieldOperationTaskPage::HeightfieldOperationTaskPage(HeightfieldOperationB
 {
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldOperationTaskPage::~HeightfieldOperationTaskPage() {}
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationTaskPage::tick()
 {
     if (mCurrentState == STATE_PENDING)
@@ -40,7 +37,6 @@ void HeightfieldOperationTaskPage::tick()
     }
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationTaskPage::addBrushInstances(const BrushInstances& brushInstances)
 {
     if (mCurrentState == STATE_PENDING)

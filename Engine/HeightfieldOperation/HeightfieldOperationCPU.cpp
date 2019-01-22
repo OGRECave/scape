@@ -17,7 +17,6 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 HeightfieldOperationCPU::HeightfieldOperationCPU()
     : HeightfieldOperationBrush(), mOriginalHeightfieldBuffer(NULL), mInOutHeightfieldBuffer(NULL),
       mIsStateActive(false), mHasBeenStateActive(false), mBrushName(_T("HeightfieldOperationCPU")),
@@ -26,7 +25,6 @@ HeightfieldOperationCPU::HeightfieldOperationCPU()
     mDeltaBufferPtr.reset();
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldOperationCPU::~HeightfieldOperationCPU()
 {
     if (mOriginalHeightfieldBuffer)
@@ -39,7 +37,6 @@ HeightfieldOperationCPU::~HeightfieldOperationCPU()
     mDeltaBufferPtr.reset();
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationCPU::canInitiate(EState state)
 {
     switch (state)
@@ -59,19 +56,15 @@ bool HeightfieldOperationCPU::canInitiate(EState state)
     }
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationCPU::isActive(EState state) { return mIsStateActive && mState == state; }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationCPU::isActive() { return mIsStateActive; }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationCPU::isDone(EState state)
 {
     return !mIsStateActive && mHasBeenStateActive && mState == state;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationCPU::initiate(EState state, HeightfieldBuffer* inOutHeightfieldBuffer)
 {
     mInOutHeightfieldBuffer = inOutHeightfieldBuffer;
@@ -92,7 +85,6 @@ void HeightfieldOperationCPU::initiate(EState state, HeightfieldBuffer* inOutHei
     }
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationCPU::tick()
 {
     if (mIsStateActive || !mHasBeenStateActive)
@@ -127,7 +119,6 @@ void HeightfieldOperationCPU::tick()
     }
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationCPU::initiateDo()
 {
     assert(!mIsStateActive && canInitiate(STATE_DO));
@@ -154,7 +145,6 @@ void HeightfieldOperationCPU::initiateDo()
         bufferSet->get(bufferSet->createFrom(originalName, mInOutHeightfieldBuffer->getHandle(), true));
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationCPU::tickDo()
 {
     assert(mState == STATE_DO && mIsStateActive);
@@ -277,7 +267,6 @@ void HeightfieldOperationCPU::tickDo()
     }
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationCPU::finishDo()
 {
     assert(mState == STATE_DO && mIsStateActive);
@@ -293,7 +282,6 @@ void HeightfieldOperationCPU::finishDo()
     }
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationCPU::initiateUndo()
 {
     assert(!mIsStateActive && canInitiate(STATE_UNDO));
@@ -302,7 +290,6 @@ void HeightfieldOperationCPU::initiateUndo()
     mHasBeenStateActive = true;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationCPU::tickUndo()
 {
     assert(mInOutHeightfieldBuffer);
@@ -311,7 +298,6 @@ void HeightfieldOperationCPU::tickUndo()
     mIsStateActive = false;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationCPU::initiateRedo()
 {
     assert(!mIsStateActive && canInitiate(STATE_REDO));
@@ -320,7 +306,6 @@ void HeightfieldOperationCPU::initiateRedo()
     mHasBeenStateActive = true;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationCPU::tickRedo()
 {
     assert(mInOutHeightfieldBuffer);
@@ -329,7 +314,6 @@ void HeightfieldOperationCPU::tickRedo()
     mIsStateActive = false;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationCPU::tickInactive()
 {
     // if (mBrush->isActive() && canInitiate(STATE_DO))

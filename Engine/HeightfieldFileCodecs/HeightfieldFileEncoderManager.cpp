@@ -13,7 +13,6 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 HeightfieldFileEncoderManager::HeightfieldFileEncoderManager()
 {
     // 8-bit uint formats
@@ -38,7 +37,6 @@ HeightfieldFileEncoderManager::HeightfieldFileEncoderManager()
     registerEncoder(new HeightfieldFileEncoderRaw32F);
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldFileEncoderManager::~HeightfieldFileEncoderManager()
 {
     EncoderMap::iterator encoderIt, encoderItEnd = mEncoderMap.end();
@@ -48,7 +46,6 @@ HeightfieldFileEncoderManager::~HeightfieldFileEncoderManager()
     }
 }
 
-// ----------------------------------------------------------------------------
 StringList HeightfieldFileEncoderManager::getEncoderNameList()
 {
     StringList list;
@@ -62,10 +59,8 @@ StringList HeightfieldFileEncoderManager::getEncoderNameList()
     return list;
 }
 
-// ----------------------------------------------------------------------------
 StringStringStringPairMap HeightfieldFileEncoderManager::getFileFilterMap() { return mFileFilterMap; }
 
-// ----------------------------------------------------------------------------
 HeightfieldFileEncoder* HeightfieldFileEncoderManager::getEncoder(const string& name)
 {
     HeightfieldFileEncoder* encoder = NULL;
@@ -79,7 +74,6 @@ HeightfieldFileEncoder* HeightfieldFileEncoderManager::getEncoder(const string& 
     return encoder;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldFileEncoderManager::registerEncoder(HeightfieldFileEncoder* encoder)
 {
     assert(mEncoderMap.find(encoder->getClassName()) == mEncoderMap.end());

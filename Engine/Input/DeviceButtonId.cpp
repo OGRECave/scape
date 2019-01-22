@@ -13,7 +13,6 @@ using namespace ScapeEngine;
 #error "ENUMID shouldn't be defined at this point"
 #endif
 
-// ----------------------------------------------------------------------------
 string DeviceButtonId::getDeviceButtonIdToUpperName(DeviceButtonId::EDeviceButtonId button)
 {
     static std::vector<string> table;
@@ -35,7 +34,6 @@ string DeviceButtonId::getDeviceButtonIdToUpperName(DeviceButtonId::EDeviceButto
     return table[(int)button];
 }
 
-// ----------------------------------------------------------------------------
 DeviceButtonId::EDeviceButtonId DeviceButtonId::getDeviceButtonIdFromUpperName(const string& buttonName)
 {
     static std::map<string, EDeviceButtonId> table;
@@ -57,7 +55,6 @@ DeviceButtonId::EDeviceButtonId DeviceButtonId::getDeviceButtonIdFromUpperName(c
     return it != table.end() ? it->second : DEVICEBUTTONID_UNKNOWN;
 }
 
-// ----------------------------------------------------------------------------
 DeviceButtonId::EDeviceButtonId DeviceButtonId::getDeviceButtonIdFromName(const string& buttonName)
 {
     string name(buttonName);

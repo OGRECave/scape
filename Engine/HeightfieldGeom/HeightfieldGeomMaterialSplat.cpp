@@ -79,14 +79,12 @@ enum EPropertyId
 };
 
 
-// ----------------------------------------------------------------------------
 bool HeightfieldGeomMaterialSplat::initPersistentElementValueMap(StringStringMap& map)
 {
     setUIElementPropertyValueMap(getUIElementPresetPropertyValueMap(defaultPresetString));
     return true;
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldGeomMaterialSplat::initPersistentElementStringEnumMap(StringEnumMap& map)
 {
     // lighting properties
@@ -156,7 +154,6 @@ bool HeightfieldGeomMaterialSplat::initPersistentElementStringEnumMap(StringEnum
     return true;
 }
 
-// ----------------------------------------------------------------------------
 string HeightfieldGeomMaterialSplat::setUIElementPropertyValue(const string& elementName,
                                                                const string& value)
 {
@@ -513,7 +510,6 @@ string HeightfieldGeomMaterialSplat::setUIElementPropertyValue(const string& ele
     return outValue;
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldGeomMaterialSplat::HeightfieldGeomMaterialSplat() : HeightfieldGeomMaterial()
 {
     loadPersistentProperties();
@@ -522,17 +518,14 @@ HeightfieldGeomMaterialSplat::HeightfieldGeomMaterialSplat() : HeightfieldGeomMa
     updateMaterialType();
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldGeomMaterialSplat::~HeightfieldGeomMaterialSplat()
 {
     assert(getEngineCore()->getSkySettings());
     getEngineCore()->getSkySettings()->removeListener(this);
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldGeomMaterialSplat::onSkySettingsUpdate() { mHasDirtySettings = true; }
 
-// ----------------------------------------------------------------------------
 Ogre::MaterialPtr HeightfieldGeomMaterialSplat::createMaterial()
 {
     Ogre::ResourcePtr resource = Ogre::MaterialManager::getSingleton().load(
@@ -542,7 +535,6 @@ Ogre::MaterialPtr HeightfieldGeomMaterialSplat::createMaterial()
     return material;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldGeomMaterialSplat::updateShaderConstantsGeom(
     const HeightfieldGeom* heightfieldGeom, ShaderCustomAutoConstants* shaderCustomAutoConstants,
     bool forceAll)
@@ -754,7 +746,6 @@ void HeightfieldGeomMaterialSplat::updateShaderConstantsGeom(
     }
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldGeomMaterialSplat::updateShaderConstantsGeomTile(
     const HeightfieldGeomTile* heightfieldGeomTile, ShaderCustomAutoConstants* shaderCustomAutoConstants,
     bool forceAll)
@@ -766,7 +757,6 @@ void HeightfieldGeomMaterialSplat::updateShaderConstantsGeomTile(
                                                            forceAll);
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldGeomMaterialSplat::updateTextures()
 {
     Ogre::Technique* technique = getMaterial()->getBestTechnique();
@@ -801,7 +791,6 @@ void HeightfieldGeomMaterialSplat::updateTextures()
     pass->getTextureUnitState(4)->setTextureName(TEXTUREBASENAME + mLayerProperties[4].textureFileName);
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldGeomMaterialSplat::bindShaderConstants()
 {
     Ogre::Technique* technique = getMaterial()->getBestTechnique();
@@ -839,7 +828,6 @@ void HeightfieldGeomMaterialSplat::bindShaderConstants()
                                         _T("skyColor"));
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldGeomMaterialSplat::forceReloadTexture(const string& oldFileName, const string& newFileName)
 {
     if (!oldFileName.empty() && oldFileName.compare(newFileName) != 0)
@@ -850,7 +838,6 @@ void HeightfieldGeomMaterialSplat::forceReloadTexture(const string& oldFileName,
                                       Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, newFileName);
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldGeomMaterialSplat::updateMaterialType()
 {
     mMaterialName = _T("HeightfieldMaterial_Splat4");

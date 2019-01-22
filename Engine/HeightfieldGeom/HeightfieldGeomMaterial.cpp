@@ -16,17 +16,14 @@
 using namespace ScapeEngine;
 
 
-// ----------------------------------------------------------------------------
 HeightfieldGeomMaterial::HeightfieldGeomMaterial()
     : mInitialized(false), mBrush(NULL), mHasDirtySettings(true)
 {
     mMaterial.reset();
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldGeomMaterial::~HeightfieldGeomMaterial() {}
 
-// ----------------------------------------------------------------------------
 void HeightfieldGeomMaterial::initialize()
 {
     if (!mInitialized)
@@ -36,7 +33,6 @@ void HeightfieldGeomMaterial::initialize()
     }
 }
 
-// ----------------------------------------------------------------------------
 const Ogre::MaterialPtr& HeightfieldGeomMaterial::getMaterial()
 {
     if (!mMaterial)
@@ -48,7 +44,6 @@ const Ogre::MaterialPtr& HeightfieldGeomMaterial::getMaterial()
     return mMaterial;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldGeomMaterial::updateShaderConstantsGeom(
     const HeightfieldGeom* heightfieldGeom, ShaderCustomAutoConstants* shaderCustomAutoConstants,
     bool forceAll)
@@ -135,7 +130,6 @@ void HeightfieldGeomMaterial::updateShaderConstantsGeom(
     }
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldGeomMaterial::updateShaderConstantsGeomTile(
     const HeightfieldGeomTile* heightfieldGeomTile, ShaderCustomAutoConstants* shaderCustomAutoConstants,
     bool forceAll)
@@ -209,7 +203,6 @@ void HeightfieldGeomMaterial::updateShaderConstantsGeomTile(
     }
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldGeomMaterial::bindShaderConstants()
 {
     Ogre::MaterialPtr material = getMaterial();
@@ -234,5 +227,4 @@ void HeightfieldGeomMaterial::bindShaderConstants()
                                         _T("brushColor"));
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldGeomMaterial::bindBrush(class HeightfieldBrush* brush) { mBrush = brush; }

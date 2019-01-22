@@ -24,28 +24,24 @@ enum EPropertyId
 using namespace ScapeEngine;
 
 
-// ----------------------------------------------------------------------------
 HeightfieldFileEncoderUnrealBMPG16::HeightfieldFileEncoderUnrealBMPG16()
     : mPixelFormat(Ogre::PF_SHORT_L), mBigEndian(false)
 {
     loadPersistentProperties();
 }
 
-// ----------------------------------------------------------------------------
 const string& HeightfieldFileEncoderUnrealBMPG16::getFileExtension()
 {
     static string fileExtension(_T("BMP"));
     return fileExtension;
 }
 
-// ----------------------------------------------------------------------------
 const string& HeightfieldFileEncoderUnrealBMPG16::getFileFilter()
 {
     static string fileFilter(_T("*.BMP;*.T3D"));
     return fileFilter;
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldFileEncoderUnrealBMPG16::initPersistentElementValueMap(StringStringMap& map)
 {
     setUIElementPropertyValue(UIELEMENTPROPERTY_FLIPX, _T("0"));
@@ -53,7 +49,6 @@ bool HeightfieldFileEncoderUnrealBMPG16::initPersistentElementValueMap(StringStr
     return true;
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldFileEncoderUnrealBMPG16::initPersistentElementStringEnumMap(StringEnumMap& map)
 {
     map[UIELEMENTPROPERTY_FLIPX] = PROPERTYID_FLIPX;
@@ -61,7 +56,6 @@ bool HeightfieldFileEncoderUnrealBMPG16::initPersistentElementStringEnumMap(Stri
     return true;
 }
 
-// ----------------------------------------------------------------------------
 string HeightfieldFileEncoderUnrealBMPG16::setUIElementPropertyValue(const string& elementName,
                                                                      const string& value)
 {
@@ -77,7 +71,6 @@ string HeightfieldFileEncoderUnrealBMPG16::setUIElementPropertyValue(const strin
     return outValue;
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldFileEncoderUnrealBMPG16::encode(HeightfieldBuffer* inBuffer, const string& fileName,
                                                 string* error)
 {

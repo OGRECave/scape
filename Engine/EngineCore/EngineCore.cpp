@@ -40,7 +40,6 @@ using namespace ScapeEngine;
 
 template <> EngineCore* Ogre::Singleton<EngineCore>::msSingleton = 0;
 
-// ----------------------------------------------------------------------------
 EngineCore::EngineCore(EngineInterface* engineInterface)
     : mEngineInterface(engineInterface), mRoot(NULL), mDebugRenderWindow(NULL),
       mApplicationSettingsConfigFile(NULL), mSceneManager(NULL), mSettingsDatasetManager(NULL),
@@ -54,10 +53,8 @@ EngineCore::EngineCore(EngineInterface* engineInterface)
 {
 }
 
-// ----------------------------------------------------------------------------
 EngineCore::~EngineCore() {}
 
-// ----------------------------------------------------------------------------
 void EngineCore::initialize()
 {
     // Create a new Ogre ROOT
@@ -115,7 +112,6 @@ void EngineCore::initialize()
     mLastFrameTimerMilliseconds = mFrameTimerMilliseconds - 1;
 }
 
-// ----------------------------------------------------------------------------
 void EngineCore::deinitialize()
 {
     SAFE_DELETE(mHeightfieldFileEncoderManager);
@@ -151,7 +147,6 @@ void EngineCore::deinitialize()
     SAFE_DELETE(mRoot);
 }
 
-// ----------------------------------------------------------------------------
 void EngineCore::loadApplicationSettings()
 {
     const Ogre::String GLOBALSETTINGS_FILENAME = "settings.cfg";
@@ -165,7 +160,6 @@ void EngineCore::loadApplicationSettings()
     getSettingsDatasetManager()->setDatasetResourcePath(settingsPath);
 }
 
-// ----------------------------------------------------------------------------
 string EngineCore::getApplicationSetting(const string& section, const string& key)
 {
     if (mApplicationSettingsConfigFile)
@@ -175,7 +169,6 @@ string EngineCore::getApplicationSetting(const string& section, const string& ke
     return Utils::emptyString;
 }
 
-// ----------------------------------------------------------------------------
 void EngineCore::loadResourceLocations()
 {
     const Ogre::String RESOURCES_FILENAME = "resources.cfg";
@@ -200,7 +193,6 @@ void EngineCore::loadResourceLocations()
     }
 }
 
-// ----------------------------------------------------------------------------
 void EngineCore::setupRenderSystem()
 {
     const Ogre::RenderSystemList& renderSystemList = mRoot->getAvailableRenderers();
@@ -211,13 +203,11 @@ void EngineCore::setupRenderSystem()
     }
 }
 
-// ----------------------------------------------------------------------------
 void EngineCore::attachInputToWindow(string inputWindow)
 {
     // getInputManager()->attachToWindow(inputWindow);
 }
 
-// ----------------------------------------------------------------------------
 void EngineCore::loadScene()
 {
     if (!mSceneLoaded)
@@ -364,10 +354,8 @@ void EngineCore::resetHeightfield()
     heightfieldBuffer->revalidate();
 }
 
-// ----------------------------------------------------------------------------
 Ogre::SceneManager* EngineCore::getSceneManager() { return mSceneManager; }
 
-// ----------------------------------------------------------------------------
 void EngineCore::loadSceneManager()
 {
     if (!mSceneManagerLoaded)
@@ -375,7 +363,6 @@ void EngineCore::loadSceneManager()
 
         mRoot->getRenderSystem()->setWBufferEnabled(true);
 
-        // --------------------
         // Create the SceneManager, in this case a generic one
         mSceneManager = mRoot->createSceneManager(_T("OctreeSceneManager"));
 
@@ -392,10 +379,8 @@ void EngineCore::loadSceneManager()
     }
 }
 
-// ----------------------------------------------------------------------------
 float EngineCore::getTimeSinceLastFrame() const { return mTimeSinceLastFrame; }
 
-// ----------------------------------------------------------------------------
 static Ogre::SceneNode* node = 0;
 void EngineCore::update()
 {
@@ -567,10 +552,8 @@ void EngineCore::update()
     }
 }
 
-// ----------------------------------------------------------------------------
 EngineCore& EngineCore::getSingleton() { return *msSingleton; }
 
-// ----------------------------------------------------------------------------
 Ogre::RenderWindow* EngineCore::getDebugRenderWindow()
 {
     if (mDebugRenderWindow == NULL)
@@ -581,10 +564,8 @@ Ogre::RenderWindow* EngineCore::getDebugRenderWindow()
     return mDebugRenderWindow;
 }
 
-// ----------------------------------------------------------------------------
 void EngineCore::onSkySettingsUpdate() { loadSkyBox(); }
 
-// ----------------------------------------------------------------------------
 void EngineCore::loadSkyBox()
 {
     const SkySettings::SkyBoxTextureNames& textureNames = getSkySettings()->getSkyBoxTextureNames();

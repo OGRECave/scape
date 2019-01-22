@@ -13,14 +13,12 @@ using namespace ScapeEngine;
 
 #define SECONDS_KEEP_UNUSED_GPU2DOPERATIONRENDERS 3.0f
 
-// ----------------------------------------------------------------------------
 GPU2DOperationManager::GPU2DOperationManager()
     : mTextureCounter(0), mTotalGPU2DOperationCount(0), mActiveGPU2DOperationCount(0)
 {
     wantsPostFrameTick();
 }
 
-// ----------------------------------------------------------------------------
 GPU2DOperationManager::~GPU2DOperationManager()
 {
     GPU2DOperationMap::iterator mapIt, mapItEnd = mGPU2DOperationMap.end();
@@ -42,7 +40,6 @@ GPU2DOperationManager::~GPU2DOperationManager()
     }
 }
 
-// ----------------------------------------------------------------------------
 GPU2DOperationPtr GPU2DOperationManager::getGPU2DOperation(const Ogre::Rect& renderRect,
                                                            Ogre::PixelFormat pixelFormat)
 {
@@ -124,7 +121,6 @@ GPU2DOperationPtr GPU2DOperationManager::getGPU2DOperation(const Ogre::Rect& ren
     return gpu2DRenderPtr;
 }
 
-// ----------------------------------------------------------------------------
 size_t GPU2DOperationManager::getActiveGPU2DOperationCount()
 {
     mActiveGPU2DOperationCount = 0;
@@ -147,7 +143,6 @@ size_t GPU2DOperationManager::getActiveGPU2DOperationCount()
     return mActiveGPU2DOperationCount;
 }
 
-// ----------------------------------------------------------------------------
 void GPU2DOperationManager::onPostFrameTick()
 {
     unsigned long currentMillis = Ogre::Root::getSingleton().getTimer()->getMilliseconds();

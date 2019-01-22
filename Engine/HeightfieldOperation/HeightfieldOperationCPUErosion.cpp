@@ -18,7 +18,6 @@
 using namespace ScapeEngine;
 
 
-// ----------------------------------------------------------------------------
 enum EPropertyId
 {
     PROPERTYID_STRENGTH,
@@ -31,14 +30,12 @@ enum EPropertyId
     PROPERTYID_KA,
 };
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationCPUErosion::initPersistentElementValueMap(StringStringMap& map)
 {
     setUIElementPropertyValueMap(getUIElementPresetPropertyValueMap(defaultPresetString));
     return true;
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationCPUErosion::initPersistentElementStringEnumMap(StringEnumMap& map)
 {
     ADD_STRINGENUM(map, PROPERTYID_, STRENGTH);
@@ -54,7 +51,6 @@ bool HeightfieldOperationCPUErosion::initPersistentElementStringEnumMap(StringEn
     return true;
 }
 
-// ----------------------------------------------------------------------------
 string HeightfieldOperationCPUErosion::setUIElementPropertyValue(const string& elementName,
                                                                  const string& value)
 {
@@ -134,7 +130,6 @@ string HeightfieldOperationCPUErosion::setUIElementPropertyValue(const string& e
     return outValue;
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldOperationCPUErosion::HeightfieldOperationCPUErosion() : HeightfieldOperationCPU()
 {
     //	mBrushName = _T("HeightfieldOperationCPUErosion");
@@ -143,7 +138,6 @@ HeightfieldOperationCPUErosion::HeightfieldOperationCPUErosion() : HeightfieldOp
     loadPersistentProperties();
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationCPUErosion::applyPrimary(const Ogre::Vector3& position, Ogre::Real strength)
 {
     assert(mBrush);

@@ -12,7 +12,6 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 GPU2DOperationRenderableQuad::GPU2DOperationRenderableQuad() : mDirtyVertexBuffer(true)
 {
     mUseIdentityProjection = true;
@@ -51,7 +50,6 @@ GPU2DOperationRenderableQuad::GPU2DOperationRenderableQuad() : mDirtyVertexBuffe
     reset();
 }
 
-// ----------------------------------------------------------------------------
 void GPU2DOperationRenderableQuad::reset()
 {
     mShaderCustomAutoConstants->clear();
@@ -66,7 +64,6 @@ void GPU2DOperationRenderableQuad::reset()
     mDirtyMaterialName = false;
 }
 
-// ----------------------------------------------------------------------------
 GPU2DOperationRenderableQuad::~GPU2DOperationRenderableQuad()
 {
     if (getMaterial())
@@ -80,35 +77,29 @@ GPU2DOperationRenderableQuad::~GPU2DOperationRenderableQuad()
     delete mShaderCustomAutoConstants;
 }
 
-// ----------------------------------------------------------------------------
 void GPU2DOperationRenderableQuad::setRenderRect(const Ogre::Rect& rect)
 {
     mRenderRect = rect;
     mDirtyVertexBuffer = true;
 }
 
-// ----------------------------------------------------------------------------
 const Ogre::Rect& GPU2DOperationRenderableQuad::getRenderRect() { return mRenderRect; }
 
-// ----------------------------------------------------------------------------
 void GPU2DOperationRenderableQuad::getWorldTransforms(Ogre::Matrix4* xform) const
 {
     *xform = Ogre::Matrix4::IDENTITY;
 }
 
-// ----------------------------------------------------------------------------
 const Ogre::Quaternion& GPU2DOperationRenderableQuad::getWorldOrientation(void) const
 {
     return Ogre::Quaternion::IDENTITY;
 }
 
-// ----------------------------------------------------------------------------
 const Ogre::Vector3& GPU2DOperationRenderableQuad::getWorldPosition(void) const
 {
     return Ogre::Vector3::ZERO;
 }
 
-// ----------------------------------------------------------------------------
 void GPU2DOperationRenderableQuad::setMaterialName(const string& materialName)
 {
     if (mMaterialName.compare(materialName) != 0)
@@ -118,7 +109,6 @@ void GPU2DOperationRenderableQuad::setMaterialName(const string& materialName)
     }
 }
 
-//-----------------------------------------------------------------------
 void GPU2DOperationRenderableQuad::_updateCustomGpuParameter(
     const Ogre::GpuProgramParameters::AutoConstantEntry& constantEntry,
     Ogre::GpuProgramParameters* params) const
@@ -129,13 +119,11 @@ void GPU2DOperationRenderableQuad::_updateCustomGpuParameter(
     }
 }
 
-//-----------------------------------------------------------------------
 void GPU2DOperationRenderableQuad::_updateRenderQueue(Ogre::RenderQueue* queue)
 {
     queue->addRenderable(this, mRenderQueueID, mZOrder);
 }
 
-// ----------------------------------------------------------------------------
 int GPU2DOperationRenderableQuad::getMaterialShaderConstantIndex(const string& constantName, bool makeDirty)
 {
     ShaderConstantNameToIndexMap::iterator mapIt = mShaderConstantNameToIndexMap.find(constantName);
@@ -159,7 +147,6 @@ int GPU2DOperationRenderableQuad::getMaterialShaderConstantIndex(const string& c
     return constantIndex;
 }
 
-// ----------------------------------------------------------------------------
 void GPU2DOperationRenderableQuad::setMaterialShaderConstant(const string& constantName,
                                                              const Ogre::Real* data, int dataCount)
 {
@@ -171,7 +158,6 @@ void GPU2DOperationRenderableQuad::setMaterialShaderConstant(const string& const
     }
 }
 
-// ----------------------------------------------------------------------------
 void GPU2DOperationRenderableQuad::setMaterialShaderConstant(const string& constantName,
                                                              const Ogre::Vector4& data)
 {
@@ -183,7 +169,6 @@ void GPU2DOperationRenderableQuad::setMaterialShaderConstant(const string& const
     }
 }
 
-// ----------------------------------------------------------------------------
 void GPU2DOperationRenderableQuad::setMaterialShaderConstant(const string& constantName,
                                                              const Ogre::Matrix4& data)
 {
@@ -195,7 +180,6 @@ void GPU2DOperationRenderableQuad::setMaterialShaderConstant(const string& const
     }
 }
 
-//-----------------------------------------------------------------------
 void GPU2DOperationRenderableQuad::setMaterialShaderConstantUVRect(const string& constantName,
                                                                    const Ogre::Rect& rect, bool flipX,
                                                                    bool flipY)
@@ -218,7 +202,6 @@ void GPU2DOperationRenderableQuad::setMaterialShaderConstantUVRect(const string&
     setMaterialShaderConstant(constantName, uvTransform);
 }
 
-//-----------------------------------------------------------------------
 void GPU2DOperationRenderableQuad::setMaterialTexture(const string& aliasName,
                                                       const Ogre::TexturePtr& texturePtr)
 {
@@ -228,7 +211,6 @@ void GPU2DOperationRenderableQuad::setMaterialTexture(const string& aliasName,
     mAliasTextureMap[aliasName] = textureName;
 }
 
-// ----------------------------------------------------------------------------
 void GPU2DOperationRenderableQuad::prepareForRender(Ogre::ushort zOrder)
 {
     mZOrder = zOrder;
@@ -309,7 +291,6 @@ void GPU2DOperationRenderableQuad::prepareForRender(Ogre::ushort zOrder)
     }
 }
 
-// ----------------------------------------------------------------------------
 void GPU2DOperationRenderableQuad::loadMaterial(const string& materialName)
 {
     Ogre::MaterialPtr originalMaterial = Ogre::MaterialManager::getSingleton().getByName(materialName);

@@ -26,7 +26,6 @@ typedef char TCHAR;
 #ifdef CREATE_OWN_CONSOLE
 #include <io.h>
 
-// ----------------------------------------------------------------------------
 void Console::openConsole()
 {
     static const WORD MAX_CONSOLE_LINES = 1000;
@@ -83,7 +82,6 @@ class DebugStream
     ostream_t stream;
 
 public:
-    // ----------------------------------------------------------------------------
     // initialize the stream
     DebugStream() {}
 
@@ -96,7 +94,6 @@ static DebugStream& debugStream()
     return g;
 }
 
-// ----------------------------------------------------------------------------
 void Console::openConsole()
 {
     ostream_t& stream = debugStream()();

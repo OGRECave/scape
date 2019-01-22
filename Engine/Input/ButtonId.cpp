@@ -9,7 +9,6 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 ButtonId::EButtonId ButtonId::getButtonIdFromUpperName(const string& buttonName)
 {
 #define ENUMID(a)                                                                                          \
@@ -33,7 +32,6 @@ ButtonId::EButtonId ButtonId::getButtonIdFromUpperName(const string& buttonName)
     return it != table.end() ? it->second : BUTTONID_UNKNOWN;
 }
 
-// ----------------------------------------------------------------------------
 ButtonId::EButtonId ButtonId::getButtonIdFromName(const string& buttonName)
 {
     string name(buttonName);
@@ -41,7 +39,6 @@ ButtonId::EButtonId ButtonId::getButtonIdFromName(const string& buttonName)
     return getButtonIdFromUpperName(name);
 }
 
-// ----------------------------------------------------------------------------
 string ButtonId::getButtonIdToUpperName(ButtonId::EButtonId button)
 {
 #define ENUMID(a)                                                                                          \

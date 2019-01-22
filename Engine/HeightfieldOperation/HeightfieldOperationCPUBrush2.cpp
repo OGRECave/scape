@@ -20,11 +20,9 @@
 using namespace ScapeEngine;
 
 
-// ----------------------------------------------------------------------------
 class HeightfieldOperationTaskPageCPUBrush : public HeightfieldOperationTaskPage
 {
 public:
-    // ----------------------------------------------------------------------------
     HeightfieldOperationTaskPageCPUBrush(HeightfieldOperationBrush* operation,
                                          const BrushPageCoords pageCoords,
                                          const BrushInstances& brushInstances)
@@ -32,10 +30,8 @@ public:
     {
     }
 
-    // ----------------------------------------------------------------------------
     virtual void tickPending() { mCurrentState = STATE_ACTIVE; }
 
-    // ----------------------------------------------------------------------------
     virtual void tickActive()
     {
         HeightfieldBufferPage* inOutPage = mOperation->getInOutHeightfieldBuffer()->getPage(
@@ -130,7 +126,6 @@ public:
     }
 };
 
-// ----------------------------------------------------------------------------
 enum EPropertyId
 {
     PROPERTYID_STRENGTH,
@@ -139,14 +134,12 @@ enum EPropertyId
     PROPERTYID_LEDGEMODE,
 };
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationCPUBrush2::initPersistentElementValueMap(StringStringMap& map)
 {
     setUIElementPropertyValueMap(getUIElementPresetPropertyValueMap(defaultPresetString));
     return true;
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationCPUBrush2::initPersistentElementStringEnumMap(StringEnumMap& map)
 {
     ADD_STRINGENUM(map, PROPERTYID_, STRENGTH);
@@ -157,7 +150,6 @@ bool HeightfieldOperationCPUBrush2::initPersistentElementStringEnumMap(StringEnu
     return true;
 }
 
-// ----------------------------------------------------------------------------
 string HeightfieldOperationCPUBrush2::setUIElementPropertyValue(const string& elementName,
                                                                 const string& value)
 {
@@ -208,7 +200,6 @@ string HeightfieldOperationCPUBrush2::setUIElementPropertyValue(const string& el
     return outValue;
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldOperationCPUBrush2::HeightfieldOperationCPUBrush2()
     : HeightfieldOperationPolicyBrushInstancerSpacer<
           HeightfieldOperationCPUBrush2,
@@ -223,7 +214,6 @@ HeightfieldOperationCPUBrush2::HeightfieldOperationCPUBrush2()
     loadPersistentProperties();
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldOperationTaskPage*
 HeightfieldOperationCPUBrush2::createTaskPage(const BrushPageCoords& pageCoords,
                                               const BrushInstances& brushInstances)

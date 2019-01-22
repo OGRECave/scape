@@ -14,7 +14,6 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 HeightfieldOperationTaskDirect::HeightfieldOperationTaskDirect(HeightfieldOperationBrush* operation,
                                                                const BrushInstance& brushInstance)
     : mOperation(operation), mBrushInstance(brushInstance), mCurrentState(STATE_PENDING),
@@ -22,10 +21,8 @@ HeightfieldOperationTaskDirect::HeightfieldOperationTaskDirect(HeightfieldOperat
 {
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldOperationTaskDirect::~HeightfieldOperationTaskDirect() {}
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationTaskDirect::tick()
 {
     if (mCurrentState == STATE_PENDING)

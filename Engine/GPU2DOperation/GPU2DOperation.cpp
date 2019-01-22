@@ -12,14 +12,12 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 GPU2DOperation::GPU2DOperation()
     : mViewport(NULL), mCamera(NULL), mMultiRenderTarget(NULL), mDirtyRegion(0, 0, 0, 0)
 {
     mSceneManager = Ogre::Root::getSingleton().createSceneManager(_T("DefaultSceneManager"));
 }
 
-// ----------------------------------------------------------------------------
 GPU2DOperation::~GPU2DOperation()
 {
     mRenderTargetTextures.clear();
@@ -42,7 +40,6 @@ GPU2DOperation::~GPU2DOperation()
     mGPU2DOperationQuads.clear();
 }
 
-// ----------------------------------------------------------------------------
 void GPU2DOperation::bindMultiRenderTarget(Ogre::TexturePtr renderTargetTexture)
 {
     assert(renderTargetTexture);
@@ -66,7 +63,6 @@ void GPU2DOperation::bindMultiRenderTarget(Ogre::TexturePtr renderTargetTexture)
     mRenderTargetTextures.push_back(renderTargetTexture);
 }
 
-// ----------------------------------------------------------------------------
 void GPU2DOperation::bindSingleRenderTarget(Ogre::RenderTarget* renderTarget)
 {
     assert(renderTarget);
@@ -100,7 +96,6 @@ void GPU2DOperation::bindSingleRenderTarget(Ogre::RenderTarget* renderTarget)
     setCameraPosition(0, 0);
 }
 
-// ----------------------------------------------------------------------------
 void GPU2DOperation::setCameraPosition(int x, int y)
 {
     assert(mCamera);
@@ -119,7 +114,6 @@ void GPU2DOperation::setCameraPosition(int x, int y)
     mCamera->setCustomViewMatrix(true, viewTransform);
 }
 
-// ----------------------------------------------------------------------------
 void GPU2DOperation::render(bool clearFirst)
 {
     assert(mMultiRenderTarget);
@@ -144,20 +138,17 @@ void GPU2DOperation::render(bool clearFirst)
     mViewport->getTarget()->update();
 }
 
-// ----------------------------------------------------------------------------
 void GPU2DOperation::blitToPixelBox(const Ogre::PixelBox& pixelBox)
 {
     mRenderTargetTextures.begin()->get()->getBuffer()->blitToMemory(pixelBox);
 }
 
-// ----------------------------------------------------------------------------
 void GPU2DOperation::clearQuads()
 {
     mGPU2DOperationQuads.clear();
     mSceneManager->clearScene();
 }
 
-// ----------------------------------------------------------------------------
 void GPU2DOperation::addQuad(GPU2DOperationQuadPtr quad)
 {
     mGPU2DOperationQuads.push_back(quad);

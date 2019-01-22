@@ -63,7 +63,6 @@ WTGET pWTGet = NULL;
 WTPACKETSGET pWTPacketsGet = NULL;
 static WinTabLibrary sWinTabLibrary;
 
-// ----------------------------------------------------------------------------
 static bool sIsWinTabAvailable = false;
 
 static void tryLoadWinTabLibrary()
@@ -97,17 +96,14 @@ using namespace ScapeEngine;
 
 static PACKET sPacketBuffer[NPACKETQSIZE];
 
-// ----------------------------------------------------------------------------
 TabletInputWin32::TabletInputWin32(const string& inputWindow)
     : mConnected(false), mInputWindow(inputWindow), mCurrentCursorId((Ogre::uint32)-1),
       mContextHandle(NULL), mPressure(-1.0f), mPacketQueueSize(0)
 {
 }
 
-// ----------------------------------------------------------------------------
 TabletInputWin32::~TabletInputWin32() {}
 
-// ----------------------------------------------------------------------------
 void TabletInputWin32::connect()
 {
     tryLoadWinTabLibrary();
@@ -169,7 +165,6 @@ void TabletInputWin32::connect()
     }
 }
 
-// ----------------------------------------------------------------------------
 void TabletInputWin32::disconnect()
 {
     if (mConnected && mContextHandle)
@@ -178,7 +173,6 @@ void TabletInputWin32::disconnect()
     }
 }
 
-// ----------------------------------------------------------------------------
 void TabletInputWin32::cacheCursorSettings()
 {
     if (mConnected)

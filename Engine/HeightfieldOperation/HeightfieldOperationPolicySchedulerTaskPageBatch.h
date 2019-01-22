@@ -29,10 +29,8 @@ protected:
     {
     }
 
-    // ----------------------------------------------------------------------------
     virtual void allowMultipleBrushInstances(bool allow) { mAllowMultipleBrushInstances = allow; }
 
-    // ----------------------------------------------------------------------------
     virtual void schedulerTick()
     {
         SubClass* operation = static_cast<SubClass*>(this);
@@ -196,7 +194,6 @@ protected:
         }
     }
 
-    // ----------------------------------------------------------------------------
     virtual bool isSchedulerDone()
     {
         return mHeightfieldOperationTaskPageList.empty() && mPageBinnedBrushInstances.empty();

@@ -14,10 +14,8 @@ using namespace ScapeEngine;
 
 template <> RenderViewManager* Ogre::Singleton<RenderViewManager>::msSingleton = 0;
 
-// ----------------------------------------------------------------------------
 RenderViewManager::RenderViewManager() : mCurrentRenderViewId(-1) {}
 
-// ----------------------------------------------------------------------------
 RenderViewManager::~RenderViewManager()
 {
     for (std::pair<long, RenderView*> renderViewPair : mRenderViews)
@@ -29,7 +27,6 @@ RenderViewManager::~RenderViewManager()
     mRenderViews.clear();
 }
 
-// ----------------------------------------------------------------------------
 RenderView* RenderViewManager::getRenderView(int viewId)
 {
     RenderViews::iterator renderViewsIt = mRenderViews.find(viewId);
@@ -40,7 +37,6 @@ RenderView* RenderViewManager::getRenderView(int viewId)
     return NULL;
 }
 
-// ----------------------------------------------------------------------------
 void RenderViewManager::createRenderView(int viewId, const string& windowHandle, int left, int top,
                                          int width, int height)
 {
@@ -66,7 +62,6 @@ void RenderViewManager::createRenderView(int viewId, const string& windowHandle,
     }
 }
 
-// ----------------------------------------------------------------------------
 void RenderViewManager::detachRenderView(int viewId)
 {
     RenderView* renderView = mRenderViews[viewId];
@@ -78,14 +73,12 @@ void RenderViewManager::detachRenderView(int viewId)
     }
 }
 
-// ----------------------------------------------------------------------------
 void RenderViewManager::onRenderViewMovedOrResized(int viewId, int left, int top, int width, int height)
 {
     RenderView* renderView = mRenderViews[viewId];
     renderView->onMovedOrResized(left, top, width, height);
 }
 
-// ----------------------------------------------------------------------------
 long RenderViewManager::getViewIdAtRootSpacePosition(const IVector2& point)
 {
     for (std::pair<long, RenderView*> renderViewPair : mRenderViews)
@@ -100,7 +93,6 @@ long RenderViewManager::getViewIdAtRootSpacePosition(const IVector2& point)
     return -1;
 }
 
-// ----------------------------------------------------------------------------
 void RenderViewManager::updateAll()
 {
     for (std::pair<long, RenderView*> renderViewPair : mRenderViews)

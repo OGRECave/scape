@@ -11,12 +11,10 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 SettingsDatasetManager::~SettingsDatasetManager()
 {
 }
 
-// ----------------------------------------------------------------------------
 void SettingsDatasetManager::setDatasetResourcePath(const string& path)
 {
     mDatasetResourcePath = Utils::emptyString;
@@ -26,7 +24,6 @@ void SettingsDatasetManager::setDatasetResourcePath(const string& path)
     }
 }
 
-// ----------------------------------------------------------------------------
 SettingsDataset* SettingsDatasetManager::getDataset(const string& datasetName)
 {
     DatasetMap::iterator datasetIt = mDatasetMap.find(datasetName);
@@ -42,21 +39,18 @@ SettingsDataset* SettingsDatasetManager::getDataset(const string& datasetName)
     return &datasetIt->second;
 }
 
-// ----------------------------------------------------------------------------
 string SettingsDatasetManager::getSetting(const string& datasetName, const string& section,
                                           const string& subsection, const string& key)
 {
     return getDataset(datasetName)->getSetting(section, subsection, key);
 }
 
-// ----------------------------------------------------------------------------
 void SettingsDatasetManager::setSetting(const string& datasetName, const string& section,
                                         const string& subsection, const string& key, const string& value)
 {
     return getDataset(datasetName)->setSetting(section, subsection, key, value);
 }
 
-// ----------------------------------------------------------------------------
 std::shared_ptr<SettingsDatasetDataAccessObject>
 SettingsDatasetManager::getSettingsDatasetDataAccessObjectFromDatasetName(const std::string& dataset) const
 {
@@ -72,7 +66,6 @@ SettingsDatasetManager::getSettingsDatasetDataAccessObjectFromDatasetName(const 
     return dao;
 }
 
-// ----------------------------------------------------------------------------
 void SettingsDatasetManager::saveAllDirty()
 {
     DatasetMap::iterator datasetIt, datasetItEnd = mDatasetMap.end();

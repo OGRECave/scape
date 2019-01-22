@@ -21,7 +21,6 @@ enum EPropertyId
     PROPERTYID_FLIPY,
 };
 
-// ----------------------------------------------------------------------------
 bool HeightfieldFileEncoderRawBase::initPersistentElementValueMap(StringStringMap& map)
 {
     setUIElementPropertyValue(UIELEMENTPROPERTY_FLIPX, _T("0"));
@@ -29,7 +28,6 @@ bool HeightfieldFileEncoderRawBase::initPersistentElementValueMap(StringStringMa
     return true;
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldFileEncoderRawBase::initPersistentElementStringEnumMap(StringEnumMap& map)
 {
     map[UIELEMENTPROPERTY_FLIPX] = PROPERTYID_FLIPX;
@@ -37,7 +35,6 @@ bool HeightfieldFileEncoderRawBase::initPersistentElementStringEnumMap(StringEnu
     return true;
 }
 
-// ----------------------------------------------------------------------------
 string HeightfieldFileEncoderRawBase::setUIElementPropertyValue(const string& elementName,
                                                                 const string& value)
 {
@@ -53,7 +50,6 @@ string HeightfieldFileEncoderRawBase::setUIElementPropertyValue(const string& el
     return outValue;
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldFileEncoderRawBase::encode(HeightfieldBuffer* inBuffer, const string& fileName,
                                            string* error)
 {
@@ -74,7 +70,6 @@ bool HeightfieldFileEncoderRawBase::encode(HeightfieldBuffer* inBuffer, const st
     return false;
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldFileEncoderRawBase::encode(HeightfieldBuffer* inBuffer, FILE* fileHandle, bool flipX,
                                            bool flipY, bool bigEndian, Ogre::PixelFormat pixelFormat,
                                            string* error)
@@ -127,7 +122,6 @@ bool HeightfieldFileEncoderRawBase::encode(HeightfieldBuffer* inBuffer, FILE* fi
     return false;
 }
 
-// ----------------------------------------------------------------------------
 #define IMPLEMENT_HEIGHTFIELDFILEENCODERRAW_CLASS(className, extension, filter, format, bigendian)         \
     className::className() : HeightfieldFileEncoderRawBase(format, bigendian)                              \
     {                                                                                                      \

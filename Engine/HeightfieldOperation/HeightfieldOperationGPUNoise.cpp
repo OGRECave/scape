@@ -27,7 +27,6 @@ using namespace ScapeEngine;
 
 #define DEGTORAD(a) ((3.141592f / 180.0f) * (a))
 
-// ----------------------------------------------------------------------------
 enum EPropertyId
 {
     PROPERTYID_STRENGTH,
@@ -54,14 +53,12 @@ enum EPropertyId
     PROPERTYID_DISTORTTYPE,
 };
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationGPUNoise::initPersistentElementValueMap(StringStringMap& map)
 {
     setUIElementPropertyValueMap(getUIElementPresetPropertyValueMap(defaultPresetString));
     return true;
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationGPUNoise::initPersistentElementStringEnumMap(StringEnumMap& map)
 {
     ADD_STRINGENUM(map, PROPERTYID_, STRENGTH);
@@ -90,7 +87,6 @@ bool HeightfieldOperationGPUNoise::initPersistentElementStringEnumMap(StringEnum
     return true;
 }
 
-// ----------------------------------------------------------------------------
 string HeightfieldOperationGPUNoise::setUIElementPropertyValue(const string& elementName,
                                                                const string& value)
 {
@@ -257,7 +253,6 @@ string HeightfieldOperationGPUNoise::setUIElementPropertyValue(const string& ele
     return outValue;
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldOperationGPUNoise::HeightfieldOperationGPUNoise()
     : HeightfieldOperationPolicyBrushInstancerSpacer<
           HeightfieldOperationGPUNoise, HeightfieldOperationPolicySchedulerTaskPageBatch<
@@ -271,7 +266,6 @@ HeightfieldOperationGPUNoise::HeightfieldOperationGPUNoise()
 }
 
 #include "Input/InputManager.h"
-// ----------------------------------------------------------------------------
 HeightfieldOperationTaskPage*
 HeightfieldOperationGPUNoise::createTaskPage(const BrushPageCoords& pageCoords,
                                              const BrushInstances& brushInstances)
@@ -314,7 +308,6 @@ HeightfieldOperationGPUNoise::createTaskPage(const BrushPageCoords& pageCoords,
     //brushInstances);
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationGPUNoise::onSetupGPU2DOperationQuadCustom(GPU2DOperationQuadCustomPtr quadPtr)
 {
 

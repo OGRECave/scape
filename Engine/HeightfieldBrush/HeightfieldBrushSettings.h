@@ -6,7 +6,7 @@
 namespace ScapeEngine
 {
 
-class HeightfieldBrushSettings
+class _ScapeEngineExport HeightfieldBrushSettings
 {
 public:
     HeightfieldBrushSettings();

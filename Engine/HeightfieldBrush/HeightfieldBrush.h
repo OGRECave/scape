@@ -24,8 +24,6 @@ public:
 
     void setOuterRadius(Ogre::Real radius);
 
-    void setRadius(Ogre::Real radius);
-
     void setPosition(const Ogre::Vector3& position);
 
     void setPressure(const Ogre::Real pressure);

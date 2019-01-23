@@ -33,8 +33,6 @@ void HeightfieldBrush::setOuterRadius(Ogre::Real radius)
     mOuterRadius = radius; // std::max(mInnerRadius, radius);
 }
 
-void HeightfieldBrush::setRadius(Ogre::Real radius) { mInnerRadius = mOuterRadius = radius; }
-
 void HeightfieldBrush::setPosition(const Ogre::Vector3& position) { mPosition = position; }
 
 void HeightfieldBrush::setPressure(Ogre::Real pressure) { mPressure = pressure; }

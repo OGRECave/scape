@@ -32,7 +32,6 @@ enum EScapeUIElementGroupId
     SCAPEUIELEMENTGROUPID_FILEIMPORT,
 };
 
-
 class _ScapeEngineExport EngineInterface
 {
 
@@ -124,6 +123,8 @@ public:
 
     std::string makeUniquePresetName(EScapeUIElementGroupId groupId, const std::string& elementName,
                                      const std::string& baseName);
+
+    HeightfieldBrushSettings& getHeightfieldBrushSettings();
 
 protected:
     UIElementContainer* getUIElementContainer(EScapeUIElementGroupId scapeGroupId,

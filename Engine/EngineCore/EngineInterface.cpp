@@ -27,6 +27,7 @@
 #include "HeightfieldFileCodecs/HeightfieldFileDecoderManager.h"
 #include "HeightfieldFileCodecs/HeightfieldFileEncoder.h"
 #include "HeightfieldFileCodecs/HeightfieldFileDecoder.h"
+#include "HeightfieldBrush/HeightfieldBrushManager.h"
 
 #include <iostream>
 
@@ -513,4 +514,9 @@ UIElementContainer* EngineInterface::getUIElementContainer(EScapeUIElementGroupI
     }
 
     return container;
+}
+
+HeightfieldBrushSettings& EngineInterface::getHeightfieldBrushSettings()
+{
+    return getEngineCore()->getHeightfieldBrushManager()->getHeightfieldBrushSettings();
 }

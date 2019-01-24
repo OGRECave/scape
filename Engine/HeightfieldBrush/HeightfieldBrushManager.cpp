@@ -51,8 +51,6 @@ HeightfieldBrush* HeightfieldBrushManager::getBrush(const string& brushName)
     if (brush == NULL)
     {
         brush = mBrushes[brushName] = new HeightfieldBrush();
-        brush->setInnerRadius(50.f);
-        brush->setOuterRadius(250.f);
     }
     // printf("%s %p\n", brushName.c_str(), brush);
     return brush;

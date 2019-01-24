@@ -94,9 +94,9 @@ void HeightfieldGeomMaterial::updateShaderConstantsGeom(
     if (mBrush)
     {
         Ogre::Vector3 worldBrushPosition = mBrush->getPosition();
-        Ogre::Real brushInnerRadius = mBrush->getInnerRadius() / worldQuadSize;
+        Ogre::Real brushInnerRadius = mHeightfieldBrushSettings.getInnerRadius() / worldQuadSize;
         Ogre::Real brushOuterRadius =
-            std::max(brushInnerRadius * 1.01f, mBrush->getOuterRadius() / worldQuadSize);
+            std::max(brushInnerRadius * 1.01f, mHeightfieldBrushSettings.getOuterRadius() / worldQuadSize);
         Ogre::Vector3 brushPosition = heightfieldGeom->getLocalPosition(worldBrushPosition);
         Ogre::Real inner = powf(brushInnerRadius, 2.0f); // mBrush->getRampPower() *
                                                          // mBrush->getRampPower());
@@ -113,10 +113,10 @@ void HeightfieldGeomMaterial::updateShaderConstantsGeom(
 
         shaderCustomAutoConstants->setConstant(
             _HeightfieldGeomMaterialNS::BRUSHCOLOR,
-            Ogre::Vector4(1.0f,                            // r
-                          0.0f,                            // g
-                          0.0f,                            // b
-                          1.0f * mBrush->getRampPower())); // brush shape power
+            Ogre::Vector4(1.0f,                                              // r
+                          0.0f,                                              // g
+                          0.0f,                                              // b
+                          1.0f * mHeightfieldBrushSettings.getRampPower())); // brush shape power
     }
     else
     {

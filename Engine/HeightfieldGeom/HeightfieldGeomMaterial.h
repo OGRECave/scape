@@ -75,6 +75,8 @@ protected:
 private:
     Ogre::MaterialPtr mMaterial;
 
+    HeightfieldBrushSettings& mHeightfieldBrushSettings;
+
     class HeightfieldBrush* mBrush;
 
     bool mInitialized;

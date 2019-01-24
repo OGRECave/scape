@@ -12,12 +12,16 @@
 #include "HeightfieldBuffer/HeightfieldBufferSet.h"
 #include "Utils/ShaderCustomAutoConstants.h"
 #include "HeightfieldBrush/HeightfieldBrush.h"
+#include "HeightfieldBrush/HeightfieldBrushManager.h"
+#include "HeightfieldBrush/HeightfieldBrushSettings.h"
 
 using namespace ScapeEngine;
 
-
 HeightfieldGeomMaterial::HeightfieldGeomMaterial()
-    : mInitialized(false), mBrush(NULL), mHasDirtySettings(true)
+    : mInitialized(false), mBrush(NULL),
+      mHeightfieldBrushSettings(
+          getEngineCore()->getHeightfieldBrushManager()->getHeightfieldBrushSettings()),
+      mHasDirtySettings(true)
 {
     mMaterial.reset();
 }

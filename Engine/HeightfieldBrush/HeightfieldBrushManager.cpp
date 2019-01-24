@@ -10,6 +10,8 @@
 #include "HeightfieldBrushSettings.h"
 #include "HeightfieldOperation/HeightfieldOperation.h"
 #include "HeightfieldOperation/HeightfieldOperationStack.h"
+#include "Input/InputManager.h"
+#include "Input/InputPointer.h"
 
 using namespace ScapeEngine;
 
@@ -61,4 +63,63 @@ HeightfieldBrushSettings& HeightfieldBrushManager::getHeightfieldBrushSettings()
     return mHeightfieldBrushSettings;
 }
 
-void HeightfieldBrushManager::tick() {}
+void HeightfieldBrushManager::tick()
+{
+    InputManager* inputManager = getEngineCore()->getInputManager();
+
+    if (inputManager->getButton(ButtonId::BRUSH_CHANGERADIUS)->isPressed())
+    {
+        Ogre::Real sizeChangeRatio = expf(-0.6f * getEngineCore()->getTimeSinceLastFrame() *
+                                          (inputManager->getAnalogInput(AnalogInputId::POINTER_DELTAY) -
+                                           inputManager->getAnalogInput(AnalogInputId::POINTER_DELTAX)));
+        Ogre::Real newOuterRadius =
+            std::max(0.5f, mHeightfieldBrushSettings.getOuterRadius() * sizeChangeRatio);
+        mHeightfieldBrushSettings.setInnerRadius(newOuterRadius *
+                                                 mHeightfieldBrushSettings.getInnerRadius() /
+                                                 mHeightfieldBrushSettings.getOuterRadius());
+        mHeightfieldBrushSettings.setOuterRadius(newOuterRadius);
+    }
+
+    Ogre::Real brushSizeHL = 2.00f;
+    Ogre::Real sizeChangeRatio = expf(-getEngineCore()->getTimeSinceLastFrame() / brushSizeHL);
+    if (inputManager->getButton(ButtonId::BRUSH_CHANGEFALLOFF)->isPressed())
+    {
+        Ogre::Real sizeChangeRatio = expf(-0.6f * getEngineCore()->getTimeSinceLastFrame() *
+                                          (inputManager->getAnalogInput(AnalogInputId::POINTER_DELTAY) -
+                                           inputManager->getAnalogInput(AnalogInputId::POINTER_DELTAX)));
+        sizeChangeRatio = Utils::clamp(mHeightfieldBrushSettings.getInnerRadius() * sizeChangeRatio, 0.5f,
+                                       mHeightfieldBrushSettings.getOuterRadius() * 0.98f);
+        mHeightfieldBrushSettings.setInnerRadius(sizeChangeRatio);
+    }
+
+    if (inputManager->getButton(ButtonId::BRUSH_CHANGERAMPPOWER)->isPressed())
+    {
+        Ogre::Real sizeChangeRatio = expf(-0.6f * getEngineCore()->getTimeSinceLastFrame() *
+                                          -(inputManager->getAnalogInput(AnalogInputId::POINTER_DELTAY) -
+                                            inputManager->getAnalogInput(AnalogInputId::POINTER_DELTAX)));
+        mHeightfieldBrushSettings.setRampPower(
+            Utils::clamp(mHeightfieldBrushSettings.getRampPower() * sizeChangeRatio, 0.04f, 25.0f));
+    }
+
+    if (inputManager->getButton(ButtonId::BRUSH_GROW)->isPressed())
+    {
+        sizeChangeRatio *= std::min(1.0f, 0.5f * (mHeightfieldBrushSettings.getInnerRadius() +
+                                                  mHeightfieldBrushSettings.getOuterRadius()) *
+                                              sizeChangeRatio);
+        mHeightfieldBrushSettings.setInnerRadius(mHeightfieldBrushSettings.getInnerRadius() /
+                                                 sizeChangeRatio);
+        mHeightfieldBrushSettings.setOuterRadius(mHeightfieldBrushSettings.getOuterRadius() /
+                                                 sizeChangeRatio);
+    }
+
+    if (inputManager->getButton(ButtonId::BRUSH_SHRINK)->isPressed())
+    {
+        sizeChangeRatio /= std::min(1.0f, 0.5f * (mHeightfieldBrushSettings.getInnerRadius() +
+                                                  mHeightfieldBrushSettings.getOuterRadius()) *
+                                              sizeChangeRatio);
+        mHeightfieldBrushSettings.setInnerRadius(mHeightfieldBrushSettings.getInnerRadius() *
+                                                 sizeChangeRatio);
+        mHeightfieldBrushSettings.setOuterRadius(mHeightfieldBrushSettings.getOuterRadius() *
+                                                 sizeChangeRatio);
+    }
+}

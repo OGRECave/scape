@@ -55,49 +55,6 @@ void HeightfieldBrush::tick()
 
     setHeightfieldGeom(inputManager->getInputPointer()->getCurrentState().get3DPointGeom());
 
-    if (inputManager->getButton(ButtonId::BRUSH_CHANGERADIUS)->isPressed())
-    {
-        Ogre::Real sizeChangeRatio = expf(-0.6f * getEngineCore()->getTimeSinceLastFrame() *
-                                          (inputManager->getAnalogInput(AnalogInputId::POINTER_DELTAY) -
-                                           inputManager->getAnalogInput(AnalogInputId::POINTER_DELTAX)));
-        Ogre::Real newOuterRadius = std::max(0.5f, getOuterRadius() * sizeChangeRatio);
-        setInnerRadius(newOuterRadius * getInnerRadius() / getOuterRadius());
-        setOuterRadius(newOuterRadius);
-    }
-
-    Ogre::Real brushSizeHL = 2.00f;
-    Ogre::Real sizeChangeRatio = expf(-getEngineCore()->getTimeSinceLastFrame() / brushSizeHL);
-    if (inputManager->getButton(ButtonId::BRUSH_CHANGEFALLOFF)->isPressed())
-    {
-        Ogre::Real sizeChangeRatio = expf(-0.6f * getEngineCore()->getTimeSinceLastFrame() *
-                                          (inputManager->getAnalogInput(AnalogInputId::POINTER_DELTAY) -
-                                           inputManager->getAnalogInput(AnalogInputId::POINTER_DELTAX)));
-        sizeChangeRatio = Utils::clamp(getInnerRadius() * sizeChangeRatio, 0.5f, getOuterRadius() * 0.98f);
-        setInnerRadius(sizeChangeRatio);
-    }
-
-    if (inputManager->getButton(ButtonId::BRUSH_CHANGERAMPPOWER)->isPressed())
-    {
-        Ogre::Real sizeChangeRatio = expf(-0.6f * getEngineCore()->getTimeSinceLastFrame() *
-                                          -(inputManager->getAnalogInput(AnalogInputId::POINTER_DELTAY) -
-                                            inputManager->getAnalogInput(AnalogInputId::POINTER_DELTAX)));
-        setRampPower(Utils::clamp(getRampPower() * sizeChangeRatio, 0.04f, 25.0f));
-    }
-
-    if (inputManager->getButton(ButtonId::BRUSH_GROW)->isPressed())
-    {
-        sizeChangeRatio *= std::min(1.0f, 0.5f * (getInnerRadius() + getOuterRadius()) * sizeChangeRatio);
-        setInnerRadius(getInnerRadius() / sizeChangeRatio);
-        setOuterRadius(getOuterRadius() / sizeChangeRatio);
-    }
-
-    if (inputManager->getButton(ButtonId::BRUSH_SHRINK)->isPressed())
-    {
-        sizeChangeRatio /= std::min(1.0f, 0.5f * (getInnerRadius() + getOuterRadius()) * sizeChangeRatio);
-        setInnerRadius(getInnerRadius() * sizeChangeRatio);
-        setOuterRadius(getOuterRadius() * sizeChangeRatio);
-    }
-
     mPrimaryActive = inputManager->getButton(ButtonId::BRUSH_ACTIVE)->isPressed();
     mSecondaryActive = !mPrimaryActive && inputManager->getButton(ButtonId::BRUSH_ACTIVE_ALT)->isPressed();
 }

@@ -15,27 +15,13 @@
 using namespace ScapeEngine;
 
 HeightfieldBrush::HeightfieldBrush()
-    : mPosition(0.0f, 0.0f, 0.0f), mOuterRadius(1.0f), mInnerRadius(0.0f), mRampPower(1.0f),
-      mPrimaryActive(false), mSecondaryActive(false), mHeightfieldGeom(NULL)
+    : mPosition(0.0f, 0.0f, 0.0f), mPrimaryActive(false), mSecondaryActive(false), mHeightfieldGeom(NULL)
 {
-}
-
-void HeightfieldBrush::setInnerRadius(Ogre::Real radius)
-{
-    // mInnerRadius = radius;//std::max(radius, 0.001f);
-    mInnerRadius = radius; // std::min(radius, mOuterRadius);
-}
-
-void HeightfieldBrush::setOuterRadius(Ogre::Real radius)
-{
-    mOuterRadius = radius; // std::max(mInnerRadius, radius);
 }
 
 void HeightfieldBrush::setPosition(const Ogre::Vector3& position) { mPosition = position; }
 
 void HeightfieldBrush::setPressure(Ogre::Real pressure) { mPressure = pressure; }
-
-void HeightfieldBrush::setRampPower(Ogre::Real rampPower) { mRampPower = rampPower; }
 
 void HeightfieldBrush::tick()
 {

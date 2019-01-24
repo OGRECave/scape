@@ -20,21 +20,9 @@ class HeightfieldBrush
 public:
     HeightfieldBrush();
 
-    void setInnerRadius(Ogre::Real radius);
-
-    void setOuterRadius(Ogre::Real radius);
-
     void setPosition(const Ogre::Vector3& position);
 
     void setPressure(const Ogre::Real pressure);
-
-    void setRampPower(const Ogre::Real rampPower);
-
-    inline Ogre::Real getInnerRadius() const { return mInnerRadius; }
-
-    inline Ogre::Real getOuterRadius() const { return mOuterRadius; }
-
-    inline Ogre::Real getRampPower() const { return mRampPower; }
 
     inline Ogre::Vector3 getPosition() const { return mPosition; }
 
@@ -55,13 +43,7 @@ public:
 private:
     Ogre::Vector3 mPosition;
 
-    Ogre::Real mOuterRadius;
-
-    Ogre::Real mInnerRadius;
-
     Ogre::Real mPressure;
-
-    Ogre::Real mRampPower;
 
     bool mPrimaryActive;
     bool mSecondaryActive;

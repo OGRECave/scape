@@ -552,6 +552,8 @@ void EngineCore::update()
     }
 }
 
+void EngineCore::tick() {}
+
 EngineCore& EngineCore::getSingleton() { return *msSingleton; }
 
 Ogre::RenderWindow* EngineCore::getDebugRenderWindow()

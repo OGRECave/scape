@@ -98,6 +98,8 @@ public:
     // if it wants to. Call this as very often.
     void update();
 
+    void tick();
+
     // Initialize all engine modules except a render view
     void initialize();
 

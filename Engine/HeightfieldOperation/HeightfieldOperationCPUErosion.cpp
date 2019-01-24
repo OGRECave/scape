@@ -17,7 +17,6 @@
 
 using namespace ScapeEngine;
 
-
 enum EPropertyId
 {
     PROPERTYID_STRENGTH,
@@ -145,8 +144,8 @@ void HeightfieldOperationCPUErosion::applyPrimary(const Ogre::Vector3& position,
     HeightfieldBuffer* heightfieldBuffer = mBrush->getHeightfieldGeom()->getHeightfieldBuffer();
     assert(heightfieldBuffer);
 
-    Ogre::Real innerRadius = mBrush->getInnerRadius();
-    Ogre::Real outerRadius = mBrush->getOuterRadius();
+    Ogre::Real innerRadius = mHeightfieldBrushSettings.getInnerRadius();
+    Ogre::Real outerRadius = mHeightfieldBrushSettings.getOuterRadius();
     int size = (int)(2 * outerRadius) + 2;
     int left = (int)position.x;
     int top = (int)position.z;

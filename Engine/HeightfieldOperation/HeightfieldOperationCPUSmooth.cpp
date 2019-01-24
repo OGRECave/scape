@@ -17,7 +17,6 @@
 
 using namespace ScapeEngine;
 
-
 enum EPropertyId
 {
     PROPERTYID_STRENGTH,
@@ -100,8 +99,8 @@ void HeightfieldOperationCPUSmooth::applyPrimary(const Ogre::Vector3& position, 
     Ogre::Real changeSpeed = 0.5f * mStrength;
     Ogre::Real sizeChangeScale =
         strength * changeSpeed; // * (1.0f - expf(-getEngineCore()->getTimeSinceLastFrame() / changeSpeed));
-    Ogre::Real innerRadius = mBrush->getInnerRadius();
-    Ogre::Real outerRadius = mBrush->getOuterRadius();
+    Ogre::Real innerRadius = mHeightfieldBrushSettings.getInnerRadius();
+    Ogre::Real outerRadius = mHeightfieldBrushSettings.getOuterRadius();
     int size = (int)(2 * outerRadius) + 2;
     int left = (int)position.x;
     int top = (int)position.z;
@@ -182,8 +181,8 @@ void HeightfieldOperationCPUSmooth::applySecondary(const Ogre::Vector3& position
     Ogre::Real changeSpeed = 0.25f * mStrength;
     Ogre::Real sizeChangeScale =
         strength * changeSpeed; // * (1.0f - expf(-getEngineCore()->getTimeSinceLastFrame() / changeSpeed));
-    Ogre::Real innerRadius = mBrush->getInnerRadius();
-    Ogre::Real outerRadius = mBrush->getOuterRadius();
+    Ogre::Real innerRadius = mHeightfieldBrushSettings.getInnerRadius();
+    Ogre::Real outerRadius = mHeightfieldBrushSettings.getOuterRadius();
     int size = (int)(2 * outerRadius) + 2;
     int left = (int)position.x;
     int top = (int)position.z;

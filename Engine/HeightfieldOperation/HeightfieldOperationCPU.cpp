@@ -202,7 +202,8 @@ void HeightfieldOperationCPU::tickDo()
 
                 distance = std::max(0.1f, node2.position.distance(node3.position));
                 Ogre::Real stepSize =
-                    std::max(1.0f, mPathSpacing * (mBrush->getOuterRadius() - mBrush->getInnerRadius()));
+                    std::max(1.0f, mPathSpacing * (mHeightfieldBrushSettings.getOuterRadius() -
+                                                   mHeightfieldBrushSettings.getInnerRadius()));
                 Ogre::Real stepStrength = stepSize * std::max(0.1f, 0.001f * (node3.time - node2.time));
 
                 Ogre::Vector3 positionCurrent;

@@ -64,9 +64,9 @@ protected:
         mWasActiveStroke = mIsActiveStroke;
         mIsActiveStroke = brush->isActive() && mIsActiveStroke;
 
-        Ogre::Real innerRadius = brush->getInnerRadius();
-        Ogre::Real outerRadius = brush->getOuterRadius();
-        Ogre::Real rampPower = brush->getRampPower();
+        Ogre::Real innerRadius = this->mHeightfieldBrushSettings.getInnerRadius();
+        Ogre::Real outerRadius = this->mHeightfieldBrushSettings.getOuterRadius();
+        Ogre::Real rampPower = this->mHeightfieldBrushSettings.getRampPower();
 
         if (this->isPencilMode())
         {
@@ -99,10 +99,11 @@ protected:
                                        subPoint3.distance(subPoint4) + subPoint4.distance(subPoint5));
 
                 distance = std::max(0.1f, node2.position.distance(node3.position));
-                Ogre::Real stepSize = std::max(
-                    1.0f, this->mPathSpacing * (brush->getOuterRadius() - brush->getInnerRadius()));
-                Ogre::Real stepStrength =
-                    stepSize / brush->getOuterRadius() * std::max(0.1f, 0.001f * (node3.time - node2.time));
+                Ogre::Real stepSize =
+                    std::max(1.0f, this->mPathSpacing * (this->mHeightfieldBrushSettings.getOuterRadius() -
+                                                         this->mHeightfieldBrushSettings.getInnerRadius()));
+                Ogre::Real stepStrength = stepSize / this->mHeightfieldBrushSettings.getOuterRadius() *
+                                          std::max(0.1f, 0.001f * (node3.time - node2.time));
                 // Ogre::Real stepStrength = std::max(0.1f, 0.001f * (node3.time - node2.time));
 
                 Ogre::Vector3 position;

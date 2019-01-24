@@ -554,7 +554,7 @@ void EngineCore::update()
     }
 }
 
-void EngineCore::tick() {}
+void EngineCore::tick() { mHeightfieldBrushManager->tick(); }
 
 EngineCore& EngineCore::getSingleton() { return *msSingleton; }
 

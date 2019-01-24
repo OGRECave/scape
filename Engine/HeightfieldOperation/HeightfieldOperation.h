@@ -29,7 +29,7 @@ public:
         STATE_UNDO
     };
 
-    virtual ~HeightfieldOperation() {}
+    virtual ~HeightfieldOperation();
     virtual bool canInitiate(EState state) = 0;
     virtual bool isActive() = 0;
     virtual bool isActive(EState state) = 0;
@@ -40,10 +40,10 @@ public:
     virtual HeightfieldBuffer* getInOutHeightfieldBuffer() = 0;
     virtual HeightfieldBuffer* getTempHeightfieldBuffer() = 0;
 
-    virtual HeightfieldBrush* getBrush() { return NULL; }
+    virtual HeightfieldBrush* getBrush();
 
 protected:
-    HeightfieldOperation() {}
+    HeightfieldOperation();
 };
 }
 

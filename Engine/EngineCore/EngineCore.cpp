@@ -400,6 +400,8 @@ void EngineCore::update()
         getTickableManager()->onPostSubTick();
         getTickableManager()->onPreFrameTick();
 
+        tick();
+
         /*
         {
                 static bool a = false;

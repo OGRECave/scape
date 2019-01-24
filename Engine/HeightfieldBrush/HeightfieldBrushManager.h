@@ -30,6 +30,8 @@ public:
 
     HeightfieldBrushSettings& getHeightfieldBrushSettings();
 
+    void tick();
+
 private:
     typedef std::map<string, HeightfieldBrush*> Brushes;
     Brushes mBrushes;

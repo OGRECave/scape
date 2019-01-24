@@ -60,3 +60,5 @@ HeightfieldBrushSettings& HeightfieldBrushManager::getHeightfieldBrushSettings()
 {
     return mHeightfieldBrushSettings;
 }
+
+void HeightfieldBrushManager::tick() {}

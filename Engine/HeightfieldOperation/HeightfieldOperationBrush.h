@@ -43,6 +43,7 @@ public:
 protected:
     class HeightfieldBrush* mBrush;
     Ogre::Real mStrength;
+    HeightfieldBrushSettings& mHeightfieldBrushSettings;
 
     HeightfieldOperationBrush();
 };

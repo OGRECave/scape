@@ -12,8 +12,6 @@
 #include "Input/InputManager.h"
 #include "Input/InputPointer.h"
 
-#include <iostream>
-
 using namespace ScapeEngine;
 
 HeightfieldBrush::HeightfieldBrush()
@@ -46,7 +44,6 @@ void HeightfieldBrush::tick()
     setPosition(inputManager->getInputPointer()->getCurrentState().get3DPoint());
 
     Ogre::Real pointerPressure = inputManager->getInputPointer()->getCurrentState().getPressure();
-    // printf("%f\n", pointerPressure);
     if (pointerPressure < 0.0f)
     {
         pointerPressure = 1.0f;
@@ -77,15 +74,6 @@ void HeightfieldBrush::tick()
                                            inputManager->getAnalogInput(AnalogInputId::POINTER_DELTAX)));
         sizeChangeRatio = Utils::clamp(getInnerRadius() * sizeChangeRatio, 0.5f, getOuterRadius() * 0.98f);
         setInnerRadius(sizeChangeRatio);
-
-        // sizeChangeRatio = pow(sizeChangeRatio,
-        // -inputManager->getAnalogInput(AnalogInputId::POINTER_DELTAY) +
-        // inputManager->getAnalogInput(AnalogInputId::POINTER_DELTAX));
-        // Ogre::Real midRadius = 0.5f * (getOuterRadius() + getInnerRadius());
-        // Ogre::Real delta = std::max(0.5f, std::min(0.5f * (getOuterRadius() - getInnerRadius()) *
-        // sizeChangeRatio, midRadius - 0.5f));
-        // setInnerRadius(midRadius - delta);
-        // setOuterRadius(midRadius + delta);
     }
 
     if (inputManager->getButton(ButtonId::BRUSH_CHANGERAMPPOWER)->isPressed())
@@ -94,7 +82,6 @@ void HeightfieldBrush::tick()
                                           -(inputManager->getAnalogInput(AnalogInputId::POINTER_DELTAY) -
                                             inputManager->getAnalogInput(AnalogInputId::POINTER_DELTAX)));
         setRampPower(Utils::clamp(getRampPower() * sizeChangeRatio, 0.04f, 25.0f));
-        std::cout << "power: " << getRampPower();
     }
 
     if (inputManager->getButton(ButtonId::BRUSH_GROW)->isPressed())
@@ -111,28 +98,6 @@ void HeightfieldBrush::tick()
         setOuterRadius(getOuterRadius() * sizeChangeRatio);
     }
 
-    /*
-    if (inputManager->getButton(ButtonId::BRUSH_SOFTENEDGE)->isPressed())
-    {
-            Ogre::Real delta = (getOuterRadius() - getInnerRadius());
-            Ogre::Real halfRatio = delta * (sizeChangeRatio - 1.0);
-            setInnerRadius(getInnerRadius() + delta);
-            setOuterRadius(getOuterRadius() - delta);
-    }
-
-    if (inputManager->getButton(ButtonId::BRUSH_HARDENEDGE)->isPressed())
-    {
-            Ogre::Real delta = (getOuterRadius() - getInnerRadius());
-            Ogre::Real halfRatio = sizeChangeRatio - 1.0;
-            setInnerRadius(getInnerRadius() - delta);
-            setOuterRadius(getOuterRadius() + delta);
-    }
-    */
-
-    //	//mPrimaryActive = getHeightfieldGeom() &&
-    //inputManager->getButton(ButtonId::BRUSH_ACTIVE)->isPressed();
-    // mSecondaryActive = getHeightfieldGeom() && !mPrimaryActive &&
-    // inputManager->getButton(ButtonId::BRUSH_ACTIVE_ALT)->isPressed();
     mPrimaryActive = inputManager->getButton(ButtonId::BRUSH_ACTIVE)->isPressed();
     mSecondaryActive = !mPrimaryActive && inputManager->getButton(ButtonId::BRUSH_ACTIVE_ALT)->isPressed();
 }

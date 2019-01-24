@@ -36,14 +36,15 @@ typedef std::list<HeightfieldOperationTaskDirect*> HeightfieldOperationTaskDirec
 class HeightfieldOperationBrush : public HeightfieldOperation
 {
 public:
-    virtual HeightfieldBrush* getBrush() { return mBrush; }
-    virtual Ogre::Real getStrength() { return mStrength; }
+    virtual ~HeightfieldOperationBrush();
+    virtual HeightfieldBrush* getBrush();
+    virtual Ogre::Real getStrength();
 
 protected:
     class HeightfieldBrush* mBrush;
     Ogre::Real mStrength;
 
-    HeightfieldOperationBrush() : mBrush(NULL), mStrength(1.0f) {}
+    HeightfieldOperationBrush();
 };
 }
 

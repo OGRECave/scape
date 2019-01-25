@@ -27,18 +27,6 @@ void HeightfieldBrush::tick()
 {
     InputManager* inputManager = getEngineCore()->getInputManager();
 
-    setPosition(inputManager->getInputPointer()->getCurrentState().get3DPoint());
-
-    Ogre::Real pointerPressure = inputManager->getInputPointer()->getCurrentState().getPressure();
-    if (pointerPressure < 0.0f)
-    {
-        pointerPressure = 1.0f;
-    }
-
-    pointerPressure = powf(pointerPressure, 2.0f);
-
-    setPressure(pointerPressure);
-
     setHeightfieldGeom(inputManager->getInputPointer()->getCurrentState().get3DPointGeom());
 
     mPrimaryActive = inputManager->getButton(ButtonId::BRUSH_ACTIVE)->isPressed();

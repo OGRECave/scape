@@ -66,6 +66,18 @@ void HeightfieldBrushManager::tick()
 {
     InputManager* inputManager = getEngineCore()->getInputManager();
 
+    mHeightfieldBrushState.setPosition(inputManager->getInputPointer()->getCurrentState().get3DPoint());
+
+    Ogre::Real pointerPressure = inputManager->getInputPointer()->getCurrentState().getPressure();
+    if (pointerPressure < 0.0f)
+    {
+        pointerPressure = 1.0f;
+    }
+
+    pointerPressure = powf(pointerPressure, 2.0f);
+
+    mHeightfieldBrushState.setPressure(pointerPressure);
+
     if (inputManager->getButton(ButtonId::BRUSH_CHANGERADIUS)->isPressed())
     {
         Ogre::Real sizeChangeRatio = expf(-0.6f * getEngineCore()->getTimeSinceLastFrame() *

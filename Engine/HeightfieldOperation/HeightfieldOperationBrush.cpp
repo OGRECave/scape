@@ -9,7 +9,8 @@ namespace ScapeEngine
 HeightfieldOperationBrush::HeightfieldOperationBrush()
     : mBrush(NULL), mStrength(1.0f),
       mHeightfieldBrushSettings(
-          getEngineCore()->getHeightfieldBrushManager()->getHeightfieldBrushSettings())
+          getEngineCore()->getHeightfieldBrushManager()->getHeightfieldBrushSettings()),
+      mHeightfieldBrushState(getEngineCore()->getHeightfieldBrushManager()->getHeightfieldBrushState())
 {
 }
 

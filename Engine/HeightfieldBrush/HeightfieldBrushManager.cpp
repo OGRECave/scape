@@ -8,6 +8,7 @@
 #include "HeightfieldBrush.h"
 #include "HeightfieldBrushManager.h"
 #include "HeightfieldBrushSettings.h"
+#include "HeightfieldBrushState.h"
 #include "HeightfieldOperation/HeightfieldOperation.h"
 #include "HeightfieldOperation/HeightfieldOperationStack.h"
 #include "Input/InputManager.h"
@@ -15,7 +16,7 @@
 
 using namespace ScapeEngine;
 
-HeightfieldBrushManager::HeightfieldBrushManager() : mHeightfieldBrushSettings()
+HeightfieldBrushManager::HeightfieldBrushManager() : mHeightfieldBrushSettings(), mHeightfieldBrushState()
 {
     mHeightfieldBrushSettings.setInnerRadius(50.f);
     mHeightfieldBrushSettings.setOuterRadius(250.f);
@@ -120,4 +121,9 @@ void HeightfieldBrushManager::tick()
         mHeightfieldBrushSettings.setOuterRadius(mHeightfieldBrushSettings.getOuterRadius() *
                                                  sizeChangeRatio);
     }
+}
+
+HeightfieldBrushState& HeightfieldBrushManager::getHeightfieldBrushState()
+{
+    return mHeightfieldBrushState;
 }

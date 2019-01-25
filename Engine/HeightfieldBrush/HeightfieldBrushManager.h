@@ -14,6 +14,7 @@
 #include "ScapeEnginePrerequisites.h"
 
 #include "HeightfieldBrushSettings.h"
+#include "HeightfieldBrushState.h"
 
 namespace ScapeEngine
 {
@@ -29,6 +30,7 @@ public:
     HeightfieldBrush* getCurrentBrush() const;
 
     HeightfieldBrushSettings& getHeightfieldBrushSettings();
+    HeightfieldBrushState& getHeightfieldBrushState();
 
     void tick();
 
@@ -37,6 +39,7 @@ private:
     Brushes mBrushes;
 
     HeightfieldBrushSettings mHeightfieldBrushSettings;
+    HeightfieldBrushState mHeightfieldBrushState;
 };
 }
 

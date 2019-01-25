@@ -254,8 +254,7 @@ HeightfieldOperationGPUNoiseDrag::HeightfieldOperationGPUNoiseDrag()
 {
     allowMultipleBrushInstances(true);
 
-    //	mBrushName = _T("HeightfieldOperationGPUNoise");
-    mBrushName = _T("HeightfieldBrush");
+    mBrushName = _T("HeightfieldOperationGPUNoise");
 
     loadPersistentProperties();
 }

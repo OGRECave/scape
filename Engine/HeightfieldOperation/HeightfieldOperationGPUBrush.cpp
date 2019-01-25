@@ -104,8 +104,7 @@ HeightfieldOperationGPUBrush::HeightfieldOperationGPUBrush()
                                             HeightfieldOperationGPUBrush, HeightfieldOperationBrushBase>>(),
       mShowDebug(false)
 {
-    //	mBrushName = _T("HeightfieldOperationGPUBrush");
-    mBrushName = _T("HeightfieldBrush");
+    mBrushName = _T("HeightfieldOperationGPUBrush");
 
     loadPersistentProperties();
 }

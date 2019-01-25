@@ -259,8 +259,7 @@ HeightfieldOperationGPUNoise::HeightfieldOperationGPUNoise()
                                             HeightfieldOperationGPUNoise, HeightfieldOperationBrushBase>>()
 {
     allowMultipleBrushInstances(true);
-    //	mBrushName = _T("HeightfieldOperationGPUNoise");
-    mBrushName = _T("HeightfieldBrush");
+    mBrushName = _T("HeightfieldOperationGPUNoise");
 
     loadPersistentProperties();
 }

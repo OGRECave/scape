@@ -196,8 +196,7 @@ HeightfieldOperationCPUBrush::HeightfieldOperationCPUBrush()
           HeightfieldOperationCPUBrush, HeightfieldOperationPolicySchedulerTaskDirect<
                                             HeightfieldOperationCPUBrush, HeightfieldOperationBrushBase>>()
 {
-    //	mBrushName = _T("HeightfieldOperationCPUBrush");
-    mBrushName = _T("HeightfieldBrush");
+    mBrushName = _T("HeightfieldOperationCPUBrush");
 
     loadPersistentProperties();
 }

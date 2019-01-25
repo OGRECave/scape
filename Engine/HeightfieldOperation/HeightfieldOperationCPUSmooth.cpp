@@ -85,8 +85,7 @@ string HeightfieldOperationCPUSmooth::setUIElementPropertyValue(const string& el
 
 HeightfieldOperationCPUSmooth::HeightfieldOperationCPUSmooth() : HeightfieldOperationCPU()
 {
-    //	mBrushName = "HeightfieldOperationCPUSmooth";
-    mBrushName = _T("HeightfieldBrush");
+    mBrushName = "HeightfieldOperationCPUSmooth";
 
     loadPersistentProperties();
 }

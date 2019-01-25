@@ -208,8 +208,7 @@ HeightfieldOperationCPUBrush2::HeightfieldOperationCPUBrush2()
 {
     allowMultipleBrushInstances(true);
 
-    //	mBrushName = _T("HeightfieldOperationCPUBrush");
-    mBrushName = _T("HeightfieldBrush");
+    mBrushName = _T("HeightfieldOperationCPUBrush");
 
     loadPersistentProperties();
 }

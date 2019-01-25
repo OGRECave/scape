@@ -124,8 +124,7 @@ string HeightfieldOperationCPUNoise::setUIElementPropertyValue(const string& ele
 
 HeightfieldOperationCPUNoise::HeightfieldOperationCPUNoise() : HeightfieldOperationCPU()
 {
-    //	mBrushName = "HeightfieldOperationCPUNoise";
-    mBrushName = _T("HeightfieldBrush");
+    mBrushName = "HeightfieldOperationCPUNoise";
 
     loadPersistentProperties();
 }

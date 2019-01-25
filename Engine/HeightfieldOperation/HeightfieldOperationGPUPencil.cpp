@@ -107,8 +107,7 @@ HeightfieldOperationGPUPencil::HeightfieldOperationGPUPencil()
                                                            HeightfieldOperationBrushBase>>()
 {
     allowMultipleBrushInstances(true);
-    //	mBrushName = _T("HeightfieldOperationGPUBrush");
-    mBrushName = _T("HeightfieldBrush");
+    mBrushName = _T("HeightfieldOperationGPUBrush");
 
     loadPersistentProperties();
 }

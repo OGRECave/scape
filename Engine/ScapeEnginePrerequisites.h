@@ -43,6 +43,7 @@ class GPU2DOperationRenderableQuadManager;
 class HeightfieldBrush;
 class HeightfieldBrushManager;
 class HeightfieldBrushSettings;
+class HeightfieldBrushState;
 class HeightfieldBuffer;
 class HeightfieldBufferPage;
 class HeightfieldBufferSet;

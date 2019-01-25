@@ -14,6 +14,7 @@
 #include "HeightfieldBrush/HeightfieldBrush.h"
 #include "HeightfieldBrush/HeightfieldBrushManager.h"
 #include "HeightfieldBrush/HeightfieldBrushSettings.h"
+#include "HeightfieldBrush/HeightfieldBrushState.h"
 
 using namespace ScapeEngine;
 
@@ -21,6 +22,7 @@ HeightfieldGeomMaterial::HeightfieldGeomMaterial()
     : mInitialized(false), mBrush(NULL),
       mHeightfieldBrushSettings(
           getEngineCore()->getHeightfieldBrushManager()->getHeightfieldBrushSettings()),
+      mHeightfieldBrushState(getEngineCore()->getHeightfieldBrushManager()->getHeightfieldBrushState()),
       mHasDirtySettings(true)
 {
     mMaterial.reset();

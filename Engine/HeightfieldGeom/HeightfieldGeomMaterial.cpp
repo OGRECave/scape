@@ -95,7 +95,7 @@ void HeightfieldGeomMaterial::updateShaderConstantsGeom(
     // brush settings
     if (mBrush)
     {
-        Ogre::Vector3 worldBrushPosition = mBrush->getPosition();
+        Ogre::Vector3 worldBrushPosition = mHeightfieldBrushState.getPosition();
         Ogre::Real brushInnerRadius = mHeightfieldBrushSettings.getInnerRadius() / worldQuadSize;
         Ogre::Real brushOuterRadius =
             std::max(brushInnerRadius * 1.01f, mHeightfieldBrushSettings.getOuterRadius() / worldQuadSize);

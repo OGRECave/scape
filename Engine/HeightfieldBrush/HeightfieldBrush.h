@@ -20,14 +20,6 @@ class HeightfieldBrush
 public:
     HeightfieldBrush();
 
-    void setPosition(const Ogre::Vector3& position);
-
-    void setPressure(const Ogre::Real pressure);
-
-    inline Ogre::Vector3 getPosition() const { return mPosition; }
-
-    inline Ogre::Real getPressure() const { return mPressure; }
-
     virtual void tick();
 
     bool isPrimaryActive() { return mPrimaryActive; }
@@ -41,10 +33,6 @@ public:
     void setHeightfieldGeom(HeightfieldGeom* heightfieldGeom) { mHeightfieldGeom = heightfieldGeom; }
 
 private:
-    Ogre::Vector3 mPosition;
-
-    Ogre::Real mPressure;
-
     bool mPrimaryActive;
     bool mSecondaryActive;
 

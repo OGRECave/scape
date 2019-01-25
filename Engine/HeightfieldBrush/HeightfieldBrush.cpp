@@ -15,13 +15,9 @@
 using namespace ScapeEngine;
 
 HeightfieldBrush::HeightfieldBrush()
-    : mPosition(0.0f, 0.0f, 0.0f), mPrimaryActive(false), mSecondaryActive(false), mHeightfieldGeom(NULL)
+    : mPrimaryActive(false), mSecondaryActive(false), mHeightfieldGeom(NULL)
 {
 }
-
-void HeightfieldBrush::setPosition(const Ogre::Vector3& position) { mPosition = position; }
-
-void HeightfieldBrush::setPressure(Ogre::Real pressure) { mPressure = pressure; }
 
 void HeightfieldBrush::tick()
 {

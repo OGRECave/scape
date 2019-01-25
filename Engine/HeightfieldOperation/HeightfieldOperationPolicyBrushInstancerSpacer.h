@@ -40,9 +40,10 @@ protected:
 
         if (brush->getHeightfieldGeom())
         {
-            mCurrentPathNode.position = brush->getHeightfieldGeom()->getLocalPosition(brush->getPosition());
+            mCurrentPathNode.position =
+                brush->getHeightfieldGeom()->getLocalPosition(this->mHeightfieldBrushState.getPosition());
         }
-        mCurrentPathNode.pressure = brush->getPressure();
+        mCurrentPathNode.pressure = this->mHeightfieldBrushState.getPressure();
         mCurrentPathNode.time = Ogre::Root::getSingleton().getTimer()->getMilliseconds();
         mCurrentPathNode.primary = brush->isPrimaryActive();
 

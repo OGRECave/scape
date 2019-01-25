@@ -163,8 +163,9 @@ void HeightfieldOperationCPU::tickDo()
             if (mBrush->isActive())
             {
                 BrushPathNode node;
-                node.position = mBrush->getHeightfieldGeom()->getLocalPosition(mBrush->getPosition());
-                node.pressure = mBrush->getPressure();
+                node.position =
+                    mBrush->getHeightfieldGeom()->getLocalPosition(mHeightfieldBrushState.getPosition());
+                node.pressure = mHeightfieldBrushState.getPressure();
                 node.time = Ogre::Root::getSingleton().getTimer()->getMilliseconds();
                 node.primary = mBrush->isPrimaryActive();
                 mBrushPathNodes.push_back(node);
@@ -241,8 +242,9 @@ void HeightfieldOperationCPU::tickDo()
     else if (mBrush->isActive() && mBrush->getHeightfieldGeom())
     {
         mBrushPathNodes.clear();
-        Ogre::Vector3 brushPosition = mBrush->getHeightfieldGeom()->getLocalPosition(mBrush->getPosition());
-        Ogre::Real pressure = mBrush->getPressure();
+        Ogre::Vector3 brushPosition =
+            mBrush->getHeightfieldGeom()->getLocalPosition(mHeightfieldBrushState.getPosition());
+        Ogre::Real pressure = mHeightfieldBrushState.getPressure();
 
         if (mBrush->isPrimaryActive())
         {

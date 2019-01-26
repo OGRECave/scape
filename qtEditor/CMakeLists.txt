@@ -24,6 +24,7 @@ set(SRC_FILES
 ./ImageFileDialog.cpp
 ./ImportImageDialog.cpp
 ./ExportImageDialog.cpp
+./BrushSettingsWidget.cpp
 )
 
 set(HEADER_FILES
@@ -35,6 +36,7 @@ set(HEADER_FILES
 ./ImageFileDialog.h
 ./ImportImageDialog.h
 ./ExportImageDialog.h
+./BrushSettingsWidget.h
 )
 
 set(RESOURCE_SRCS ./res/editor.qrc)

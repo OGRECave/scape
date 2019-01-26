@@ -5,6 +5,7 @@
 #include <sstream>
 #include "PropertiesWidget.h"
 #include "PresetsWidget.h"
+#include "BrushSettingsWidget.h"
 #include <iostream>
 #include "ImportImageDialog.h"
 #include "ExportImageDialog.h"
@@ -233,6 +234,16 @@ void MainWindow::createDockWidgets()
     mPresetsDockWidget->setWidget(mPresetsWidget);
     mPresetsDockWidget->setMinimumWidth(180);
     addDockWidget(Qt::RightDockWidgetArea, mPresetsDockWidget);
+
+    mBrushSettingsWidget = new BrushSettingsWidget();
+
+    mBrushSettingsDockWidget = new QDockWidget(this);
+    mBrushSettingsDockWidget->setWindowTitle(tr("Brush Settings"));
+    mBrushSettingsDockWidget->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+    mBrushSettingsDockWidget->setObjectName(QString::fromUtf8("brushSettingsDockWidget"));
+    mBrushSettingsDockWidget->setWidget(mBrushSettingsWidget);
+    mBrushSettingsDockWidget->setMinimumWidth(180);
+    addDockWidget(Qt::RightDockWidgetArea, mBrushSettingsDockWidget);
 }
 
 void MainWindow::populateToolbar()

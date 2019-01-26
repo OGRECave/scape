@@ -11,6 +11,7 @@
 class OgreWidget;
 class PropertiesWidget;
 class PresetsWidget;
+class BrushSettingsWidget;
 
 namespace Ui
 {
@@ -80,6 +81,8 @@ private:
     PropertiesWidget* mPropertiesWidget;
     QDockWidget* mPresetsDockWidget;
     PresetsWidget* mPresetsWidget;
+    QDockWidget* mBrushSettingsDockWidget;
+    BrushSettingsWidget* mBrushSettingsWidget;
 
     Ui::MainWindow* ui;
     ScapeEngine::EngineInterface* mEngineInterface;

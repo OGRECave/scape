@@ -17,7 +17,6 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 HeightfieldOperationBrushBase::HeightfieldOperationBrushBase()
     : mTempHeightfieldBuffer(NULL), mOriginalHeightfieldBuffer(NULL), mInOutHeightfieldBuffer(NULL),
       mIsStateActive(false), mHasBeenStateActive(false), mBrushName(_T("HeightfieldOperationBrushBase")),
@@ -27,7 +26,6 @@ HeightfieldOperationBrushBase::HeightfieldOperationBrushBase()
     mDeltaBufferPtr.reset();
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldOperationBrushBase::~HeightfieldOperationBrushBase()
 {
     if (mOriginalHeightfieldBuffer)
@@ -46,7 +44,6 @@ HeightfieldOperationBrushBase::~HeightfieldOperationBrushBase()
     mDeltaBufferPtr.reset();
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationBrushBase::canInitiate(EState state)
 {
     switch (state)
@@ -66,19 +63,15 @@ bool HeightfieldOperationBrushBase::canInitiate(EState state)
     }
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationBrushBase::isActive(EState state) { return mIsStateActive && mState == state; }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationBrushBase::isActive() { return mIsStateActive; }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationBrushBase::isDone(EState state)
 {
     return !mIsStateActive && mHasBeenStateActive && mState == state;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationBrushBase::initiate(EState state, HeightfieldBuffer* inOutHeightfieldBuffer)
 {
     mInOutHeightfieldBuffer = inOutHeightfieldBuffer;
@@ -99,7 +92,6 @@ void HeightfieldOperationBrushBase::initiate(EState state, HeightfieldBuffer* in
     }
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationBrushBase::tick()
 {
     if (mIsStateActive || !mHasBeenStateActive)
@@ -136,7 +128,6 @@ void HeightfieldOperationBrushBase::tick()
     mLastTickMillis = Ogre::Root::getSingleton().getTimer()->getMilliseconds();
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationBrushBase::initiateDo()
 {
     assert(!mIsStateActive && canInitiate(STATE_DO));
@@ -169,7 +160,6 @@ void HeightfieldOperationBrushBase::initiateDo()
         bufferSet->get(bufferSet->createFrom(originalName, mInOutHeightfieldBuffer->getHandle(), true));
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldBuffer* HeightfieldOperationBrushBase::getTempHeightfieldBuffer()
 {
     if (!mTempHeightfieldBuffer)
@@ -184,7 +174,6 @@ HeightfieldBuffer* HeightfieldOperationBrushBase::getTempHeightfieldBuffer()
     return mTempHeightfieldBuffer;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationBrushBase::tickDo()
 {
     assert(mState == STATE_DO && mIsStateActive);
@@ -214,7 +203,6 @@ void HeightfieldOperationBrushBase::tickDo()
     }
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationBrushBase::finishDo()
 {
     assert(mState == STATE_DO && mIsStateActive);
@@ -236,7 +224,6 @@ void HeightfieldOperationBrushBase::finishDo()
     }
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationBrushBase::initiateUndo()
 {
     assert(!mIsStateActive && canInitiate(STATE_UNDO));
@@ -245,7 +232,6 @@ void HeightfieldOperationBrushBase::initiateUndo()
     mHasBeenStateActive = true;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationBrushBase::tickUndo()
 {
     assert(mInOutHeightfieldBuffer);
@@ -254,7 +240,6 @@ void HeightfieldOperationBrushBase::tickUndo()
     mIsStateActive = false;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationBrushBase::initiateRedo()
 {
     assert(!mIsStateActive && canInitiate(STATE_REDO));
@@ -263,7 +248,6 @@ void HeightfieldOperationBrushBase::initiateRedo()
     mHasBeenStateActive = true;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationBrushBase::tickRedo()
 {
     assert(mInOutHeightfieldBuffer);
@@ -272,5 +256,4 @@ void HeightfieldOperationBrushBase::tickRedo()
     mIsStateActive = false;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationBrushBase::tickInactive() {}

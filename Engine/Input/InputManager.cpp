@@ -18,7 +18,6 @@ using namespace ScapeEngine::ButtonId;
 
 template <> InputManager* Ogre::Singleton<InputManager>::msSingleton = 0;
 
-// ----------------------------------------------------------------------------
 InputManager::InputManager()
     : mInputListener(NULL), mHighestPriorityPressed(-1), mHasFocusedRenderView(false),
       mNumButtonsPressed(0), mSomeButtonStateJustChanged(false)
@@ -27,7 +26,6 @@ InputManager::InputManager()
     mInputPointer = new InputPointer(this);
 }
 
-// ----------------------------------------------------------------------------
 InputManager::~InputManager()
 {
     Ogre::LogManager::getSingletonPtr()->logMessage(_T("Deconstructing InputManager singleton"));
@@ -40,7 +38,6 @@ InputManager::~InputManager()
     }
 }
 
-// ----------------------------------------------------------------------------
 void InputManager::attachToWindow(InputListener* input)
 {
     if (!mInputListener)
@@ -49,7 +46,6 @@ void InputManager::attachToWindow(InputListener* input)
     }
 }
 
-// ----------------------------------------------------------------------------
 void InputManager::addButtonDefinition(const ButtonDefinition& buttonDefinition)
 {
     if (!buttonDefinition.mDeviceButtons.empty())
@@ -59,10 +55,8 @@ void InputManager::addButtonDefinition(const ButtonDefinition& buttonDefinition)
     }
 }
 
-// ----------------------------------------------------------------------------
 void InputManager::clearButtonDefinitions() { mButtonDefinitions.clear(); }
 
-// ----------------------------------------------------------------------------
 void InputManager::captureInput()
 {
     if (mInputPointer)
@@ -87,7 +81,6 @@ void InputManager::captureInput()
         mInputListener->captureInput();
 }
 
-// ----------------------------------------------------------------------------
 Button* InputManager::getButton(EButtonId buttonId)
 {
     Button* button = mButtons[buttonId];
@@ -98,7 +91,6 @@ Button* InputManager::getButton(EButtonId buttonId)
     return button;
 }
 
-// ----------------------------------------------------------------------------
 int InputManager::getAnalogInput(EAnalogInputId analogInputId)
 {
     if (mInputListener)
@@ -106,13 +98,10 @@ int InputManager::getAnalogInput(EAnalogInputId analogInputId)
     return 0;
 }
 
-// ----------------------------------------------------------------------------
 int InputManager::getHighestPriorityPressed() const { return mHighestPriorityPressed; }
 
-// ----------------------------------------------------------------------------
 bool InputManager::hasSomeButtonStateJustChanged() const { return mSomeButtonStateJustChanged; }
 
-// ----------------------------------------------------------------------------
 RenderView* InputManager::getFocusedRenderView() const
 {
     if (mHasFocusedRenderView)
@@ -122,7 +111,6 @@ RenderView* InputManager::getFocusedRenderView() const
     return NULL;
 }
 
-// ----------------------------------------------------------------------------
 void InputManager::loadButtonDefinitions()
 {
     if (mButtonDefinitionDataAccessObject)
@@ -138,14 +126,12 @@ void InputManager::loadButtonDefinitions()
     }
 }
 
-// ----------------------------------------------------------------------------
 void InputManager::onPointerMove()
 {
     if (mInputPointer)
         mInputPointer->update();
 }
 
-// ----------------------------------------------------------------------------
 void InputManager::onDeviceButtonPressed(DeviceButtonId::EDeviceButtonId deviceButton)
 {
     // printf("devbutton press: %d\n", deviceButton);
@@ -185,7 +171,6 @@ void InputManager::onDeviceButtonPressed(DeviceButtonId::EDeviceButtonId deviceB
     }
 }
 
-// ----------------------------------------------------------------------------
 void InputManager::onDeviceButtonReleased(DeviceButtonId::EDeviceButtonId deviceButton)
 {
     mSomeButtonStateJustChanged = true;
@@ -230,7 +215,6 @@ void InputManager::onDeviceButtonReleased(DeviceButtonId::EDeviceButtonId device
     }
 }
 
-// ----------------------------------------------------------------------------
 void InputManager::onRenderViewSetFocus(long viewId)
 {
     if (mInputListener)
@@ -241,7 +225,6 @@ void InputManager::onRenderViewSetFocus(long viewId)
     mFocusedRenderViewId = viewId;
 }
 
-// ----------------------------------------------------------------------------
 void InputManager::onRenderViewKillFocus(long viewId)
 {
     if (viewId == mFocusedRenderViewId)

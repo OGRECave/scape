@@ -17,7 +17,6 @@ namespace ScapeEngine
 {
 namespace Utils
 {
-// ----------------------------------------------------------------------------
 class SerialMemoryBuffer
 {
 public:
@@ -63,11 +62,9 @@ protected:
     size_t mSize;
 };
 
-// ----------------------------------------------------------------------------
 typedef std::shared_ptr<SerialMemoryBuffer> SerialMemoryBufferPtr;
 typedef std::shared_ptr<const SerialMemoryBuffer> SerialMemoryBufferConstPtr;
 
-// ----------------------------------------------------------------------------
 class SerialMemoryBufferReader
 {
 public:
@@ -106,7 +103,6 @@ protected:
     int mPosition;
 };
 
-// ----------------------------------------------------------------------------
 class SerialMemoryBufferWriter
 {
 public:

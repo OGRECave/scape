@@ -18,7 +18,6 @@
 using namespace ScapeEngine;
 
 
-// ----------------------------------------------------------------------------
 enum EPropertyId
 {
     PROPERTYID_STRENGTH,
@@ -26,14 +25,12 @@ enum EPropertyId
     PROPERTYID_PATHSPACING,
 };
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationCPUSmooth::initPersistentElementValueMap(StringStringMap& map)
 {
     setUIElementPropertyValueMap(getUIElementPresetPropertyValueMap(defaultPresetString));
     return true;
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationCPUSmooth::initPersistentElementStringEnumMap(StringEnumMap& map)
 {
     ADD_STRINGENUM(map, PROPERTYID_, STRENGTH);
@@ -43,7 +40,6 @@ bool HeightfieldOperationCPUSmooth::initPersistentElementStringEnumMap(StringEnu
     return true;
 }
 
-// ----------------------------------------------------------------------------
 string HeightfieldOperationCPUSmooth::setUIElementPropertyValue(const string& elementName,
                                                                 const string& value)
 {
@@ -88,7 +84,6 @@ string HeightfieldOperationCPUSmooth::setUIElementPropertyValue(const string& el
     return outValue;
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldOperationCPUSmooth::HeightfieldOperationCPUSmooth() : HeightfieldOperationCPU()
 {
     //	mBrushName = "HeightfieldOperationCPUSmooth";
@@ -97,7 +92,6 @@ HeightfieldOperationCPUSmooth::HeightfieldOperationCPUSmooth() : HeightfieldOper
     loadPersistentProperties();
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationCPUSmooth::applyPrimary(const Ogre::Vector3& position, Ogre::Real strength)
 {
     assert(mBrush);
@@ -180,7 +174,6 @@ void HeightfieldOperationCPUSmooth::applyPrimary(const Ogre::Vector3& position, 
     delete dataOut;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationCPUSmooth::applySecondary(const Ogre::Vector3& position, Ogre::Real strength)
 {
     assert(mBrush);

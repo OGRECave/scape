@@ -19,7 +19,6 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationFactory::registerClass(const string& className,
                                                 HeightfieldOperation* (*classCreateMethod)())
 {
@@ -28,7 +27,6 @@ void HeightfieldOperationFactory::registerClass(const string& className,
     mOperationDescMap[className] = classCreateMethod;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationFactory::registerClasses()
 {
     REGISTER_HEIGHTFIELDOPERATION_CLASS(this, HeightfieldOperationCPUBrush);
@@ -44,14 +42,12 @@ void HeightfieldOperationFactory::registerClasses()
     REGISTER_HEIGHTFIELDOPERATION_CLASS(this, HeightfieldOperationGPUNoiseDrag);
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationFactory::isRegistered(const string& className)
 {
     OperationDescMap::iterator operationDescMapIt = mOperationDescMap.find(className);
     return operationDescMapIt != mOperationDescMap.end();
 }
 
-// ----------------------------------------------------------------------------
 StringList HeightfieldOperationFactory::getOperationNameList()
 {
     StringList descs;
@@ -65,7 +61,6 @@ StringList HeightfieldOperationFactory::getOperationNameList()
     return descs;
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldOperation* HeightfieldOperationFactory::create(const string& className)
 {
     OperationDescMap::iterator operationDescMapIt = mOperationDescMap.find(className);

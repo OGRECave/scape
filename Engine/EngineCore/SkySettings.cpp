@@ -10,9 +10,7 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 
-// ----------------------------------------------------------------------------
 enum EPropertyId
 {
     PROPERTYID_SKYCOLOR,
@@ -32,14 +30,12 @@ enum EPropertyId
     PROPERTYID_SKYBOX_BACK,
 };
 
-// ----------------------------------------------------------------------------
 bool SkySettings::initPersistentElementValueMap(StringStringMap& map)
 {
     setUIElementPropertyValueMap(getUIElementPresetPropertyValueMap(defaultPresetString));
     return true;
 }
 
-// ----------------------------------------------------------------------------
 bool SkySettings::initPersistentElementStringEnumMap(StringEnumMap& map)
 {
     // lighting properties
@@ -62,7 +58,6 @@ bool SkySettings::initPersistentElementStringEnumMap(StringEnumMap& map)
     return true;
 }
 
-// ----------------------------------------------------------------------------
 string SkySettings::setUIElementPropertyValue(const string& elementName, const string& value)
 {
     EPropertyId propertyId =
@@ -179,7 +174,6 @@ string SkySettings::setUIElementPropertyValue(const string& elementName, const s
     return outValue;
 }
 
-// ----------------------------------------------------------------------------
 SkySettings::SkySettings()
     : mSkyColor(Ogre::ColourValue::White), mSkyOverbright(1.0f), mSunColor(Ogre::ColourValue::White),
       mSunOverbright(1.0f), mSunDirection(0.0f), mSunHeight(0.0f), mFogColor(Ogre::ColourValue::White),
@@ -189,10 +183,8 @@ SkySettings::SkySettings()
     loadPersistentProperties();
 }
 
-// ----------------------------------------------------------------------------
 void SkySettings::addListener(SkySettingsListener* listener) { mListeners.push_front(listener); }
 
-// ----------------------------------------------------------------------------
 void SkySettings::removeListener(SkySettingsListener* listener)
 {
     SkySettingsListeners::iterator it, itEnd = mListeners.end();
@@ -206,7 +198,6 @@ void SkySettings::removeListener(SkySettingsListener* listener)
     }
 }
 
-// ----------------------------------------------------------------------------
 void SkySettings::onPreFrameTick()
 {
     InputManager* inputManager = getEngineCore()->getInputManager();
@@ -224,7 +215,6 @@ void SkySettings::onPreFrameTick()
     }
 }
 
-// ----------------------------------------------------------------------------
 void SkySettings::notifyListeners()
 {
     SkySettingsListeners::iterator it, itEnd = mListeners.end();

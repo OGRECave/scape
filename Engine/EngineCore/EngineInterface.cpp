@@ -32,27 +32,23 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 void EngineInterface::initialize()
 {
     new EngineCore(this);
     getEngineCore()->initialize();
 }
 
-// ----------------------------------------------------------------------------
 void EngineInterface::deinitialize()
 {
     getEngineCore()->deinitialize();
     delete EngineCore::getSingletonPtr();
 }
 
-// ----------------------------------------------------------------------------
 void EngineInterface::attachInputToWindow(std::string inputWindow)
 {
     getEngineCore()->attachInputToWindow(inputWindow);
 }
 
-// ----------------------------------------------------------------------------
 void EngineInterface::createRenderView(int viewId, const std::string& windowHandle, int left, int top,
                                        int width, int height)
 {
@@ -60,37 +56,30 @@ void EngineInterface::createRenderView(int viewId, const std::string& windowHand
                                                               height);
 }
 
-// ----------------------------------------------------------------------------
 void EngineInterface::update() { getEngineCore()->update(); }
 
-// ----------------------------------------------------------------------------
 void EngineInterface::onRenderViewMovedOrResized(int viewId, int left, int top, int width, int height)
 {
     getEngineCore()->getRenderViewManager()->onRenderViewMovedOrResized(viewId, left, top, width, height);
 }
 
-// ----------------------------------------------------------------------------
 void EngineInterface::onRenderViewSetFocus(int viewId)
 {
     getEngineCore()->getInputManager()->onRenderViewSetFocus(viewId);
 }
 
-// ----------------------------------------------------------------------------
 void EngineInterface::onRenderViewKillFocus(int viewId)
 {
     getEngineCore()->getInputManager()->onRenderViewKillFocus(viewId);
 }
 
-// ----------------------------------------------------------------------------
 void EngineInterface::detachRenderView(int viewId)
 {
     getEngineCore()->getRenderViewManager()->detachRenderView(viewId);
 }
 
-// ----------------------------------------------------------------------------
 void EngineInterface::openConsole() { Console::openConsole(); }
 
-// ----------------------------------------------------------------------------
 bool EngineInterface::onFatalException()
 {
     try
@@ -127,7 +116,6 @@ bool EngineInterface::onFatalException()
     return false;
 }
 
-// ----------------------------------------------------------------------------
 bool EngineInterface::selectOperation(const string& operationName)
 {
     if (getEngineCore()->getHeightfieldOperationStack()->setNewOperationClassName(operationName))
@@ -143,7 +131,6 @@ bool EngineInterface::selectOperation(const string& operationName)
     }
 }
 
-// ----------------------------------------------------------------------------
 string EngineInterface::getUIElementPropertyField(const string& elementName, const string& propertyName,
                                                   const string& propertyFieldName)
 {
@@ -151,7 +138,6 @@ string EngineInterface::getUIElementPropertyField(const string& elementName, con
                                                                     propertyFieldName);
 }
 
-// ----------------------------------------------------------------------------
 void EngineInterface::writeAuxiliaryFile(const string& fileName, const void* data, int bytes)
 {
     string path = Utils::emptyString;
@@ -162,7 +148,6 @@ void EngineInterface::writeAuxiliaryFile(const string& fileName, const void* dat
     Utils::writeBinaryFile(path + fileName, data, bytes);
 }
 
-// ----------------------------------------------------------------------------
 std::pair<void*, size_t> EngineInterface::readAuxiliaryFile(const string& fileName)
 {
     string path = Utils::emptyString;
@@ -173,7 +158,6 @@ std::pair<void*, size_t> EngineInterface::readAuxiliaryFile(const string& fileNa
     return Utils::readBinaryFile(path + fileName);
 }
 
-// ----------------------------------------------------------------------------
 StringStringStringPairMap EngineInterface::getFileFilterMap(EScapeUIElementGroupId groupId)
 {
     switch (groupId)
@@ -191,7 +175,6 @@ StringStringStringPairMap EngineInterface::getFileFilterMap(EScapeUIElementGroup
     return StringStringStringPairMap();
 }
 
-// ----------------------------------------------------------------------------
 StringStringMap EngineInterface::getUIElementPropertyValueMap(EScapeUIElementGroupId groupId,
                                                               const string& elementName)
 {
@@ -205,7 +188,6 @@ StringStringMap EngineInterface::getUIElementPropertyValueMap(EScapeUIElementGro
     return StringStringMap();
 }
 
-// ----------------------------------------------------------------------------
 string EngineInterface::getUIElementPresetPropertyValue(EScapeUIElementGroupId groupId,
                                                         const string& elementName, const string& presetName,
                                                         const string& propertyName)
@@ -221,7 +203,6 @@ string EngineInterface::getUIElementPresetPropertyValue(EScapeUIElementGroupId g
     return Utils::emptyString;
 }
 
-// ----------------------------------------------------------------------------
 void EngineInterface::setUIElementPresetPropertyValue(EScapeUIElementGroupId groupId,
                                                       const string& elementName, const string& presetName,
                                                       const string& propertyName, const string& value)
@@ -235,7 +216,6 @@ void EngineInterface::setUIElementPresetPropertyValue(EScapeUIElementGroupId gro
     }
 }
 
-// ----------------------------------------------------------------------------
 StringStringMap EngineInterface::getUIElementPresetPropertyValueMap(EScapeUIElementGroupId groupId,
                                                                     const string& elementName,
                                                                     const string& presetName)
@@ -249,7 +229,6 @@ StringStringMap EngineInterface::getUIElementPresetPropertyValueMap(EScapeUIElem
     return StringStringMap();
 }
 
-// ----------------------------------------------------------------------------
 void EngineInterface::setUIElementPresetPropertyValueMap(EScapeUIElementGroupId groupId,
                                                          const string& elementName,
                                                          const string& presetName,
@@ -263,7 +242,6 @@ void EngineInterface::setUIElementPresetPropertyValueMap(EScapeUIElementGroupId 
     }
 }
 
-// ----------------------------------------------------------------------------
 StringStringMap EngineInterface::setUIElementPropertyValueMap(EScapeUIElementGroupId groupId,
                                                               const string& elementName,
                                                               const StringStringMap& valueMap)
@@ -278,7 +256,6 @@ StringStringMap EngineInterface::setUIElementPropertyValueMap(EScapeUIElementGro
     return StringStringMap();
 }
 
-// ----------------------------------------------------------------------------
 StringList EngineInterface::getUIElementPresetPropertyNames(EScapeUIElementGroupId groupId,
                                                             const string& elementName)
 {
@@ -293,7 +270,6 @@ StringList EngineInterface::getUIElementPresetPropertyNames(EScapeUIElementGroup
     return StringList();
 }
 
-// ----------------------------------------------------------------------------
 void EngineInterface::deleteUIElementPreset(EScapeUIElementGroupId groupId, const string& elementName,
                                             const string& presetName)
 {
@@ -305,7 +281,6 @@ void EngineInterface::deleteUIElementPreset(EScapeUIElementGroupId groupId, cons
     }
 }
 
-// ----------------------------------------------------------------------------
 string EngineInterface::importUIElementPreset(EScapeUIElementGroupId groupId, const string& elementName,
                                               const string& fileName)
 {
@@ -318,7 +293,6 @@ string EngineInterface::importUIElementPreset(EScapeUIElementGroupId groupId, co
     return Utils::emptyString;
 }
 
-// ----------------------------------------------------------------------------
 void EngineInterface::exportUIElementPreset(EScapeUIElementGroupId groupId, const string& elementName,
                                             const string& fileName)
 {
@@ -330,7 +304,6 @@ void EngineInterface::exportUIElementPreset(EScapeUIElementGroupId groupId, cons
     }
 }
 
-// ----------------------------------------------------------------------------
 string EngineInterface::makeUniquePresetName(EScapeUIElementGroupId groupId, const string& elementName,
                                              const string& baseName)
 {
@@ -343,7 +316,6 @@ string EngineInterface::makeUniquePresetName(EScapeUIElementGroupId groupId, con
     return Utils::emptyString;
 }
 
-// ----------------------------------------------------------------------------
 bool EngineInterface::exportImageFile(const string& encoderName, const string& fileName, string* error)
 {
     HeightfieldGeom* geom = getEngineCore()->getHeightfieldGeomManager()->getCurrentHeightfieldGeom();
@@ -361,7 +333,6 @@ bool EngineInterface::exportImageFile(const string& encoderName, const string& f
     return false;
 }
 
-// ----------------------------------------------------------------------------
 bool EngineInterface::importImageFile(const string& decoderName, const string& fileName, string* error)
 {
     HeightfieldGeom* geom = getEngineCore()->getHeightfieldGeomManager()->getCurrentHeightfieldGeom();
@@ -383,13 +354,11 @@ bool EngineInterface::importImageFile(const string& decoderName, const string& f
     return false;
 }
 
-// ----------------------------------------------------------------------------
 string EngineInterface::getDecoderNameFromExtension(const string& extension)
 {
     return getEngineCore()->getHeightfieldFileDecoderManager()->getDecoderNameFromExtension(extension);
 }
 
-// ----------------------------------------------------------------------------
 StringList EngineInterface::getUIElementNameList(EScapeUIElementGroupId groupId)
 {
     StringList list;
@@ -436,7 +405,6 @@ StringList EngineInterface::getUIElementNameList(EScapeUIElementGroupId groupId)
     return list;
 }
 
-// ----------------------------------------------------------------------------
 StringList EngineInterface::getUIElementPropertyNameList(EScapeUIElementGroupId groupId,
                                                          const string& elementName)
 {
@@ -451,7 +419,6 @@ StringList EngineInterface::getUIElementPropertyNameList(EScapeUIElementGroupId 
     return list;
 }
 
-// ----------------------------------------------------------------------------
 string EngineInterface::getUIElementPropertyValue(EScapeUIElementGroupId groupId, const string& elementName,
                                                   const string& propertyName)
 {
@@ -465,7 +432,6 @@ string EngineInterface::getUIElementPropertyValue(EScapeUIElementGroupId groupId
     return Utils::emptyString;
 }
 
-// ----------------------------------------------------------------------------
 string EngineInterface::setUIElementPropertyValue(EScapeUIElementGroupId groupId, const string& elementName,
                                                   const string& propertyName, const string& value)
 {
@@ -479,7 +445,6 @@ string EngineInterface::setUIElementPropertyValue(EScapeUIElementGroupId groupId
     return value;
 }
 
-// ----------------------------------------------------------------------------
 UIElementContainer* EngineInterface::getUIElementContainer(EScapeUIElementGroupId groupId,
                                                            const string& elementName)
 {

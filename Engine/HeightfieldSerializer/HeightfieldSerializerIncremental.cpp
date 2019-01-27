@@ -13,12 +13,10 @@
 #include "Utils/RLECodec.h"
 #include "Utils/SerialMemoryBuffer.h"
 
-// ----------------------------------------------------------------------------
 namespace ScapeEngine
 {
 namespace _HeightfieldSerializerIncrementalNS
 {
-// ----------------------------------------------------------------------------
 template <class Type>
 void _serializeIncrementalPage(HeightfieldBufferPage* inPreviousPage, HeightfieldBufferPage* inNextPage,
                                Utils::SerialMemoryBufferWriter& writer)
@@ -164,7 +162,6 @@ void _serializeIncrementalPage(HeightfieldBufferPage* inPreviousPage, Heightfiel
     writer.setPosition(lastPosition);
 }
 
-// ----------------------------------------------------------------------------
 template <class Type>
 bool _deserializeIncrementalNextPage(HeightfieldBufferPage* page, Utils::SerialMemoryBufferReader& reader)
 {
@@ -224,7 +221,6 @@ bool _deserializeIncrementalNextPage(HeightfieldBufferPage* page, Utils::SerialM
     return false;
 }
 
-// ----------------------------------------------------------------------------
 template <class Type>
 bool _deserializeIncrementalPreviousPage(HeightfieldBufferPage* page,
                                          Utils::SerialMemoryBufferReader& reader)
@@ -288,11 +284,9 @@ bool _deserializeIncrementalPreviousPage(HeightfieldBufferPage* page,
 }
 };
 
-// ----------------------------------------------------------------------------
 using namespace ScapeEngine;
 using namespace ScapeEngine::_HeightfieldSerializerIncrementalNS;
 
-// ----------------------------------------------------------------------------
 Utils::SerialMemoryBufferPtr
 HeightfieldSerializer::serializeIncremental(HeightfieldBuffer* inPreviousBuffer,
                                             HeightfieldBuffer* inNextBuffer)
@@ -370,7 +364,6 @@ HeightfieldSerializer::serializeIncremental(HeightfieldBuffer* inPreviousBuffer,
     return serialBufferPtr;
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldSerializer::deserializeIncrementalNext(Utils::SerialMemoryBufferConstPtr inSerial,
                                                        HeightfieldBuffer* buffer, string* error)
 {
@@ -420,7 +413,6 @@ bool HeightfieldSerializer::deserializeIncrementalNext(Utils::SerialMemoryBuffer
     return true;
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldSerializer::deserializeIncrementalPrevious(Utils::SerialMemoryBufferConstPtr inSerial,
                                                            HeightfieldBuffer* buffer, string* error)
 {

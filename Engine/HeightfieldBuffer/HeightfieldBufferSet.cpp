@@ -10,7 +10,6 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 HeightfieldBufferSet::HeightfieldBufferSet(const string& name, int elementColumnCount, int elementRowCount,
                                            Ogre::Real heightRangeMin, Ogre::Real heightRangeMax,
                                            int elementColumnCountPerPage, int elementRowCountPerPage)
@@ -24,7 +23,6 @@ HeightfieldBufferSet::HeightfieldBufferSet(const string& name, int elementColumn
     mHandle = Utils::createGUID();
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldBufferSet::~HeightfieldBufferSet()
 {
     HeightfieldBufferMap::iterator it = mHeightfieldBufferMap.begin(), itEnd = mHeightfieldBufferMap.end();
@@ -34,7 +32,6 @@ HeightfieldBufferSet::~HeightfieldBufferSet()
     }
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldBufferHandle HeightfieldBufferSet::create(const string& name, Ogre::PixelFormat format)
 {
     HeightfieldBuffer* heightfieldBuffer =
@@ -50,7 +47,6 @@ HeightfieldBufferHandle HeightfieldBufferSet::create(const string& name, Ogre::P
     return handle;
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldBufferHandle HeightfieldBufferSet::createFrom(const string& name,
                                                          HeightfieldBufferHandle originalBufferHandle,
                                                          bool sharePages)
@@ -72,7 +68,6 @@ HeightfieldBufferHandle HeightfieldBufferSet::createFrom(const string& name,
     return 0;
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldBufferHandle HeightfieldBufferSet::findHandle(const string& name)
 {
     HeightfieldBufferMap::iterator it = mHeightfieldBufferMap.begin(), itEnd = mHeightfieldBufferMap.end();
@@ -86,7 +81,6 @@ HeightfieldBufferHandle HeightfieldBufferSet::findHandle(const string& name)
     return 0;
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldBufferSet::destroy(HeightfieldBufferHandle handle)
 {
     HeightfieldBufferMap::iterator it = mHeightfieldBufferMap.find(handle);
@@ -105,7 +99,6 @@ bool HeightfieldBufferSet::destroy(HeightfieldBufferHandle handle)
     return false;
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldBuffer* HeightfieldBufferSet::get(HeightfieldBufferHandle handle)
 {
     HeightfieldBufferMap::iterator it = mHeightfieldBufferMap.find(handle);
@@ -113,7 +106,6 @@ HeightfieldBuffer* HeightfieldBufferSet::get(HeightfieldBufferHandle handle)
     return it != mHeightfieldBufferMap.end() ? it->second : NULL;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldBufferSet::unlockAll()
 {
     HeightfieldBufferMap::iterator it = mHeightfieldBufferMap.begin(), itEnd = mHeightfieldBufferMap.end();

@@ -27,7 +27,6 @@ using namespace ScapeEngine;
 
 #define DEGTORAD(a) ((3.141592f / 180.0f) * (a))
 
-// ----------------------------------------------------------------------------
 enum EPropertyId
 {
     PROPERTYID_STRENGTH,
@@ -54,14 +53,12 @@ enum EPropertyId
     PROPERTYID_DIRECTIONSTRETCHRATIO,
 };
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationGPUNoiseDrag::initPersistentElementValueMap(StringStringMap& map)
 {
     setUIElementPropertyValueMap(getUIElementPresetPropertyValueMap(defaultPresetString));
     return true;
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationGPUNoiseDrag::initPersistentElementStringEnumMap(StringEnumMap& map)
 {
     ADD_STRINGENUM(map, PROPERTYID_, STRENGTH);
@@ -89,7 +86,6 @@ bool HeightfieldOperationGPUNoiseDrag::initPersistentElementStringEnumMap(String
     return true;
 }
 
-// ----------------------------------------------------------------------------
 string HeightfieldOperationGPUNoiseDrag::setUIElementPropertyValue(const string& elementName,
                                                                    const string& value)
 {
@@ -250,7 +246,6 @@ string HeightfieldOperationGPUNoiseDrag::setUIElementPropertyValue(const string&
     return outValue;
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldOperationGPUNoiseDrag::HeightfieldOperationGPUNoiseDrag()
     : HeightfieldOperationPolicyBrushInstancerSpacer<
           HeightfieldOperationGPUNoiseDrag,
@@ -265,7 +260,6 @@ HeightfieldOperationGPUNoiseDrag::HeightfieldOperationGPUNoiseDrag()
     loadPersistentProperties();
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldOperationTaskPage*
 HeightfieldOperationGPUNoiseDrag::createTaskPage(const BrushPageCoords& pageCoords,
                                                  const BrushInstances& brushInstances)
@@ -280,7 +274,6 @@ HeightfieldOperationGPUNoiseDrag::createTaskPage(const BrushPageCoords& pageCoor
     //this, pageCoords, brushInstances);
 }
 
-// ----------------------------------------------------------------------------
 // void HeightfieldOperationGPUNoiseDrag::onSetupGPU2DOperationQuadCustom(GPU2DOperationQuadCustomPtr
 // quadPtr)
 void HeightfieldOperationGPUNoiseDrag::onSetupGPU2DOperationQuadBrush(GPU2DOperationQuadBrushPtr quadPtr)

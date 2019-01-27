@@ -10,7 +10,6 @@
 #define PACK4UINT8(a, b, c, d) ((d << 24) | (c << 16) | (b << 8) | (a))
 #define UNPACK4UINT8(u32, index) ((u32 >> (index << 3)) & 0xFF)
 
-// ----------------------------------------------------------------------------
 namespace ScapeEngine
 {
 namespace HeightfieldGeomTileIndexBufferManagerNS
@@ -28,7 +27,6 @@ struct CachedBufferDescription
     int spacingSouth;
     int spacingWest;
 
-    // ----------------------------------------------------------------------------
     inline bool operator==(const CachedBufferDescription& rhs) const
     {
         return type == rhs.type && quadColumnCount == rhs.quadColumnCount &&
@@ -37,7 +35,6 @@ struct CachedBufferDescription
                spacingWest == rhs.spacingWest;
     }
 
-    // ----------------------------------------------------------------------------
     inline bool operator<(const CachedBufferDescription& rhs) const
     {
         if (type == rhs.type)
@@ -68,7 +65,6 @@ struct CachedBufferDescription
     }
 };
 
-// ----------------------------------------------------------------------------
 // Shared pointer to and TTL for a cached vertex UV buffer
 struct CachedBufferReference
 {
@@ -76,7 +72,6 @@ struct CachedBufferReference
     float timeToLive;
 };
 
-// ----------------------------------------------------------------------------
 class IndexSpacer
 {
 public:
@@ -109,11 +104,9 @@ private:
 }
 }
 
-// ----------------------------------------------------------------------------
 using namespace ScapeEngine;
 using namespace HeightfieldGeomTileIndexBufferManagerNS;
 
-// ----------------------------------------------------------------------------
 HeightfieldGeomTileIndexBufferManager::HeightfieldGeomTileIndexBufferManager() : mBufferTimeToLive(1.0f)
 {
     wantsPostFrameTick();
@@ -121,10 +114,8 @@ HeightfieldGeomTileIndexBufferManager::HeightfieldGeomTileIndexBufferManager() :
     mCachedBuffers = new CachedBuffers();
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldGeomTileIndexBufferManager::~HeightfieldGeomTileIndexBufferManager() { delete mCachedBuffers; }
 
-// ----------------------------------------------------------------------------
 Ogre::HardwareIndexBufferSharedPtr
 HeightfieldGeomTileIndexBufferManager::getBuffer(int quadColumnCount, int quadRowCount, int spacingNorth,
                                                  int spacingEast, int spacingSouth, int spacingWest)
@@ -168,7 +159,6 @@ HeightfieldGeomTileIndexBufferManager::getBuffer(int quadColumnCount, int quadRo
     return bufferIt->second.buffer;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldGeomTileIndexBufferManager::onPostFrameTick()
 {
     float deltaTime = getEngineCore()->getTimeSinceLastFrame();
@@ -194,7 +184,6 @@ void HeightfieldGeomTileIndexBufferManager::onPostFrameTick()
     }
 }
 
-// ----------------------------------------------------------------------------
 template <class IndexType>
 Ogre::HardwareIndexBufferSharedPtr
 HeightfieldGeomTileIndexBufferManager::createBuffer(Ogre::HardwareIndexBuffer::IndexType type,

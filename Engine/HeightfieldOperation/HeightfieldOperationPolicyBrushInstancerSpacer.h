@@ -25,14 +25,12 @@ template <class SubClass, class ParentClass>
 class HeightfieldOperationPolicyBrushInstancerSpacer : public ParentClass
 {
 protected:
-    // ----------------------------------------------------------------------------
     HeightfieldOperationPolicyBrushInstancerSpacer()
         : mIsActiveStroke(true), mWasActiveStroke(false), mHasLastBrushInstancePosition(false),
           mPathNextParam(0.0f)
     {
     }
 
-    // ----------------------------------------------------------------------------
     virtual void brushInstancerTick()
     {
         HeightfieldBrush* brush = this->getBrush();

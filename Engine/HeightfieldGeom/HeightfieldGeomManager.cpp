@@ -13,10 +13,8 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 HeightfieldGeomManager::HeightfieldGeomManager() : mCurrentHeightfieldGeom(NULL) { wantsPostFrameTick(); }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldGeomManager::getClosestHeightfieldGeomRayIntersection(
     const Ogre::Ray& ray, const Ogre::SceneManager& sceneManager,
     class HeightfieldGeom*& outHeightfieldGeom, Ogre::Vector3& outPoint)
@@ -40,7 +38,6 @@ bool HeightfieldGeomManager::getClosestHeightfieldGeomRayIntersection(
     return false;
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldGeom* HeightfieldGeomManager::create(HeightfieldBuffer* heightfieldBuffer,
                                                 Ogre::SceneNode* rootNode)
 {
@@ -60,7 +57,6 @@ HeightfieldGeom* HeightfieldGeomManager::create(HeightfieldBuffer* heightfieldBu
     return heightfieldGeom;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldGeomManager::destroy(HeightfieldGeom* heightfieldGeom)
 {
     HeightfieldGeoms::iterator heightfieldGeomIt = mHeightfieldGeoms.begin(),
@@ -81,7 +77,6 @@ void HeightfieldGeomManager::destroy(HeightfieldGeom* heightfieldGeom)
     }
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldGeomManager::onPostFrameTick()
 {
     HeightfieldGeoms::iterator heightfieldGeomIt = mHeightfieldGeoms.begin(),

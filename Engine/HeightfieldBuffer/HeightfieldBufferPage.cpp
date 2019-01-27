@@ -11,7 +11,6 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 HeightfieldBufferPage::HeightfieldBufferPage(HeightfieldBuffer* heightfieldBuffer, int pageColumn,
                                              int pageRow)
     : mVersion(Utils::createGUID()), mPageColumn(pageColumn), mPageRow(pageRow)
@@ -22,10 +21,8 @@ HeightfieldBufferPage::HeightfieldBufferPage(HeightfieldBuffer* heightfieldBuffe
     mHeightElementFormat = heightfieldBuffer->getHeightElementFormat();
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldBufferPage::~HeightfieldBufferPage() { clearData(); }
 
-// ----------------------------------------------------------------------------
 void HeightfieldBufferPage::addHeightfieldBuffer(HeightfieldBuffer* heightfieldBuffer)
 {
     std::list<HeightfieldBuffer *>::iterator bufferIt = mHeightfieldBuffers.begin(),
@@ -39,10 +36,8 @@ void HeightfieldBufferPage::addHeightfieldBuffer(HeightfieldBuffer* heightfieldB
     mHeightfieldBuffers.push_back(heightfieldBuffer);
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldBufferPage::removeAllHeightfieldBuffers() { mHeightfieldBuffers.clear(); }
 
-// ----------------------------------------------------------------------------
 void HeightfieldBufferPage::removeHeightfieldBuffer(HeightfieldBuffer* heightfieldBuffer)
 {
     std::list<HeightfieldBuffer *>::iterator bufferIt = mHeightfieldBuffers.begin(),
@@ -58,10 +53,8 @@ void HeightfieldBufferPage::removeHeightfieldBuffer(HeightfieldBuffer* heightfie
     assert(false);
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldBufferPage::containsData() { return (bool)_mHeightTexture; }
 
-// ----------------------------------------------------------------------------
 void HeightfieldBufferPage::clearData()
 {
     unlockAll();
@@ -73,7 +66,6 @@ void HeightfieldBufferPage::clearData()
     }
 }
 
-// ----------------------------------------------------------------------------
 Ogre::TexturePtr HeightfieldBufferPage::getHeightTexture()
 {
     if (!containsData())
@@ -106,7 +98,6 @@ Ogre::TexturePtr HeightfieldBufferPage::getHeightTexture()
     return _mHeightTexture;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldBufferPage::increaseVersion()
 {
     mVersion = Utils::createGUID();
@@ -119,7 +110,6 @@ void HeightfieldBufferPage::increaseVersion()
     }
 }
 
-// ----------------------------------------------------------------------------
 Ogre::PixelBox HeightfieldBufferPage::getRawHeightData()
 {
     if (!getHeightTexture()->getBuffer()->isLocked())
@@ -132,7 +122,6 @@ Ogre::PixelBox HeightfieldBufferPage::getRawHeightData()
     return box;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldBufferPage::unlockAll()
 {
     if (containsData())
@@ -144,10 +133,8 @@ void HeightfieldBufferPage::unlockAll()
     }
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldBufferPage::revalidatePass() { return false; }
 
-// ----------------------------------------------------------------------------
 void HeightfieldBufferPage::cloneDataFrom(HeightfieldBufferPage* const heightfieldBufferPage)
 {
     assert(heightfieldBufferPage->getHeightfieldBufferSet() == getHeightfieldBufferSet());
@@ -180,7 +167,6 @@ void HeightfieldBufferPage::cloneDataFrom(HeightfieldBufferPage* const heightfie
     }
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldBufferPage::updateFrom(const Ogre::PixelBox& relativePixelBox)
 {
     // source pixel box (from relativePixelBox)
@@ -206,7 +192,6 @@ void HeightfieldBufferPage::updateFrom(const Ogre::PixelBox& relativePixelBox)
     // mDirtyRect = Utils::unionTRect(mDirtyRect, invalidRect);
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldBufferPage::updateGeoms(const Ogre::Rect& rect)
 {
     std::list<HeightfieldBuffer *>::iterator bufferIt = mHeightfieldBuffers.begin(),
@@ -217,7 +202,6 @@ void HeightfieldBufferPage::updateGeoms(const Ogre::Rect& rect)
     }
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldBufferPage::copyTo(Ogre::PixelBox& relativePixelBox)
 {
     // source pixel box (from relativePixelBox)
@@ -230,7 +214,6 @@ void HeightfieldBufferPage::copyTo(Ogre::PixelBox& relativePixelBox)
     Ogre::PixelUtil::bulkPixelConversion(sourceBox, destBox);
 }
 
-// ----------------------------------------------------------------------------
 Ogre::Rect HeightfieldBufferPage::getAbsoluteRect()
 {
     Ogre::Rect rect;
@@ -241,7 +224,6 @@ Ogre::Rect HeightfieldBufferPage::getAbsoluteRect()
     return rect;
 }
 
-// ----------------------------------------------------------------------------
 Ogre::PixelFormat HeightfieldBufferPage::getPackedFormat()
 {
     switch (mHeightElementFormat)

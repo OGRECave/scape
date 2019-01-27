@@ -29,7 +29,6 @@ enum EPropertyId
     PROPERTYID_HEIGHT,
 };
 
-// ----------------------------------------------------------------------------
 HeightfieldFileDecoderRaw::HeightfieldFileDecoderRaw()
     : mCodecExtension(_T("RAW")), mFlipX(false), mFlipY(false)
 {
@@ -48,7 +47,6 @@ const string& HeightfieldFileDecoderRaw::getFileFilter()
     return fileFilter;
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldFileDecoderRaw::initPersistentElementValueMap(StringStringMap& map)
 {
     setUIElementPropertyValue(UIELEMENTPROPERTY_FLIPX, _T("0"));
@@ -60,7 +58,6 @@ bool HeightfieldFileDecoderRaw::initPersistentElementValueMap(StringStringMap& m
     return true;
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldFileDecoderRaw::initPersistentElementStringEnumMap(StringEnumMap& map)
 {
     map[UIELEMENTPROPERTY_FLIPX] = PROPERTYID_FLIPX;
@@ -73,7 +70,6 @@ bool HeightfieldFileDecoderRaw::initPersistentElementStringEnumMap(StringEnumMap
     return true;
 }
 
-// ----------------------------------------------------------------------------
 string HeightfieldFileDecoderRaw::setUIElementPropertyValue(const string& elementName, const string& value)
 {
     bool boolValue = Ogre::StringConverter::parseBool(value);
@@ -115,7 +111,6 @@ string HeightfieldFileDecoderRaw::setUIElementPropertyValue(const string& elemen
     return outValue;
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldFileDecoderRaw::decode(HeightfieldBuffer* outBuffer, const string& fileName, string* error)
 {
     Ogre::LogManager::getSingleton().logMessage(_T("Importing heightfield '") + outBuffer->getName() +
@@ -177,7 +172,6 @@ bool HeightfieldFileDecoderRaw::decode(HeightfieldBuffer* outBuffer, const strin
     return false;
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldFileDecoderRaw::decode(Ogre::PixelBox* pixelBox, bool flipX, bool flipY, bool bigEndian,
                                        string* error)
 {

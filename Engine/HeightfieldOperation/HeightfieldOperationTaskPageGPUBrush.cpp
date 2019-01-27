@@ -22,7 +22,6 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 HeightfieldOperationTaskPageGPUBrush::HeightfieldOperationTaskPageGPUBrush(
     const string& brushMaterialName, const string& blendMaterialName, int supportedBrushInstanceCount,
     bool onePass, HeightfieldOperationTaskPageGPUListener* quadListener,
@@ -36,14 +35,12 @@ HeightfieldOperationTaskPageGPUBrush::HeightfieldOperationTaskPageGPUBrush(
 {
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationTaskPageGPUBrush::setBorderSize(int width, int height)
 {
     mBorderWidth = width;
     mBorderHeight = height;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationTaskPageGPUBrush::tickPending()
 {
     if (getEngineCore()->getGPU2DOperationManager()->getActiveGPU2DOperationCount() < MAXRENDERTARGETS)
@@ -52,7 +49,6 @@ void HeightfieldOperationTaskPageGPUBrush::tickPending()
     }
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationTaskPageGPUBrush::tickActive()
 {
     bool hasRendered = false;
@@ -406,7 +402,6 @@ void HeightfieldOperationTaskPageGPUBrush::tickActive()
     }
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationTaskPageGPUBrush::setOperationQuadNeighbor(GPU2DOperationQuadCustomPtr& quadPtr,
                                                                     const string& constantCoordName,
                                                                     const string& textureAliasName,

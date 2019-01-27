@@ -10,7 +10,6 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 GPU2DOperationQuadBrush::GPU2DOperationQuadBrush(const string& materialName, int supportedInstanceCount)
     : mInnerRadius(0.0f), mOuterRadius(1.0f), mShapePower(1.0f), mDirtyBrushWeights(true),
       mActiveBrushInstances(0), mMinHeight(0.0f), mMaxHeight(1.0f),
@@ -21,23 +20,18 @@ GPU2DOperationQuadBrush::GPU2DOperationQuadBrush(const string& materialName, int
     mBrushDirections.reserve(getSupportedInstanceCount());
 }
 
-// ----------------------------------------------------------------------------
 void GPU2DOperationQuadBrush::setInnerRadius(Ogre::Real innerRadius) { mInnerRadius = innerRadius; }
 
-// ----------------------------------------------------------------------------
 void GPU2DOperationQuadBrush::setOuterRadius(Ogre::Real outerRadius) { mOuterRadius = outerRadius; }
 
-// ----------------------------------------------------------------------------
 void GPU2DOperationQuadBrush::setBrushShapePower(Ogre::Real shapePower) { mShapePower = shapePower; }
 
-// ----------------------------------------------------------------------------
 void GPU2DOperationQuadBrush::setHeightRange(Ogre::Real minHeight, Ogre::Real maxHeight)
 {
     mMinHeight = minHeight;
     mMaxHeight = maxHeight;
 }
 
-// ----------------------------------------------------------------------------
 void GPU2DOperationQuadBrush::prepareForRender(Ogre::ushort zOrder)
 {
     //	mInnerRadius = 60;
@@ -84,10 +78,8 @@ void GPU2DOperationQuadBrush::prepareForRender(Ogre::ushort zOrder)
     mGPU2DOperationableQuad->prepareForRender(zOrder);
 }
 
-// ----------------------------------------------------------------------------
 int GPU2DOperationQuadBrush::getSupportedInstanceCount() { return mSupportedInstanceCount; }
 
-// ----------------------------------------------------------------------------
 void GPU2DOperationQuadBrush::setBrushInstance(int instanceIndex, const Ogre::Vector3& position,
                                                const Ogre::Vector3& direction, Ogre::Real strength)
 {

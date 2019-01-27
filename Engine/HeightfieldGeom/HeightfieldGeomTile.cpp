@@ -16,7 +16,6 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 namespace ScapeEngine
 {
 namespace _HeightfieldGeomTileShaderConstant
@@ -48,7 +47,6 @@ enum EShaderConstant
 
 const string HeightfieldGeomTile::mMovableType = _T("HeightfieldGeomTile");
 
-// ----------------------------------------------------------------------------
 HeightfieldGeomTile::HeightfieldGeomTile(HeightfieldGeom* heightfieldGeom,
                                          const Ogre::Rect& visibleQuadRect, size_t templateQuadColumnCount,
                                          size_t templateQuadRowCount, const string& name)
@@ -75,7 +73,6 @@ HeightfieldGeomTile::HeightfieldGeomTile(HeightfieldGeom* heightfieldGeom,
     revalidate();
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldGeomTile::~HeightfieldGeomTile()
 {
     delete mRenderOp.vertexData;
@@ -83,20 +80,17 @@ HeightfieldGeomTile::~HeightfieldGeomTile()
     delete mGeomTileShaderCustomAutoConstants;
 }
 
-// ----------------------------------------------------------------------------
 const Ogre::MaterialPtr& HeightfieldGeomTile::getMaterial() const
 {
     return getHeightfieldGeom()->getHeightfieldGeomMaterial()->getMaterial();
 }
 
-// ----------------------------------------------------------------------------
 Ogre::Real HeightfieldGeomTile::getSquaredViewDepth(const Ogre::Camera* cam) const
 {
     assert(mParentNode);
     return mParentNode->getSquaredViewDepth(cam);
 }
 
-//-----------------------------------------------------------------------
 void HeightfieldGeomTile::_updateCustomGpuParameter(
     const Ogre::GpuProgramParameters::AutoConstantEntry& constantEntry,
     Ogre::GpuProgramParameters* params) const
@@ -111,13 +105,11 @@ void HeightfieldGeomTile::_updateCustomGpuParameter(
     }
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldGeomTile::addNeighbor(HeightfieldGeomTile* neighborTile)
 {
     mNeighborTiles.push_back(neighborTile);
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldGeomTile::revalidate()
 {
     if (isDirtyData())
@@ -142,7 +134,6 @@ void HeightfieldGeomTile::revalidate()
     mDirtyMaterial = false;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldGeomTile::updateRenderOperation()
 {
     if (isDirtyData())
@@ -178,7 +169,6 @@ void HeightfieldGeomTile::updateRenderOperation()
     updateRenderIndexBuffer();
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldGeomTile::updateRenderIndexBuffer()
 {
     if (isDirtyData() || isDirtyDataNeighbor())
@@ -191,7 +181,6 @@ void HeightfieldGeomTile::updateRenderIndexBuffer()
     }
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldGeomTile::_notifyCurrentCamera(Ogre::Camera* cam)
 {
     Ogre::Vector3 closestBoundingBoxPoint;
@@ -216,7 +205,6 @@ void HeightfieldGeomTile::_notifyCurrentCamera(Ogre::Camera* cam)
     }
 }
 
-// ----------------------------------------------------------------------------
 int HeightfieldGeomTile::needsLODUpdate() const
 {
     int bestSpacing = getBestLODSpacing();
@@ -227,7 +215,6 @@ int HeightfieldGeomTile::needsLODUpdate() const
     return 0;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldGeomTile::postFrameUpdate()
 {
     revalidate();
@@ -235,10 +222,8 @@ void HeightfieldGeomTile::postFrameUpdate()
     mFrameLeastSquaredPixelsWorldQuad = -1.0f;
 }
 
-// ----------------------------------------------------------------------------
 int HeightfieldGeomTile::getCurrentLODSpacing() const { return mQuadColumnSpacing; }
 
-// ----------------------------------------------------------------------------
 int HeightfieldGeomTile::getBestLODSpacing() const
 {
     if (mFrameLeastSquaredPixelsWorldQuad >= 0.0f)
@@ -269,7 +254,6 @@ int HeightfieldGeomTile::getBestLODSpacing() const
     return getCurrentLODSpacing();
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldGeomTile::updateLOD()
 {
     int bestSpacing = getBestLODSpacing();

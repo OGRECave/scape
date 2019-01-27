@@ -14,35 +14,28 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 GPU2DOperationQuad::GPU2DOperationQuad()
 {
     mGPU2DOperationableQuad = getEngineCore()->getGPU2DOperationRenderableQuadManager()->getNewQuad();
 }
 
-// ----------------------------------------------------------------------------
 GPU2DOperationQuad::~GPU2DOperationQuad()
 {
     getEngineCore()->getGPU2DOperationRenderableQuadManager()->returnQuad(mGPU2DOperationableQuad);
     mGPU2DOperationableQuad = NULL;
 }
 
-// ----------------------------------------------------------------------------
 Ogre::MovableObject* GPU2DOperationQuad::getMovableObject() { return mGPU2DOperationableQuad; }
 
-// ----------------------------------------------------------------------------
 Ogre::Renderable* GPU2DOperationQuad::getRenderable() { return mGPU2DOperationableQuad; }
 
-// ----------------------------------------------------------------------------
 void GPU2DOperationQuad::setRenderRect(const Ogre::Rect& rect)
 {
     mGPU2DOperationableQuad->setRenderRect(rect);
 }
 
-// ----------------------------------------------------------------------------
 const Ogre::Rect& GPU2DOperationQuad::getRenderRect() { return mGPU2DOperationableQuad->getRenderRect(); }
 
-// ----------------------------------------------------------------------------
 void GPU2DOperationQuad::prepareForRender(Ogre::ushort zOrder)
 {
     mGPU2DOperationableQuad->prepareForRender(zOrder);

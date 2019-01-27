@@ -22,7 +22,6 @@ typedef std::map<std::string, std::string> StringStringMap;
 typedef std::map<std::string, StringList> StringStringListMap;
 typedef std::map<std::string, std::pair<std::string, std::string>> StringStringStringPairMap;
 
-// ----------------------------------------------------------------------------
 enum EScapeUIElementGroupId
 {
     SCAPEUIELEMENTGROUPID_OPERATION,

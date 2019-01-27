@@ -15,13 +15,11 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 InputPointer::InputPointer(InputManager* inputManager)
     : mInputManager(inputManager), mCurrentState(0, 0, -1.0f)
 {
 }
 
-// ----------------------------------------------------------------------------
 std::pair<RenderView*, Ogre::Vector2> InputPointer::PointerState::getRenderView2DPoint() const
 {
     if (mIsFocusedRenderViewDirty)
@@ -40,7 +38,6 @@ std::pair<RenderView*, Ogre::Vector2> InputPointer::PointerState::getRenderView2
     return std::pair<RenderView*, Ogre::Vector2>(mFocusedRenderView, mFocusedRenderView2DPoint);
 }
 
-// ----------------------------------------------------------------------------
 const Ogre::Vector3& InputPointer::PointerState::get3DPoint() const
 {
     getRenderView2DPoint();
@@ -76,17 +73,14 @@ const Ogre::Vector3& InputPointer::PointerState::get3DPoint() const
     return m3DPoint;
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldGeom* InputPointer::PointerState::get3DPointGeom() const
 {
     get3DPoint();
     return m3DPointGeom;
 }
 
-// ----------------------------------------------------------------------------
 void InputPointer::startNewFrame() {}
 
-// ----------------------------------------------------------------------------
 void InputPointer::update()
 {
     Ogre::Real pressure = 0.001f * mInputManager->getAnalogInput(AnalogInputId::POINTER_PRESSURE);

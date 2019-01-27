@@ -17,11 +17,9 @@
 #include "EngineCore/UIElementClasses.h"
 #include "HeightfieldFileDecoder.h"
 
-// ----------------------------------------------------------------------------
 namespace ScapeEngine
 {
 
-// ----------------------------------------------------------------------------
 class HeightfieldFileDecoderImageBase : public HeightfieldFileDecoder
 {
 public:
@@ -37,7 +35,6 @@ protected:
     string setUIElementPropertyValue(const string& elementName, const string& value);
 };
 
-// ----------------------------------------------------------------------------
 #define DEFINE_HEIGHTFIELDFILEDECODERIMAGE_CLASS(className)                                                \
     class className : public HeightfieldFileDecoderImageBase                                               \
     {                                                                                                      \
@@ -49,7 +46,6 @@ protected:
         virtual const string& getFileFilter();                                                             \
     };
 
-// ----------------------------------------------------------------------------
 DEFINE_HEIGHTFIELDFILEDECODERIMAGE_CLASS(HeightfieldFileDecoderImageBMP);
 DEFINE_HEIGHTFIELDFILEDECODERIMAGE_CLASS(HeightfieldFileDecoderImagePGM);
 DEFINE_HEIGHTFIELDFILEDECODERIMAGE_CLASS(HeightfieldFileDecoderImagePNG);

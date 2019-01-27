@@ -7,7 +7,6 @@
 #include "ScapeEngineStableHeaders.h"
 #include "HeightfieldGeomTileVertexUVBufferManager.h"
 
-// ----------------------------------------------------------------------------
 namespace ScapeEngine
 {
 namespace HeightfieldGeomTileVertexUVBufferManagerNS
@@ -84,11 +83,9 @@ struct CachedBufferReference
 }
 }
 
-// ----------------------------------------------------------------------------
 using namespace ScapeEngine;
 using namespace HeightfieldGeomTileVertexUVBufferManagerNS;
 
-// ----------------------------------------------------------------------------
 HeightfieldGeomTileVertexUVBufferManager::HeightfieldGeomTileVertexUVBufferManager()
     : mBufferTimeToLive(1.0f)
 {
@@ -97,13 +94,11 @@ HeightfieldGeomTileVertexUVBufferManager::HeightfieldGeomTileVertexUVBufferManag
     mCachedBuffers = new CachedBuffers();
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldGeomTileVertexUVBufferManager::~HeightfieldGeomTileVertexUVBufferManager()
 {
     delete mCachedBuffers;
 }
 
-// ----------------------------------------------------------------------------
 Ogre::HardwareVertexBufferSharedPtr HeightfieldGeomTileVertexUVBufferManager::getBuffer(
     Ogre::VertexElementType type, const Ogre::Rect& visibleQuadRect, int templateQuadColumnCount,
     int templateQuadRowCount, int quadColumnSpacing, int quadRowSpacing)
@@ -128,7 +123,6 @@ Ogre::HardwareVertexBufferSharedPtr HeightfieldGeomTileVertexUVBufferManager::ge
     return bufferIt->second.buffer;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldGeomTileVertexUVBufferManager::onPostFrameTick()
 {
     Ogre::Real deltaTime = getEngineCore()->getTimeSinceLastFrame();
@@ -154,7 +148,6 @@ void HeightfieldGeomTileVertexUVBufferManager::onPostFrameTick()
     }
 }
 
-// ----------------------------------------------------------------------------
 Ogre::HardwareVertexBufferSharedPtr HeightfieldGeomTileVertexUVBufferManager::createBuffer(
     Ogre::VertexElementType elementType, const Ogre::Rect& visibleQuadRect, int templateQuadColumnCount,
     int templateQuadRowCount, int quadColumnSpacing, int quadRowSpacing)

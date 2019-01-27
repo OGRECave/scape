@@ -13,7 +13,6 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 CameraController::CameraController()
     : mRenderView(NULL), mStartGrabRayIntersectionPosition(0.0, 0.0, 0.0), mCurrent2DGrabPosition(0.0, 0.0),
       mCameraTransform(), mCameraEulerAngles(0.0, 0.0, 0.0), mPointerGrabActive(false)
@@ -21,10 +20,8 @@ CameraController::CameraController()
     wantsFrameTick();
 }
 
-// ----------------------------------------------------------------------------
 CameraController::~CameraController() {}
 
-// ----------------------------------------------------------------------------
 void CameraController::attach(RenderView* renderView)
 {
     mRenderView = renderView;
@@ -40,10 +37,8 @@ void CameraController::attach(RenderView* renderView)
     mPointerGrabActive = false;
 }
 
-// ----------------------------------------------------------------------------
 void CameraController::detach() { mRenderView = NULL; }
 
-// ----------------------------------------------------------------------------
 DVector3 CameraController::getViewportPickRayDirection(const DVector3& screenPosition)
 {
     DMatrix4 invProjMatrix(mRenderView->getCamera()->getProjectionMatrix());
@@ -65,7 +60,6 @@ DVector3 CameraController::getViewportPickRayDirection(const DVector3& screenPos
     return direction;
 }
 
-// ----------------------------------------------------------------------------
 void CameraController::onFrameTick()
 {
     InputManager* inputManager = getEngineCore()->getInputManager();
@@ -143,7 +137,6 @@ void CameraController::onFrameTick()
     cameraSceneNode->setPosition(mCameraTransform.col3.asVector3().toOgreVector3());
 }
 
-// ----------------------------------------------------------------------------
 void CameraController::doGrabTruck(bool update2DGrabPoint)
 {
     InputManager* inputManager = getEngineCore()->getInputManager();
@@ -194,7 +187,6 @@ void CameraController::doGrabTruck(bool update2DGrabPoint)
     */
 }
 
-// ----------------------------------------------------------------------------
 void CameraController::doGrabPanTilt()
 {
     const DVector3& cameraPosition = mCameraTransform.col3.asVector3();
@@ -211,7 +203,6 @@ void CameraController::doGrabPanTilt()
     mCameraTransform.fromEulerAngles(mCameraEulerAngles, cameraPosition);
 }
 
-// ----------------------------------------------------------------------------
 void CameraController::doGrabDolly()
 {
     InputManager* inputManager = getEngineCore()->getInputManager();
@@ -223,7 +214,6 @@ void CameraController::doGrabDolly()
         (mCameraTransform.col3.asVector3() - mStartGrabRayIntersectionPosition) * ratio;
 }
 
-// ----------------------------------------------------------------------------
 void CameraController::doPanTilt()
 {
     InputManager* inputManager = getEngineCore()->getInputManager();
@@ -238,7 +228,6 @@ void CameraController::doPanTilt()
     mCameraTransform.fromEulerAngles(mCameraEulerAngles, cameraPosition);
 }
 
-// ----------------------------------------------------------------------------
 void CameraController::updateTruck()
 {
     InputManager* inputManager = getEngineCore()->getInputManager();
@@ -271,7 +260,6 @@ void CameraController::updateTruck()
     }
 }
 
-// ----------------------------------------------------------------------------
 void CameraController::updateDolly()
 {
     InputManager* inputManager = getEngineCore()->getInputManager();
@@ -298,7 +286,6 @@ void CameraController::updateDolly()
     }
 }
 
-// ----------------------------------------------------------------------------
 DVector3 CameraController::normalizeEulerAngles(const DVector3& eulerAngles)
 {
     DVector3 result = eulerAngles;

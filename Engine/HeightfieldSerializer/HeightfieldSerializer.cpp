@@ -12,7 +12,6 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 Utils::SerialMemoryBufferPtr HeightfieldSerializer::serialize(HeightfieldBuffer* inBuffer,
                                                               Ogre::PixelFormat pixelFormat)
 {
@@ -57,7 +56,6 @@ Utils::SerialMemoryBufferPtr HeightfieldSerializer::serialize(HeightfieldBuffer*
     return serialBufferPtr;
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldSerializer::deserialize(Utils::SerialMemoryBufferConstPtr inSerial,
                                         HeightfieldBuffer* outBuffer, Ogre::PixelFormat pixelFormat,
                                         string* error)

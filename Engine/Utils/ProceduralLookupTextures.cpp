@@ -9,7 +9,6 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 // Original Ken Perlin's permutation table
 static Ogre::uint8 perlinPermTable[256] = {
     151, 160, 137, 91,  90,  15,  131, 13,  201, 95,  96,  53,  194, 233, 7,   225, 140, 36,  103, 30,
@@ -26,14 +25,12 @@ static Ogre::uint8 perlinPermTable[256] = {
     181, 199, 106, 157, 184, 84,  204, 176, 115, 121, 50,  45,  127, 4,   150, 254, 138, 236, 205, 93,
     222, 114, 67,  29,  24,  72,  243, 141, 128, 195, 78,  66,  215, 61,  156, 180};
 
-// ----------------------------------------------------------------------------
 // 2D off-axis gradients table
 // (128*(1+cos(angle)), 128*(1+sin(angle)) pairs for
 // eight angles: 22.5, 67.5, 112.5, 157.5, 202.5, 247.5, 292.5, 337.5
 static Ogre::uint8 perlinGradTable[16] = {245, 176, 176, 245, 79,  245, 10,  176,
                                           10,  79,  79,  10,  176, 10,  245, 79};
 
-// ----------------------------------------------------------------------------
 void Utils::createPerlinPerm2DTexture(const string& textureName)
 {
     Ogre::LogManager::getSingleton().logMessage(_T("Creating PerlinPerm2DTexture '") + textureName +
@@ -67,7 +64,6 @@ void Utils::createPerlinPerm2DTexture(const string& textureName)
     perlinPerm2DImage.save(_T("PerlinPerm2D.png"));
 }
 
-// ----------------------------------------------------------------------------
 void Utils::createPerlinGrad2DTexture(const string& textureName)
 {
     Ogre::LogManager::getSingleton().logMessage(_T("Creating PerlinGrad2DTexture '") + textureName +

@@ -15,11 +15,9 @@
 
 #include "EngineCore/UIElementClasses.h"
 
-// ----------------------------------------------------------------------------
 namespace ScapeEngine
 {
 
-// ----------------------------------------------------------------------------
 class HeightfieldFileDecoder : public UIElementContainerSimple, public FactoryClass<HeightfieldFileDecoder>
 {
 public:

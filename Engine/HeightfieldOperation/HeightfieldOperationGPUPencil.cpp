@@ -25,7 +25,6 @@
 using namespace ScapeEngine;
 
 
-// ----------------------------------------------------------------------------
 enum EPropertyId
 {
     PROPERTYID_STRENGTH,
@@ -34,14 +33,12 @@ enum EPropertyId
     PROPERTYID_LEVELEFFECT,
 };
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationGPUPencil::initPersistentElementValueMap(StringStringMap& map)
 {
     setUIElementPropertyValueMap(getUIElementPresetPropertyValueMap(defaultPresetString));
     return true;
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationGPUPencil::initPersistentElementStringEnumMap(StringEnumMap& map)
 {
     ADD_STRINGENUM(map, PROPERTYID_, STRENGTH);
@@ -52,7 +49,6 @@ bool HeightfieldOperationGPUPencil::initPersistentElementStringEnumMap(StringEnu
     return true;
 }
 
-// ----------------------------------------------------------------------------
 string HeightfieldOperationGPUPencil::setUIElementPropertyValue(const string& elementName,
                                                                 const string& value)
 {
@@ -104,7 +100,6 @@ string HeightfieldOperationGPUPencil::setUIElementPropertyValue(const string& el
     return outValue;
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldOperationGPUPencil::HeightfieldOperationGPUPencil()
     : HeightfieldOperationPolicyBrushInstancerSpacer<
           HeightfieldOperationGPUPencil,
@@ -118,7 +113,6 @@ HeightfieldOperationGPUPencil::HeightfieldOperationGPUPencil()
     loadPersistentProperties();
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldOperationTaskPage*
 HeightfieldOperationGPUPencil::createTaskPage(const BrushPageCoords& pageCoords,
                                               const BrushInstances& brushInstances)
@@ -127,7 +121,6 @@ HeightfieldOperationGPUPencil::createTaskPage(const BrushPageCoords& pageCoords,
                                                     this, pageCoords, brushInstances);
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationGPUPencil::onSetupGPU2DOperationQuadBrush(GPU2DOperationQuadBrushPtr quadPtr)
 {
     quadPtr->setMaterialShaderConstant(_T("brushParams"), Ogre::Vector4(mLevelEffect, 0.0f, 0.0f, 0.0f));

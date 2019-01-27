@@ -117,7 +117,6 @@ std::pair<bool, Ogre::Real> intersects(const Ogre::Ray& ray, const Ogre::Vector3
     return std::pair<bool, Ogre::Real>(true, t);
 }
 
-// ----------------------------------------------------------------------------
 namespace ScapeEngine
 {
 namespace HeightfieldGeomNS
@@ -139,7 +138,6 @@ struct TileDistance
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 HeightfieldGeom::HeightfieldGeom(class HeightfieldBuffer* heightfieldBuffer,
                                  Ogre::SceneNode* parentSceneNode,
                                  Ogre::VertexElementType vertexElementTypeUV,
@@ -216,7 +214,6 @@ HeightfieldGeom::HeightfieldGeom(class HeightfieldBuffer* heightfieldBuffer,
     }
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldGeom::~HeightfieldGeom()
 {
     getHeightfieldBuffer()->unregisterHeightfieldGeom(this);
@@ -236,7 +233,6 @@ HeightfieldGeom::~HeightfieldGeom()
     delete mHeightfieldGeomMaterial;
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldGeomTile* HeightfieldGeom::createTile(const Ogre::Rect& visibleQuadRect,
                                                  size_t bufferedQuadColumnCount,
                                                  size_t bufferedQuadRowCount)
@@ -256,7 +252,6 @@ HeightfieldGeomTile* HeightfieldGeom::createTile(const Ogre::Rect& visibleQuadRe
     return tile;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldGeom::tick()
 {
     mGeomAutoConstantsDirty = true;
@@ -317,7 +312,6 @@ void HeightfieldGeom::tick()
     }
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldGeom::getTile(int quadColumnIndex, int quadRowIndex, IVector2& pageIndex)
 {
     pageIndex = IVector2(0, 0);
@@ -349,7 +343,6 @@ bool HeightfieldGeom::getTile(int quadColumnIndex, int quadRowIndex, IVector2& p
     return false;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldGeom::updateMaterial()
 {
     mHeightfieldGeomMaterial->updateTextures();
@@ -368,7 +361,6 @@ void HeightfieldGeom::updateMaterial()
     mHeightfieldGeomMaterial->updateShaderConstantsGeom(this, mGeomShaderCustomAutoConstants, true);
 }
 
-// ----------------------------------------------------------------------------
 Ogre::Real HeightfieldGeom::getIntersectionPoint(const Ogre::Ray& worldRay)
 {
     Ogre::Real intersectionParam = -1.0f;
@@ -478,7 +470,6 @@ Ogre::Real HeightfieldGeom::getIntersectionParam(const Ogre::Ray& localRay, size
     return -1.0f;
 }
 
-// ----------------------------------------------------------------------------
 Ogre::Real HeightfieldGeom::getHeightAt(size_t column, size_t row)
 {
     const unsigned int elementColumnCountPerPage =
@@ -510,7 +501,6 @@ Ogre::Real HeightfieldGeom::getHeightAt(size_t column, size_t row)
     return height;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldGeom::markDirtyRect(const Ogre::Rect& dirtyRect)
 {
     // add extra border pixel to notify neighboring tiles when a normal at the dirtyrect's border
@@ -533,7 +523,6 @@ void HeightfieldGeom::markDirtyRect(const Ogre::Rect& dirtyRect)
     }
 }
 
-// ----------------------------------------------------------------------------
 Ogre::Vector3 HeightfieldGeom::getLocalPosition(const Ogre::Vector3& worldPosition) const
 {
     Ogre::Vector3 localPosition = worldPosition / getWorldQuadSize();
@@ -546,7 +535,6 @@ Ogre::Vector3 HeightfieldGeom::getLocalPosition(const Ogre::Vector3& worldPositi
     return localPosition;
 }
 
-// ----------------------------------------------------------------------------
 const class ShaderCustomAutoConstants* HeightfieldGeom::getGeomShaderCustomAutoConstants()
 {
     if (mGeomAutoConstantsDirty)

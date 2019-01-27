@@ -19,25 +19,21 @@ namespace ScapeEngine
 {
 namespace Utils
 {
-// ----------------------------------------------------------------------------
 template <class DataType, class MarkerType> class RLEDecompressor
 {
 public:
-    // ----------------------------------------------------------------------------
     RLEDecompressor(SerialMemoryBufferReader* reader) : mReader(reader)
     {
         mMarkerStateNonzeroBitMask = (1 << ((sizeof(MarkerType) << 3) - 1));
         mMarkerMaxCount = mMarkerStateNonzeroBitMask - 1;
     }
 
-    // ----------------------------------------------------------------------------
     void begin()
     {
         mRemain = 0;
         mZeroState = true;
     }
 
-    // ----------------------------------------------------------------------------
     DataType read()
     {
         if (mRemain == 0)
@@ -61,11 +57,9 @@ public:
         return ret;
     }
 
-    // ----------------------------------------------------------------------------
     void end() { assert(mRemain == 0); }
 
 protected:
-    // ----------------------------------------------------------------------------
     SerialMemoryBufferReader* mReader;
     size_t mRemain;
     size_t mNextMarkerPosition;
@@ -74,11 +68,9 @@ protected:
     bool mZeroState;
 };
 
-// ----------------------------------------------------------------------------
 template <class DataType, class MarkerType> class RLECompressor
 {
 public:
-    // ----------------------------------------------------------------------------
     RLECompressor(SerialMemoryBufferWriter* writer) : mWriter(writer)
     {
         mMarkerStateNonzeroBitMask = (1 << ((sizeof(MarkerType) << 3) - 1));
@@ -87,7 +79,6 @@ public:
         mMinZeroCount = (sizeof(MarkerType) + sizeof(DataType) - 1) / sizeof(DataType);
     }
 
-    // ----------------------------------------------------------------------------
     void begin()
     {
         mZeroCount = mNonzeroCount = 0;
@@ -96,7 +87,6 @@ public:
         mHasWritten = false;
     }
 
-    // ----------------------------------------------------------------------------
     void write(DataType value)
     {
         if (!mHasWritten)
@@ -171,7 +161,6 @@ public:
         }
     }
 
-    // ----------------------------------------------------------------------------
     void end()
     {
         if (mZeroState)
@@ -186,7 +175,6 @@ public:
     }
 
 protected:
-    // ----------------------------------------------------------------------------
     SerialMemoryBufferWriter* mWriter;
     size_t mZeroCount;
     size_t mNonzeroCount;
@@ -198,7 +186,6 @@ protected:
     bool mZeroState;
     bool mHasWritten;
 
-    // ----------------------------------------------------------------------------
     void writeMarker(size_t position, MarkerType marker)
     {
         size_t oldPosition = mWriter->getPosition();

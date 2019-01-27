@@ -11,7 +11,6 @@ using namespace ScapeEngine;
 
 const string Utils::emptyString = _T("");
 
-// ----------------------------------------------------------------------------
 const Utils::MooreNeighborhood::EDirection Utils::MooreNeighborhood::mOppositeDirection[] = {
     DIRECTION_S, DIRECTION_SW, DIRECTION_W, DIRECTION_NW,
     DIRECTION_N, DIRECTION_NE, DIRECTION_E, DIRECTION_SE};
@@ -20,7 +19,6 @@ const int Utils::MooreNeighborhood::mDirectionToX[] = {0, 1, 1, 1, 0, -1, -1, -1
 const int Utils::MooreNeighborhood::mDirectionToY[] = {-1, -1, 0, 1, 1, 1, 0, -1};
 const char* Utils::MooreNeighborhood::mDirectionToName[] = {"N", "NE", "E", "SE", "S", "SW", "W", "NW"};
 
-// ----------------------------------------------------------------------------
 const Utils::VonNeumannNeighborhood::EDirection Utils::VonNeumannNeighborhood::mOppositeDirection[] = {
     DIRECTION_S, DIRECTION_W, DIRECTION_N, DIRECTION_E};
 
@@ -28,7 +26,6 @@ const int Utils::VonNeumannNeighborhood::mDirectionToX[] = {0, 1, 0, -1};
 const int Utils::VonNeumannNeighborhood::mDirectionToY[] = {-1, 0, 1, 0};
 const char* Utils::VonNeumannNeighborhood::mDirectionToName[] = {"N", "E", "S", "W"};
 
-// ----------------------------------------------------------------------------
 Ogre::Vector4 Utils::getCatmullRomeSplineWeights(Ogre::Real param)
 {
     Ogre::Real param2 = param * param;
@@ -40,7 +37,6 @@ Ogre::Vector4 Utils::getCatmullRomeSplineWeights(Ogre::Real param)
                          0.166666667f * param3 - 0.166666667f * param);
 }
 
-// ----------------------------------------------------------------------------
 Ogre::PixelBox Utils::clipPixelBox(const Ogre::PixelBox& pixelBox, const Ogre::Rect& relativeRect,
                                    int offsetX, int offsetY)
 {
@@ -72,7 +68,6 @@ Ogre::PixelBox Utils::clipPixelBox(const Ogre::PixelBox& pixelBox, const Ogre::R
     return clipBox;
 }
 
-// ----------------------------------------------------------------------------
 Ogre::Real Utils::getTypicalVertexElementRangeMin(Ogre::VertexElementType type)
 {
     Ogre::VertexElementType baseType = Ogre::VertexElement::getBaseType(type);
@@ -90,7 +85,6 @@ Ogre::Real Utils::getTypicalVertexElementRangeMin(Ogre::VertexElementType type)
     return 0.0f;
 }
 
-// ----------------------------------------------------------------------------
 Ogre::Real Utils::getTypicalVertexElementRangeMax(Ogre::VertexElementType type)
 {
     Ogre::VertexElementType baseType = Ogre::VertexElement::getBaseType(type);
@@ -108,7 +102,6 @@ Ogre::Real Utils::getTypicalVertexElementRangeMax(Ogre::VertexElementType type)
     return 1.0f;
 }
 
-// ----------------------------------------------------------------------------
 bool Utils::bindShaderCustomAutoConstant(Ogre::Technique* technique, size_t constantIndex,
                                          const string& constantName)
 {
@@ -179,7 +172,6 @@ bool Utils::bindShaderCustomAutoConstant(Ogre::Technique* technique, size_t cons
     return false;
 }
 
-// ----------------------------------------------------------------------------
 bool Utils::readResource(const string& fileName, const string& groupName, string& contents)
 {
     Ogre::DataStreamPtr pStream =
@@ -192,17 +184,14 @@ bool Utils::readResource(const string& fileName, const string& groupName, string
     return false;
 }
 
-// ----------------------------------------------------------------------------
 Utils::GUID Utils::createGUID()
 {
     static Utils::GUID nextId = 0;
     return ++nextId;
 }
 
-// ----------------------------------------------------------------------------
 Ogre::uint32 Utils::randHash(int in) { return ((in * 1103515245 + 12345) >> 16) & 0x7FFF; }
 
-// ----------------------------------------------------------------------------
 void Utils::writeBinaryFile(const string& fileName, const void* data, int bytes, bool append)
 {
     FILE* file = fopen(fileName.c_str(), (append ? _T("ab") : _T("wb")));
@@ -214,7 +203,6 @@ void Utils::writeBinaryFile(const string& fileName, const void* data, int bytes,
     }
 }
 
-// ----------------------------------------------------------------------------
 std::pair<void*, size_t> Utils::readBinaryFile(const string& fileName)
 {
     FILE* file = fopen(fileName.c_str(), _T("rb"));
@@ -238,7 +226,6 @@ std::pair<void*, size_t> Utils::readBinaryFile(const string& fileName)
     return std::pair<void*, int>(data, byteCount);
 }
 
-// ----------------------------------------------------------------------------
 string Utils::makeUniqueName(const string& baseName, const std::list<string>& existingNames)
 {
     Ogre::uint32 nextIndex = 1;
@@ -281,7 +268,6 @@ string Utils::makeUniqueName(const string& baseName, const std::list<string>& ex
     return uniqueName;
 }
 
-// ----------------------------------------------------------------------------
 Ogre::ColourValue Utils::getColourValueFromString(const string& colorString)
 {
     const string numericChars = _T("0123456789");
@@ -305,7 +291,6 @@ Ogre::ColourValue Utils::getColourValueFromString(const string& colorString)
     return color;
 }
 
-// ----------------------------------------------------------------------------
 bool Utils::getTextureFromInternalFile(const string& textureName, const string& group,
                                        const string& fileName)
 {
@@ -341,7 +326,6 @@ bool Utils::getTextureFromInternalFile(const string& textureName, const string& 
     return true;
 }
 
-// ----------------------------------------------------------------------------
 bool Utils::getTextureFromExternalFile(const string& textureName, const string& group,
                                        const string& fileName)
 {
@@ -387,7 +371,6 @@ bool Utils::getTextureFromExternalFile(const string& textureName, const string& 
     return true;
 }
 
-// ----------------------------------------------------------------------------
 string Utils::getRelativePath(const string& absolutePath, const string& basePath)
 {
     string fileName, splitPath;
@@ -409,7 +392,6 @@ string Utils::getRelativePath(const string& absolutePath, const string& basePath
     return splitPath + fileName;
 }
 
-// ----------------------------------------------------------------------------
 string Utils::getWorkingPath()
 {
 #if OGRE_PLATFORM == OGRE_PLATFORM_LINUX
@@ -423,7 +405,6 @@ string Utils::getWorkingPath()
     return path;
 }
 
-// ----------------------------------------------------------------------------
 void Utils::reloadMaterial(const Ogre::String& materialName)
 {
     Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().getByName(materialName);

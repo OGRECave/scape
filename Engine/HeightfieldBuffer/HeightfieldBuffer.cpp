@@ -13,7 +13,6 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 HeightfieldBuffer::HeightfieldBuffer(HeightfieldBufferSet* set)
     : mHeightfieldBufferSet(set), mName(_T("empty")), mVersion(Utils::createGUID()),
       // mElementColumnCountPerPage(0),
@@ -27,7 +26,6 @@ HeightfieldBuffer::HeightfieldBuffer(HeightfieldBufferSet* set)
     mHandle = Utils::createGUID();
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldBuffer::HeightfieldBuffer(HeightfieldBufferSet* set, const string& name,
                                      Ogre::PixelFormat pixelFormat, int elementColumnCountPerPage,
                                      int elementRowCountPerPage, int elementColumnCount,
@@ -62,7 +60,6 @@ HeightfieldBuffer::HeightfieldBuffer(HeightfieldBufferSet* set, const string& na
     }
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldBuffer::~HeightfieldBuffer()
 {
     // printf("Deleted heightfieldbuffer '%s'\n", mName.c_str());
@@ -86,7 +83,6 @@ HeightfieldBuffer::~HeightfieldBuffer()
     }
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldBuffer::cloneFrom(HeightfieldBuffer* heightfieldBuffer, bool sharePages)
 {
     assert(heightfieldBuffer);
@@ -140,7 +136,6 @@ void HeightfieldBuffer::cloneFrom(HeightfieldBuffer* heightfieldBuffer, bool sha
     }
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldBuffer::registerHeightfieldGeom(HeightfieldGeom* heightfieldGeom)
 {
     HeightfieldGeoms::iterator it = mHeightfieldGeoms.begin(), itEnd = mHeightfieldGeoms.end();
@@ -155,7 +150,6 @@ void HeightfieldBuffer::registerHeightfieldGeom(HeightfieldGeom* heightfieldGeom
     mHeightfieldGeoms.push_back(heightfieldGeom);
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldBuffer::unregisterHeightfieldGeom(HeightfieldGeom* heightfieldGeom)
 {
     HeightfieldGeoms::iterator it = mHeightfieldGeoms.begin(), itEnd = mHeightfieldGeoms.end();
@@ -169,7 +163,6 @@ void HeightfieldBuffer::unregisterHeightfieldGeom(HeightfieldGeom* heightfieldGe
     }
 }
 
-// ----------------------------------------------------------------------------
 int HeightfieldBuffer::getPageIndexFromCoords(int pageColumnIndex, int pageRowIndex)
 {
     if (pageColumnIndex >= 0 && pageColumnIndex < getHeightfieldBufferSet()->getPageColumnCount() &&
@@ -180,7 +173,6 @@ int HeightfieldBuffer::getPageIndexFromCoords(int pageColumnIndex, int pageRowIn
     return -1;
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldBufferPage* HeightfieldBuffer::getPage(int pageColumnIndex, int pageRowIndex,
                                                   EPageAccessMode accessMode)
 {
@@ -203,7 +195,6 @@ HeightfieldBufferPage* HeightfieldBuffer::getPage(int pageColumnIndex, int pageR
     return NULL;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldBuffer::unsharePage(int index, bool copyData)
 {
     assert((size_t)index < mPages.size());
@@ -235,7 +226,6 @@ void HeightfieldBuffer::unsharePage(int index, bool copyData)
     }
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldBuffer::replacePage(int pageColumnIndex, int pageRowIndex, HeightfieldBuffer* srcBuffer)
 {
     HeightfieldBufferPage* srcPage =
@@ -258,7 +248,6 @@ void HeightfieldBuffer::replacePage(int pageColumnIndex, int pageRowIndex, Heigh
     }
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldBuffer::swapPage(int pageColumnIndex, int pageRowIndex, HeightfieldBuffer* srcBuffer)
 {
     int pageIndex = getPageIndexFromCoords(pageColumnIndex, pageRowIndex);
@@ -282,7 +271,6 @@ void HeightfieldBuffer::swapPage(int pageColumnIndex, int pageRowIndex, Heightfi
     }
 }
 
-// ----------------------------------------------------------------------------
 int HeightfieldBuffer::getPageColumnFromElement(int elementColumnIndex)
 {
     if (elementColumnIndex >= 0 && elementColumnIndex < getHeightfieldBufferSet()->getElementColumnCount())
@@ -292,7 +280,6 @@ int HeightfieldBuffer::getPageColumnFromElement(int elementColumnIndex)
     return -1;
 }
 
-// ----------------------------------------------------------------------------
 int HeightfieldBuffer::getPageRowFromElement(int elementRowIndex)
 {
     if (elementRowIndex >= 0 && elementRowIndex < getHeightfieldBufferSet()->getElementRowCount())
@@ -302,7 +289,6 @@ int HeightfieldBuffer::getPageRowFromElement(int elementRowIndex)
     return -1;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldBuffer::revalidate()
 {
     bool needsAnotherPass = true;
@@ -323,7 +309,6 @@ void HeightfieldBuffer::revalidate()
     }
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldBuffer::updateFrom(const Ogre::PixelBox& relativePixelBox)
 {
     Ogre::Rect pageRect;
@@ -375,7 +360,6 @@ void HeightfieldBuffer::updateFrom(const Ogre::PixelBox& relativePixelBox)
     updateGeoms(Utils::boxToRect(relativePixelBox));
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldBuffer::updateGeoms(const Ogre::Rect& rect)
 {
     HeightfieldGeoms::iterator it = mHeightfieldGeoms.begin(), itEnd = mHeightfieldGeoms.end();
@@ -385,7 +369,6 @@ void HeightfieldBuffer::updateGeoms(const Ogre::Rect& rect)
     }
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldBuffer::copyTo(Ogre::PixelBox& relativePixelBox)
 {
     Ogre::Rect pageRect;
@@ -421,7 +404,6 @@ void HeightfieldBuffer::copyTo(Ogre::PixelBox& relativePixelBox)
     }
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldBuffer::unlockAll()
 {
     for (int pageRowIndex = 0; pageRowIndex < getHeightfieldBufferSet()->getPageRowCount(); ++pageRowIndex)

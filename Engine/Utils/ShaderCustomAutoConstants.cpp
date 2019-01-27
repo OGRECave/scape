@@ -9,31 +9,25 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 std::vector<Utils::GUID> ShaderCustomAutoConstants::mGlobalActiveAutoConstantGUIDs;
 
-// ----------------------------------------------------------------------------
 ShaderCustomAutoConstants::~ShaderCustomAutoConstants() { clear(); }
 
-// ----------------------------------------------------------------------------
 void ShaderCustomAutoConstants::setConstant(size_t constantIndex, const Ogre::Real* data, int dataCount)
 {
     setConstant(constantIndex, data, dataCount, false);
 }
 
-// ----------------------------------------------------------------------------
 void ShaderCustomAutoConstants::setConstant(size_t constantIndex, const Ogre::Vector4& data)
 {
     setConstant(constantIndex, data.ptr(), 4, false);
 }
 
-// ----------------------------------------------------------------------------
 void ShaderCustomAutoConstants::setConstant(size_t constantIndex, const Ogre::Matrix4& data)
 {
     setConstant(constantIndex, data[0], 16, true);
 }
 
-// ----------------------------------------------------------------------------
 void ShaderCustomAutoConstants::clear()
 {
     AutoConstant resetConstant;
@@ -50,7 +44,6 @@ void ShaderCustomAutoConstants::clear()
     mAutoConstants.clear();
 }
 
-// ----------------------------------------------------------------------------
 bool ShaderCustomAutoConstants::updateShaderParameter(
     Ogre::GpuProgramParameters* params,
     const Ogre::GpuProgramParameters::AutoConstantEntry& autoConstantEntry) const
@@ -76,7 +69,6 @@ bool ShaderCustomAutoConstants::updateShaderParameter(
     return false;
 }
 
-// ----------------------------------------------------------------------------
 void ShaderCustomAutoConstants::setConstant(size_t constantIndex, const Ogre::Real* data, int dataCount,
                                             bool isMatrix)
 {

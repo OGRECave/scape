@@ -12,10 +12,8 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 HeightfieldBrushManager::HeightfieldBrushManager() {}
 
-// ----------------------------------------------------------------------------
 HeightfieldBrushManager::~HeightfieldBrushManager()
 {
     Brushes::iterator brushIt = mBrushes.begin(), brushItEnd = mBrushes.end();
@@ -25,7 +23,6 @@ HeightfieldBrushManager::~HeightfieldBrushManager()
     }
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldBrush* HeightfieldBrushManager::getCurrentBrush() const
 {
     HeightfieldOperation* operation = getEngineCore()->getHeightfieldOperationStack()->getLastOperation();
@@ -41,7 +38,6 @@ HeightfieldBrush* HeightfieldBrushManager::getCurrentBrush() const
     return NULL;
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldBrush* HeightfieldBrushManager::getBrush(const string& brushName)
 {
     HeightfieldBrush* brush = mBrushes[brushName];

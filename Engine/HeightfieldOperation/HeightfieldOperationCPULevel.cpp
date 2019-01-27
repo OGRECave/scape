@@ -18,7 +18,6 @@
 using namespace ScapeEngine;
 
 
-// ----------------------------------------------------------------------------
 enum EPropertyId
 {
     PROPERTYID_STRENGTH,
@@ -26,14 +25,12 @@ enum EPropertyId
     PROPERTYID_PATHSPACING,
 };
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationCPULevel::initPersistentElementValueMap(StringStringMap& map)
 {
     setUIElementPropertyValueMap(getUIElementPresetPropertyValueMap(defaultPresetString));
     return true;
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationCPULevel::initPersistentElementStringEnumMap(StringEnumMap& map)
 {
     ADD_STRINGENUM(map, PROPERTYID_, STRENGTH);
@@ -43,7 +40,6 @@ bool HeightfieldOperationCPULevel::initPersistentElementStringEnumMap(StringEnum
     return true;
 }
 
-// ----------------------------------------------------------------------------
 string HeightfieldOperationCPULevel::setUIElementPropertyValue(const string& elementName,
                                                                const string& value)
 {
@@ -88,7 +84,6 @@ string HeightfieldOperationCPULevel::setUIElementPropertyValue(const string& ele
     return outValue;
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldOperationCPULevel::HeightfieldOperationCPULevel() : HeightfieldOperationCPU()
 {
     //	mBrushName = "HeightfieldOperationCPULevel";
@@ -97,7 +92,6 @@ HeightfieldOperationCPULevel::HeightfieldOperationCPULevel() : HeightfieldOperat
     loadPersistentProperties();
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationCPULevel::applyPrimary(const Ogre::Vector3& position, Ogre::Real strength)
 {
     assert(mBrush);
@@ -166,7 +160,6 @@ void HeightfieldOperationCPULevel::applyPrimary(const Ogre::Vector3& position, O
     delete data;
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationCPULevel::applySecondary(const Ogre::Vector3& position, Ogre::Real strength)
 {
     assert(mBrush);

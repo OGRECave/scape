@@ -17,7 +17,6 @@ namespace ScapeEngine
 {
 namespace Utils
 {
-// ----------------------------------------------------------------------------
 template <class Type> class ConverterFunctorPassThrough
 {
 public:
@@ -27,7 +26,6 @@ public:
     TypeOut operator()(const TypeIn& in) const { return in; }
 };
 
-// ----------------------------------------------------------------------------
 template <class InType, class OutType, class ConversionType = OutType> class ConverterFunctorScaleBias
 {
 public:
@@ -43,7 +41,6 @@ public:
 public:
 };
 
-// ----------------------------------------------------------------------------
 template <class InType, class OutType, class ConversionType = OutType> class ConverterFunctorScale
 {
 public:
@@ -58,7 +55,6 @@ public:
 public:
 };
 
-// ----------------------------------------------------------------------------
 template <class InType, class OutType, class ConversionType = OutType> class ConverterFunctorBias
 {
 public:
@@ -73,18 +69,15 @@ public:
 public:
 };
 
-// ----------------------------------------------------------------------------
 template <class InType, class OutType> class NormalizedScalarConverterFunctor
 {
 };
 
-// ----------------------------------------------------------------------------
 template <class InOutType>
 class NormalizedScalarConverterFunctor<InOutType, InOutType> : public ConverterFunctorPassThrough<InOutType>
 {
 };
 
-// ----------------------------------------------------------------------------
 template <>
 class NormalizedScalarConverterFunctor<Ogre::uint16, short>
     : public ConverterFunctorBias<Ogre::uint16, short>
@@ -101,7 +94,6 @@ public:
     NormalizedScalarConverterFunctor() : ConverterFunctorScale(1.0f / 65535.0f) {}
 };
 
-// ----------------------------------------------------------------------------
 template <>
 class NormalizedScalarConverterFunctor<short, Ogre::uint16>
     : public ConverterFunctorBias<short, Ogre::uint16>
@@ -118,7 +110,6 @@ public:
     NormalizedScalarConverterFunctor() : ConverterFunctorScaleBias(1.0f / 65535.0f, -32768.0f / 65535.0f) {}
 };
 
-// ----------------------------------------------------------------------------
 template <>
 class NormalizedScalarConverterFunctor<Ogre::Real, short>
     : public ConverterFunctorScaleBias<Ogre::Real, short, Ogre::Real>

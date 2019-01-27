@@ -10,13 +10,11 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 SettingsDataset::SettingsDataset(const std::string& datasetName)
     : mDatasetName(datasetName), mIsDirty(false), mSectionMapStruct()
 {
 }
 
-// ----------------------------------------------------------------------------
 SettingsDataset::~SettingsDataset() {}
 
 const std::string& SettingsDataset::getDatasetName() { return mDatasetName; }
@@ -36,7 +34,6 @@ void SettingsDataset::setSettingsDatasetDataAccessObject(
 
 const SettingsDataset::SectionMapStruct& SettingsDataset::getSections() { return mSectionMapStruct; }
 
-// ----------------------------------------------------------------------------
 std::string SettingsDataset::getSetting(const std::string& section, const std::string& subsection,
                                         const std::string& key) const
 {
@@ -56,7 +53,6 @@ std::string SettingsDataset::getSetting(const std::string& section, const std::s
     return Utils::emptyString;
 }
 
-// ----------------------------------------------------------------------------
 void SettingsDataset::setSetting(const std::string& section, const std::string& subsection,
                                  const std::string& key, const std::string& value)
 {
@@ -89,14 +85,12 @@ void SettingsDataset::setSetting(const std::string& section, const std::string& 
     mIsDirty = true;
 }
 
-// ----------------------------------------------------------------------------
 void SettingsDataset::clear()
 {
     mSectionMapStruct.clear();
     mIsDirty = true;
 }
 
-// ----------------------------------------------------------------------------
 void SettingsDataset::clear(const std::string& section)
 {
     SectionMapStruct::iterator sectionIt = mSectionMapStruct.find(section);
@@ -107,7 +101,6 @@ void SettingsDataset::clear(const std::string& section)
     }
 }
 
-// ----------------------------------------------------------------------------
 void SettingsDataset::clear(const std::string& section, const std::string& subsection)
 {
     SectionMapStruct::iterator sectionIt = mSectionMapStruct.find(section);
@@ -123,7 +116,6 @@ void SettingsDataset::clear(const std::string& section, const std::string& subse
     }
 }
 
-// ----------------------------------------------------------------------------
 void SettingsDataset::clear(const std::string& section, const std::string& subsection,
                             const std::string& key)
 {

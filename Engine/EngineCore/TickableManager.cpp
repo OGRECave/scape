@@ -13,7 +13,6 @@ using namespace ScapeEngine;
 
 template <> TickableManager* Ogre::Singleton<TickableManager>::msSingleton = 0;
 
-// ----------------------------------------------------------------------------
 void TickableManager::disposeTickable(Tickable* tickable)
 {
     DWORD predisposeBitmask = 1 << ((DWORD)TICKABLEDISPOSEID_PREDISPOSE);
@@ -25,7 +24,6 @@ void TickableManager::disposeTickable(Tickable* tickable)
     }
 }
 
-// ----------------------------------------------------------------------------
 void TickableManager::disposeAllActiveTickables(bool forceInstant)
 {
     for (int listIndex = 0; listIndex < TICKEVENTID_COUNT; ++listIndex)
@@ -46,7 +44,6 @@ void TickableManager::disposeAllActiveTickables(bool forceInstant)
     }
 }
 
-// ----------------------------------------------------------------------------
 void TickableManager::updateTickableEvent(Tickable* tickable, ETickableEventId eventId, bool enable)
 {
     DWORD tickEventBitmask = 1 << ((DWORD)eventId);
@@ -66,7 +63,6 @@ void TickableManager::updateTickableEvent(Tickable* tickable, ETickableEventId e
     }
 }
 
-// ----------------------------------------------------------------------------
 void TickableManager::fireTickableEvents(ETickableEventId eventId, void (Tickable::*tickEvent)())
 {
     DWORD tickEventBitmask = 1 << ((DWORD)eventId);
@@ -90,7 +86,6 @@ void TickableManager::fireTickableEvents(ETickableEventId eventId, void (Tickabl
     }
 }
 
-// ----------------------------------------------------------------------------
 void TickableManager::postFrameCleanup()
 {
     DWORD predisposeBitmask = 1 << ((DWORD)TICKABLEDISPOSEID_PREDISPOSE);
@@ -113,31 +108,25 @@ void TickableManager::postFrameCleanup()
     }
 }
 
-// ----------------------------------------------------------------------------
 void TickableManager::onPreSubTick()
 {
     fireTickableEvents(TICKEVENTID_PRESUBTICK, &Tickable::onPreSubTick);
 }
 
-// ----------------------------------------------------------------------------
 void TickableManager::onSubTick() { fireTickableEvents(TICKEVENTID_SUBTICK, &Tickable::onSubTick); }
 
-// ----------------------------------------------------------------------------
 void TickableManager::onPostSubTick()
 {
     fireTickableEvents(TICKEVENTID_POSTSUBTICK, &Tickable::onPostSubTick);
 }
 
-// ----------------------------------------------------------------------------
 void TickableManager::onPreFrameTick()
 {
     fireTickableEvents(TICKEVENTID_PREFRAMETICK, &Tickable::onPreFrameTick);
 }
 
-// ----------------------------------------------------------------------------
 void TickableManager::onFrameTick() { fireTickableEvents(TICKEVENTID_FRAMETICK, &Tickable::onFrameTick); }
 
-// ----------------------------------------------------------------------------
 void TickableManager::onPostFrameTick()
 {
     fireTickableEvents(TICKEVENTID_POSTFRAMETICK, &Tickable::onPostFrameTick);

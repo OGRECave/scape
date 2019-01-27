@@ -19,7 +19,6 @@ using namespace ScapeEngine;
 
 Ogre::Vector3 HeightfieldOperationCPUNoise::mNoiseOrigin;
 
-// ----------------------------------------------------------------------------
 enum EPropertyId
 {
     PROPERTYID_STRENGTH,
@@ -31,14 +30,12 @@ enum EPropertyId
     PROPERTYID_MID_AMP,
 };
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationCPUNoise::initPersistentElementValueMap(StringStringMap& map)
 {
     setUIElementPropertyValueMap(getUIElementPresetPropertyValueMap(defaultPresetString));
     return true;
 }
 
-// ----------------------------------------------------------------------------
 bool HeightfieldOperationCPUNoise::initPersistentElementStringEnumMap(StringEnumMap& map)
 {
     ADD_STRINGENUM(map, PROPERTYID_, STRENGTH);
@@ -54,7 +51,6 @@ bool HeightfieldOperationCPUNoise::initPersistentElementStringEnumMap(StringEnum
     return true;
 }
 
-// ----------------------------------------------------------------------------
 string HeightfieldOperationCPUNoise::setUIElementPropertyValue(const string& elementName,
                                                                const string& value)
 {
@@ -127,7 +123,6 @@ string HeightfieldOperationCPUNoise::setUIElementPropertyValue(const string& ele
     return outValue;
 }
 
-// ----------------------------------------------------------------------------
 HeightfieldOperationCPUNoise::HeightfieldOperationCPUNoise() : HeightfieldOperationCPU()
 {
     //	mBrushName = "HeightfieldOperationCPUNoise";
@@ -136,7 +131,6 @@ HeightfieldOperationCPUNoise::HeightfieldOperationCPUNoise() : HeightfieldOperat
     loadPersistentProperties();
 }
 
-// ----------------------------------------------------------------------------
 void HeightfieldOperationCPUNoise::applyPrimary(const Ogre::Vector3& position, Ogre::Real strength)
 {
     assert(mBrush);
@@ -284,7 +278,6 @@ void HeightfieldOperationCPUNoise::applyPrimary(const Ogre::Vector3& position, O
 }
 
 /*
-// ----------------------------------------------------------------------------
 void HeightfieldOperationCPUNoise::applySecondary(const Ogre::Vector3& position, Ogre::Real strength, const
 Ogre::Vector3& delta)
 {

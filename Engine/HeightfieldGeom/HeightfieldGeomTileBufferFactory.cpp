@@ -16,7 +16,6 @@
 
 using namespace ScapeEngine;
 
-// ----------------------------------------------------------------------------
 Ogre::HardwareVertexBufferSharedPtr
 HeightfieldGeomTileBufferFactory::createVertexHeightBuffer(HeightfieldGeomTile* heightfieldGeomTile)
 {
@@ -49,7 +48,6 @@ HeightfieldGeomTileBufferFactory::createVertexHeightBuffer(HeightfieldGeomTile* 
     return Ogre::HardwareVertexBufferSharedPtr();
 }
 
-// ----------------------------------------------------------------------------
 Ogre::HardwareVertexBufferSharedPtr
 HeightfieldGeomTileBufferFactory::createVertexUVBuffer(HeightfieldGeomTile* heightfieldGeomTile)
 {
@@ -70,7 +68,6 @@ HeightfieldGeomTileBufferFactory::createVertexUVBuffer(HeightfieldGeomTile* heig
     return vertexUVBuffer;
 }
 
-// ----------------------------------------------------------------------------
 Ogre::HardwareIndexBufferSharedPtr
 HeightfieldGeomTileBufferFactory::createIndexBuffer(HeightfieldGeomTile* heightfieldGeomTile)
 {
@@ -116,7 +113,6 @@ HeightfieldGeomTileBufferFactory::createIndexBuffer(HeightfieldGeomTile* heightf
     return indexBuffer;
 }
 
-// ----------------------------------------------------------------------------
 template <class PageDataType, class VertexDataType>
 Ogre::HardwareVertexBufferSharedPtr
 HeightfieldGeomTileBufferFactory::_createHeightBuffer(HeightfieldGeomTile* heightfieldGeomTile)

@@ -15,6 +15,7 @@
 #include "ScapeEnginePrerequisites.h"
 
 #include "HeightfieldBrush/HeightfieldBrush.h"
+#include "HeightfieldBrush/HeightfieldBrushManager.h"
 #include "HeightfieldGeom/HeightfieldGeom.h"
 #include "HeightfieldOperationPolicyBrushInstancer.h"
 

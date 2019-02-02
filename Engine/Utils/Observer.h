@@ -8,7 +8,7 @@
 namespace ScapeEngine
 {
 
-class Observer
+class _ScapeEngineExport Observer
 {
 public:
     Observer();
@@ -17,7 +17,7 @@ public:
     virtual void update() = 0;
 };
 
-class Subject
+class _ScapeEngineExport Subject
 {
 public:
     Subject();

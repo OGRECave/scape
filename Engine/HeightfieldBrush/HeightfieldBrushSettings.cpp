@@ -14,13 +14,25 @@ HeightfieldBrushSettings::~HeightfieldBrushSettings() {}
 
 Ogre::Real HeightfieldBrushSettings::getInnerRadius() const { return mInnerRadius; }
 
-void HeightfieldBrushSettings::setInnerRadius(Ogre::Real innerRadius) { mInnerRadius = innerRadius; }
+void HeightfieldBrushSettings::setInnerRadius(Ogre::Real innerRadius)
+{
+    mInnerRadius = innerRadius;
+    notifyObservers();
+}
 
 Ogre::Real HeightfieldBrushSettings::getOuterRadius() const { return mOuterRadius; }
 
-void HeightfieldBrushSettings::setOuterRadius(Ogre::Real outerRadius) { mOuterRadius = outerRadius; }
+void HeightfieldBrushSettings::setOuterRadius(Ogre::Real outerRadius)
+{
+    mOuterRadius = outerRadius;
+    notifyObservers();
+}
 
 Ogre::Real HeightfieldBrushSettings::getRampPower() const { return mRampPower; }
 
-void HeightfieldBrushSettings::setRampPower(Ogre::Real rampPower) { mRampPower = rampPower; }
+void HeightfieldBrushSettings::setRampPower(Ogre::Real rampPower)
+{
+    mRampPower = rampPower;
+    notifyObservers();
+}
 }

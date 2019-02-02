@@ -3,10 +3,12 @@
 
 #include "ScapeEnginePrerequisites.h"
 
+#include "Utils/Observer.h"
+
 namespace ScapeEngine
 {
 
-class _ScapeEngineExport HeightfieldBrushSettings
+class _ScapeEngineExport HeightfieldBrushSettings : public Subject
 {
 public:
     HeightfieldBrushSettings();

@@ -1,6 +1,8 @@
 #ifndef __OBSERVER_H__
 #define __OBSERVER_H__
 
+#include "ScapeEnginePrerequisites.h"
+
 #include <unordered_set>
 
 namespace ScapeEngine

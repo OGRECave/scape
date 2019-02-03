@@ -14,6 +14,9 @@ public:
     HeightfieldBrushSettings();
     ~HeightfieldBrushSettings();
 
+    Ogre::Real getRadius() const;
+    void setRadius(Ogre::Real radius);
+
     Ogre::Real getInnerRadius() const;
     void setInnerRadius(Ogre::Real innerRadius);
 

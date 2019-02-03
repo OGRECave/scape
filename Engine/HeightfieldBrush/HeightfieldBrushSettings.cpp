@@ -12,6 +12,17 @@ HeightfieldBrushSettings::HeightfieldBrushSettings()
 
 HeightfieldBrushSettings::~HeightfieldBrushSettings() {}
 
+Ogre::Real HeightfieldBrushSettings::getRadius() const { return mOuterRadius; }
+
+void HeightfieldBrushSettings::setRadius(Ogre::Real radius)
+{
+    Ogre::Real ratio = mInnerRadius / mOuterRadius;
+
+    mInnerRadius = radius * ratio;
+    mOuterRadius = radius;
+    notifyObservers();
+}
+
 Ogre::Real HeightfieldBrushSettings::getInnerRadius() const { return mInnerRadius; }
 
 void HeightfieldBrushSettings::setInnerRadius(Ogre::Real innerRadius)

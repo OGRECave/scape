@@ -18,6 +18,9 @@ MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::MainWindow), mAttachedInputToEngine(false), mOgreWidget(0),
       mEngineInterface(0)
 {
+    mEngineInterface = new ScapeEngine::EngineInterface();
+    mEngineInterface->initialize();
+
     ui->setupUi(this);
 
     createActions();
@@ -25,9 +28,6 @@ MainWindow::MainWindow(QWidget* parent)
     populateMainMenu();
     populateToolbar();
     connectActions();
-
-    mEngineInterface = new ScapeEngine::EngineInterface();
-    mEngineInterface->initialize();
 
     setWindowTitle("qtScape 15.02");
 

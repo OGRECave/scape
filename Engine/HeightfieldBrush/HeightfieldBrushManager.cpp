@@ -83,12 +83,8 @@ void HeightfieldBrushManager::tick()
         Ogre::Real sizeChangeRatio = expf(-0.6f * getEngineCore()->getTimeSinceLastFrame() *
                                           (inputManager->getAnalogInput(AnalogInputId::POINTER_DELTAY) -
                                            inputManager->getAnalogInput(AnalogInputId::POINTER_DELTAX)));
-        Ogre::Real newOuterRadius =
-            std::max(0.5f, mHeightfieldBrushSettings.getOuterRadius() * sizeChangeRatio);
-        mHeightfieldBrushSettings.setInnerRadius(newOuterRadius *
-                                                 mHeightfieldBrushSettings.getInnerRadius() /
-                                                 mHeightfieldBrushSettings.getOuterRadius());
-        mHeightfieldBrushSettings.setOuterRadius(newOuterRadius);
+        Ogre::Real newRadius = std::max(0.5f, mHeightfieldBrushSettings.getRadius() * sizeChangeRatio);
+        mHeightfieldBrushSettings.setRadius(newRadius);
     }
 
     Ogre::Real brushSizeHL = 2.00f;

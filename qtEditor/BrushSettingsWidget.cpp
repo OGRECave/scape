@@ -24,6 +24,23 @@ BrushSettingsWidget::BrushSettingsWidget(QWidget* parent, ScapeEngine::Heightfie
 
 BrushSettingsWidget::~BrushSettingsWidget() { delete mBrushSettingsWidgetUI; }
 
+void BrushSettingsWidget::update()
+{
+    mBrushSettingsWidgetUI->radiusSpinBox->setValue(mSettings.getOuterRadius());
+    mBrushSettingsWidgetUI->innerRadiusSpinBox->setValue(mSettings.getInnerRadius());
+    mBrushSettingsWidgetUI->outerRadiusSpinBox->setValue(mSettings.getOuterRadius());
+    mBrushSettingsWidgetUI->rampPowerSpinBox->setValue(mSettings.getRampPower());
+
+    mBrushSettingsWidgetUI->radiusSlider->setValue(std::max(
+        std::min((int)std::round(mSettings.getOuterRadius()), RADIUS_SLIDER_MAX), RADIUS_SLIDER_MIN));
+    mBrushSettingsWidgetUI->innerRadiusSlider->setValue(std::max(
+        std::min((int)std::round(mSettings.getInnerRadius()), RADIUS_SLIDER_MAX), RADIUS_SLIDER_MIN));
+    mBrushSettingsWidgetUI->outerRadiusSlider->setValue(std::max(
+        std::min((int)std::round(mSettings.getOuterRadius()), RADIUS_SLIDER_MAX), RADIUS_SLIDER_MIN));
+    mBrushSettingsWidgetUI->rampPowerSlider->setValue(std::max(
+        std::min((int)std::round(mSettings.getRampPower()), RAMP_POWER_SLIDER_MAX), RAMP_POWER_SLIDER_MIN));
+}
+
 void BrushSettingsWidget::spinBoxValueChanged()
 {
     QObject* sender = QObject::sender();
@@ -112,4 +129,7 @@ void BrushSettingsWidget::connectActions()
             SLOT(spinBoxValueChanged()));
     connect(mBrushSettingsWidgetUI->rampPowerSpinBox, SIGNAL(editingFinished()), this,
             SLOT(spinBoxValueChanged()));
+
+    mSettings.addObserver(this);
+    update();
 }

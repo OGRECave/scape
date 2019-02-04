@@ -4,15 +4,18 @@
 #include <QWidget>
 #include "ui_brushsettingswidget.h"
 
+#include "Utils/Observer.h"
 #include "HeightfieldBrush/HeightfieldBrushSettings.h"
 
-class BrushSettingsWidget : public QWidget
+class BrushSettingsWidget : public QWidget, public ScapeEngine::Observer
 {
     Q_OBJECT
 
 public:
     BrushSettingsWidget(QWidget* parent, ScapeEngine::HeightfieldBrushSettings& settings);
     virtual ~BrushSettingsWidget();
+
+    virtual void update();
 
 protected:
     Ui::BrushSettingsWidget* mBrushSettingsWidgetUI;

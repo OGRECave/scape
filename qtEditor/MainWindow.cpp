@@ -235,7 +235,7 @@ void MainWindow::createDockWidgets()
     mPresetsDockWidget->setMinimumWidth(180);
     addDockWidget(Qt::RightDockWidgetArea, mPresetsDockWidget);
 
-    mBrushSettingsWidget = new BrushSettingsWidget();
+    mBrushSettingsWidget = new BrushSettingsWidget(NULL, mEngineInterface->getHeightfieldBrushSettings());
 
     mBrushSettingsDockWidget = new QDockWidget(this);
     mBrushSettingsDockWidget->setWindowTitle(tr("Brush Settings"));

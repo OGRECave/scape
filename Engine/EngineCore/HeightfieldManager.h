@@ -20,6 +20,8 @@ public:
 
     HeightfieldGeomManager* getHeightfieldGeomManager() const;
 
+    void resetHeightfield();
+
 private:
     HeightfieldGeomTileVertexUVBufferManager* mHeightfieldGeomTileVertexUVBufferManager;
     HeightfieldGeomTileIndexBufferManager* mHeightfieldGeomTileIndexBufferManager;

@@ -256,7 +256,7 @@ void EngineCore::loadScene()
         HeightfieldBufferSet* heightfieldBufferSet = getHeightfieldBufferSetManager()->get(handle);
         heightfieldBufferSet->create(_T("Render"), Ogre::PF_SHORT_L);
 
-        resetHeightfield();
+        mHeightfieldManager->resetHeightfield();
 
         Utils::createPerlinPerm2DTexture(_T("PerlinPerm2D"));
         Utils::createPerlinGrad2DTexture(_T("PerlinGrad2D"));
@@ -265,100 +265,6 @@ void EngineCore::loadScene()
     }
 }
 
-void EngineCore::resetHeightfield()
-{
-    HeightfieldBufferSetHandle handle = getHeightfieldBufferSetManager()->findHandle(_T("Project"));
-    HeightfieldBufferSet* heightfieldBufferSet = getHeightfieldBufferSetManager()->get(handle);
-    HeightfieldBufferHandle heightfieldBufferHandle = heightfieldBufferSet->findHandle(_T("Render"));
-    HeightfieldBuffer* heightfieldBuffer = heightfieldBufferSet->get(heightfieldBufferHandle);
-
-    for (int pageRowIndex = 0;
-         pageRowIndex < heightfieldBuffer->getHeightfieldBufferSet()->getPageRowCount(); ++pageRowIndex)
-    {
-        for (int pageColumnIndex = 0;
-             pageColumnIndex < heightfieldBuffer->getHeightfieldBufferSet()->getPageColumnCount();
-             ++pageColumnIndex)
-        {
-            HeightfieldBufferPage* page = heightfieldBuffer->getPage(
-                pageColumnIndex, pageRowIndex, HeightfieldBuffer::PAGEACCESSMODE_WRITE_DISCARD);
-            Ogre::Real* data =
-                new Ogre::Real[heightfieldBuffer->getHeightfieldBufferSet()
-                                   ->getElementColumnCountPerPage() *
-                               heightfieldBuffer->getHeightfieldBufferSet()->getElementRowCountPerPage()];
-            Ogre::PixelBox pixelBox(
-                heightfieldBuffer->getHeightfieldBufferSet()->getElementColumnCountPerPage(),
-                heightfieldBuffer->getHeightfieldBufferSet()->getElementRowCountPerPage(), 1,
-                Ogre::PF_FLOAT32_R, data);
-
-            // int relX = pageColumnIndex * heightfieldBuffer->getElementColumnCountPerPage();
-            // int relY = pageRowIndex * heightfieldBuffer->getElementRowCountPerPage();
-
-            for (int y = 0; y < heightfieldBuffer->getHeightfieldBufferSet()->getElementRowCountPerPage();
-                 ++y)
-            {
-                for (int x = 0;
-                     x < heightfieldBuffer->getHeightfieldBufferSet()->getElementColumnCountPerPage(); ++x)
-                {
-                    data[heightfieldBuffer->getHeightfieldBufferSet()->getElementColumnCountPerPage() * y +
-                         x] = 0.0f;
-                    /*
-                                                            float power = 0.05f;
-                                                            for (int level = 11; level >= 0; level--)
-                                                            {
-                                                                    int spacing = (255 << level);
-                                                                    int invmask = spacing - 255;
-                                                                    int mask = ~invmask;
-                                                                    int px = (x + relX) & mask;
-                                                                    int py = ((y + relY) & mask) * 13;
-                                                                    int rpx = Utils::randHash(px);
-                                                                    int rpy = Utils::randHash(py);
-                                                                    int rpx2 = Utils::randHash(px +
-                       spacing);
-                                                                    int rpy2 = Utils::randHash(py + spacing
-                       * 13);
-                                                                    int h1 = Utils::randHash(rpx + rpy);
-                                                                    int h2 = Utils::randHash(rpx2 + rpy);
-                                                                    int h3 = Utils::randHash(rpx + rpy2);
-                                                                    int h4 = Utils::randHash(rpx2 + rpy2);
-                                                                    int wx = ((x + relX) & invmask) * 4096 /
-                       spacing;
-                                                                    int wy = ((y + relY) & invmask) * 4096 /
-                       spacing;
-                                                                    int hy1 = ((h1 << 12) + (h2 - h1) * wx)
-                       >> 12;
-                                                                    int hy2 = ((h3 << 12) + (h4 - h3) * wx)
-                       >> 12;
-                                                                    int h = ((hy1 << 12) + (hy2 - hy1) * wy)
-                       >> 12;
-
-                                                                    float height = power * (h / 4096.0f -
-                       0.5f);
-                                                                    power = power * 0.45f + 0.0000025f;
-                                                                    data[heightfieldBuffer->getElementRowCountPerPage()*y+x]
-                       += height;
-                                                            }
-                    */
-                    //						data[heightfieldBuffer->getElementRowCountPerPage()*y+x] = 255.0f *
-                    //(Ogre::Real)((x + y) & 255);
-                    float height = Utils::clamp(
-                        data[heightfieldBuffer->getHeightfieldBufferSet()->getElementRowCountPerPage() * y +
-                             x],
-                        0.0f, 255.0f);
-                    height = 2 * height * height;
-                    // height = height * 2.0f - 255.0f;
-                    // height = height * height;
-                    // height = 0.5f + 0.5f * height;
-                    data[heightfieldBuffer->getHeightfieldBufferSet()->getElementRowCountPerPage() * y +
-                         x] = 0.5f; // height;
-                }
-            }
-            page->updateFrom(pixelBox);
-            delete data;
-        }
-    }
-
-    heightfieldBuffer->revalidate();
-}
 
 HeightfieldManager* EngineCore::getHeightfieldManager() const { return mHeightfieldManager; }
 

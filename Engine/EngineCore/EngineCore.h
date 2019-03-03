@@ -205,8 +205,6 @@ private:
     void setupRenderSystem();
 
     void loadSkyBox();
-
-    void resetHeightfield();
 };
 
 inline EngineCore* getEngineCore() { return &EngineCore::getSingleton(); }

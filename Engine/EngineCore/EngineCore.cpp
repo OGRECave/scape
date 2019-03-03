@@ -46,10 +46,7 @@ EngineCore::EngineCore(EngineInterface* engineInterface)
       mApplicationSettingsConfigFile(NULL), mSceneManager(NULL), mSettingsDatasetManager(NULL),
       mTickableManager(NULL), mRenderViewManager(NULL), mHeightfieldManager(NULL), mInputManager(NULL),
       mSceneLoaded(false), mSceneManagerLoaded(false), mFrameTimerMilliseconds(0),
-      mLastFrameTimerMilliseconds(0), mTimeSinceLastFrame(0.0f), mHeightfieldOperationFactory(NULL),
-      mHeightfieldOperationStack(NULL), mHeightfieldBrushManager(NULL),
-      mHeightfieldFileEncoderManager(NULL), mHeightfieldFileDecoderManager(NULL), mSkySettings(NULL),
-      mGPU2DOperationManager(NULL), mGPU2DOperationRenderableQuadManager(NULL), mFrameCount(0)
+      mLastFrameTimerMilliseconds(0), mTimeSinceLastFrame(0.0f), mSkySettings(NULL), mFrameCount(0)
 {
 }
 
@@ -81,21 +78,6 @@ void EngineCore::initialize()
 
     mHeightfieldManager = new HeightfieldManager();
 
-    mHeightfieldBrushManager = new HeightfieldBrushManager();
-
-    mGPU2DOperationManager = new GPU2DOperationManager();
-
-    mGPU2DOperationRenderableQuadManager = new GPU2DOperationRenderableQuadManager();
-
-    mHeightfieldOperationFactory = new HeightfieldOperationFactory();
-    mHeightfieldOperationFactory->registerClasses();
-
-    mHeightfieldOperationStack = new HeightfieldOperationStack();
-    // mHeightfieldOperationStack->setNewOperationClassName(_T("HeightfieldOperationCPUBrush"));
-
-    mHeightfieldFileEncoderManager = new HeightfieldFileEncoderManager();
-    mHeightfieldFileDecoderManager = new HeightfieldFileDecoderManager();
-
     std::shared_ptr<ButtonDefinitionDataAccessObject> dao =
         std::shared_ptr<ButtonDefinitionDataAccessObject>(new QtJSONButtonDefinitionDataAccesObject(
             "config.json", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME));
@@ -108,16 +90,6 @@ void EngineCore::initialize()
 
 void EngineCore::deinitialize()
 {
-    SAFE_DELETE(mHeightfieldFileEncoderManager);
-
-    SAFE_DELETE(mHeightfieldFileDecoderManager);
-
-    SAFE_DELETE(mHeightfieldOperationFactory);
-
-    SAFE_DELETE(mGPU2DOperationRenderableQuadManager);
-
-    SAFE_DELETE(mHeightfieldBrushManager);
-
     SAFE_DELETE(mInputManager);
 
     SAFE_DELETE(mRenderViewManager);
@@ -125,9 +97,6 @@ void EngineCore::deinitialize()
     SAFE_DELETE(mHeightfieldManager);
 
     getTickableManager()->disposeAllActiveTickables(true);
-
-    mHeightfieldOperationStack = NULL; // tickable
-    mGPU2DOperationManager = NULL;
 
     SAFE_DELETE(mTickableManager);
 
@@ -239,33 +208,39 @@ HeightfieldGeomManager* EngineCore::getHeightfieldGeomManager() const
     return mHeightfieldManager->getHeightfieldGeomManager();
 }
 
-HeightfieldBrushManager* EngineCore::getHeightfieldBrushManager() const { return mHeightfieldBrushManager; }
+HeightfieldBrushManager* EngineCore::getHeightfieldBrushManager() const
+{
+    return mHeightfieldManager->getHeightfieldBrushManager();
+}
 
 HeightfieldOperationFactory* EngineCore::getHeightfieldOperationFactory() const
 {
-    return mHeightfieldOperationFactory;
+    return mHeightfieldManager->getHeightfieldOperationFactory();
 }
 
 HeightfieldOperationStack* EngineCore::getHeightfieldOperationStack() const
 {
-    return mHeightfieldOperationStack;
+    return mHeightfieldManager->getHeightfieldOperationStack();
 }
 
-GPU2DOperationManager* EngineCore::getGPU2DOperationManager() const { return mGPU2DOperationManager; }
+GPU2DOperationManager* EngineCore::getGPU2DOperationManager() const
+{
+    return mHeightfieldManager->getGPU2DOperationManager();
+}
 
 GPU2DOperationRenderableQuadManager* EngineCore::getGPU2DOperationRenderableQuadManager() const
 {
-    return mGPU2DOperationRenderableQuadManager;
+    return mHeightfieldManager->getGPU2DOperationRenderableQuadManager();
 }
 
 HeightfieldFileEncoderManager* EngineCore::getHeightfieldFileEncoderManager() const
 {
-    return mHeightfieldFileEncoderManager;
+    return mHeightfieldManager->getHeightfieldFileEncoderManager();
 }
 
 HeightfieldFileDecoderManager* EngineCore::getHeightfieldFileDecoderManager() const
 {
-    return mHeightfieldFileDecoderManager;
+    return mHeightfieldManager->getHeightfieldFileDecoderManager();
 }
 
 Ogre::SceneManager* EngineCore::getSceneManager() { return mSceneManager; }
@@ -439,7 +414,7 @@ void EngineCore::update()
     }
 }
 
-void EngineCore::tick() { mHeightfieldBrushManager->tick(); }
+void EngineCore::tick() { mHeightfieldManager->getHeightfieldBrushManager()->tick(); }
 
 EngineCore& EngineCore::getSingleton() { return *msSingleton; }
 

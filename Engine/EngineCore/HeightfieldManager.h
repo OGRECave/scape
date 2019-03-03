@@ -20,6 +20,20 @@ public:
 
     HeightfieldGeomManager* getHeightfieldGeomManager() const;
 
+    HeightfieldBrushManager* getHeightfieldBrushManager() const;
+
+    HeightfieldOperationFactory* getHeightfieldOperationFactory() const;
+
+    HeightfieldOperationStack* getHeightfieldOperationStack() const;
+
+    GPU2DOperationManager* getGPU2DOperationManager() const;
+
+    GPU2DOperationRenderableQuadManager* getGPU2DOperationRenderableQuadManager() const;
+
+    HeightfieldFileEncoderManager* getHeightfieldFileEncoderManager() const;
+
+    HeightfieldFileDecoderManager* getHeightfieldFileDecoderManager() const;
+
     void initialize();
     void resetHeightfield();
     void createGeometry();
@@ -31,6 +45,19 @@ private:
     HeightfieldGeomTileIndexBufferManager* mHeightfieldGeomTileIndexBufferManager;
     HeightfieldBufferSetManager* mHeightfieldBufferSetManager;
     HeightfieldGeomManager* mHeightfieldGeomManager;
+
+    HeightfieldOperationFactory* mHeightfieldOperationFactory;
+
+    HeightfieldOperationStack* mHeightfieldOperationStack;
+
+    HeightfieldBrushManager* mHeightfieldBrushManager;
+
+    GPU2DOperationManager* mGPU2DOperationManager;
+
+    GPU2DOperationRenderableQuadManager* mGPU2DOperationRenderableQuadManager;
+
+    HeightfieldFileEncoderManager* mHeightfieldFileEncoderManager;
+    HeightfieldFileDecoderManager* mHeightfieldFileDecoderManager;
 };
 }
 

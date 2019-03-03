@@ -118,12 +118,6 @@ private:
 
     HeightfieldManager* mHeightfieldManager;
 
-    HeightfieldOperationFactory* mHeightfieldOperationFactory;
-
-    HeightfieldOperationStack* mHeightfieldOperationStack;
-
-    HeightfieldBrushManager* mHeightfieldBrushManager;
-
     Ogre::RenderWindow* mDebugRenderWindow;
 
     InputManager* mInputManager;
@@ -132,14 +126,7 @@ private:
 
     Ogre::ConfigFile* mApplicationSettingsConfigFile;
 
-    HeightfieldFileEncoderManager* mHeightfieldFileEncoderManager;
-    HeightfieldFileDecoderManager* mHeightfieldFileDecoderManager;
-
     SkySettings* mSkySettings;
-
-    GPU2DOperationManager* mGPU2DOperationManager;
-
-    GPU2DOperationRenderableQuadManager* mGPU2DOperationRenderableQuadManager;
 
     // Is scene loaded already?
     bool mSceneLoaded;

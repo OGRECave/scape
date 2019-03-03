@@ -14,27 +14,65 @@
 #include "HeightfieldGeom/HeightfieldGeomTileIndexBufferManager.h"
 #include "HeightfieldGeom/HeightfieldGeomTileVertexUVBufferManager.h"
 
+#include "HeightfieldBrush/HeightfieldBrushManager.h"
+#include "HeightfieldOperation/HeightfieldOperationFactory.h"
+#include "HeightfieldOperation/HeightfieldOperationStack.h"
+#include "GPU2DOperation/GPU2DOperationManager.h"
+#include "GPU2DOperation/GPU2DOperationRenderableQuadManager.h"
+#include "HeightfieldFileCodecs/HeightfieldFileEncoderManager.h"
+#include "HeightfieldFileCodecs/HeightfieldFileDecoderManager.h"
+
 namespace ScapeEngine
 {
 
 HeightfieldManager::HeightfieldManager()
     : mCreatedGeometry(false), mHeightfieldGeomTileVertexUVBufferManager(NULL),
       mHeightfieldGeomTileIndexBufferManager(NULL), mHeightfieldBufferSetManager(NULL),
-      mHeightfieldGeomManager(NULL)
+      mHeightfieldGeomManager(NULL), mHeightfieldOperationFactory(NULL), mHeightfieldOperationStack(NULL),
+      mHeightfieldBrushManager(NULL), mHeightfieldFileEncoderManager(NULL),
+      mHeightfieldFileDecoderManager(NULL), mGPU2DOperationManager(NULL),
+      mGPU2DOperationRenderableQuadManager(NULL)
 {
     mHeightfieldGeomTileVertexUVBufferManager = new HeightfieldGeomTileVertexUVBufferManager();
     mHeightfieldGeomTileIndexBufferManager = new HeightfieldGeomTileIndexBufferManager();
     mHeightfieldBufferSetManager = new HeightfieldBufferSetManager();
     mHeightfieldGeomManager = new HeightfieldGeomManager();
+
+    mHeightfieldBrushManager = new HeightfieldBrushManager();
+
+    mGPU2DOperationManager = new GPU2DOperationManager();
+
+    mGPU2DOperationRenderableQuadManager = new GPU2DOperationRenderableQuadManager();
+
+    mHeightfieldOperationFactory = new HeightfieldOperationFactory();
+    mHeightfieldOperationFactory->registerClasses();
+
+    mHeightfieldOperationStack = new HeightfieldOperationStack();
+    // mHeightfieldOperationStack->setNewOperationClassName(_T("HeightfieldOperationCPUBrush"));
+
+    mHeightfieldFileEncoderManager = new HeightfieldFileEncoderManager();
+    mHeightfieldFileDecoderManager = new HeightfieldFileDecoderManager();
 }
 
 HeightfieldManager::~HeightfieldManager()
 {
+    SAFE_DELETE(mHeightfieldFileEncoderManager);
+
+    SAFE_DELETE(mHeightfieldFileDecoderManager);
+
+    SAFE_DELETE(mHeightfieldOperationFactory);
+
+    SAFE_DELETE(mGPU2DOperationRenderableQuadManager);
+
+    SAFE_DELETE(mHeightfieldBrushManager);
+
     SAFE_DELETE(mHeightfieldBufferSetManager);
 
     mHeightfieldGeomManager = NULL;                   // tickable
     mHeightfieldGeomTileIndexBufferManager = NULL;    // tickable
     mHeightfieldGeomTileVertexUVBufferManager = NULL; // tickable
+    mHeightfieldOperationStack = NULL;                // tickable
+    mGPU2DOperationManager = NULL;
 }
 
 void HeightfieldManager::initialize()
@@ -218,5 +256,40 @@ HeightfieldBufferSetManager* HeightfieldManager::getHeightfieldBufferSetManager(
 HeightfieldGeomManager* HeightfieldManager::getHeightfieldGeomManager() const
 {
     return mHeightfieldGeomManager;
+}
+
+HeightfieldBrushManager* HeightfieldManager::getHeightfieldBrushManager() const
+{
+    return mHeightfieldBrushManager;
+}
+
+HeightfieldOperationFactory* HeightfieldManager::getHeightfieldOperationFactory() const
+{
+    return mHeightfieldOperationFactory;
+}
+
+HeightfieldOperationStack* HeightfieldManager::getHeightfieldOperationStack() const
+{
+    return mHeightfieldOperationStack;
+}
+
+GPU2DOperationManager* HeightfieldManager::getGPU2DOperationManager() const
+{
+    return mGPU2DOperationManager;
+}
+
+GPU2DOperationRenderableQuadManager* HeightfieldManager::getGPU2DOperationRenderableQuadManager() const
+{
+    return mGPU2DOperationRenderableQuadManager;
+}
+
+HeightfieldFileEncoderManager* HeightfieldManager::getHeightfieldFileEncoderManager() const
+{
+    return mHeightfieldFileEncoderManager;
+}
+
+HeightfieldFileDecoderManager* HeightfieldManager::getHeightfieldFileDecoderManager() const
+{
+    return mHeightfieldFileDecoderManager;
 }
 }

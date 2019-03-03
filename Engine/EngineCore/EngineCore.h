@@ -77,6 +77,8 @@ public:
 
     class HeightfieldGeomManager* getHeightfieldGeomManager() const { return mHeightfieldGeomManager; }
 
+    HeightfieldManager* getHeightfieldManager() const;
+
     // Read-only global settings
     string getApplicationSetting(const string& section, const string& key);
 
@@ -147,6 +149,8 @@ private:
     class HeightfieldBufferSetManager* mHeightfieldBufferSetManager;
 
     class HeightfieldGeomManager* mHeightfieldGeomManager;
+
+    HeightfieldManager* mHeightfieldManager;
 
     class HeightfieldOperationFactory* mHeightfieldOperationFactory;
 

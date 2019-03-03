@@ -75,9 +75,9 @@ public:
 
     class SkySettings* getSkySettings() { return mSkySettings; }
 
-    class HeightfieldGeomManager* getHeightfieldGeomManager() const { return mHeightfieldGeomManager; }
-
     HeightfieldManager* getHeightfieldManager() const;
+
+    HeightfieldGeomManager* getHeightfieldGeomManager() const;
 
     // Read-only global settings
     string getApplicationSetting(const string& section, const string& key);

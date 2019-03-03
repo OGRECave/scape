@@ -240,6 +240,11 @@ void EngineCore::loadScene()
 
 HeightfieldManager* EngineCore::getHeightfieldManager() const { return mHeightfieldManager; }
 
+HeightfieldGeomManager* EngineCore::getHeightfieldGeomManager() const
+{
+    return mHeightfieldManager->getHeightfieldGeomManager();
+}
+
 Ogre::SceneManager* EngineCore::getSceneManager() { return mSceneManager; }
 
 void EngineCore::loadSceneManager()

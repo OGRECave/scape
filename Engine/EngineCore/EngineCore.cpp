@@ -226,35 +226,7 @@ void EngineCore::loadScene()
 
         loadSkyBox();
 
-        { // create the heightfield buffer with the dimensions specified in Startup.conf
-            int columns = 0;
-            int rows = 0;
-            Ogre::Real height = 0;
-            SettingsDataset* startupDataset =
-                getEngineCore()->getSettingsDatasetManager()->getDataset("Startup");
-            if (startupDataset)
-            {
-                columns = Ogre::StringConverter::parseInt(
-                    startupDataset->getSetting("Heightfield", "", "columns"));
-                rows =
-                    Ogre::StringConverter::parseInt(startupDataset->getSetting("Heightfield", "", "rows"));
-                height = Ogre::StringConverter::parseReal(
-                    startupDataset->getSetting("Heightfield", "", "height"));
-            }
-
-            if (columns <= 0)
-                columns = 4096;
-            if (rows <= 0)
-                rows = 4096;
-            if (height <= 0.0f)
-                height = 500.0f;
-
-            getHeightfieldBufferSetManager()->create(_T("Project"), columns, rows, 0, height, 512, 512);
-        }
-
-        HeightfieldBufferSetHandle handle = getHeightfieldBufferSetManager()->findHandle(_T("Project"));
-        HeightfieldBufferSet* heightfieldBufferSet = getHeightfieldBufferSetManager()->get(handle);
-        heightfieldBufferSet->create(_T("Render"), Ogre::PF_SHORT_L);
+        mHeightfieldManager->initialize();
 
         mHeightfieldManager->resetHeightfield();
 

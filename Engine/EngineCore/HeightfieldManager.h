@@ -20,6 +20,7 @@ public:
 
     HeightfieldGeomManager* getHeightfieldGeomManager() const;
 
+    void initialize();
     void resetHeightfield();
 
 private:

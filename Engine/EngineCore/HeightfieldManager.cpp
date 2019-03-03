@@ -2,6 +2,9 @@
 
 #include "ScapeEngineStableHeaders.h"
 
+#include "SettingsDatasetManager.h"
+#include "SettingsDataset.h"
+
 #include "HeightfieldBuffer/HeightfieldBuffer.h"
 #include "HeightfieldBuffer/HeightfieldBufferPage.h"
 #include "HeightfieldBuffer/HeightfieldBufferSetManager.h"
@@ -32,6 +35,34 @@ HeightfieldManager::~HeightfieldManager()
     mHeightfieldGeomManager = NULL;                   // tickable
     mHeightfieldGeomTileIndexBufferManager = NULL;    // tickable
     mHeightfieldGeomTileVertexUVBufferManager = NULL; // tickable
+}
+
+void HeightfieldManager::initialize()
+{
+    // create the heightfield buffer with the dimensions specified in Startup.conf
+    int columns = 0;
+    int rows = 0;
+    Ogre::Real height = 0;
+    SettingsDataset* startupDataset = getEngineCore()->getSettingsDatasetManager()->getDataset("Startup");
+    if (startupDataset)
+    {
+        columns = Ogre::StringConverter::parseInt(startupDataset->getSetting("Heightfield", "", "columns"));
+        rows = Ogre::StringConverter::parseInt(startupDataset->getSetting("Heightfield", "", "rows"));
+        height = Ogre::StringConverter::parseReal(startupDataset->getSetting("Heightfield", "", "height"));
+    }
+
+    if (columns <= 0)
+        columns = 4096;
+    if (rows <= 0)
+        rows = 4096;
+    if (height <= 0.0f)
+        height = 500.0f;
+
+    mHeightfieldBufferSetManager->create("Project", columns, rows, 0, height, 512, 512);
+
+    HeightfieldBufferSetHandle handle = mHeightfieldBufferSetManager->findHandle("Project");
+    HeightfieldBufferSet* heightfieldBufferSet = mHeightfieldBufferSetManager->get(handle);
+    heightfieldBufferSet->create("Render", Ogre::PF_SHORT_L);
 }
 
 void HeightfieldManager::resetHeightfield()

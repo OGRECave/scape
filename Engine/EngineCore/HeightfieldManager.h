@@ -12,6 +12,19 @@ public:
     HeightfieldManager();
     ~HeightfieldManager();
 
+    HeightfieldGeomTileVertexUVBufferManager* getHeightfieldGeomTileVertexUVBufferManager() const;
+
+    HeightfieldGeomTileIndexBufferManager* getHeightfieldGeomTileIndexBufferManager() const;
+
+    HeightfieldBufferSetManager* getHeightfieldBufferSetManager() const;
+
+    HeightfieldGeomManager* getHeightfieldGeomManager() const;
+
+private:
+    HeightfieldGeomTileVertexUVBufferManager* mHeightfieldGeomTileVertexUVBufferManager;
+    HeightfieldGeomTileIndexBufferManager* mHeightfieldGeomTileIndexBufferManager;
+    HeightfieldBufferSetManager* mHeightfieldBufferSetManager;
+    HeightfieldGeomManager* mHeightfieldGeomManager;
 };
 }
 

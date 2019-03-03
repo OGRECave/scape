@@ -36,18 +36,6 @@ public:
     // Get pointer to the InputManager instance
     class InputManager* getInputManager() const { return mInputManager; }
 
-    // Get pointer to the HeightfieldGeomTileVertexUVBufferManager instance
-    class HeightfieldGeomTileVertexUVBufferManager* getHeightfieldGeomTileVertexUVBufferManager() const
-    {
-        return mHeightfieldGeomTileVertexUVBufferManager;
-    }
-
-    // Get pointer to the HeightfieldGeomTileVertexIndexManager instance
-    class HeightfieldGeomTileIndexBufferManager* getHeightfieldGeomTileIndexBufferManager() const
-    {
-        return mHeightfieldGeomTileIndexBufferManager;
-    }
-
     // Get pointer to the RenderViewManager instance
     class RenderViewManager* getRenderViewManager() const { return mRenderViewManager; }
 
@@ -142,14 +130,6 @@ private:
 
     class RenderViewManager* mRenderViewManager;
 
-    class HeightfieldGeomTileVertexUVBufferManager* mHeightfieldGeomTileVertexUVBufferManager;
-
-    class HeightfieldGeomTileIndexBufferManager* mHeightfieldGeomTileIndexBufferManager;
-
-    class HeightfieldBufferSetManager* mHeightfieldBufferSetManager;
-
-    class HeightfieldGeomManager* mHeightfieldGeomManager;
-
     HeightfieldManager* mHeightfieldManager;
 
     class HeightfieldOperationFactory* mHeightfieldOperationFactory;
@@ -188,12 +168,6 @@ private:
 
     // Time since last frame in seconds
     float mTimeSinceLastFrame;
-
-    // Get pointer to the HeightfieldBufferSet instance
-    class HeightfieldBufferSetManager* getHeightfieldBufferSetManager() const
-    {
-        return mHeightfieldBufferSetManager;
-    }
 
     // Load ogre plug-ins, among other things
     void loadApplicationSettings();

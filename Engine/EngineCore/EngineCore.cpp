@@ -44,14 +44,12 @@ template <> EngineCore* Ogre::Singleton<EngineCore>::msSingleton = 0;
 EngineCore::EngineCore(EngineInterface* engineInterface)
     : mEngineInterface(engineInterface), mRoot(NULL), mDebugRenderWindow(NULL),
       mApplicationSettingsConfigFile(NULL), mSceneManager(NULL), mSettingsDatasetManager(NULL),
-      mTickableManager(NULL), mRenderViewManager(NULL), mHeightfieldGeomTileVertexUVBufferManager(NULL),
-      mHeightfieldGeomTileIndexBufferManager(NULL), mHeightfieldBufferSetManager(NULL),
-      mHeightfieldManager(NULL), mInputManager(NULL), mSceneLoaded(false), mSceneManagerLoaded(false),
-      mFrameTimerMilliseconds(0), mLastFrameTimerMilliseconds(0), mTimeSinceLastFrame(0.0f),
-      mHeightfieldGeomManager(NULL), mHeightfieldOperationFactory(NULL), mHeightfieldOperationStack(NULL),
-      mHeightfieldBrushManager(NULL), mHeightfieldFileEncoderManager(NULL),
-      mHeightfieldFileDecoderManager(NULL), mSkySettings(NULL), mGPU2DOperationManager(NULL),
-      mGPU2DOperationRenderableQuadManager(NULL), mFrameCount(0)
+      mTickableManager(NULL), mRenderViewManager(NULL), mHeightfieldManager(NULL), mInputManager(NULL),
+      mSceneLoaded(false), mSceneManagerLoaded(false), mFrameTimerMilliseconds(0),
+      mLastFrameTimerMilliseconds(0), mTimeSinceLastFrame(0.0f), mHeightfieldOperationFactory(NULL),
+      mHeightfieldOperationStack(NULL), mHeightfieldBrushManager(NULL),
+      mHeightfieldFileEncoderManager(NULL), mHeightfieldFileDecoderManager(NULL), mSkySettings(NULL),
+      mGPU2DOperationManager(NULL), mGPU2DOperationRenderableQuadManager(NULL), mFrameCount(0)
 {
 }
 
@@ -80,14 +78,6 @@ void EngineCore::initialize()
 
     mSkySettings = new SkySettings();
     mSkySettings->addListener(this);
-
-    mHeightfieldGeomTileVertexUVBufferManager = new HeightfieldGeomTileVertexUVBufferManager();
-
-    mHeightfieldGeomTileIndexBufferManager = new HeightfieldGeomTileIndexBufferManager();
-
-    mHeightfieldBufferSetManager = new HeightfieldBufferSetManager();
-
-    mHeightfieldGeomManager = new HeightfieldGeomManager();
 
     mHeightfieldManager = new HeightfieldManager();
 
@@ -128,8 +118,6 @@ void EngineCore::deinitialize()
 
     SAFE_DELETE(mHeightfieldBrushManager);
 
-    SAFE_DELETE(mHeightfieldBufferSetManager);
-
     SAFE_DELETE(mInputManager);
 
     SAFE_DELETE(mRenderViewManager);
@@ -138,10 +126,7 @@ void EngineCore::deinitialize()
 
     getTickableManager()->disposeAllActiveTickables(true);
 
-    mHeightfieldOperationStack = NULL;                // tickable
-    mHeightfieldGeomManager = NULL;                   // tickable
-    mHeightfieldGeomTileIndexBufferManager = NULL;    // tickable
-    mHeightfieldGeomTileVertexUVBufferManager = NULL; // tickable
+    mHeightfieldOperationStack = NULL; // tickable
     mGPU2DOperationManager = NULL;
 
     SAFE_DELETE(mTickableManager);

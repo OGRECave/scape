@@ -21,18 +21,7 @@
 #include "SkySettings.h"
 #include "Utils/Utils.h"
 #include "Utils/ProceduralLookupTextures.h"
-#include "HeightfieldGeom/HeightfieldGeom.h"
-#include "HeightfieldGeom/HeightfieldGeomManager.h"
-#include "HeightfieldGeom/HeightfieldGeomTileIndexBufferManager.h"
-#include "HeightfieldGeom/HeightfieldGeomTileVertexUVBufferManager.h"
 #include "HeightfieldBrush/HeightfieldBrushManager.h"
-#include "HeightfieldOperation/HeightfieldOperationFactory.h"
-#include "HeightfieldOperation/HeightfieldOperationStack.h"
-#include "GPU2DOperation/GPU2DOperationManager.h"
-#include "GPU2DOperation/GPU2DOperationRenderableQuadManager.h"
-#include "HeightfieldFileCodecs/HeightfieldFileEncoderManager.h"
-#include "HeightfieldFileCodecs/HeightfieldFileDecoderManager.h"
-
 #include "Input/QtJSONButtonDefinitionDataAccesObject.h"
 
 #define EXTERNAL_TEXTURE_BASENAME _T("file:")

@@ -160,6 +160,8 @@ string EngineCore::getApplicationSetting(const string& section, const string& ke
     return Utils::emptyString;
 }
 
+SettingsDatasetManager* EngineCore::getSettingsDatasetManager() { return mSettingsDatasetManager; }
+
 void EngineCore::loadResourceLocations()
 {
     const Ogre::String RESOURCES_FILENAME = "resources.cfg";
@@ -222,6 +224,13 @@ void EngineCore::loadScene()
     }
 }
 
+InputManager* EngineCore::getInputManager() const { return mInputManager; }
+
+RenderViewManager* EngineCore::getRenderViewManager() const { return mRenderViewManager; }
+
+TickableManager* EngineCore::getTickableManager() const { return mTickableManager; }
+
+SkySettings* EngineCore::getSkySettings() const { return mSkySettings; }
 
 HeightfieldManager* EngineCore::getHeightfieldManager() const { return mHeightfieldManager; }
 
@@ -285,6 +294,10 @@ void EngineCore::loadSceneManager()
 }
 
 float EngineCore::getTimeSinceLastFrame() const { return mTimeSinceLastFrame; }
+
+unsigned long EngineCore::getFrameMilliseconds() { return mFrameTimerMilliseconds; }
+unsigned long EngineCore::getLastFrameMilliseconds() { return mLastFrameTimerMilliseconds; }
+unsigned long EngineCore::getFrameCount() { return mFrameCount; }
 
 static Ogre::SceneNode* node = 0;
 void EngineCore::update()

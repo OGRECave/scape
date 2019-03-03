@@ -34,15 +34,15 @@ public:
     static EngineCore& getSingleton();
 
     // Get pointer to the InputManager instance
-    class InputManager* getInputManager() const { return mInputManager; }
+    InputManager* getInputManager() const;
 
     // Get pointer to the RenderViewManager instance
-    class RenderViewManager* getRenderViewManager() const { return mRenderViewManager; }
+    RenderViewManager* getRenderViewManager() const;
 
     // Get pointer to the TickableManager instance
-    class TickableManager* getTickableManager() const { return mTickableManager; }
+    TickableManager* getTickableManager() const;
 
-    class SkySettings* getSkySettings() { return mSkySettings; }
+    SkySettings* getSkySettings() const;
 
     HeightfieldManager* getHeightfieldManager() const;
 
@@ -66,7 +66,7 @@ public:
     string getApplicationSetting(const string& section, const string& key);
 
     // More structured read/write settings
-    class SettingsDatasetManager* getSettingsDatasetManager() { return mSettingsDatasetManager; }
+    SettingsDatasetManager* getSettingsDatasetManager();
 
     Ogre::RenderWindow* getDebugRenderWindow();
 
@@ -97,9 +97,9 @@ public:
     // Get time (in seconds) since last frame
     float getTimeSinceLastFrame() const;
 
-    unsigned long getFrameMilliseconds() { return mFrameTimerMilliseconds; }
-    unsigned long getLastFrameMilliseconds() { return mLastFrameTimerMilliseconds; }
-    unsigned long getFrameCount() { return mFrameCount; }
+    unsigned long getFrameMilliseconds();
+    unsigned long getLastFrameMilliseconds();
+    unsigned long getFrameCount();
 
     virtual void onSkySettingsUpdate();
 

@@ -391,7 +391,7 @@ void EngineCore::update()
 
         getTickableManager()->onFrameTick();
 
-        getHeightfieldBufferSetManager()->unlockAll();
+        mHeightfieldManager->getHeightfieldBufferSetManager()->unlockAll();
 
         getRenderViewManager()->updateAll();
 
@@ -399,7 +399,7 @@ void EngineCore::update()
 
         getTickableManager()->onPostFrameTick();
 
-        getHeightfieldBufferSetManager()->unlockAll();
+        mHeightfieldManager->getHeightfieldBufferSetManager()->unlockAll();
 
         getTickableManager()->postFrameCleanup();
 

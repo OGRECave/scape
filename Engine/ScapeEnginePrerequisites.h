@@ -65,6 +65,7 @@ class HeightfieldGeomTile;
 class HeightfieldGeomTileBufferFactory;
 class HeightfieldGeomTileIndexBufferManager;
 class HeightfieldGeomTileVertexUVBufferManager;
+class HeightfieldManager;
 class HeightfieldOperation;
 class HeightfieldOperationBrush;
 class HeightfieldOperationBrushBase;

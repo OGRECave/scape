@@ -326,40 +326,7 @@ void EngineCore::update()
             }
         }
 
-        {
-            static bool createdGeometry = false;
-            if (!createdGeometry)
-            {
-                createdGeometry = true;
-
-                // getHeightfieldGeomTileVertexUVBufferManager()->getBuffer(Ogre::VET_FLOAT2, 1025, 1025);
-                // getHeightfieldGeomTileVertexUVBufferManager()->getBuffer(Ogre::VET_SHORT2, 1025, 1025);
-
-                Ogre::SceneNode* node = getEngineCore()->getSceneManager()->getRootSceneNode();
-                HeightfieldBufferSet* heigtfieldBufferSet = getHeightfieldBufferSetManager()->get(
-                    getHeightfieldBufferSetManager()->findHandle(_T("Project")));
-                getHeightfieldGeomManager()->create(
-                    heigtfieldBufferSet->get(heigtfieldBufferSet->findHandle(_T("Render"))), node);
-
-                /*
-                Ogre::SceneNode* node2 =
-                getEngineCore()->getSceneManager()->getRootSceneNode()->createChildSceneNode(_T("spherenode"));
-                Ogre::Entity* entity2 = getSceneManager()->createEntity(_T("sphere"), _T("sphere.mesh"));
-                node2->attachObject(entity2);
-
-                node2->setScale(0.01, 0.01, 0.01);
-                node2->setPosition(0, 20, 20);
-
-                Ogre::SceneNode* node3 =
-                getEngineCore()->getSceneManager()->getRootSceneNode()->createChildSceneNode(_T("spherenode2"));
-                Ogre::Entity* entity3 = getSceneManager()->createEntity(_T("sphere2"), _T("sphere.mesh"));
-                node3->attachObject(entity3);
-
-                node3->setScale(0.01, 0.01, 0.01);
-                node3->setPosition(20, 0, 0);
-                */
-            }
-        }
+        mHeightfieldManager->createGeometry();
 
         // TODO GdCarpentier 8/27/2007 : remove
         {

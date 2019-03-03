@@ -22,8 +22,11 @@ public:
 
     void initialize();
     void resetHeightfield();
+    void createGeometry();
 
 private:
+    bool mCreatedGeometry;
+
     HeightfieldGeomTileVertexUVBufferManager* mHeightfieldGeomTileVertexUVBufferManager;
     HeightfieldGeomTileIndexBufferManager* mHeightfieldGeomTileIndexBufferManager;
     HeightfieldBufferSetManager* mHeightfieldBufferSetManager;

@@ -110,36 +110,36 @@ private:
     // Ogre render system pointer
     Ogre::SceneManager* mSceneManager;
 
-    class EngineInterface* mEngineInterface;
+    EngineInterface* mEngineInterface;
 
-    class TickableManager* mTickableManager;
+    TickableManager* mTickableManager;
 
-    class RenderViewManager* mRenderViewManager;
+    RenderViewManager* mRenderViewManager;
 
     HeightfieldManager* mHeightfieldManager;
 
-    class HeightfieldOperationFactory* mHeightfieldOperationFactory;
+    HeightfieldOperationFactory* mHeightfieldOperationFactory;
 
-    class HeightfieldOperationStack* mHeightfieldOperationStack;
+    HeightfieldOperationStack* mHeightfieldOperationStack;
 
-    class HeightfieldBrushManager* mHeightfieldBrushManager;
+    HeightfieldBrushManager* mHeightfieldBrushManager;
 
     Ogre::RenderWindow* mDebugRenderWindow;
 
-    class InputManager* mInputManager;
+    InputManager* mInputManager;
 
-    class SettingsDatasetManager* mSettingsDatasetManager;
+    SettingsDatasetManager* mSettingsDatasetManager;
 
-    class Ogre::ConfigFile* mApplicationSettingsConfigFile;
+    Ogre::ConfigFile* mApplicationSettingsConfigFile;
 
-    class HeightfieldFileEncoderManager* mHeightfieldFileEncoderManager;
-    class HeightfieldFileDecoderManager* mHeightfieldFileDecoderManager;
+    HeightfieldFileEncoderManager* mHeightfieldFileEncoderManager;
+    HeightfieldFileDecoderManager* mHeightfieldFileDecoderManager;
 
-    class SkySettings* mSkySettings;
+    SkySettings* mSkySettings;
 
-    class GPU2DOperationManager* mGPU2DOperationManager;
+    GPU2DOperationManager* mGPU2DOperationManager;
 
-    class GPU2DOperationRenderableQuadManager* mGPU2DOperationRenderableQuadManager;
+    GPU2DOperationRenderableQuadManager* mGPU2DOperationRenderableQuadManager;
 
     // Is scene loaded already?
     bool mSceneLoaded;

@@ -6,6 +6,7 @@
 
 #include "ScapeEngineStableHeaders.h"
 #include "Utils/ConverterFunctor.h"
+#include "EngineCore/HeightfieldManager.h"
 #include "HeightfieldGeom.h"
 #include "HeightfieldBuffer/HeightfieldBufferPage.h"
 #include "HeightfieldBuffer/HeightfieldBuffer.h"
@@ -59,7 +60,7 @@ HeightfieldGeomTileBufferFactory::createVertexUVBuffer(HeightfieldGeomTile* heig
     size_t quadRowSpacing = heightfieldGeomTile->getCurrentLODSpacing();
 
     Ogre::HardwareVertexBufferSharedPtr vertexUVBuffer =
-        getEngineCore()->getHeightfieldGeomTileVertexUVBufferManager()->getBuffer(
+        getEngineCore()->getHeightfieldManager()->getHeightfieldGeomTileVertexUVBufferManager()->getBuffer(
             heightfieldGeom->getVertexElementTypeUV(),
             Ogre::Rect(0, 0, visibleQuadRect.width(), visibleQuadRect.height()),
             heightfieldGeomTile->getTemplateQuadColumnCount(),
@@ -105,7 +106,7 @@ HeightfieldGeomTileBufferFactory::createIndexBuffer(HeightfieldGeomTile* heightf
     }
 
     Ogre::HardwareIndexBufferSharedPtr indexBuffer =
-        getEngineCore()->getHeightfieldGeomTileIndexBufferManager()->getBuffer(
+        getEngineCore()->getHeightfieldManager()->getHeightfieldGeomTileIndexBufferManager()->getBuffer(
             spacedVisibleQuadColumnCount, spacedVisibleQuadRowCount,
             std::max(1, spacingNorth / currentLodSpacing), std::max(1, spacingEast / currentLodSpacing),
             std::max(1, spacingSouth / currentLodSpacing), std::max(1, spacingWest / currentLodSpacing));

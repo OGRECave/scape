@@ -230,6 +230,35 @@ HeightfieldGeomManager* EngineCore::getHeightfieldGeomManager() const
     return mHeightfieldManager->getHeightfieldGeomManager();
 }
 
+HeightfieldBrushManager* EngineCore::getHeightfieldBrushManager() const { return mHeightfieldBrushManager; }
+
+HeightfieldOperationFactory* EngineCore::getHeightfieldOperationFactory() const
+{
+    return mHeightfieldOperationFactory;
+}
+
+HeightfieldOperationStack* EngineCore::getHeightfieldOperationStack() const
+{
+    return mHeightfieldOperationStack;
+}
+
+GPU2DOperationManager* EngineCore::getGPU2DOperationManager() const { return mGPU2DOperationManager; }
+
+GPU2DOperationRenderableQuadManager* EngineCore::getGPU2DOperationRenderableQuadManager() const
+{
+    return mGPU2DOperationRenderableQuadManager;
+}
+
+HeightfieldFileEncoderManager* EngineCore::getHeightfieldFileEncoderManager() const
+{
+    return mHeightfieldFileEncoderManager;
+}
+
+HeightfieldFileDecoderManager* EngineCore::getHeightfieldFileDecoderManager() const
+{
+    return mHeightfieldFileDecoderManager;
+}
+
 Ogre::SceneManager* EngineCore::getSceneManager() { return mSceneManager; }
 
 void EngineCore::loadSceneManager()

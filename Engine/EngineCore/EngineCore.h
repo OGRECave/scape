@@ -39,25 +39,6 @@ public:
     // Get pointer to the RenderViewManager instance
     class RenderViewManager* getRenderViewManager() const { return mRenderViewManager; }
 
-    class HeightfieldBrushManager* getHeightfieldBrushManager() const { return mHeightfieldBrushManager; }
-
-    class HeightfieldOperationFactory* getHeightfieldOperationFactory() const
-    {
-        return mHeightfieldOperationFactory;
-    }
-
-    class HeightfieldOperationStack* getHeightfieldOperationStack() const
-    {
-        return mHeightfieldOperationStack;
-    }
-
-    class GPU2DOperationManager* getGPU2DOperationManager() { return mGPU2DOperationManager; }
-
-    class GPU2DOperationRenderableQuadManager* getGPU2DOperationRenderableQuadManager()
-    {
-        return mGPU2DOperationRenderableQuadManager;
-    }
-
     // Get pointer to the TickableManager instance
     class TickableManager* getTickableManager() const { return mTickableManager; }
 
@@ -67,20 +48,25 @@ public:
 
     HeightfieldGeomManager* getHeightfieldGeomManager() const;
 
+    HeightfieldBrushManager* getHeightfieldBrushManager() const;
+
+    HeightfieldOperationFactory* getHeightfieldOperationFactory() const;
+
+    HeightfieldOperationStack* getHeightfieldOperationStack() const;
+
+    GPU2DOperationManager* getGPU2DOperationManager() const;
+
+    GPU2DOperationRenderableQuadManager* getGPU2DOperationRenderableQuadManager() const;
+
+    HeightfieldFileEncoderManager* getHeightfieldFileEncoderManager() const;
+
+    HeightfieldFileDecoderManager* getHeightfieldFileDecoderManager() const;
+
     // Read-only global settings
     string getApplicationSetting(const string& section, const string& key);
 
     // More structured read/write settings
     class SettingsDatasetManager* getSettingsDatasetManager() { return mSettingsDatasetManager; }
-
-    class HeightfieldFileEncoderManager* getHeightfieldFileEncoderManager()
-    {
-        return mHeightfieldFileEncoderManager;
-    }
-    class HeightfieldFileDecoderManager* getHeightfieldFileDecoderManager()
-    {
-        return mHeightfieldFileDecoderManager;
-    }
 
     Ogre::RenderWindow* getDebugRenderWindow();
 

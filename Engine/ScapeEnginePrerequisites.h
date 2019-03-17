@@ -107,6 +107,7 @@ class SettingsDatasetManager;
 class ShaderCustomAutoConstants;
 class SkySettings;
 class SkySettingsListener;
+class StartupSettings;
 class Subject;
 class TabletInput;
 class TabletInputWin32;

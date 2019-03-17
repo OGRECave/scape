@@ -99,6 +99,7 @@ class Observer;
 class PointerState;
 class QtJSONButtonDefinitionDataAccesObject;
 class QtJSONSettingsDatasetDataAccessObject;
+class QtJSONStartupSettingsDataAccessObject;
 class RenderView;
 class RenderViewManager;
 class SettingsDataset;

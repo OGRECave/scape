@@ -128,6 +128,8 @@ private:
 
     Ogre::ConfigFile* mApplicationSettingsConfigFile;
 
+    std::unique_ptr<StartupSettingsDataAccessObject> mStartupSettingsDataAccessObject;
+
     SkySettings* mSkySettings;
 
     // Is scene loaded already?

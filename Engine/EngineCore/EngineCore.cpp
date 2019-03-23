@@ -32,10 +32,11 @@ template <> EngineCore* Ogre::Singleton<EngineCore>::msSingleton = 0;
 
 EngineCore::EngineCore(EngineInterface* engineInterface)
     : mEngineInterface(engineInterface), mRoot(NULL), mDebugRenderWindow(NULL),
-      mApplicationSettingsConfigFile(NULL), mSceneManager(NULL), mSettingsDatasetManager(NULL),
-      mSettingsPath(), mTickableManager(NULL), mRenderViewManager(NULL), mHeightfieldManager(NULL),
-      mInputManager(NULL), mSceneLoaded(false), mSceneManagerLoaded(false), mFrameTimerMilliseconds(0),
-      mLastFrameTimerMilliseconds(0), mTimeSinceLastFrame(0.0f), mSkySettings(NULL), mFrameCount(0)
+      mApplicationSettingsConfigFile(NULL), mStartupSettingsDataAccessObject(), mSceneManager(NULL),
+      mSettingsDatasetManager(NULL), mSettingsPath(), mTickableManager(NULL), mRenderViewManager(NULL),
+      mHeightfieldManager(NULL), mInputManager(NULL), mSceneLoaded(false), mSceneManagerLoaded(false),
+      mFrameTimerMilliseconds(0), mLastFrameTimerMilliseconds(0), mTimeSinceLastFrame(0.0f),
+      mSkySettings(NULL), mFrameCount(0)
 {
 }
 

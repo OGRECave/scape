@@ -26,7 +26,7 @@ namespace ScapeEngine
 {
 
 HeightfieldManager::HeightfieldManager()
-    : mCreatedGeometry(false), mHeightfieldGeomTileVertexUVBufferManager(NULL),
+    : mCreatedGeometry(false), mStartupSettings(), mHeightfieldGeomTileVertexUVBufferManager(NULL),
       mHeightfieldGeomTileIndexBufferManager(NULL), mHeightfieldBufferSetManager(NULL),
       mHeightfieldGeomManager(NULL), mHeightfieldOperationFactory(NULL), mHeightfieldOperationStack(NULL),
       mHeightfieldBrushManager(NULL), mHeightfieldFileEncoderManager(NULL),

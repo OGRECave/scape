@@ -3,6 +3,8 @@
 
 #include "ScapeEnginePrerequisites.h"
 
+#include "StartupSettings.h"
+
 namespace ScapeEngine
 {
 
@@ -40,6 +42,8 @@ public:
 
 private:
     bool mCreatedGeometry;
+
+    StartupSettings mStartupSettings;
 
     HeightfieldGeomTileVertexUVBufferManager* mHeightfieldGeomTileVertexUVBufferManager;
     HeightfieldGeomTileIndexBufferManager* mHeightfieldGeomTileIndexBufferManager;

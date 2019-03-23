@@ -8,7 +8,7 @@
 namespace ScapeEngine
 {
 
-class StartupSettingsDataAccessObject
+class _ScapeEngineExport StartupSettingsDataAccessObject
 {
 public:
     virtual ~StartupSettingsDataAccessObject();

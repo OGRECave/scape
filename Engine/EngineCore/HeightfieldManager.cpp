@@ -79,17 +79,9 @@ HeightfieldManager::~HeightfieldManager()
 
 void HeightfieldManager::initialize()
 {
-    // create the heightfield buffer with the dimensions specified in Startup.conf
-    int columns = 0;
-    int rows = 0;
-    Ogre::Real height = 0;
-    SettingsDataset* startupDataset = getEngineCore()->getSettingsDatasetManager()->getDataset("Startup");
-    if (startupDataset)
-    {
-        columns = Ogre::StringConverter::parseInt(startupDataset->getSetting("Heightfield", "", "columns"));
-        rows = Ogre::StringConverter::parseInt(startupDataset->getSetting("Heightfield", "", "rows"));
-        height = Ogre::StringConverter::parseReal(startupDataset->getSetting("Heightfield", "", "height"));
-    }
+    int columns = mStartupSettings.getHeightfieldColumns();
+    int rows = mStartupSettings.getHeightfieldRows();
+    Ogre::Real height = mStartupSettings.getHeightfieldHeight();
 
     if (columns <= 0)
         columns = 4096;

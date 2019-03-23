@@ -105,8 +105,12 @@ void EngineCore::loadApplicationSettings()
     Ogre::LogManager::getSingleton().logMessage(_T("Loaded application settings from '") +
                                                 string(GLOBALSETTINGS_FILENAME) + _T("'"));
 
-    Ogre::String settingsPath = getApplicationSetting(_T("Paths"), _T("DatasetSettings"));
-    getSettingsDatasetManager()->setDatasetResourcePath(settingsPath);
+    mSettingsPath = getApplicationSetting(_T("Paths"), _T("DatasetSettings"));
+    if (mSettingsPath.length() > 0)
+    {
+        mSettingsPath = Ogre::StringUtil::standardisePath(mSettingsPath);
+    }
+    getSettingsDatasetManager()->setDatasetResourcePath(mSettingsPath);
 }
 
 string EngineCore::getApplicationSetting(const string& section, const string& key)

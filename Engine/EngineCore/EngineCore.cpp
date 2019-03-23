@@ -23,6 +23,7 @@
 #include "Utils/ProceduralLookupTextures.h"
 #include "HeightfieldBrush/HeightfieldBrushManager.h"
 #include "Input/QtJSONButtonDefinitionDataAccesObject.h"
+#include "QtJSONStartupSettingsDataAccessObject.h"
 
 #define EXTERNAL_TEXTURE_BASENAME _T("file:")
 
@@ -62,6 +63,9 @@ void EngineCore::initialize()
     mRenderViewManager = new RenderViewManager();
 
     mInputManager = new InputManager();
+
+    mStartupSettingsDataAccessObject = std::unique_ptr<StartupSettingsDataAccessObject>(
+        new QtJSONStartupSettingsDataAccessObject(mSettingsPath + "config.json"));
 
     mSkySettings = new SkySettings();
     mSkySettings->addListener(this);

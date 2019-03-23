@@ -22,16 +22,18 @@
 #include "HeightfieldFileCodecs/HeightfieldFileEncoderManager.h"
 #include "HeightfieldFileCodecs/HeightfieldFileDecoderManager.h"
 
+#include "StartupSettingsDataAccessObject.h"
+
 namespace ScapeEngine
 {
 
-HeightfieldManager::HeightfieldManager()
-    : mCreatedGeometry(false), mStartupSettings(), mHeightfieldGeomTileVertexUVBufferManager(NULL),
-      mHeightfieldGeomTileIndexBufferManager(NULL), mHeightfieldBufferSetManager(NULL),
-      mHeightfieldGeomManager(NULL), mHeightfieldOperationFactory(NULL), mHeightfieldOperationStack(NULL),
-      mHeightfieldBrushManager(NULL), mHeightfieldFileEncoderManager(NULL),
-      mHeightfieldFileDecoderManager(NULL), mGPU2DOperationManager(NULL),
-      mGPU2DOperationRenderableQuadManager(NULL)
+HeightfieldManager::HeightfieldManager(StartupSettingsDataAccessObject& startupSettingsDataAccessObject)
+    : mCreatedGeometry(false), mStartupSettings(startupSettingsDataAccessObject.getStartupSettings()),
+      mHeightfieldGeomTileVertexUVBufferManager(NULL), mHeightfieldGeomTileIndexBufferManager(NULL),
+      mHeightfieldBufferSetManager(NULL), mHeightfieldGeomManager(NULL), mHeightfieldOperationFactory(NULL),
+      mHeightfieldOperationStack(NULL), mHeightfieldBrushManager(NULL),
+      mHeightfieldFileEncoderManager(NULL), mHeightfieldFileDecoderManager(NULL),
+      mGPU2DOperationManager(NULL), mGPU2DOperationRenderableQuadManager(NULL)
 {
     mHeightfieldGeomTileVertexUVBufferManager = new HeightfieldGeomTileVertexUVBufferManager();
     mHeightfieldGeomTileIndexBufferManager = new HeightfieldGeomTileIndexBufferManager();

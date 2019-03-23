@@ -70,7 +70,7 @@ void EngineCore::initialize()
     mSkySettings = new SkySettings();
     mSkySettings->addListener(this);
 
-    mHeightfieldManager = new HeightfieldManager();
+    mHeightfieldManager = new HeightfieldManager(*mStartupSettingsDataAccessObject);
 
     std::shared_ptr<ButtonDefinitionDataAccessObject> dao =
         std::shared_ptr<ButtonDefinitionDataAccessObject>(new QtJSONButtonDefinitionDataAccesObject(

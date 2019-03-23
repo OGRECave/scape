@@ -11,7 +11,7 @@ namespace ScapeEngine
 class HeightfieldManager
 {
 public:
-    HeightfieldManager();
+    HeightfieldManager(StartupSettingsDataAccessObject& startupSettingsDataAccessObject);
     ~HeightfieldManager();
 
     HeightfieldGeomTileVertexUVBufferManager* getHeightfieldGeomTileVertexUVBufferManager() const;

@@ -42,6 +42,8 @@ public:
     // Get pointer to the TickableManager instance
     TickableManager* getTickableManager() const;
 
+    StartupSettingsDataAccessObject& getStartupSettingsDataAccessObject() const;
+
     SkySettings* getSkySettings() const;
 
     HeightfieldManager* getHeightfieldManager() const;

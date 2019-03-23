@@ -197,6 +197,11 @@ RenderViewManager* EngineCore::getRenderViewManager() const { return mRenderView
 
 TickableManager* EngineCore::getTickableManager() const { return mTickableManager; }
 
+StartupSettingsDataAccessObject& EngineCore::getStartupSettingsDataAccessObject() const
+{
+    return *mStartupSettingsDataAccessObject;
+}
+
 SkySettings* EngineCore::getSkySettings() const { return mSkySettings; }
 
 HeightfieldManager* EngineCore::getHeightfieldManager() const { return mHeightfieldManager; }

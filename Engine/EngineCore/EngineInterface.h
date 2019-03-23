@@ -126,6 +126,8 @@ public:
 
     HeightfieldBrushSettings& getHeightfieldBrushSettings();
 
+    StartupSettingsDataAccessObject& getStartupSettingsDataAccessObject() const;
+
 protected:
     UIElementContainer* getUIElementContainer(EScapeUIElementGroupId scapeGroupId,
                                               const std::string& elementName);

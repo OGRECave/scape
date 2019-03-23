@@ -520,3 +520,8 @@ HeightfieldBrushSettings& EngineInterface::getHeightfieldBrushSettings()
 {
     return getEngineCore()->getHeightfieldBrushManager()->getHeightfieldBrushSettings();
 }
+
+StartupSettingsDataAccessObject& EngineInterface::getStartupSettingsDataAccessObject() const
+{
+    return getEngineCore()->getStartupSettingsDataAccessObject();
+}

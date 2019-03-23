@@ -122,6 +122,8 @@ private:
 
     InputManager* mInputManager;
 
+    std::string mSettingsPath;
+
     SettingsDatasetManager* mSettingsDatasetManager;
 
     Ogre::ConfigFile* mApplicationSettingsConfigFile;

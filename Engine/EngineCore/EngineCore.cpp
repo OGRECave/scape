@@ -252,9 +252,6 @@ void EngineCore::loadSceneManager()
 {
     if (!mSceneManagerLoaded)
     {
-
-        mRoot->getRenderSystem()->setWBufferEnabled(true);
-
         // Create the SceneManager, in this case a generic one
         mSceneManager = mRoot->createSceneManager(_T("OctreeSceneManager"));
 
@@ -435,6 +432,7 @@ void EngineCore::onSkySettingsUpdate() { loadSkyBox(); }
 
 void EngineCore::loadSkyBox()
 {
+#if 0 // OGRE 1.12+ only supports a single cubic texture, loaded from 6 files with a common prefix
     const SkySettings::SkyBoxTextureNames& textureNames = getSkySettings()->getSkyBoxTextureNames();
 
     string newTextureNames[6];
@@ -474,6 +472,7 @@ void EngineCore::loadSkyBox()
     }
 
     if (foundDifference)
+#endif
     {
         mSceneManager->setSkyBox(true, _T("SkyBox"), 5000, false);
     }

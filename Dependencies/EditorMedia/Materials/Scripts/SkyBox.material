@@ -15,7 +15,7 @@ material SkyBox
 
 			texture_unit tuCube
 			{
-				cubic_texture cloudy_noon.jpg separateUV
+				texture cloudy_noon.jpg cubic
 				tex_address_mode clamp
 			}
 		}

@@ -22,6 +22,7 @@ enum EPropertyId
     PROPERTYID_FOGCOLOR,
     PROPERTYID_FOGDISTANCE,
 
+    PROPERTYID_SKYBOX_TEXTURE
 };
 
 bool SkySettings::initPersistentElementValueMap(StringStringMap& map)
@@ -42,6 +43,7 @@ bool SkySettings::initPersistentElementStringEnumMap(StringEnumMap& map)
     ADD_STRINGENUM(map, PROPERTYID_, FOGCOLOR);
     ADD_STRINGENUM(map, PROPERTYID_, FOGDISTANCE);
 
+    ADD_STRINGENUM(map, PROPERTYID_, SKYBOX_TEXTURE);
 
     return true;
 }
@@ -110,6 +112,12 @@ string SkySettings::setUIElementPropertyValue(const string& elementName, const s
         break;
     }
 
+    case PROPERTYID_SKYBOX_TEXTURE:
+    {
+        outValue = value;
+        mSkyBoxTextureName = outValue;
+        break;
+    }
 
     default:
     {

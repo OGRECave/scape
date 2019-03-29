@@ -591,12 +591,6 @@
             }
         },
         "SkySettings": {
-            "SKYBOX_TOP": {
-                "CATEGORY": "Sky Box",
-                "SHORT": "Top texture",
-                "TYPE": "FILE",
-                "LONG": "Top side texture of sky cubemap"
-            },
             "SUNDIRECTION": {
                 "CATEGORY": "Lighting",
                 "SHORT": "Sun direction (deg)",
@@ -608,12 +602,6 @@
                 "SHORT": "Sky overbright",
                 "TYPE": "REAL",
                 "LONG": "Sky color intensity scale"
-            },
-            "SKYBOX_RIGHT": {
-                "CATEGORY": "Sky Box",
-                "SHORT": "Right texture",
-                "TYPE": "FILE",
-                "LONG": "Right side texture of sky cubemap"
             },
             "SKYCOLOR": {
                 "CATEGORY": "Lighting",
@@ -638,12 +626,6 @@
                 "LONG": "Sky and lighting settings",
                 "ICON": "ICON_TOOL_LIGHT24"
             },
-            "SKYBOX_FRONT": {
-                "CATEGORY": "Sky Box",
-                "SHORT": "Front texture",
-                "TYPE": "FILE",
-                "LONG": "Front side texture of sky cubemap"
-            },
             "FOGDISTANCE": {
                 "CATEGORY": "Lighting",
                 "SHORT": "Fog distance",
@@ -661,24 +643,6 @@
                 "SHORT": "Fog color",
                 "TYPE": "COLOR",
                 "LONG": "Fog color"
-            },
-            "SKYBOX_BACK": {
-                "CATEGORY": "Sky Box",
-                "SHORT": "Back texture",
-                "TYPE": "FILE",
-                "LONG": "Back ide texture of sky cubemap"
-            },
-            "SKYBOX_LEFT": {
-                "CATEGORY": "Sky Box",
-                "SHORT": "Left texture",
-                "TYPE": "FILE",
-                "LONG": "Left side texture of sky cubemap"
-            },
-            "SKYBOX_BOTTOM": {
-                "CATEGORY": "Sky Box",
-                "SHORT": "Bottom texture",
-                "TYPE": "FILE",
-                "LONG": "Bottom side texture of sky cubemap"
             }
         },
         "HeightfieldOperationCPUErosion": {

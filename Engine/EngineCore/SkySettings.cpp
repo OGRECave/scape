@@ -22,12 +22,6 @@ enum EPropertyId
     PROPERTYID_FOGCOLOR,
     PROPERTYID_FOGDISTANCE,
 
-    PROPERTYID_SKYBOX_LEFT,
-    PROPERTYID_SKYBOX_RIGHT,
-    PROPERTYID_SKYBOX_TOP,
-    PROPERTYID_SKYBOX_BOTTOM,
-    PROPERTYID_SKYBOX_FRONT,
-    PROPERTYID_SKYBOX_BACK,
 };
 
 bool SkySettings::initPersistentElementValueMap(StringStringMap& map)
@@ -48,12 +42,6 @@ bool SkySettings::initPersistentElementStringEnumMap(StringEnumMap& map)
     ADD_STRINGENUM(map, PROPERTYID_, FOGCOLOR);
     ADD_STRINGENUM(map, PROPERTYID_, FOGDISTANCE);
 
-    ADD_STRINGENUM(map, PROPERTYID_, SKYBOX_LEFT);
-    ADD_STRINGENUM(map, PROPERTYID_, SKYBOX_RIGHT);
-    ADD_STRINGENUM(map, PROPERTYID_, SKYBOX_TOP);
-    ADD_STRINGENUM(map, PROPERTYID_, SKYBOX_BOTTOM);
-    ADD_STRINGENUM(map, PROPERTYID_, SKYBOX_FRONT);
-    ADD_STRINGENUM(map, PROPERTYID_, SKYBOX_BACK);
 
     return true;
 }
@@ -122,42 +110,6 @@ string SkySettings::setUIElementPropertyValue(const string& elementName, const s
         break;
     }
 
-    case PROPERTYID_SKYBOX_LEFT:
-    {
-        outValue = Utils::getRelativePath(value, Utils::getWorkingPath());
-        mSkyBoxTextureNames.left = outValue;
-        break;
-    }
-    case PROPERTYID_SKYBOX_RIGHT:
-    {
-        outValue = Utils::getRelativePath(value, Utils::getWorkingPath());
-        mSkyBoxTextureNames.right = outValue;
-        break;
-    }
-    case PROPERTYID_SKYBOX_TOP:
-    {
-        outValue = Utils::getRelativePath(value, Utils::getWorkingPath());
-        mSkyBoxTextureNames.top = outValue;
-        break;
-    }
-    case PROPERTYID_SKYBOX_BOTTOM:
-    {
-        outValue = Utils::getRelativePath(value, Utils::getWorkingPath());
-        mSkyBoxTextureNames.bottom = outValue;
-        break;
-    }
-    case PROPERTYID_SKYBOX_FRONT:
-    {
-        outValue = Utils::getRelativePath(value, Utils::getWorkingPath());
-        mSkyBoxTextureNames.front = outValue;
-        break;
-    }
-    case PROPERTYID_SKYBOX_BACK:
-    {
-        outValue = Utils::getRelativePath(value, Utils::getWorkingPath());
-        mSkyBoxTextureNames.back = outValue;
-        break;
-    }
 
     default:
     {

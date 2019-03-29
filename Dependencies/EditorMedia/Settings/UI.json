@@ -591,6 +591,12 @@
             }
         },
         "SkySettings": {
+            "SKYBOX_TEXTURE": {
+                "CATEGORY": "Sky Box",
+                "SHORT": "Sky texture",
+                "TYPE": "FILE",
+                "LONG": "Texture of sky cubemap"
+            },
             "SUNDIRECTION": {
                 "CATEGORY": "Lighting",
                 "SHORT": "Sun direction (deg)",

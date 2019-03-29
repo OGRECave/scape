@@ -129,7 +129,7 @@ string SkySettings::setUIElementPropertyValue(const string& elementName, const s
 SkySettings::SkySettings()
     : mSkyColor(Ogre::ColourValue::White), mSkyOverbright(1.0f), mSunColor(Ogre::ColourValue::White),
       mSunOverbright(1.0f), mSunDirection(0.0f), mSunHeight(0.0f), mFogColor(Ogre::ColourValue::White),
-      mFogDistance(1.0E6f)
+      mFogDistance(1.0E6f), mSkyBoxTextureName()
 {
     wantsPreFrameTick();
     loadPersistentProperties();

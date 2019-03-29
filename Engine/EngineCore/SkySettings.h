@@ -44,7 +44,7 @@ public:
     const Ogre::ColourValue getFogColor() { return mFogColor; }
     Ogre::Real getFogDistance() { return mFogDistance; }
 
-    const SkyBoxTextureNames& getSkyBoxTextureNames() { return mSkyBoxTextureNames; }
+    std::string getSkyBoxTextureName() { return mSkyBoxTextureName; }
 
     SkySettings();
 
@@ -65,7 +65,7 @@ protected:
     Ogre::ColourValue mFogColor;
     Ogre::Real mFogDistance;
 
-    SkyBoxTextureNames mSkyBoxTextureNames;
+    std::string mSkyBoxTextureName;
 
     typedef std::list<SkySettingsListener*> SkySettingsListeners;
     SkySettingsListeners mListeners;

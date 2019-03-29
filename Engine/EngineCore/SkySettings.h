@@ -28,10 +28,6 @@ class SkySettings : public UIElementPresetContainerSimple, public Tickable
 {
     DEFINE_UIELEMENTCONTAINERSIMPLE_CLASS(SkySettings)
 public:
-    struct SkyBoxTextureNames
-    {
-        string left, right, top, bottom, front, back;
-    };
 
     const Ogre::ColourValue getSkyColor() { return mSkyColor; }
     Ogre::Real getSkyOverbright() { return mSkyOverbright; }

@@ -60,72 +60,48 @@
         },
         "SkySettings": {
             "Default": {
-                "SKYBOX_TOP": "./Materials/Textures/Sky/cloudy_noon_up.jpg",
                 "TERRAINCOLOR": "(107,86,71)",
                 "SKYOVERBRIGHT": "1.1",
-                "SKYBOX_RIGHT": "./Materials/Textures/Sky/cloudy_noon_rt.jpg",
                 "SKYCOLOR": "(122,133,148)",
                 "SUNCOLOR": "(255,225,164)",
                 "SUNDIRECTION": "-1646.58",
-                "SKYBOX_FRONT": "./Materials/Textures/Sky/cloudy_noon_fr.jpg",
                 "SUNOVERBRIGHT": "1.6",
                 "SUNHEIGHT": "26.13",
                 "FOGDISTANCE": "7000",
-                "SKYBOX_BACK": "./Materials/Textures/Sky/cloudy_noon_bk.jpg",
                 "FOGCOLOR": "(204,209,217)",
-                "SKYBOX_LEFT": "./Materials/Textures/Sky/cloudy_noon_lf.jpg",
-                "TERRAINOVERBRIGHT": "1",
-                "SKYBOX_BOTTOM": "./Materials/Textures/Sky/cloudy_noon_dn.jpg"
+                "TERRAINOVERBRIGHT": "1"
             },
             "Default1": {
-                "SKYBOX_TOP": "./Materials/Textures/Sky/cloudy_noon_up.jpg",
                 "SKYOVERBRIGHT": "1",
-                "SKYBOX_RIGHT": "./Materials/Textures/Sky/cloudy_noon_rt.jpg",
                 "SKYCOLOR": "(96,102,115)",
                 "SUNCOLOR": "(255,224,163)",
                 "SUNDIRECTION": "-129.08",
-                "SKYBOX_FRONT": "./Materials/Textures/Sky/cloudy_noon_fr.jpg",
                 "SUNOVERBRIGHT": "1.4",
                 "SUNHEIGHT": "70.22",
                 "FOGDISTANCE": "3500",
-                "SKYBOX_BACK": "./Materials/Textures/Sky/cloudy_noon_bk.jpg",
-                "FOGCOLOR": "(168,193,186)",
-                "SKYBOX_LEFT": "./Materials/Textures/Sky/cloudy_noon_lf.jpg",
-                "SKYBOX_BOTTOM": "./Materials/Textures/Sky/cloudy_noon_dn.jpg"
+                "FOGCOLOR": "(168,193,186)"
             },
             "Default3": {
-                "SKYBOX_TOP": "./Materials/Textures/Sky/cloudy_noon_up.jpg",
                 "SKYOVERBRIGHT": "1.1",
-                "SKYBOX_RIGHT": "./Materials/Textures/Sky/cloudy_noon_rt.jpg",
                 "SKYCOLOR": "(122,133,148)",
                 "SUNCOLOR": "(255,225,164)",
                 "SUNDIRECTION": "-1646.58",
-                "SKYBOX_FRONT": "./Materials/Textures/Sky/cloudy_noon_fr.jpg",
                 "SUNOVERBRIGHT": "1.6",
                 "SUNHEIGHT": "26.13",
                 "FOGDISTANCE": "2000",
-                "SKYBOX_BACK": "./Materials/Textures/Sky/cloudy_noon_bk.jpg",
-                "FOGCOLOR": "(204,209,217)",
-                "SKYBOX_LEFT": "./Materials/Textures/Sky/cloudy_noon_lf.jpg",
-                "SKYBOX_BOTTOM": "./Materials/Textures/Sky/cloudy_noon_dn.jpg"
+                "FOGCOLOR": "(204,209,217)"
             },
             "Default2": {
-                "SKYBOX_TOP": "./Materials/Textures/Sky/cloudy_noon_up.jpg",
                 "TERRAINCOLOR": "(54,44,35)",
                 "SKYOVERBRIGHT": "1.1",
-                "SKYBOX_RIGHT": "./Materials/Textures/Sky/cloudy_noon_rt.jpg",
                 "SKYCOLOR": "(107,118,133)",
                 "SUNCOLOR": "(255,213,125)",
                 "SUNDIRECTION": "-2021.29",
-                "SKYBOX_FRONT": "./Materials/Textures/Sky/cloudy_noon_fr.jpg",
                 "SUNOVERBRIGHT": "1.2",
                 "SUNHEIGHT": "55.42",
                 "FOGDISTANCE": "2000",
-                "SKYBOX_BACK": "./Materials/Textures/Sky/cloudy_noon_bk.jpg",
                 "FOGCOLOR": "(204,209,217)",
-                "SKYBOX_LEFT": "./Materials/Textures/Sky/cloudy_noon_lf.jpg",
-                "TERRAINOVERBRIGHT": "1",
-                "SKYBOX_BOTTOM": "./Materials/Textures/Sky/cloudy_noon_dn.jpg"
+                "TERRAINOVERBRIGHT": "1"
             }
         },
         "HeightfieldOperationGPUPencil": {

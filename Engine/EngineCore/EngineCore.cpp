@@ -432,48 +432,10 @@ void EngineCore::onSkySettingsUpdate() { loadSkyBox(); }
 
 void EngineCore::loadSkyBox()
 {
-#if 0 // OGRE 1.12+ only supports a single cubic texture, loaded from 6 files with a common prefix
-    const SkySettings::SkyBoxTextureNames& textureNames = getSkySettings()->getSkyBoxTextureNames();
-
-    string newTextureNames[6];
-    newTextureNames[0] = textureNames.front;
-    newTextureNames[1] = textureNames.back;
-    newTextureNames[2] = textureNames.left;
-    newTextureNames[3] = textureNames.right;
-    newTextureNames[4] = textureNames.top;
-    newTextureNames[5] = textureNames.bottom;
-
     bool foundDifference = false;
 
-    Ogre::MaterialPtr matPtr = Ogre::MaterialManager::getSingleton().getByName(_T("SkyBox"));
-    matPtr->load();
-    const Ogre::Material::Techniques& techniques = matPtr->getSupportedTechniques();
-    for (Ogre::Material::Techniques::const_iterator it = techniques.begin(); it != techniques.end(); it++)
+    if (foundDifference || !mSceneLoaded)
     {
-        Ogre::Technique* tech = (*it);
-
-        for (int side = 0; side < 6; ++side)
-        {
-            string oldTextureName = tech->getPass(0)->getTextureUnitState(0)->getFrameTextureName(side);
-            string newTextureName = EXTERNAL_TEXTURE_BASENAME + newTextureNames[side];
-
-            if ((EXTERNAL_TEXTURE_BASENAME + oldTextureName).compare(newTextureName) != 0)
-            {
-                Ogre::TextureManager::getSingleton().remove(oldTextureName);
-                foundDifference = true;
-            }
-
-            Utils::getTextureFromExternalFile(newTextureName,
-                                              Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-                                              newTextureNames[side]);
-
-            tech->getPass(0)->getTextureUnitState(0)->setFrameTextureName(newTextureName, side);
-        }
-    }
-
-    if (foundDifference)
-#endif
-    {
-        mSceneManager->setSkyBox(true, _T("SkyBox"), 5000, false);
+        mSceneManager->setSkyBox(true, "SkyBox", 5000, false);
     }
 }

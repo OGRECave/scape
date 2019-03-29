@@ -60,6 +60,7 @@
         },
         "SkySettings": {
             "Default": {
+                "SKYBOX_TEXTURE": "cloudy_noon.jpg",
                 "TERRAINCOLOR": "(107,86,71)",
                 "SKYOVERBRIGHT": "1.1",
                 "SKYCOLOR": "(122,133,148)",
@@ -72,6 +73,7 @@
                 "TERRAINOVERBRIGHT": "1"
             },
             "Default1": {
+                "SKYBOX_TEXTURE": "cloudy_noon.jpg",
                 "SKYOVERBRIGHT": "1",
                 "SKYCOLOR": "(96,102,115)",
                 "SUNCOLOR": "(255,224,163)",
@@ -82,6 +84,7 @@
                 "FOGCOLOR": "(168,193,186)"
             },
             "Default3": {
+                "SKYBOX_TEXTURE": "cloudy_noon.jpg",
                 "SKYOVERBRIGHT": "1.1",
                 "SKYCOLOR": "(122,133,148)",
                 "SUNCOLOR": "(255,225,164)",
@@ -92,6 +95,7 @@
                 "FOGCOLOR": "(204,209,217)"
             },
             "Default2": {
+                "SKYBOX_TEXTURE": "cloudy_noon.jpg",
                 "TERRAINCOLOR": "(54,44,35)",
                 "SKYOVERBRIGHT": "1.1",
                 "SKYCOLOR": "(107,118,133)",

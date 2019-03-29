@@ -434,6 +434,26 @@ void EngineCore::loadSkyBox()
 {
     bool foundDifference = false;
 
+    string newTextureName = getSkySettings()->getSkyBoxTextureName();
+
+    Ogre::MaterialPtr matPtr = Ogre::MaterialManager::getSingleton().getByName("SkyBox");
+    matPtr->load();
+
+    const Ogre::Material::Techniques& techniques = matPtr->getSupportedTechniques();
+    for (Ogre::Material::Techniques::const_iterator it = techniques.begin(); it != techniques.end(); it++)
+    {
+        Ogre::TextureUnitState* tus = (*it)->getPass(0)->getTextureUnitState(0);
+
+        string oldTextureName = tus->getTextureName();
+        Ogre::TextureType oldTextureType = tus->getTextureType();
+
+        if (oldTextureName.compare(newTextureName) != 0 || oldTextureType != Ogre::TEX_TYPE_CUBE_MAP)
+        {
+            foundDifference = true;
+            tus->setTextureName(newTextureName, Ogre::TEX_TYPE_CUBE_MAP);
+        }
+    }
+
     if (foundDifference || !mSceneLoaded)
     {
         mSceneManager->setSkyBox(true, "SkyBox", 5000, false);

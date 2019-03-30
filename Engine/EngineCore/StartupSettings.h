@@ -6,7 +6,7 @@
 namespace ScapeEngine
 {
 
-class StartupSettings
+class _ScapeEngineExport StartupSettings
 {
 public:
     StartupSettings();

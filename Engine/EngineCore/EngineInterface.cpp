@@ -149,16 +149,6 @@ void EngineInterface::writeAuxiliaryFile(const string& fileName, const void* dat
     Utils::writeBinaryFile(path + fileName, data, bytes);
 }
 
-std::pair<void*, size_t> EngineInterface::readAuxiliaryFile(const string& fileName)
-{
-    string path = Utils::emptyString;
-    if (getEngineCore())
-        path = getEngineCore()->getApplicationSetting("Paths", "AuxiliarySettings");
-    if (path.length())
-        path = Ogre::StringUtil::standardisePath(path);
-    return Utils::readBinaryFile(path + fileName);
-}
-
 StringStringStringPairMap EngineInterface::getFileFilterMap(EScapeUIElementGroupId groupId)
 {
     switch (groupId)

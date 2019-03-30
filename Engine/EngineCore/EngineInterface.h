@@ -69,8 +69,6 @@ public:
 
     void onRenderViewKillFocus(int viewId);
 
-    void writeAuxiliaryFile(const std::string& fileName, const void* data, int bytes);
-
     StringList getUIElementNameList(EScapeUIElementGroupId groupId);
     StringList getUIElementPropertyNameList(EScapeUIElementGroupId groupId, const std::string& element);
 

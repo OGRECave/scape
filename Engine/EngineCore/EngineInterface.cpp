@@ -139,16 +139,6 @@ string EngineInterface::getUIElementPropertyField(const string& elementName, con
                                                                     propertyFieldName);
 }
 
-void EngineInterface::writeAuxiliaryFile(const string& fileName, const void* data, int bytes)
-{
-    string path = Utils::emptyString;
-    if (getEngineCore())
-        path = getEngineCore()->getApplicationSetting("Paths", "AuxiliarySettings");
-    if (path.length())
-        path = Ogre::StringUtil::standardisePath(path);
-    Utils::writeBinaryFile(path + fileName, data, bytes);
-}
-
 StringStringStringPairMap EngineInterface::getFileFilterMap(EScapeUIElementGroupId groupId)
 {
     switch (groupId)

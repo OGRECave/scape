@@ -203,27 +203,25 @@ void Utils::writeBinaryFile(const string& fileName, const void* data, int bytes,
     }
 }
 
-std::pair<void*, size_t> Utils::readBinaryFile(const string& fileName)
+std::vector<char> Utils::readBinaryFile(const string& fileName)
 {
-    FILE* file = fopen(fileName.c_str(), _T("rb"));
-    char* data = NULL;
-    int byteCount = 0;
+    std::vector<char> ret;
 
-    if (file)
+    std::ifstream fp;
+    fp.open(fileName.c_str(), std::ios::in | std::ios::binary);
+
+    if (!fp)
     {
-        fseek(file, 0, SEEK_END);
-        byteCount = ftell(file);
-        fseek(file, 0, SEEK_SET);
-        if (byteCount > 0)
-        {
-            data = new char[byteCount + 1];
-            byteCount = fread(data, 1, byteCount, file);
-            *((char*)data + byteCount) = 0;
-        }
-        fclose(file);
+        Ogre::LogManager::getSingleton().logMessage("Utils::readBinaryFile: Failed to open file " +
+                                                    fileName);
+    }
+    else
+    {
+        ret = std::vector<char>(std::istreambuf_iterator<char>(fp), std::istreambuf_iterator<char>());
+        fp.close();
     }
 
-    return std::pair<void*, int>(data, byteCount);
+    return ret;
 }
 
 string Utils::makeUniqueName(const string& baseName, const std::list<string>& existingNames)
@@ -337,12 +335,12 @@ bool Utils::getTextureFromExternalFile(const string& textureName, const string& 
         successful = false;
 
         Ogre::Image image;
-        std::pair<void*, size_t> fileData = Utils::readBinaryFile(fileName);
-        if (fileData.first)
+        std::vector<char> fileData = Utils::readBinaryFile(fileName);
+        if (fileData.size() > 0)
         {
             string splitFileName, splitExtension;
             Ogre::StringUtil::splitBaseFilename(fileName, splitFileName, splitExtension);
-            Ogre::DataStreamPtr stream(new Ogre::MemoryDataStream(fileData.first, fileData.second));
+            Ogre::DataStreamPtr stream(new Ogre::MemoryDataStream(fileData.data(), fileData.size()));
 
             try
             {
@@ -355,8 +353,6 @@ bool Utils::getTextureFromExternalFile(const string& textureName, const string& 
             catch (...)
             {
             }
-
-            delete fileData.first;
         }
 
         if (!successful)

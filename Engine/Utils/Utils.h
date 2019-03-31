@@ -359,7 +359,7 @@ extern const string emptyString;
 
 void writeBinaryFile(const string& fileName, const void* data, int bytes, bool append = false);
 
-std::pair<void*, size_t> readBinaryFile(const string& fileName);
+std::vector<char> readBinaryFile(const string& fileName);
 
 string makeUniqueName(const string& baseName, const std::list<string>& existingNames);
 

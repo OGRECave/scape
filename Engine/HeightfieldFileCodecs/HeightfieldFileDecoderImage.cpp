@@ -60,17 +60,17 @@ bool HeightfieldFileDecoderImageBase::decode(HeightfieldBuffer* outBuffer, const
                                                 getClassName() + _T("'"));
     assert(outBuffer);
 
-    std::pair<void*, size_t> fileData = Utils::readBinaryFile(fileName);
-    if (fileData.first)
+    std::vector<char> fileData = Utils::readBinaryFile(fileName);
+    if (fileData.size() > 0)
     {
         bool bigEndian = (OGRE_ENDIAN == OGRE_ENDIAN_BIG);
         Ogre::PixelBox rawPixelBox;
         Ogre::Image image;
         rawPixelBox.data = NULL;
 
-        if (fileData.second >= sizeof(Utils::BitmapFileHeader) + sizeof(Utils::BitmapInfoHeader))
+        if (fileData.size() >= sizeof(Utils::BitmapFileHeader) + sizeof(Utils::BitmapInfoHeader))
         {
-            char* dataPtr = (char*)fileData.first;
+            char* dataPtr = (char*)fileData.data();
             Utils::BitmapFileHeader bmpFH = *(Utils::BitmapFileHeader*)dataPtr;
             Utils::BitmapInfoHeader bmpIH =
                 *(Utils::BitmapInfoHeader*)(dataPtr + sizeof(Utils::BitmapFileHeader));
@@ -84,7 +84,7 @@ bool HeightfieldFileDecoderImageBase::decode(HeightfieldBuffer* outBuffer, const
 
             if (bmpFH.type == ('B' + 256 * 'M') && bmpIH.compression == Utils::BITMAPCOMPRESSION_RGB &&
                 bmpIH.planes == 1 && bmpIH.bitCount == 16 &&
-                fileData.second == (headerSize + bmpIH.width * bmpIH.height * 2))
+                fileData.size() == (headerSize + bmpIH.width * bmpIH.height * 2))
             {
                 rawPixelBox =
                     Ogre::PixelBox(bmpIH.width, bmpIH.height, 1, Ogre::PF_SHORT_L, dataPtr + headerSize);
@@ -95,7 +95,7 @@ bool HeightfieldFileDecoderImageBase::decode(HeightfieldBuffer* outBuffer, const
         {
             string splitFileName, splitExtension;
             Ogre::StringUtil::splitBaseFilename(fileName, splitFileName, splitExtension);
-            Ogre::DataStreamPtr stream(new Ogre::MemoryDataStream(fileData.first, fileData.second));
+            Ogre::DataStreamPtr stream(new Ogre::MemoryDataStream(fileData.data(), fileData.size()));
 
             try
             {
@@ -113,16 +113,12 @@ bool HeightfieldFileDecoderImageBase::decode(HeightfieldBuffer* outBuffer, const
 
             outBuffer->updateFrom(rawPixelBox);
 
-            delete fileData.first;
-
             return true;
         }
         else if (error)
         {
             *error = _T("File could not be decoded succesfully");
         }
-
-        delete fileData.first;
     }
     else if (error)
     {

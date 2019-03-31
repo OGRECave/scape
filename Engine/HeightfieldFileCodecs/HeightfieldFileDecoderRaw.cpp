@@ -139,19 +139,17 @@ bool HeightfieldFileDecoderRaw::decode(HeightfieldBuffer* outBuffer, const strin
 
     if (pixelFormat != Ogre::PF_UNKNOWN)
     {
-        std::pair<void*, size_t> fileData = Utils::readBinaryFile(fileName);
-        if (fileData.first)
+        std::vector<char> fileData = Utils::readBinaryFile(fileName);
+        if (fileData.size() > 0)
         {
             size_t byteCount = Ogre::PixelUtil::getMemorySize(mWidth, mHeight, 1, pixelFormat);
-            if (byteCount <= fileData.second)
+            if (byteCount <= fileData.size())
             {
-                Ogre::PixelBox rawPixelBox(mWidth, mHeight, 1, pixelFormat, fileData.first);
+                Ogre::PixelBox rawPixelBox(mWidth, mHeight, 1, pixelFormat, fileData.data());
 
                 decode(&rawPixelBox, mFlipX, mFlipY, mBigEndian, NULL);
 
                 outBuffer->updateFrom(rawPixelBox);
-
-                delete fileData.first;
 
                 return true;
             }

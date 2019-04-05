@@ -281,6 +281,11 @@ void MainWindow::populateMainMenu()
     menuFile->addAction(actExportImage);
     menuFile->addSeparator();
     menuFile->addAction(actExit);
+
+    menuSettings = new QMenu(tr("Settings"), ui->mMenuBar);
+    menuSettings->setObjectName(QString::fromUtf8("menuSettings"));
+    ui->mMenuBar->addAction(menuSettings->menuAction());
+
     menuHelp = new QMenu(tr("Help"), ui->mMenuBar);
     menuHelp->setObjectName(QString::fromUtf8("menuHelp"));
     ui->mMenuBar->addAction(menuHelp->menuAction());

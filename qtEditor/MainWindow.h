@@ -76,6 +76,7 @@ private:
     void openExportImageDialog();
 
     QMenu* menuFile;
+    QMenu* menuSettings;
     QMenu* menuHelp;
     QDockWidget* mPropertiesDockWidget;
     PropertiesWidget* mPropertiesWidget;

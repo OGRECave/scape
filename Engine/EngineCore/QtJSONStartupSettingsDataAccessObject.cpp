@@ -103,4 +103,87 @@ const StartupSettings QtJSONStartupSettingsDataAccessObject::getStartupSettings(
 
     return ret;
 }
+
+void QtJSONStartupSettingsDataAccessObject::updateStartupSettings(const StartupSettings& startupSettings)
+{
+    Ogre::LogManager::getSingleton().logMessage("QtJSONStartupSettingsDataAccessObject: Writing JSON to " +
+                                                mFileName + "...");
+
+    std::ifstream ifp;
+    ifp.open(mFileName.c_str(), std::ios::in | std::ios::binary);
+
+    std::vector<char> inBuf;
+
+    if (ifp)
+    {
+        inBuf = std::vector<char>(std::istreambuf_iterator<char>(ifp), std::istreambuf_iterator<char>());
+        ifp.close();
+    }
+
+    QJsonParseError errorStruct;
+    errorStruct.error = QJsonParseError::NoError;
+
+    QJsonDocument jsonDoc;
+
+    if (inBuf.size() > 0)
+    {
+        jsonDoc = QJsonDocument::fromJson(QByteArray(inBuf.data(), inBuf.size()), &errorStruct);
+    }
+    else
+    {
+        jsonDoc = QJsonDocument(QJsonObject());
+    }
+
+    if (errorStruct.error != QJsonParseError::NoError)
+    {
+        Ogre::LogManager::getSingleton().logMessage(
+            "QtJSONStartupSettingsDataAccessObject: Error while reading JSON from " + mFileName + ": " +
+            errorStruct.errorString().toStdString());
+    }
+    else
+    {
+        if (jsonDoc.isObject())
+        {
+            QJsonObject rootObject = jsonDoc.object();
+
+            QJsonObject::iterator it = rootObject.find(QString("Startup"));
+            if (it != rootObject.end())
+            {
+                rootObject.erase(it);
+            }
+
+            QJsonObject startupObject = QJsonObject();
+
+            QJsonObject heightfieldObject = QJsonObject();
+
+            heightfieldObject.insert(QString("rows"), startupSettings.getHeightfieldRows());
+
+            heightfieldObject.insert(QString("columns"), startupSettings.getHeightfieldColumns());
+
+            heightfieldObject.insert(QString("height"), startupSettings.getHeightfieldHeight());
+
+            startupObject.insert(QString("Heightfield"), heightfieldObject);
+
+            rootObject.insert(QString("Startup"), startupObject);
+
+            jsonDoc = QJsonDocument(rootObject);
+        }
+    }
+
+    std::ofstream ofp;
+    ofp.open(mFileName.c_str(), std::ios::out | std::ios::binary | std::ios::trunc);
+
+    if (ofp)
+    {
+        QByteArray outData = jsonDoc.toJson();
+        ofp.write(outData.data(), outData.size());
+
+        ofp.close();
+    }
+    else
+    {
+        Ogre::LogManager::getSingleton().logMessage(
+            "QtJSONStartupSettingsDataAccessObject: Failed to write to file " + mFileName);
+    }
+}
 }

@@ -14,6 +14,7 @@ public:
     virtual ~StartupSettingsDataAccessObject();
 
     virtual const StartupSettings getStartupSettings() const = 0;
+    virtual void updateStartupSettings(const StartupSettings& startupSettings) = 0;
 
 protected:
     StartupSettingsDataAccessObject();

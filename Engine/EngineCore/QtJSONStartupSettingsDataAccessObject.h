@@ -17,6 +17,7 @@ public:
     virtual ~QtJSONStartupSettingsDataAccessObject();
 
     virtual const StartupSettings getStartupSettings() const;
+    virtual void updateStartupSettings(const StartupSettings& startupSettings);
 
 protected:
     std::string mFileName;

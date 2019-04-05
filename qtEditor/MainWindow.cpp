@@ -10,6 +10,7 @@
 #include "ImportImageDialog.h"
 #include "ExportImageDialog.h"
 #include "AboutDialog.h"
+#include "StartupSettingsDialog.h"
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QInputDialog>
@@ -657,6 +658,8 @@ void MainWindow::aboutApp()
 
 void MainWindow::startupSettings()
 {
+    StartupSettingsDialog dialog(this, mEngineInterface->getStartupSettingsDataAccessObject());
+    dialog.exec();
 }
 
 void MainWindow::exitApp() { close(); }

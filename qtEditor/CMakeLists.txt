@@ -18,6 +18,7 @@ set(SRC_FILES
 ./main.cpp
 ./MainWindow.cpp
 ./OgreWidget.cpp
+./StartupSettingsDialog.cpp
 ./AboutDialog.cpp
 ./PropertiesWidget.cpp
 ./PresetsWidget.cpp
@@ -30,6 +31,7 @@ set(SRC_FILES
 set(HEADER_FILES
 ./MainWindow.h
 ./OgreWidget.h
+./StartupSettingsDialog.h
 ./AboutDialog.h
 ./PropertiesWidget.h
 ./PresetsWidget.h

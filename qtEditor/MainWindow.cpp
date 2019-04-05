@@ -85,6 +85,9 @@ void MainWindow::createActions()
     actExportImage->setStatusTip(tr("Export heightmap image"));
     actExportImage->setIcon(QIcon(":/icons/export"));
 
+    actStartupSettings = new QAction(tr("Startup settings"), this);
+    actStartupSettings->setStatusTip(tr("Startup settings"));
+
     actPencilEraserGPU = new QAction(tr("Pencil/Eraser GPU"), this);
     actPencilEraserGPU->setStatusTip(tr("Pencil/Eraser GPU"));
     actPencilEraserGPU->setIcon(QIcon(":/icons/pencil"));
@@ -183,6 +186,7 @@ void MainWindow::createActions()
 void MainWindow::connectActions()
 {
     connect(actExit, SIGNAL(triggered()), this, SLOT(exitApp()));
+    connect(actStartupSettings, SIGNAL(triggered()), this, SLOT(startupSettings()));
     connect(actAbout, SIGNAL(triggered()), this, SLOT(aboutApp()));
     connect(actImportImage, SIGNAL(triggered()), this, SLOT(importImage()));
     connect(actExportImage, SIGNAL(triggered()), this, SLOT(exportImage()));
@@ -285,6 +289,7 @@ void MainWindow::populateMainMenu()
     menuSettings = new QMenu(tr("Settings"), ui->mMenuBar);
     menuSettings->setObjectName(QString::fromUtf8("menuSettings"));
     ui->mMenuBar->addAction(menuSettings->menuAction());
+    menuSettings->addAction(actStartupSettings);
 
     menuHelp = new QMenu(tr("Help"), ui->mMenuBar);
     menuHelp->setObjectName(QString::fromUtf8("menuHelp"));
@@ -648,6 +653,10 @@ void MainWindow::aboutApp()
     AboutDialog dialog(this);
     if (dialog.exec() == QDialog::Accepted)
         return;
+}
+
+void MainWindow::startupSettings()
+{
 }
 
 void MainWindow::exitApp() { close(); }

@@ -98,6 +98,7 @@ class InputPointer;
 class Observer;
 class PointerState;
 class QtJSONButtonDefinitionDataAccesObject;
+class QtJSONFileHelper;
 class QtJSONHelper;
 class QtJSONSettingsDatasetDataAccessObject;
 class QtJSONStartupSettingsDataAccessObject;

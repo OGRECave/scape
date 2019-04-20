@@ -73,8 +73,8 @@ void EngineCore::initialize()
     mHeightfieldManager = new HeightfieldManager(*mStartupSettingsDataAccessObject);
 
     std::shared_ptr<ButtonDefinitionDataAccessObject> dao =
-        std::shared_ptr<ButtonDefinitionDataAccessObject>(new QtJSONButtonDefinitionDataAccesObject(
-            "config.json", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME));
+        std::shared_ptr<ButtonDefinitionDataAccessObject>(
+            new QtJSONButtonDefinitionDataAccesObject(mSettingsPath + "config.json"));
     getInputManager()->setButtonDefinitionDataAccessObject(dao);
     getInputManager()->loadButtonDefinitions();
 

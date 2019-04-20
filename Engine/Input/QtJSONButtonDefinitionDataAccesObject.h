@@ -7,20 +7,21 @@
 
 #include <string>
 
+#include "Utils/QtJSONFileHelper.h"
+
 namespace ScapeEngine
 {
 
 class QtJSONButtonDefinitionDataAccesObject : public ButtonDefinitionDataAccessObject
 {
-private:
-    std::string mFileName;
-    std::string mResourceGroupName;
-
 public:
-    QtJSONButtonDefinitionDataAccesObject(std::string fileName, std::string resourceGroupName);
+    QtJSONButtonDefinitionDataAccesObject(std::string fileName);
     virtual ~QtJSONButtonDefinitionDataAccesObject();
 
     virtual const ButtonDefinitions getButtonDefinitions() const;
+
+protected:
+    QtJSONFileHelper mFileHelper;
 };
 }
 

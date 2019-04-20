@@ -10,9 +10,8 @@
 namespace ScapeEngine
 {
 
-QtJSONButtonDefinitionDataAccesObject::QtJSONButtonDefinitionDataAccesObject(std::string fileName,
-                                                                             std::string resourceGroupName)
-    : mFileName(fileName), mResourceGroupName(resourceGroupName)
+QtJSONButtonDefinitionDataAccesObject::QtJSONButtonDefinitionDataAccesObject(std::string fileName)
+    : mFileHelper(fileName)
 {
 }
 
@@ -21,38 +20,13 @@ QtJSONButtonDefinitionDataAccesObject::~QtJSONButtonDefinitionDataAccesObject() 
 const ButtonDefinitionDataAccessObject::ButtonDefinitions
 QtJSONButtonDefinitionDataAccesObject::getButtonDefinitions() const
 {
-    Ogre::LogManager::getSingleton().logMessage(
-        "QtJSONButtonDefinitionDataAccesObject: Reading JSON from " + mFileName + "...");
-
     ButtonDefinitionDataAccessObject::ButtonDefinitions ret;
-
-    std::vector<char> contents;
-    Ogre::DataStreamPtr pStream =
-        Ogre::ResourceGroupManager::getSingleton().openResource(mFileName, mResourceGroupName);
-    size_t size = pStream->size();
-    if (size > 0)
-    {
-        contents.resize(size);
-        if (pStream->read(contents.data(), size) != size)
-        {
-            Ogre::LogManager::getSingleton().logMessage(
-                "QtJSONButtonDefinitionDataAccesObject: Failed to read JSON from " + mFileName);
-            return ret;
-        }
-    }
 
     QJsonParseError errorStruct;
     errorStruct.error = QJsonParseError::NoError;
 
-    QJsonDocument jsonDoc =
-        QJsonDocument::fromJson(QByteArray(contents.data(), contents.size()), &errorStruct);
-    if (errorStruct.error != QJsonParseError::NoError)
-    {
-        Ogre::LogManager::getSingleton().logMessage(
-            "QtJSONButtonDefinitionDataAccesObject: Error while reading JSON from " + mFileName + " : " +
-            errorStruct.errorString().toStdString());
-    }
-    else
+    QJsonDocument jsonDoc = mFileHelper.readJSONFile(errorStruct);
+    if (errorStruct.error == QJsonParseError::NoError)
     {
         if (jsonDoc.isObject())
         {

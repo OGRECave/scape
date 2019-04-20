@@ -9,6 +9,8 @@
 #include <vector>
 #include <QJsonObject>
 
+#include "Utils/QtJSONFileHelper.h"
+
 namespace ScapeEngine
 {
 
@@ -26,7 +28,7 @@ protected:
     static void recurseObjects(QJsonObject& parent, SettingsDataset::SectionMapStruct& root,
                                std::vector<std::string> path);
 
-    std::string mFileName;
+    QtJSONFileHelper mFileHelper;
 };
 }
 

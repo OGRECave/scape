@@ -9,7 +9,7 @@ namespace ScapeEngine
 {
 
 QtJSONSettingsDatasetDataAccessObject::QtJSONSettingsDatasetDataAccessObject(std::string fileName)
-    : mFileName(fileName)
+    : mFileHelper(fileName)
 {
 }
 
@@ -18,36 +18,13 @@ QtJSONSettingsDatasetDataAccessObject::~QtJSONSettingsDatasetDataAccessObject() 
 const SettingsDataset::SectionMapStruct
 QtJSONSettingsDatasetDataAccessObject::getSettingsDataset(const std::string& datasetName)
 {
-    Ogre::LogManager::getSingleton().logMessage(
-        "QtJSONSettingsDatasetDataAccessObject: Reading JSON from " + mFileName + "...");
-
     SettingsDataset::SectionMapStruct ret;
-
-    std::ifstream fp;
-    fp.open(mFileName.c_str(), std::ios::in | std::ios::binary);
-
-    if (!fp)
-    {
-        Ogre::LogManager::getSingleton().logMessage(
-            "QtJSONSettingsDatasetDataAccessObject: Failed to open file " + mFileName);
-        return ret;
-    }
-
-    std::vector<char> inBuf =
-        std::vector<char>(std::istreambuf_iterator<char>(fp), std::istreambuf_iterator<char>());
-    fp.close();
 
     QJsonParseError errorStruct;
     errorStruct.error = QJsonParseError::NoError;
 
-    QJsonDocument jsonDoc = QJsonDocument::fromJson(QByteArray(inBuf.data(), inBuf.size()), &errorStruct);
-    if (errorStruct.error != QJsonParseError::NoError)
-    {
-        Ogre::LogManager::getSingleton().logMessage(
-            "QtJSONSettingsDatasetDataAccessObject: Error while reading JSON from " + mFileName + ": " +
-            errorStruct.errorString().toStdString());
-    }
-    else
+    QJsonDocument jsonDoc = mFileHelper.readJSONFile(errorStruct);
+    if (errorStruct.error == QJsonParseError::NoError)
     {
         if (jsonDoc.isObject())
         {
@@ -71,41 +48,12 @@ QtJSONSettingsDatasetDataAccessObject::getSettingsDataset(const std::string& dat
 void QtJSONSettingsDatasetDataAccessObject::updateSettingsDataset(
     const SettingsDataset::SectionMapStruct& settingsDataset, const std::string& datasetName)
 {
-    Ogre::LogManager::getSingleton().logMessage("QtJSONSettingsDatasetDataAccessObject: Writing JSON to " +
-                                                mFileName + "...");
-
-    std::ifstream ifp;
-    ifp.open(mFileName.c_str(), std::ios::in | std::ios::binary);
-
-    std::vector<char> inBuf;
-
-    if (ifp)
-    {
-        inBuf = std::vector<char>(std::istreambuf_iterator<char>(ifp), std::istreambuf_iterator<char>());
-        ifp.close();
-    }
-
     QJsonParseError errorStruct;
     errorStruct.error = QJsonParseError::NoError;
 
-    QJsonDocument jsonDoc;
+    QJsonDocument jsonDoc = mFileHelper.readJSONFile(errorStruct);
 
-    if (inBuf.size() > 0)
-    {
-        jsonDoc = QJsonDocument::fromJson(QByteArray(inBuf.data(), inBuf.size()), &errorStruct);
-    }
-    else
-    {
-        jsonDoc = QJsonDocument(QJsonObject());
-    }
-
-    if (errorStruct.error != QJsonParseError::NoError)
-    {
-        Ogre::LogManager::getSingleton().logMessage(
-            "QtJSONSettingsDatasetDataAccessObject: Error while reading JSON from " + mFileName + ": " +
-            errorStruct.errorString().toStdString());
-    }
-    else
+    if (errorStruct.error == QJsonParseError::NoError)
     {
         if (jsonDoc.isObject())
         {
@@ -162,22 +110,7 @@ void QtJSONSettingsDatasetDataAccessObject::updateSettingsDataset(
 
             jsonDoc = QJsonDocument(rootObject);
         }
-    }
-
-    std::ofstream ofp;
-    ofp.open(mFileName.c_str(), std::ios::out | std::ios::binary | std::ios::trunc);
-
-    if (ofp)
-    {
-        QByteArray outData = jsonDoc.toJson();
-        ofp.write(outData.data(), outData.size());
-
-        ofp.close();
-    }
-    else
-    {
-        Ogre::LogManager::getSingleton().logMessage(
-            "QtJSONSettingsDatasetDataAccessObject: Failed to write to file " + mFileName);
+        mFileHelper.writeJSONFile(jsonDoc);
     }
 }
 

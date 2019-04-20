@@ -9,7 +9,7 @@ namespace ScapeEngine
 {
 
 QtJSONStartupSettingsDataAccessObject::QtJSONStartupSettingsDataAccessObject(std::string fileName)
-    : mFileName(fileName)
+    : mFileHelper(fileName)
 {
 }
 
@@ -17,81 +17,54 @@ QtJSONStartupSettingsDataAccessObject::~QtJSONStartupSettingsDataAccessObject() 
 
 const StartupSettings QtJSONStartupSettingsDataAccessObject::getStartupSettings() const
 {
-    Ogre::LogManager::getSingleton().logMessage(
-        "QtJSONStartupSettingsDataAccessObject: Reading JSON from " + mFileName + "...");
-
     StartupSettings ret;
 
-    std::ifstream fp;
-    fp.open(mFileName.c_str(), std::ios::in | std::ios::binary);
+    QJsonParseError errorStruct;
+    errorStruct.error = QJsonParseError::NoError;
 
-    if (!fp)
+    QJsonDocument jsonDoc = mFileHelper.readJSONFile(errorStruct);
+    if (errorStruct.error == QJsonParseError::NoError)
     {
-        Ogre::LogManager::getSingleton().logMessage(
-            "QtJSONSettingsDatasetDataAccessObject: Failed to open file " + mFileName);
-    }
-    else
-    {
-        std::vector<char> inBuf =
-            std::vector<char>(std::istreambuf_iterator<char>(fp), std::istreambuf_iterator<char>());
-        fp.close();
-
-        QJsonParseError errorStruct;
-        errorStruct.error = QJsonParseError::NoError;
-
-        QJsonDocument jsonDoc =
-            QJsonDocument::fromJson(QByteArray(inBuf.data(), inBuf.size()), &errorStruct);
-        if (errorStruct.error != QJsonParseError::NoError)
+        if (jsonDoc.isObject())
         {
-            Ogre::LogManager::getSingleton().logMessage(
-                "QtJSONSettingsDatasetDataAccessObject: Error while reading JSON from " + mFileName + ": " +
-                errorStruct.errorString().toStdString());
-        }
-        else
-        {
-            if (jsonDoc.isObject())
+            QJsonObject rootObject = jsonDoc.object();
+
+            if (rootObject.contains(QString("Startup")))
             {
-                QJsonObject rootObject = jsonDoc.object();
-
-                if (rootObject.contains(QString("Startup")))
+                QJsonValue startupValue = rootObject[QString("Startup")];
+                if (startupValue.isObject())
                 {
-                    QJsonValue startupValue = rootObject[QString("Startup")];
-                    if (startupValue.isObject())
+                    QJsonObject startupObject = startupValue.toObject();
+                    if (startupObject.contains(QString("Heightfield")))
                     {
-                        QJsonObject startupObject = startupValue.toObject();
-                        if (startupObject.contains(QString("Heightfield")))
+                        QJsonValue heightfieldValue = startupObject[QString("Heightfield")];
+                        if (heightfieldValue.isObject())
                         {
-                            QJsonValue heightfieldValue = startupObject[QString("Heightfield")];
-                            if (heightfieldValue.isObject())
+                            QJsonObject heightfieldObject = heightfieldValue.toObject();
+                            if (heightfieldObject.contains(QString("rows")))
                             {
-                                QJsonObject heightfieldObject = heightfieldValue.toObject();
-                                if (heightfieldObject.contains(QString("rows")))
+                                QJsonValue heightfieldRowsValue = heightfieldObject[QString("rows")];
+                                if (heightfieldRowsValue.isDouble())
                                 {
-                                    QJsonValue heightfieldRowsValue = heightfieldObject[QString("rows")];
-                                    if (heightfieldRowsValue.isDouble())
-                                    {
-                                        ret.setHeightfieldRows(heightfieldRowsValue.toInt(0));
-                                    }
+                                    ret.setHeightfieldRows(heightfieldRowsValue.toInt(0));
                                 }
+                            }
 
-                                if (heightfieldObject.contains(QString("columns")))
+                            if (heightfieldObject.contains(QString("columns")))
+                            {
+                                QJsonValue heightfieldColumnsValue = heightfieldObject[QString("columns")];
+                                if (heightfieldColumnsValue.isDouble())
                                 {
-                                    QJsonValue heightfieldColumnsValue =
-                                        heightfieldObject[QString("columns")];
-                                    if (heightfieldColumnsValue.isDouble())
-                                    {
-                                        ret.setHeightfieldColumns(heightfieldColumnsValue.toInt(0));
-                                    }
+                                    ret.setHeightfieldColumns(heightfieldColumnsValue.toInt(0));
                                 }
+                            }
 
-                                if (heightfieldObject.contains(QString("height")))
+                            if (heightfieldObject.contains(QString("height")))
+                            {
+                                QJsonValue heightfieldHeightValue = heightfieldObject[QString("height")];
+                                if (heightfieldHeightValue.isDouble())
                                 {
-                                    QJsonValue heightfieldHeightValue =
-                                        heightfieldObject[QString("height")];
-                                    if (heightfieldHeightValue.isDouble())
-                                    {
-                                        ret.setHeightfieldHeight(heightfieldHeightValue.toDouble(0));
-                                    }
+                                    ret.setHeightfieldHeight(heightfieldHeightValue.toDouble(0));
                                 }
                             }
                         }
@@ -106,41 +79,12 @@ const StartupSettings QtJSONStartupSettingsDataAccessObject::getStartupSettings(
 
 void QtJSONStartupSettingsDataAccessObject::updateStartupSettings(const StartupSettings& startupSettings)
 {
-    Ogre::LogManager::getSingleton().logMessage("QtJSONStartupSettingsDataAccessObject: Writing JSON to " +
-                                                mFileName + "...");
-
-    std::ifstream ifp;
-    ifp.open(mFileName.c_str(), std::ios::in | std::ios::binary);
-
-    std::vector<char> inBuf;
-
-    if (ifp)
-    {
-        inBuf = std::vector<char>(std::istreambuf_iterator<char>(ifp), std::istreambuf_iterator<char>());
-        ifp.close();
-    }
-
     QJsonParseError errorStruct;
     errorStruct.error = QJsonParseError::NoError;
 
-    QJsonDocument jsonDoc;
+    QJsonDocument jsonDoc = mFileHelper.readJSONFile(errorStruct);
 
-    if (inBuf.size() > 0)
-    {
-        jsonDoc = QJsonDocument::fromJson(QByteArray(inBuf.data(), inBuf.size()), &errorStruct);
-    }
-    else
-    {
-        jsonDoc = QJsonDocument(QJsonObject());
-    }
-
-    if (errorStruct.error != QJsonParseError::NoError)
-    {
-        Ogre::LogManager::getSingleton().logMessage(
-            "QtJSONStartupSettingsDataAccessObject: Error while reading JSON from " + mFileName + ": " +
-            errorStruct.errorString().toStdString());
-    }
-    else
+    if (errorStruct.error == QJsonParseError::NoError)
     {
         if (jsonDoc.isObject())
         {
@@ -168,22 +112,7 @@ void QtJSONStartupSettingsDataAccessObject::updateStartupSettings(const StartupS
 
             jsonDoc = QJsonDocument(rootObject);
         }
-    }
-
-    std::ofstream ofp;
-    ofp.open(mFileName.c_str(), std::ios::out | std::ios::binary | std::ios::trunc);
-
-    if (ofp)
-    {
-        QByteArray outData = jsonDoc.toJson();
-        ofp.write(outData.data(), outData.size());
-
-        ofp.close();
-    }
-    else
-    {
-        Ogre::LogManager::getSingleton().logMessage(
-            "QtJSONStartupSettingsDataAccessObject: Failed to write to file " + mFileName);
+        mFileHelper.writeJSONFile(jsonDoc);
     }
 }
 }

@@ -7,6 +7,8 @@
 
 #include <string>
 
+#include "Utils/QtJSONFileHelper.h"
+
 namespace ScapeEngine
 {
 
@@ -20,7 +22,7 @@ public:
     virtual void updateStartupSettings(const StartupSettings& startupSettings);
 
 protected:
-    std::string mFileName;
+    QtJSONFileHelper mFileHelper;
 };
 }
 

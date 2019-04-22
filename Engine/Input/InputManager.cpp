@@ -143,7 +143,7 @@ void InputManager::onDeviceButtonPressed(DeviceButtonId::EDeviceButtonId deviceB
         if (!mButtons[defIt->mButtonId]->mPressed)
         {
             bool pressed = true;
-            for (ButtonDefinition::DeviceButtonList::const_iterator defDeviceButtonIt =
+            for (ButtonDefinition::DeviceButtonSet::const_iterator defDeviceButtonIt =
                      defIt->mDeviceButtons.begin();
                  defDeviceButtonIt != defIt->mDeviceButtons.end(); ++defDeviceButtonIt)
             {
@@ -182,7 +182,7 @@ void InputManager::onDeviceButtonReleased(DeviceButtonId::EDeviceButtonId device
         Button* button = mButtons[defIt->mButtonId];
         if (button->mPressed)
         {
-            for (ButtonDefinition::DeviceButtonList::const_iterator defDeviceButtonIt =
+            for (ButtonDefinition::DeviceButtonSet::const_iterator defDeviceButtonIt =
                      defIt->mDeviceButtons.begin();
                  defDeviceButtonIt != defIt->mDeviceButtons.end(); ++defDeviceButtonIt)
             {

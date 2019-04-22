@@ -14,5 +14,5 @@ ButtonDefinition::ButtonDefinition(ButtonId::EButtonId buttonId, int priority)
 
 void ButtonDefinition::addDeviceButton(DeviceButtonId::EDeviceButtonId buttonId)
 {
-    mDeviceButtons.push_front(buttonId);
+    mDeviceButtons.insert(buttonId);
 }

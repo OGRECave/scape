@@ -13,7 +13,7 @@
 
 #include "ScapeEnginePrerequisites.h"
 
-#include <list>
+#include <unordered_set>
 
 #include "ButtonId.h"
 #include "DeviceButtonId.h"
@@ -40,10 +40,10 @@ protected:
     int mPriority;
 
     // Device button ordered container type
-    typedef std::list<DeviceButtonId::EDeviceButtonId> DeviceButtonList;
+    typedef std::unordered_set<DeviceButtonId::EDeviceButtonId> DeviceButtonSet;
 
     // Device button container
-    DeviceButtonList mDeviceButtons;
+    DeviceButtonSet mDeviceButtons;
 };
 }
 

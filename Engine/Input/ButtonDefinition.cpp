@@ -3,7 +3,6 @@
  */
 
 #include "ScapeEngineStableHeaders.h"
-//#include "DeviceButton.h"
 #include "ButtonDefinition.h"
 
 using namespace ScapeEngine;

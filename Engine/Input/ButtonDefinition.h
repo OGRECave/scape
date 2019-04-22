@@ -16,7 +16,6 @@
 #include <list>
 
 #include "ButtonId.h"
-#include "AnalogInputId.h"
 #include "DeviceButtonId.h"
 
 namespace ScapeEngine

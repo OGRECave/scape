@@ -23,9 +23,6 @@ namespace ScapeEngine
 
 class ButtonDefinition
 {
-
-    friend InputManager;
-
 public:
     // Device button ordered container type
     typedef std::unordered_set<DeviceButtonId::EDeviceButtonId> DeviceButtonSet;

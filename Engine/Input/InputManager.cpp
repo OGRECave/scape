@@ -48,10 +48,10 @@ void InputManager::attachToWindow(InputListener* input)
 
 void InputManager::addButtonDefinition(const ButtonDefinition& buttonDefinition)
 {
-    if (!buttonDefinition.mDeviceButtons.empty())
+    if (!buttonDefinition.getDeviceButtons().empty())
     {
         mButtonDefinitions.push_front(buttonDefinition);
-        getButton(buttonDefinition.mButtonId); // make sure it exists
+        getButton(buttonDefinition.getButtonId()); // make sure it exists
     }
 }
 
@@ -121,7 +121,7 @@ void InputManager::loadButtonDefinitions()
              it != def.end(); it++)
         {
             addButtonDefinition(*it);
-            getButton(it->mButtonId)->setPriority(it->mPriority);
+            getButton(it->getButtonId())->setPriority(it->getPriority());
         }
     }
 }
@@ -140,12 +140,12 @@ void InputManager::onDeviceButtonPressed(DeviceButtonId::EDeviceButtonId deviceB
     for (ButtonDefinitions::iterator defIt = mButtonDefinitions.begin(); defIt != mButtonDefinitions.end();
          ++defIt)
     {
-        if (!mButtons[defIt->mButtonId]->mPressed)
+        if (!mButtons[defIt->getButtonId()]->mPressed)
         {
             bool pressed = true;
             for (ButtonDefinition::DeviceButtonSet::const_iterator defDeviceButtonIt =
-                     defIt->mDeviceButtons.begin();
-                 defDeviceButtonIt != defIt->mDeviceButtons.end(); ++defDeviceButtonIt)
+                     defIt->getDeviceButtons().begin();
+                 defDeviceButtonIt != defIt->getDeviceButtons().end(); ++defDeviceButtonIt)
             {
                 if (!mInputListener->isDeviceButtonPressed(*defDeviceButtonIt))
                 {
@@ -156,10 +156,10 @@ void InputManager::onDeviceButtonPressed(DeviceButtonId::EDeviceButtonId deviceB
 
             if (pressed)
             {
-                Button* button = mButtons[defIt->mButtonId];
+                Button* button = mButtons[defIt->getButtonId()];
                 button->mPressed = true;
                 button->mJustPressed = true;
-                button->mOrdered = deviceButton == *defIt->mDeviceButtons.begin();
+                button->mOrdered = deviceButton == *defIt->getDeviceButtons().begin();
 
                 ++mNumButtonsPressed;
 
@@ -179,12 +179,12 @@ void InputManager::onDeviceButtonReleased(DeviceButtonId::EDeviceButtonId device
     for (ButtonDefinitions::iterator defIt = mButtonDefinitions.begin(); defIt != mButtonDefinitions.end();
          ++defIt)
     {
-        Button* button = mButtons[defIt->mButtonId];
+        Button* button = mButtons[defIt->getButtonId()];
         if (button->mPressed)
         {
             for (ButtonDefinition::DeviceButtonSet::const_iterator defDeviceButtonIt =
-                     defIt->mDeviceButtons.begin();
-                 defDeviceButtonIt != defIt->mDeviceButtons.end(); ++defDeviceButtonIt)
+                     defIt->getDeviceButtons().begin();
+                 defDeviceButtonIt != defIt->getDeviceButtons().end(); ++defDeviceButtonIt)
             {
                 if (deviceButton == *defDeviceButtonIt)
                 {

@@ -27,6 +27,9 @@ class ButtonDefinition
     friend InputManager;
 
 public:
+    // Device button ordered container type
+    typedef std::unordered_set<DeviceButtonId::EDeviceButtonId> DeviceButtonSet;
+
     // Construct a new definition of the given button identifier
     ButtonDefinition(ButtonId::EButtonId buttonId, int priority);
 
@@ -38,9 +41,6 @@ protected:
     ButtonId::EButtonId mButtonId;
 
     int mPriority;
-
-    // Device button ordered container type
-    typedef std::unordered_set<DeviceButtonId::EDeviceButtonId> DeviceButtonSet;
 
     // Device button container
     DeviceButtonSet mDeviceButtons;

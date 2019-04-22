@@ -12,22 +12,3 @@ ButtonDefinition::ButtonDefinition(ButtonId::EButtonId buttonId, int priority)
     : mButtonId(buttonId), mPriority(priority)
 {
 }
-
-#if 0
-ButtonDefinition::ButtonDefinition(ButtonId::EButtonId buttonId) 
-{
-	mButtonId = buttonId;
-}
-
-
-void ButtonDefinition::addDeviceButton(OIS::MouseButtonID buttonId) 
-{
-	mDeviceButtons.push_front(DeviceButton(buttonId));
-}
-
-
-void ButtonDefinition::addDeviceButton(OIS::KeyCode keyCode) 
-{
-	mDeviceButtons.push_front(DeviceButton(keyCode));
-}
-#endif

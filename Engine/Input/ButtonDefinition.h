@@ -21,7 +21,6 @@
 namespace ScapeEngine
 {
 
-
 class ButtonDefinition
 {
 
@@ -32,7 +31,7 @@ public:
     ButtonDefinition(ButtonId::EButtonId buttonId, int priority);
 
     // Add a device button button to this definition
-    void addDeviceButton(DeviceButtonId::EDeviceButtonId buttonId) { mDeviceButtons.push_front(buttonId); }
+    void addDeviceButton(DeviceButtonId::EDeviceButtonId buttonId);
 
 protected:
     // Identifier of defined button

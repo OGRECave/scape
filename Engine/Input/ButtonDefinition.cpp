@@ -11,3 +11,8 @@ ButtonDefinition::ButtonDefinition(ButtonId::EButtonId buttonId, int priority)
     : mButtonId(buttonId), mPriority(priority)
 {
 }
+
+void ButtonDefinition::addDeviceButton(DeviceButtonId::EDeviceButtonId buttonId)
+{
+    mDeviceButtons.push_front(buttonId);
+}

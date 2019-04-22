@@ -12,6 +12,15 @@ ButtonDefinition::ButtonDefinition(ButtonId::EButtonId buttonId, int priority)
 {
 }
 
+ButtonId::EButtonId ButtonDefinition::getButtonId() const { return mButtonId; }
+
+int ButtonDefinition::getPriority() const { return mPriority; }
+
+const ButtonDefinition::DeviceButtonSet& ButtonDefinition::getDeviceButtons() const
+{
+    return mDeviceButtons;
+}
+
 void ButtonDefinition::addDeviceButton(DeviceButtonId::EDeviceButtonId buttonId)
 {
     mDeviceButtons.insert(buttonId);

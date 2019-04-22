@@ -33,6 +33,12 @@ public:
     // Construct a new definition of the given button identifier
     ButtonDefinition(ButtonId::EButtonId buttonId, int priority);
 
+    ButtonId::EButtonId getButtonId() const;
+
+    int getPriority() const;
+
+    const DeviceButtonSet& getDeviceButtons() const;
+
     // Add a device button button to this definition
     void addDeviceButton(DeviceButtonId::EDeviceButtonId buttonId);
 

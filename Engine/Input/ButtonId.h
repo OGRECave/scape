@@ -25,16 +25,16 @@ enum EButtonId
 };
 #undef ENUMID
 
-std::map<EButtonId, std::string> getButtonIdMap();
+std::map<EButtonId, std::string> _ScapeEngineExport getButtonIdMap();
 
 // Find the ButtonId from the upper-case name. Returns BUTTONID_UNKNOWN otherwise
-EButtonId getButtonIdFromUpperName(const string& buttonName);
+EButtonId _ScapeEngineExport getButtonIdFromUpperName(const string& buttonName);
 
 // Find the ButtonId from the case-insensitive name. Returns BUTTONID_UNKNOWN otherwise
-EButtonId getButtonIdFromName(const string& buttonName);
+EButtonId _ScapeEngineExport getButtonIdFromName(const string& buttonName);
 
 // Get the upper-case string of the ButtonId.
-string getButtonIdToUpperName(EButtonId button);
+string _ScapeEngineExport getButtonIdToUpperName(EButtonId button);
 }
 }
 

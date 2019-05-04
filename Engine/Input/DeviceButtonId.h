@@ -45,16 +45,16 @@ enum EDeviceId
 };
 }
 
-std::map<EDeviceButtonId, std::string> getDeviceButtonIdMap();
+std::map<EDeviceButtonId, std::string> _ScapeEngineExport getDeviceButtonIdMap();
 
 // Find the DeviceButtonId from the upper-case name. Returns DEVICEBUTTONID_UNKNOWN otherwise
-EDeviceButtonId getDeviceButtonIdFromUpperName(const string& buttonName);
+EDeviceButtonId _ScapeEngineExport getDeviceButtonIdFromUpperName(const string& buttonName);
 
 // Find the DeviceButtonId from the case-insensitive name. Returns DEVICEBUTTONID_UNKNOWN otherwise
-EDeviceButtonId getDeviceButtonIdFromName(const string& buttonName);
+EDeviceButtonId _ScapeEngineExport getDeviceButtonIdFromName(const string& buttonName);
 
 // Get the upper-case string of the DeviceButtonId.
-string getDeviceButtonIdToUpperName(EDeviceButtonId button);
+string _ScapeEngineExport getDeviceButtonIdToUpperName(EDeviceButtonId button);
 }
 }
 

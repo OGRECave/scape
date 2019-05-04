@@ -21,7 +21,7 @@
 namespace ScapeEngine
 {
 
-class ButtonDefinition
+class _ScapeEngineExport ButtonDefinition
 {
 public:
     // Device button ordered container type

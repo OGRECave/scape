@@ -45,6 +45,8 @@ enum EDeviceId
 };
 }
 
+std::map<EDeviceButtonId, std::string> getDeviceButtonIdMap();
+
 // Find the DeviceButtonId from the upper-case name. Returns DEVICEBUTTONID_UNKNOWN otherwise
 EDeviceButtonId getDeviceButtonIdFromUpperName(const string& buttonName);
 

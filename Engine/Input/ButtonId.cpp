@@ -9,6 +9,28 @@
 
 using namespace ScapeEngine;
 
+std::map<ButtonId::EButtonId, std::string> ButtonId::getButtonIdMap()
+{
+    static std::map<EButtonId, string> table;
+    if (table.empty())
+    {
+#define ENUMID(a)                                                                                          \
+    {                                                                                                      \
+        string name(#a);                                                                                   \
+        std::transform(name.begin(), name.end(), name.begin(), toupper);                                   \
+        table[a] = name;                                                                                   \
+    }
+#define ENUM_OIS_KEYBOARD(a) a
+#define ENUM_OIS_MOUSE(a) a
+#include "ButtonId.def"
+#undef ENUMID
+#undef ENUM_OIS_KEYBOARD
+#undef ENUM_OIS_MOUSE
+    }
+
+    return table;
+}
+
 ButtonId::EButtonId ButtonId::getButtonIdFromUpperName(const string& buttonName)
 {
 #define ENUMID(a)                                                                                          \

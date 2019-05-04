@@ -25,6 +25,8 @@ enum EButtonId
 };
 #undef ENUMID
 
+std::map<EButtonId, std::string> getButtonIdMap();
+
 // Find the ButtonId from the upper-case name. Returns BUTTONID_UNKNOWN otherwise
 EButtonId getButtonIdFromUpperName(const string& buttonName);
 

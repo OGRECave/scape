@@ -125,6 +125,8 @@ public:
 
     StartupSettingsDataAccessObject& getStartupSettingsDataAccessObject() const;
 
+    ButtonDefinitionDataAccessObject& getButtonDefinitionDataAccessObject() const;
+
 protected:
     UIElementContainer* getUIElementContainer(EScapeUIElementGroupId scapeGroupId,
                                               const std::string& elementName);

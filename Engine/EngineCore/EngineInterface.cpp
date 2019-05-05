@@ -505,3 +505,8 @@ StartupSettingsDataAccessObject& EngineInterface::getStartupSettingsDataAccessOb
 {
     return getEngineCore()->getStartupSettingsDataAccessObject();
 }
+
+ButtonDefinitionDataAccessObject& EngineInterface::getButtonDefinitionDataAccessObject() const
+{
+    return *getEngineCore()->getInputManager()->getButtonDefinitionDataAccessObject();
+}

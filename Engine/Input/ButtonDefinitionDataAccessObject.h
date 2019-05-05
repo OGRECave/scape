@@ -8,8 +8,7 @@
 namespace ScapeEngine
 {
 
-
-class ButtonDefinitionDataAccessObject
+class _ScapeEngineExport ButtonDefinitionDataAccessObject
 {
 public:
     typedef std::vector<ButtonDefinition> ButtonDefinitions;

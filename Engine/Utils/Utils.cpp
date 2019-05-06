@@ -122,18 +122,10 @@ bool Utils::bindShaderCustomAutoConstant(Ogre::Technique* technique, size_t cons
                     return true;
                 }
             }
-            const Ogre::GpuConstantDefinition* definition =
-                params->_findNamedConstantDefinition(constantName, false);
-            if (definition)
+            if (params->_findNamedConstantDefinition(constantName, false))
             {
-                // GDC port
-                // before: params->_setRawAutoConstant(definition->physicalIndex,
-                // Ogre::GpuProgramParameters::ACT_CUSTOM, constantIndex, definition->elementSize);
-                size_t physicalIndex = params->_getFloatConstantPhysicalIndex(
-                    definition->logicalIndex, definition->elementSize, Ogre::GPV_PER_OBJECT);
-                params->_setRawAutoConstant(physicalIndex, Ogre::GpuProgramParameters::ACT_CUSTOM,
-                                            constantIndex, Ogre::GPV_PER_OBJECT, definition->elementSize);
-
+                params->setNamedAutoConstant(constantName, Ogre::GpuProgramParameters::ACT_CUSTOM,
+                                             constantIndex);
                 return true;
             }
         }
@@ -152,18 +144,10 @@ bool Utils::bindShaderCustomAutoConstant(Ogre::Technique* technique, size_t cons
                     return true;
                 }
             }
-            const Ogre::GpuConstantDefinition* definition =
-                params->_findNamedConstantDefinition(constantName, false);
-            if (definition)
+            if (params->_findNamedConstantDefinition(constantName, false))
             {
-                // GDC port
-                // before: params->_setRawAutoConstant(definition->physicalIndex,
-                // Ogre::GpuProgramParameters::ACT_CUSTOM, constantIndex, definition->elementSize);
-                size_t physicalIndex = params->_getFloatConstantPhysicalIndex(
-                    definition->logicalIndex, definition->elementSize, Ogre::GPV_PER_OBJECT);
-                params->_setRawAutoConstant(physicalIndex, Ogre::GpuProgramParameters::ACT_CUSTOM,
-                                            constantIndex, Ogre::GPV_PER_OBJECT, definition->elementSize);
-
+                params->setNamedAutoConstant(constantName, Ogre::GpuProgramParameters::ACT_CUSTOM,
+                                             constantIndex);
                 return true;
             }
         }

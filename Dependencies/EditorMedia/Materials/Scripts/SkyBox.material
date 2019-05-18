@@ -3,7 +3,21 @@
  * Licensed under the Simplified BSD license. 
  * See Docs/ScapeLicense.txt for details.
  */
- 
+
+vertex_program SkyBoxCg/VP cg
+{
+	source SkyBox.cg
+	entry_point main_vp
+	profiles vs_4_0 vs_3_0 vp40 glslv
+}
+
+fragment_program SkyBoxCg/FP cg
+{
+	source SkyBox.cg
+	entry_point main_fp
+	profiles ps_4_0 ps_3_0 fp40 glslf
+}
+
 material SkyBox
 {
 	technique
@@ -12,6 +26,15 @@ material SkyBox
 		{
 			lighting off
 			depth_write off
+
+			vertex_program_ref SkyBoxCg/VP
+			{
+				param_named_auto worldViewProj worldviewproj_matrix
+			}
+
+			fragment_program_ref SkyBoxCg/FP
+			{
+			}
 
 			texture_unit tuCube
 			{

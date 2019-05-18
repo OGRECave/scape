@@ -1,0 +1,17 @@
+void main_vp(float4 position : POSITION,
+             float3 uv : TEXCOORD0,
+             out float4 oPosition : POSITION,
+             out float3 oUv : TEXCOORD0,
+             uniform float4x4 worldViewProj)
+{
+    oPosition = mul(worldViewProj, position);
+    oUv = uv;
+}
+
+void main_fp(float4 position : POSITION,
+             float3 uv : TEXCOORD0,
+             out float4 color : COLOR,
+             uniform samplerCUBE texMap)
+{
+    color = textureCube(texMap, uv);
+}

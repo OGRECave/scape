@@ -12,8 +12,6 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
-add_subdirectory(${CMAKE_SOURCE_DIR}/Dependencies/QtPropertyBrowser QtPropertyBrowser)
-
 set(SRC_FILES
 ./main.cpp
 ./MainWindow.cpp
@@ -54,8 +52,7 @@ add_executable(qtEditor WIN32
     ${RESOURCE_SRCS}
 )
 
-target_include_directories(qtEditor PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
-    ${CMAKE_SOURCE_DIR}/Dependencies/QtPropertyBrowser/src)
+target_include_directories(qtEditor PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 if(WIN32)
     set_target_properties(qtEditor PROPERTIES DEBUG_POSTFIX _d)
@@ -68,6 +65,5 @@ target_link_libraries(qtEditor
     Qt5::Core
     Qt5::Widgets
     Engine
-    QtPropertyBrowser
 )
 

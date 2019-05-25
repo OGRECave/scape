@@ -2,8 +2,12 @@
 #define PROPERTIESWIDGET_H
 
 #include <QWidget>
-#include <qttreepropertybrowser.h>
-#include <qtvariantproperty.h>
+
+#include "ui_propertieswidget.h"
+
+#include <QTreeView>
+#include <QStandardItemModel>
+#include <QStandardItem>
 #include <string>
 #include <list>
 #include <map>
@@ -19,7 +23,7 @@ struct UIElementPropertyGridItem
 
 typedef std::list<UIElementPropertyGridItem> UIElementPropertyGridItemList;
 
-class PropertiesWidget : public QtTreePropertyBrowser
+class PropertiesWidget : public QWidget
 {
     Q_OBJECT;
 
@@ -33,7 +37,7 @@ public:
     void setValue(const std::string& key, const std::string& value);
 
 private slots:
-    void valueChanged(QtProperty * property, const QVariant & value);
+    void itemChanged(QStandardItem* item);
 
 signals:
     void propertyValueChanged(const std::string& key, const std::string& value);
@@ -43,8 +47,10 @@ protected:
     static std::string convertQColorToInternalColor(const QColor qColor);
 
 private:
-    QtVariantPropertyManager* mPropertyManager;
-    std::map<QtProperty*, UIElementPropertyGridItem> mPropertyToItem;
+    Ui::PropertiesWidget* mPropertiesWidgetUI;
+
+    QStandardItemModel* mItemModel;
+    std::map<QStandardItem*, UIElementPropertyGridItem> mPropertyToItem;
 };
 
 #endif // PROPERTIESWIDGET_H

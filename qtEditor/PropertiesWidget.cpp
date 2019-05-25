@@ -3,26 +3,38 @@
 #include <OgreString.h>
 #include <OgreStringConverter.h>
 
-PropertiesWidget::PropertiesWidget(QWidget* parent) : QtTreePropertyBrowser(parent), mPropertyManager(NULL)
+#include <QList>
+
+PropertiesWidget::PropertiesWidget(QWidget* parent) : QWidget(parent)
 {
-    mPropertyManager = new QtVariantPropertyManager(this);
-    connect(mPropertyManager, SIGNAL(valueChanged(QtProperty *, const QVariant &)),
-                        this, SLOT(valueChanged(QtProperty *, const QVariant &)));
+    mPropertiesWidgetUI = new Ui::PropertiesWidget();
+    mPropertiesWidgetUI->setupUi(this);
+
+    mItemModel = new QStandardItemModel();
+    mItemModel->setColumnCount(2);
+    mItemModel->setHeaderData(0, Qt::Horizontal, "Property");
+    mItemModel->setHeaderData(1, Qt::Horizontal, "Value");
+
+    mPropertiesWidgetUI->propertiesTreeView->setModel(mItemModel);
+
+    connect(mItemModel, SIGNAL(itemChanged(QStandardItem*)), this, SLOT(itemChanged(QStandardItem*)));
 }
 
-PropertiesWidget::~PropertiesWidget()
-{
-    delete mPropertyManager;
-}
+PropertiesWidget::~PropertiesWidget() { delete mPropertiesWidgetUI; }
 
 void PropertiesWidget::populate(const UIElementPropertyGridItemList& itemList,
                                 const std::map<std::string, std::string>& valueMap)
 {
-    clear();
-    mPropertyManager->clear();
     mPropertyToItem.clear();
 
-    std::map<std::string, QtProperty*> categoryItems;
+    mItemModel->clear();
+    mItemModel->setColumnCount(2);
+    mItemModel->setHeaderData(0, Qt::Horizontal, "Property");
+    mItemModel->setHeaderData(1, Qt::Horizontal, "Value");
+
+    QStandardItem* rootItem = mItemModel->invisibleRootItem();
+
+    std::map<std::string, QStandardItem*> categoryItems;
 
     UIElementPropertyGridItemList::const_iterator itemIt, itemItEnd = itemList.end();
     for (itemIt = itemList.begin(); itemIt != itemItEnd; ++itemIt)
@@ -37,51 +49,36 @@ void PropertiesWidget::populate(const UIElementPropertyGridItemList& itemList,
             categoryName = "General";
         }
 
-        QtProperty* parent = NULL;
+        QStandardItem* parent = NULL;
 
-        std::map<std::string, QtProperty*>::const_iterator categoryItemIt =
+        std::map<std::string, QStandardItem*>::const_iterator categoryItemIt =
             categoryItems.find(categoryName);
         if (categoryItemIt == categoryItems.end())
         {
-            QtProperty* topItem = mPropertyManager->addProperty(QtVariantPropertyManager::groupTypeId(),
-                                                                QString(categoryName.c_str()));
-            categoryItems[categoryName] = topItem;
-            parent = topItem;
+            QList<QStandardItem*> categoryListItems;
+
+            QStandardItem* nameItem = new QStandardItem();
+            nameItem->setData(QString(categoryName.c_str()), Qt::DisplayRole);
+            nameItem->setEditable(false);
+
+            QStandardItem* dummyItem = new QStandardItem();
+            dummyItem->setData(QString(), Qt::DisplayRole);
+            dummyItem->setEditable(false);
+
+            categoryListItems << nameItem;
+            categoryListItems << dummyItem;
+
+            rootItem->appendRow(categoryListItems);
+
+            categoryItems[categoryName] = nameItem;
+            parent = nameItem;
         }
         else
         {
             parent = categoryItemIt->second;
         }
 
-        int qType;
-        if (type == "INT")
-        {
-            qType = QVariant::Int;
-        }
-        else if (type == "REAL")
-        {
-            qType = QVariant::Double;
-        }
-        else if (type == "BOOL")
-        {
-            qType = QVariant::Bool;
-        }
-        else if (type == "COLOR")
-        {
-            qType = QVariant::Color;
-        }
-        /*else if (type == "FILE")
-        {
-            // This part of the PropertyBrowser doesn't work!
-            qType = QtVariantPropertyManager::filePathTypeId();
-        }*/
-        else
-        {
-            qType = QVariant::String;
-        }
-
-        QtVariantProperty* item = mPropertyManager->addProperty(qType, QString(name.c_str()));
-        mPropertyToItem[item] = *itemIt;
+        QVariant varValue = QVariant(QString());
 
         std::map<std::string, std::string>::const_iterator pos = valueMap.find(itemIt->name);
         if (pos != valueMap.end())
@@ -90,33 +87,60 @@ void PropertiesWidget::populate(const UIElementPropertyGridItemList& itemList,
             if (type == "COLOR")
             {
                 QColor color = convertInternalColorToQColor(value);
-                item->setValue(color);
+                varValue = QVariant(color);
             }
             else
             {
-                item->setValue(QString(value.c_str()));
+                varValue = QVariant(QString(value.c_str()));
             }
         }
-        item->setToolTip(QString(itemIt->description.c_str()));
 
-        parent->addSubProperty(item);
+        QVariant::Type varType = QVariant::String;
+        if (type == "INT")
+        {
+            varType = QVariant::Int;
+        }
+        else if (type == "REAL")
+        {
+            varType = QVariant::Double;
+        }
+        else if (type == "BOOL")
+        {
+            varType = QVariant::Bool;
+        }
+
+        if (!varValue.convert(varType))
+        {
+            varValue = QVariant(varType);
+        }
+
+        QList<QStandardItem*> listItems;
+
+        QStandardItem* nameItem = new QStandardItem();
+        nameItem->setData(QString(name.c_str()), Qt::DisplayRole);
+        nameItem->setEditable(false);
+        nameItem->setToolTip(QString(itemIt->description.c_str()));
+
+        QStandardItem* valueItem = new QStandardItem();
+        valueItem->setData(varValue, Qt::DisplayRole);
+        valueItem->setEditable(true);
+
+        listItems << nameItem;
+        listItems << valueItem;
+
+        parent->appendRow(listItems);
+
+        mPropertyToItem.insert(std::make_pair(valueItem, *itemIt));
     }
 
-    QtVariantEditorFactory* variantFactory = new QtVariantEditorFactory();
-    setFactoryForManager(mPropertyManager, variantFactory);
-
-    for (std::map<std::string, QtProperty*>::const_iterator it = categoryItems.begin();
-         it != categoryItems.end(); it++)
-    {
-        addProperty(it->second);
-    }
+    mPropertiesWidgetUI->propertiesTreeView->expandAll();
 }
 
 void PropertiesWidget::setValue(const std::string& key, const std::string& value)
 {
     Ogre::String keyTrimmed = Ogre::String(key);
     Ogre::StringUtil::trim(keyTrimmed);
-    for (std::map<QtProperty*, UIElementPropertyGridItem>::const_iterator it = mPropertyToItem.begin();
+    for (std::map<QStandardItem*, UIElementPropertyGridItem>::const_iterator it = mPropertyToItem.begin();
          it != mPropertyToItem.end(); it++)
     {
         Ogre::String curKeyTrimmed = Ogre::String(it->second.name);
@@ -126,30 +150,37 @@ void PropertiesWidget::setValue(const std::string& key, const std::string& value
             if (it->second.type == "COLOR")
             {
                 QColor color = convertInternalColorToQColor(value.c_str());
-                ((QtVariantProperty*)it->first)->setValue(color);
+                it->first->setData(QVariant(color), Qt::DisplayRole);
             }
             else
             {
-                ((QtVariantProperty*)it->first)->setValue(QString(value.c_str()));
+                QVariant varValue = QVariant(QString(value.c_str()));
+                QVariant::Type type = it->first->data(Qt::DisplayRole).type();
+                if (!varValue.convert(type))
+                {
+                    varValue = QVariant(type);
+                }
+
+                it->first->setData(varValue, Qt::DisplayRole);
             }
         }
     }
 }
 
-void PropertiesWidget::valueChanged(QtProperty *property, const QVariant &value)
+void PropertiesWidget::itemChanged(QStandardItem* item)
 {
-    std::map<QtProperty*, UIElementPropertyGridItem>::const_iterator propertyKeyIt =
-        mPropertyToItem.find(property);
+    std::map<QStandardItem*, UIElementPropertyGridItem>::const_iterator propertyKeyIt =
+        mPropertyToItem.find(item);
     if (propertyKeyIt != mPropertyToItem.end())
     {
         std::string valueStr;
         if (propertyKeyIt->second.type == "COLOR")
         {
-            valueStr = convertQColorToInternalColor(value.value<QColor>());
+            valueStr = convertQColorToInternalColor(item->data(Qt::DisplayRole).value<QColor>());
         }
         else
         {
-            valueStr = value.toString().toStdString();
+            valueStr = item->data(Qt::DisplayRole).toString().toStdString();
         }
         emit propertyValueChanged(propertyKeyIt->second.name, valueStr);
     }

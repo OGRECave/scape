@@ -48,11 +48,8 @@ void InputManager::attachToWindow(InputListener* input)
 
 void InputManager::addButtonDefinition(const ButtonDefinition& buttonDefinition)
 {
-    if (!buttonDefinition.getDeviceButtons().empty())
-    {
-        mButtonDefinitions.push_front(buttonDefinition);
-        getButton(buttonDefinition.getButtonId()); // make sure it exists
-    }
+    mButtonDefinitions.push_front(buttonDefinition);
+    getButton(buttonDefinition.getButtonId()); // make sure it exists
 }
 
 void InputManager::clearButtonDefinitions() { mButtonDefinitions.clear(); }
@@ -142,30 +139,36 @@ void InputManager::onDeviceButtonPressed(DeviceButtonId::EDeviceButtonId deviceB
     {
         if (!mButtons[defIt->getButtonId()]->mPressed)
         {
-            bool pressed = true;
-            for (ButtonDefinition::DeviceButtonSet::const_iterator defDeviceButtonIt =
-                     defIt->getDeviceButtons().begin();
-                 defDeviceButtonIt != defIt->getDeviceButtons().end(); ++defDeviceButtonIt)
+            for (ButtonDefinition::DeviceButtonSetsVector::const_iterator defDeviceButtonSetsIt =
+                     defIt->getDeviceButtonSets().begin();
+                 defDeviceButtonSetsIt != defIt->getDeviceButtonSets().end(); ++defDeviceButtonSetsIt)
             {
-                if (!mInputListener->isDeviceButtonPressed(*defDeviceButtonIt))
+                bool pressed = true;
+                for (ButtonDefinition::DeviceButtonSet::const_iterator defDeviceButtonIt =
+                         defDeviceButtonSetsIt->begin();
+                     defDeviceButtonIt != defDeviceButtonSetsIt->end(); ++defDeviceButtonIt)
                 {
-                    pressed = false;
-                    break;
+                    if (!mInputListener->isDeviceButtonPressed(*defDeviceButtonIt))
+                    {
+                        pressed = false;
+                        break;
+                    }
                 }
-            }
 
-            if (pressed)
-            {
-                Button* button = mButtons[defIt->getButtonId()];
-                button->mPressed = true;
-                button->mJustPressed = true;
-                button->mOrdered = deviceButton == *defIt->getDeviceButtons().begin();
+                if (pressed)
+                {
+                    Button* button = mButtons[defIt->getButtonId()];
+                    button->mPressed = true;
+                    button->mJustPressed = true;
+                    button->mOrdered = deviceButton == *defDeviceButtonSetsIt->begin();
 
-                ++mNumButtonsPressed;
+                    ++mNumButtonsPressed;
 
-                mHighestPriorityPressed = Utils::max(mHighestPriorityPressed, button->getPriority());
+                    mHighestPriorityPressed = Utils::max(mHighestPriorityPressed, button->getPriority());
 
-                // printf("button %d pressed. sequenced: %d\n", (int)defIt->mButtonId, button->mOrdered);
+                    // printf("button %d pressed. sequenced: %d\n", (int)defIt->mButtonId,
+                    // button->mOrdered);
+                }
             }
         }
     }
@@ -182,19 +185,24 @@ void InputManager::onDeviceButtonReleased(DeviceButtonId::EDeviceButtonId device
         Button* button = mButtons[defIt->getButtonId()];
         if (button->mPressed)
         {
-            for (ButtonDefinition::DeviceButtonSet::const_iterator defDeviceButtonIt =
-                     defIt->getDeviceButtons().begin();
-                 defDeviceButtonIt != defIt->getDeviceButtons().end(); ++defDeviceButtonIt)
+            for (ButtonDefinition::DeviceButtonSetsVector::const_iterator defDeviceButtonSetsIt =
+                     defIt->getDeviceButtonSets().begin();
+                 defDeviceButtonSetsIt != defIt->getDeviceButtonSets().end(); ++defDeviceButtonSetsIt)
             {
-                if (deviceButton == *defDeviceButtonIt)
+                for (ButtonDefinition::DeviceButtonSet::const_iterator defDeviceButtonIt =
+                         defDeviceButtonSetsIt->begin();
+                     defDeviceButtonIt != defDeviceButtonSetsIt->end(); ++defDeviceButtonIt)
                 {
-                    button->mPressed = false;
-                    button->mJustReleased = true;
+                    if (deviceButton == *defDeviceButtonIt)
+                    {
+                        button->mPressed = false;
+                        button->mJustReleased = true;
 
-                    mNumButtonsPressed--;
+                        mNumButtonsPressed--;
 
-                    // printf("button %d released.\n", (int)defIt->mButtonId);
-                    break;
+                        // printf("button %d released.\n", (int)defIt->mButtonId);
+                        break;
+                    }
                 }
             }
         }

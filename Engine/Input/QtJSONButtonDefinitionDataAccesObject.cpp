@@ -60,15 +60,17 @@ QtJSONButtonDefinitionDataAccesObject::getButtonDefinitions() const
                                     ButtonId::EButtonId buttonId =
                                         ButtonId::getButtonIdFromUpperName(defKey.toStdString());
 
+                                    ButtonDefinition buttonDefinition(buttonId, priority);
+
                                     QJsonArray buttonDefinitionsArray = buttonDefinitionsValue.toArray();
                                     for (QJsonArray::iterator butDefIt = buttonDefinitionsArray.begin();
                                          butDefIt != buttonDefinitionsArray.end(); butDefIt++)
                                     {
-                                        ButtonDefinition buttonDefinition(buttonId, priority);
-
                                         QJsonValue curVal = *butDefIt;
                                         if (curVal.isArray())
                                         {
+                                            ButtonDefinition::DeviceButtonSet currentDeviceButtons;
+
                                             QJsonArray buttonDefinitionsSubArray = curVal.toArray();
                                             for (QJsonArray::iterator butDefSubIt =
                                                      buttonDefinitionsSubArray.begin();
@@ -83,14 +85,18 @@ QtJSONButtonDefinitionDataAccesObject::getButtonDefinitions() const
                                                     DeviceButtonId::EDeviceButtonId deviceButtonId =
                                                         DeviceButtonId::getDeviceButtonIdFromUpperName(
                                                             curSubValStr.toStdString());
-                                                    buttonDefinition.getDeviceButtons().insert(
-                                                        deviceButtonId);
+                                                    currentDeviceButtons.insert(deviceButtonId);
                                                 }
                                             }
-                                        }
 
-                                        ret.push_back(buttonDefinition);
+                                            if (!currentDeviceButtons.empty())
+                                            {
+                                                buttonDefinition.getDeviceButtonSets().push_back(
+                                                    currentDeviceButtons);
+                                            }
+                                        }
                                     }
+                                    ret.push_back(buttonDefinition);
                                 }
                             }
                         }

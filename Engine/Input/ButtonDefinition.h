@@ -14,6 +14,7 @@
 #include "ScapeEnginePrerequisites.h"
 
 #include <unordered_set>
+#include <vector>
 
 #include "ButtonId.h"
 #include "DeviceButtonId.h"
@@ -26,6 +27,7 @@ class _ScapeEngineExport ButtonDefinition
 public:
     // Device button ordered container type
     typedef std::unordered_set<DeviceButtonId::EDeviceButtonId> DeviceButtonSet;
+    typedef std::vector<DeviceButtonSet> DeviceButtonSetsVector;
 
     // Construct a new definition of the given button identifier
     ButtonDefinition(ButtonId::EButtonId buttonId, int priority);
@@ -34,8 +36,8 @@ public:
 
     int getPriority() const;
 
-    const DeviceButtonSet& getDeviceButtons() const;
-    DeviceButtonSet& getDeviceButtons();
+    const DeviceButtonSetsVector& getDeviceButtonSets() const;
+    DeviceButtonSetsVector& getDeviceButtonSets();
 
 protected:
     // Identifier of defined button
@@ -44,7 +46,7 @@ protected:
     int mPriority;
 
     // Device button container
-    DeviceButtonSet mDeviceButtons;
+    DeviceButtonSetsVector mDeviceButtonSets;
 };
 }
 

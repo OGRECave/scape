@@ -16,9 +16,12 @@ ButtonId::EButtonId ButtonDefinition::getButtonId() const { return mButtonId; }
 
 int ButtonDefinition::getPriority() const { return mPriority; }
 
-const ButtonDefinition::DeviceButtonSet& ButtonDefinition::getDeviceButtons() const
+const ButtonDefinition::DeviceButtonSetsVector& ButtonDefinition::getDeviceButtonSets() const
 {
-    return mDeviceButtons;
+    return mDeviceButtonSets;
 }
 
-ButtonDefinition::DeviceButtonSet& ButtonDefinition::getDeviceButtons() { return mDeviceButtons; }
+ButtonDefinition::DeviceButtonSetsVector& ButtonDefinition::getDeviceButtonSets()
+{
+    return mDeviceButtonSets;
+}

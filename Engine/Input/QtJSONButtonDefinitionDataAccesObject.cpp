@@ -83,7 +83,8 @@ QtJSONButtonDefinitionDataAccesObject::getButtonDefinitions() const
                                                     DeviceButtonId::EDeviceButtonId deviceButtonId =
                                                         DeviceButtonId::getDeviceButtonIdFromUpperName(
                                                             curSubValStr.toStdString());
-                                                    buttonDefinition.addDeviceButton(deviceButtonId);
+                                                    buttonDefinition.getDeviceButtons().insert(
+                                                        deviceButtonId);
                                                 }
                                             }
                                         }

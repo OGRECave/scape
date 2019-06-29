@@ -22,8 +22,3 @@ const ButtonDefinition::DeviceButtonSet& ButtonDefinition::getDeviceButtons() co
 }
 
 ButtonDefinition::DeviceButtonSet& ButtonDefinition::getDeviceButtons() { return mDeviceButtons; }
-
-void ButtonDefinition::addDeviceButton(DeviceButtonId::EDeviceButtonId buttonId)
-{
-    mDeviceButtons.insert(buttonId);
-}

@@ -37,9 +37,6 @@ public:
     const DeviceButtonSet& getDeviceButtons() const;
     DeviceButtonSet& getDeviceButtons();
 
-    // Add a device button button to this definition
-    void addDeviceButton(DeviceButtonId::EDeviceButtonId buttonId);
-
 protected:
     // Identifier of defined button
     ButtonId::EButtonId mButtonId;

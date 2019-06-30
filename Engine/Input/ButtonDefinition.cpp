@@ -16,6 +16,8 @@ ButtonId::EButtonId ButtonDefinition::getButtonId() const { return mButtonId; }
 
 int ButtonDefinition::getPriority() const { return mPriority; }
 
+void ButtonDefinition::setPriority(int priority) { mPriority = priority; }
+
 const ButtonDefinition::DeviceButtonSetsVector& ButtonDefinition::getDeviceButtonSets() const
 {
     return mDeviceButtonSets;

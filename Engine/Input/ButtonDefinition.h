@@ -35,6 +35,7 @@ public:
     ButtonId::EButtonId getButtonId() const;
 
     int getPriority() const;
+    void setPriority(int priority);
 
     const DeviceButtonSetsVector& getDeviceButtonSets() const;
     DeviceButtonSetsVector& getDeviceButtonSets();

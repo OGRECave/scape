@@ -16,6 +16,7 @@ public:
     virtual ~ButtonDefinitionDataAccessObject();
 
     virtual const ButtonDefinitions getButtonDefinitions() const = 0;
+    virtual void updateButtonDefinitions(const ButtonDefinitions& buttonDefinitions) = 0;
 
 protected:
     ButtonDefinitionDataAccessObject();

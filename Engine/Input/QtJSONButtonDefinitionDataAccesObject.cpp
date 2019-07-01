@@ -108,4 +108,97 @@ QtJSONButtonDefinitionDataAccesObject::getButtonDefinitions() const
 
     return ret;
 }
+
+void QtJSONButtonDefinitionDataAccesObject::updateButtonDefinitions(
+    const ButtonDefinitionDataAccessObject::ButtonDefinitions& buttonDefinitions)
+{
+    QJsonParseError errorStruct;
+    errorStruct.error = QJsonParseError::NoError;
+
+    QJsonDocument jsonDoc = mFileHelper.readJSONFile(errorStruct);
+
+    if (errorStruct.error == QJsonParseError::NoError)
+    {
+        if (jsonDoc.isObject())
+        {
+            QJsonObject rootObject = jsonDoc.object();
+
+            QJsonObject::iterator it = rootObject.find(QString("ButtonDefinitions"));
+            if (it != rootObject.end())
+            {
+                rootObject.erase(it);
+            }
+
+            QJsonObject buttonDefinitionsObject = QJsonObject();
+
+            for (ScapeEngine::ButtonDefinitionDataAccessObject::ButtonDefinitions::const_iterator it =
+                     buttonDefinitions.begin();
+                 it != buttonDefinitions.end(); it++)
+            {
+                std::string currentButton =
+                    ScapeEngine::ButtonId::getButtonIdMap().find(it->getButtonId())->second;
+
+                QJsonObject buttonDefinitionDetailObject = QJsonObject();
+                buttonDefinitionDetailObject.insert(QString("priority"),
+                                                    QString::number(it->getPriority()));
+
+                QJsonArray definitions;
+
+                if (buttonDefinitionDetailObject.contains(QString("definitions")))
+                {
+                    definitions = buttonDefinitionDetailObject[QString("definitions")].toArray();
+                }
+                else
+                {
+                    definitions = QJsonArray();
+                }
+
+                QJsonObject::iterator itD = buttonDefinitionDetailObject.find(QString("definitions"));
+                if (itD != rootObject.end())
+                {
+                    rootObject.erase(itD);
+                }
+
+                const ButtonDefinition::DeviceButtonSetsVector& deviceButtonSets =
+                    it->getDeviceButtonSets();
+                for (ScapeEngine::ButtonDefinition::DeviceButtonSetsVector::const_iterator
+                         deviceButtonSetsIt = deviceButtonSets.begin();
+                     deviceButtonSetsIt != deviceButtonSets.end(); deviceButtonSetsIt++)
+                {
+                    QJsonArray currentDeviceButtonArray = QJsonArray();
+                    for (ScapeEngine::ButtonDefinition::DeviceButtonSet::const_iterator deviceButtonsIt =
+                             deviceButtonSetsIt->begin();
+                         deviceButtonsIt != deviceButtonSetsIt->end(); deviceButtonsIt++)
+                    {
+                        std::map<ScapeEngine::DeviceButtonId::EDeviceButtonId, std::string> deviceButtons =
+                            ScapeEngine::DeviceButtonId::getDeviceButtonIdMap();
+                        std::map<ScapeEngine::DeviceButtonId::EDeviceButtonId, std::string>::iterator
+                            devIt = deviceButtons.find((*deviceButtonsIt));
+                        if (devIt != deviceButtons.end())
+                        {
+                            currentDeviceButtonArray.append(QString(devIt->second.c_str()));
+                        }
+                    }
+                    definitions.append(currentDeviceButtonArray);
+                }
+
+                buttonDefinitionDetailObject.insert(QString("definitions"), definitions);
+
+                QJsonObject::iterator itB = buttonDefinitionsObject.find(QString(currentButton.c_str()));
+                if (itB != rootObject.end())
+                {
+                    buttonDefinitionsObject.erase(itB);
+                }
+
+                buttonDefinitionsObject.insert(QString(QString(currentButton.c_str())),
+                                               buttonDefinitionDetailObject);
+            }
+
+            rootObject.insert(QString("ButtonDefinitions"), buttonDefinitionsObject);
+
+            jsonDoc = QJsonDocument(rootObject);
+        }
+        mFileHelper.writeJSONFile(jsonDoc);
+    }
+}
 }

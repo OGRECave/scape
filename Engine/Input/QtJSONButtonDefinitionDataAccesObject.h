@@ -19,6 +19,7 @@ public:
     virtual ~QtJSONButtonDefinitionDataAccesObject();
 
     virtual const ButtonDefinitions getButtonDefinitions() const;
+    virtual void updateButtonDefinitions(const ButtonDefinitions& buttonDefinitions);
 
 protected:
     QtJSONFileHelper mFileHelper;

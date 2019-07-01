@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ButtonDefinitionsWidget</class>
+ <widget class="QWidget" name="ButtonDefinitionsWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>300</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Button definitions</string>
+  </property>
+  <layout class="QVBoxLayout" name="mainLayout">
+   <item>
+    <layout class="QGridLayout" name="definitionLayout" columnstretch="1,2">
+     <item row="0" column="0">
+      <widget class="QLabel" name="definitionLabel">
+       <property name="text">
+        <string>Button definition</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QComboBox" name="definitionComboBox"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="priorityLabel">
+       <property name="text">
+        <string>Priority</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QSpinBox" name="prioritySpinBox"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="buttonDefinitionDetailsGroupBox">
+     <property name="title">
+      <string>Button definition details</string>
+     </property>
+     <layout class="QVBoxLayout" name="buttonDefinitionDetailsLayout">
+      <item>
+       <widget class="QListWidget" name="buttonDefinitionDetailsListWidget"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="mainButtonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Apply|QDialogButtonBox::Cancel</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

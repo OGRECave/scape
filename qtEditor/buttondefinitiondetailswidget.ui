@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ButtonDefinitionDetailsWidget</class>
+ <widget class="QWidget" name="ButtonDefinitionDetailsWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>440</width>
+    <height>320</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Button definition details</string>
+  </property>
+  <layout class="QVBoxLayout" name="mainLayout">
+   <item>
+    <layout class="QHBoxLayout" name="contentLayout" stretch="2,1,2">
+     <item>
+      <widget class="QGroupBox" name="inactiveGroupBox">
+       <property name="title">
+        <string>Inactive</string>
+       </property>
+       <layout class="QVBoxLayout" name="inactiveGroupBoxLayout">
+        <item>
+         <widget class="QListWidget" name="inactiveListWidget"/>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="middleButtonsLayout">
+       <item>
+        <widget class="QPushButton" name="moveToLeftButton">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>←</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="moveToRightButton">
+         <property name="text">
+          <string>→</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="activeGroupBox">
+       <property name="title">
+        <string>Active</string>
+       </property>
+       <layout class="QVBoxLayout" name="activeGroupBoxLayout">
+        <item>
+         <widget class="QListWidget" name="activeListWidget"/>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="mainButtonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Apply|QDialogButtonBox::Cancel</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

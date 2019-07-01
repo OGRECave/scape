@@ -54,6 +54,7 @@ public Q_SLOTS:
     void timerLoop();
     void aboutApp();
     void startupSettings();
+    void buttonDefinitions();
     void exitApp();
 
     void propertyValueChanged(const std::string& key, const std::string& value);
@@ -104,6 +105,8 @@ private:
     QAction* actExportImage;
 
     QAction* actStartupSettings;
+
+    QAction* actButtonDefinitions;
 
     QAction* actPencilEraserGPU;
     QAction* actDirectionalNoiseGPU;

@@ -89,6 +89,9 @@ void MainWindow::createActions()
     actStartupSettings = new QAction(tr("Startup settings"), this);
     actStartupSettings->setStatusTip(tr("Startup settings"));
 
+    actButtonDefinitions = new QAction(tr("Button definitions"), this);
+    actButtonDefinitions->setStatusTip(tr("Button definitions"));
+
     actPencilEraserGPU = new QAction(tr("Pencil/Eraser GPU"), this);
     actPencilEraserGPU->setStatusTip(tr("Pencil/Eraser GPU"));
     actPencilEraserGPU->setIcon(QIcon(":/icons/pencil"));
@@ -188,6 +191,7 @@ void MainWindow::connectActions()
 {
     connect(actExit, SIGNAL(triggered()), this, SLOT(exitApp()));
     connect(actStartupSettings, SIGNAL(triggered()), this, SLOT(startupSettings()));
+    connect(actButtonDefinitions, SIGNAL(triggered()), this, SLOT(buttonDefinitions()));
     connect(actAbout, SIGNAL(triggered()), this, SLOT(aboutApp()));
     connect(actImportImage, SIGNAL(triggered()), this, SLOT(importImage()));
     connect(actExportImage, SIGNAL(triggered()), this, SLOT(exportImage()));
@@ -291,6 +295,8 @@ void MainWindow::populateMainMenu()
     menuSettings->setObjectName(QString::fromUtf8("menuSettings"));
     ui->mMenuBar->addAction(menuSettings->menuAction());
     menuSettings->addAction(actStartupSettings);
+    ui->mMenuBar->addAction(menuSettings->menuAction());
+    menuSettings->addAction(actButtonDefinitions);
 
     menuHelp = new QMenu(tr("Help"), ui->mMenuBar);
     menuHelp->setObjectName(QString::fromUtf8("menuHelp"));
@@ -660,6 +666,10 @@ void MainWindow::startupSettings()
 {
     StartupSettingsDialog dialog(this, mEngineInterface->getStartupSettingsDataAccessObject());
     dialog.exec();
+}
+
+void MainWindow::buttonDefinitions()
+{
 }
 
 void MainWindow::exitApp() { close(); }

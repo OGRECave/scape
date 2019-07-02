@@ -11,6 +11,7 @@
 #include "ExportImageDialog.h"
 #include "AboutDialog.h"
 #include "StartupSettingsDialog.h"
+#include "ButtonDefinitionsDialog.h"
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QInputDialog>
@@ -670,6 +671,8 @@ void MainWindow::startupSettings()
 
 void MainWindow::buttonDefinitions()
 {
+    ButtonDefinitionsDialog dialog(this, mEngineInterface->getButtonDefinitionDataAccessObject());
+    dialog.exec();
 }
 
 void MainWindow::exitApp() { close(); }

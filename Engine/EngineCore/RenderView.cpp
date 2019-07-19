@@ -7,12 +7,14 @@
 #include "ScapeEngineStableHeaders.h"
 #include "RenderView.h"
 
+#include <OgreOverlayManager.h>
+#include <OgreOverlayElement.h>
+
 #include "Input/InputManager.h"
 #include "CameraController.h"
 #include "Utils/Utils.h"
 
 using namespace ScapeEngine;
-
 
 enum EPropertyId
 {
@@ -89,7 +91,7 @@ string RenderView::setUIElementPropertyValue(const string& elementName, const st
 RenderView::RenderView(long viewId)
     : mViewId(viewId), mRenderWindow(NULL), mCameraSceneNode(NULL), mCamera(NULL), mViewport(NULL),
       mCameraController(NULL),
-      // mOverlay(NULL),
+      mOverlay(NULL),
       mDirtyRect(false), mDirtyWireframe(true)
 {
     loadPersistentProperties();
@@ -152,11 +154,11 @@ void RenderView::attach(const string& windowHandle, int left, int top, int width
     //	mCamera->setFarClipDistance(0);
     //}
 
-    // mOverlay = Ogre::OverlayManager::getSingleton().getByName("DebugOverlay");
-    // if (mOverlay)
-    //{
-    //	mOverlay->show();
-    //}
+    mOverlay = Ogre::OverlayManager::getSingleton().getByName("DebugOverlay");
+    if (mOverlay)
+    {
+        mOverlay->show();
+    }
 
     if (mCameraController == NULL)
     {
@@ -229,31 +231,36 @@ void RenderView::update()
         mDirtyWireframe = false;
     }
 
-#if 0
-	if (mRenderDebugInfo)
-	{
-		// update stats when necessary
-		try {
-			Ogre::OverlayElement* guiAvg = Ogre::OverlayManager::getSingleton().getOverlayElement("DebugOverlay/AverageFps");
-			Ogre::OverlayElement* guiTris = Ogre::OverlayManager::getSingleton().getOverlayElement("DebugOverlay/NumTris");
-			Ogre::OverlayElement* guiBatches = Ogre::OverlayManager::getSingleton().getOverlayElement("DebugOverlay/NumBatches");
-			Ogre::OverlayElement* guiDbg = Ogre::OverlayManager::getSingleton().getOverlayElement("DebugOverlay/DebugText");
+    if (mRenderDebugInfo)
+    {
+        // update stats when necessary
+        try
+        {
+            Ogre::OverlayElement* guiAvg =
+                Ogre::OverlayManager::getSingleton().getOverlayElement("DebugOverlay/AverageFps");
+            Ogre::OverlayElement* guiTris =
+                Ogre::OverlayManager::getSingleton().getOverlayElement("DebugOverlay/NumTris");
+            Ogre::OverlayElement* guiBatches =
+                Ogre::OverlayManager::getSingleton().getOverlayElement("DebugOverlay/NumBatches");
+            Ogre::OverlayElement* guiDbg =
+                Ogre::OverlayManager::getSingleton().getOverlayElement("DebugOverlay/DebugText");
 
-			const Ogre::RenderTarget::FrameStats& stats = mRenderWindow->getStatistics();
+            const Ogre::RenderTarget::FrameStats& stats = mRenderWindow->getStatistics();
 
-			guiAvg->setCaption(_T(		"Average FPS   : ") + Ogre::StringConverter::toString(stats.avgFPS));
-			guiTris->setCaption(_T(		"Triangle Count: ") + Ogre::StringConverter::toString(stats.triangleCount));
-			guiBatches->setCaption(_T(	"Batch Count   : ") + Ogre::StringConverter::toString(stats.batchCount));
-			guiDbg->setCaption(_T(""));
-		}
-		catch(...) { /* ignore */ }
-		mOverlay->show();
-	}
-	else
-	{
-		mOverlay->hide();
-	}
-#endif
+            guiAvg->setCaption("Average FPS   : " + Ogre::StringConverter::toString(stats.avgFPS));
+            guiTris->setCaption("Triangle Count: " + Ogre::StringConverter::toString(stats.triangleCount));
+            guiBatches->setCaption("Batch Count   : " + Ogre::StringConverter::toString(stats.batchCount));
+            guiDbg->setCaption("");
+        }
+        catch (...)
+        { /* ignore */
+        }
+        mOverlay->show();
+    }
+    else
+    {
+        mOverlay->hide();
+    }
 
     mRenderWindow->update();
 

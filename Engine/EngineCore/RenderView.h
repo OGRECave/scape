@@ -15,6 +15,8 @@
 
 #include "ScapeEnginePrerequisites.h"
 
+#include <OgreOverlay.h>
+
 #include "OgreCommon.h"
 #include "Utils/Utils.h"
 #include "EngineCore/UIElementClasses.h"
@@ -88,7 +90,7 @@ protected:
     // Attached viewport
     class Ogre::Viewport* mViewport;
 
-    // class Ogre::Overlay* mOverlay;
+    Ogre::Overlay* mOverlay;
 
     // Attached camera controller
     class CameraController* mCameraController;

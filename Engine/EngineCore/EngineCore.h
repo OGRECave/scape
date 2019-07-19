@@ -13,6 +13,8 @@
 
 #include "ScapeEnginePrerequisites.h"
 
+#include <OgreOverlaySystem.h>
+
 #include "SkySettings.h"
 
 namespace ScapeEngine
@@ -108,6 +110,8 @@ public:
 private:
     // Ogre root pointer
     Ogre::Root* mRoot;
+
+    Ogre::OverlaySystem* mOverlaySystem;
 
     // Ogre render system pointer
     Ogre::SceneManager* mSceneManager;

@@ -32,7 +32,7 @@ using namespace ScapeEngine;
 template <> EngineCore* Ogre::Singleton<EngineCore>::msSingleton = 0;
 
 EngineCore::EngineCore(EngineInterface* engineInterface)
-    : mEngineInterface(engineInterface), mRoot(NULL), mDebugRenderWindow(NULL),
+    : mEngineInterface(engineInterface), mRoot(NULL), mOverlaySystem(NULL), mDebugRenderWindow(NULL),
       mApplicationSettingsConfigFile(NULL), mStartupSettingsDataAccessObject(), mSceneManager(NULL),
       mSettingsDatasetManager(NULL), mSettingsPath(), mTickableManager(NULL), mRenderViewManager(NULL),
       mHeightfieldManager(NULL), mInputManager(NULL), mSceneLoaded(false), mSceneManagerLoaded(false),
@@ -47,6 +47,8 @@ void EngineCore::initialize()
 {
     // Create a new Ogre ROOT
     mRoot = new Ogre::Root("plugins.cfg", Utils::emptyString, "Scape.log");
+
+    mOverlaySystem = new Ogre::OverlaySystem();
 
     mSettingsDatasetManager = new SettingsDatasetManager();
 
@@ -97,6 +99,13 @@ void EngineCore::deinitialize()
     SAFE_DELETE(mSettingsDatasetManager);
 
     SAFE_DELETE(mApplicationSettingsConfigFile);
+
+    if (mSceneManagerLoaded)
+    {
+        mSceneManager->removeRenderQueueListener(mOverlaySystem);
+    }
+
+    SAFE_DELETE(mOverlaySystem);
 
     SAFE_DELETE(mRoot);
 }
@@ -259,6 +268,8 @@ void EngineCore::loadSceneManager()
         // MaterialManager::getSingleton().setDefaultTextureFiltering(Ogre::TFO_ANISOTROPIC);
         // MaterialManager::getSingleton().setDefaultAnisotropy(8);
         Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+
+        mSceneManager->addRenderQueueListener(mOverlaySystem);
 
         mSceneManagerLoaded = true;
 

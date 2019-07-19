@@ -285,7 +285,7 @@
                 "WIREFRAME": "false"
             },
             "Default": {
-                "DEBUGINFO": "true",
+                "DEBUGINFO": "false",
                 "PIXELSIZE": "1",
                 "WIREFRAME": "false"
             },

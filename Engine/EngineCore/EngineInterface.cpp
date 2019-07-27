@@ -28,6 +28,7 @@
 #include "HeightfieldFileCodecs/HeightfieldFileEncoder.h"
 #include "HeightfieldFileCodecs/HeightfieldFileDecoder.h"
 #include "HeightfieldBrush/HeightfieldBrushManager.h"
+#include "EngineCore/HeightfieldManager.h"
 
 #include <iostream>
 
@@ -495,6 +496,8 @@ UIElementContainer* EngineInterface::getUIElementContainer(EScapeUIElementGroupI
 
     return container;
 }
+
+void EngineInterface::resetHeightfield() { getEngineCore()->getHeightfieldManager()->resetHeightfield(); }
 
 HeightfieldBrushSettings& EngineInterface::getHeightfieldBrushSettings()
 {

@@ -121,6 +121,8 @@ public:
     std::string makeUniquePresetName(EScapeUIElementGroupId groupId, const std::string& elementName,
                                      const std::string& baseName);
 
+    void resetHeightfield();
+
     HeightfieldBrushSettings& getHeightfieldBrushSettings();
 
     StartupSettingsDataAccessObject& getStartupSettingsDataAccessObject() const;

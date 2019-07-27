@@ -87,6 +87,9 @@ void MainWindow::createActions()
     actExportImage->setStatusTip(tr("Export heightmap image"));
     actExportImage->setIcon(QIcon(":/icons/export"));
 
+    actResetHeightfield = new QAction(tr("Reset heightfield"), this);
+    actResetHeightfield->setStatusTip(tr("Reset heightfield"));
+
     actStartupSettings = new QAction(tr("Startup settings"), this);
     actStartupSettings->setStatusTip(tr("Startup settings"));
 
@@ -191,6 +194,7 @@ void MainWindow::createActions()
 void MainWindow::connectActions()
 {
     connect(actExit, SIGNAL(triggered()), this, SLOT(exitApp()));
+    connect(actResetHeightfield, SIGNAL(triggered()), this, SLOT(resetHeightfield()));
     connect(actStartupSettings, SIGNAL(triggered()), this, SLOT(startupSettings()));
     connect(actButtonDefinitions, SIGNAL(triggered()), this, SLOT(buttonDefinitions()));
     connect(actAbout, SIGNAL(triggered()), this, SLOT(aboutApp()));
@@ -295,6 +299,7 @@ void MainWindow::populateMainMenu()
     menuEdit = new QMenu(tr("Edit"), ui->mMenuBar);
     menuEdit->setObjectName(QString::fromUtf8("menuEdit"));
     ui->mMenuBar->addAction(menuEdit->menuAction());
+    menuEdit->addAction(actResetHeightfield);
 
     menuSettings = new QMenu(tr("Settings"), ui->mMenuBar);
     menuSettings->setObjectName(QString::fromUtf8("menuSettings"));
@@ -678,6 +683,8 @@ void MainWindow::buttonDefinitions()
     ButtonDefinitionsDialog dialog(this, mEngineInterface->getButtonDefinitionDataAccessObject());
     dialog.exec();
 }
+
+void MainWindow::resetHeightfield() { mEngineInterface->resetHeightfield(); }
 
 void MainWindow::exitApp() { close(); }
 

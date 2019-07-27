@@ -292,6 +292,10 @@ void MainWindow::populateMainMenu()
     menuFile->addSeparator();
     menuFile->addAction(actExit);
 
+    menuEdit = new QMenu(tr("Edit"), ui->mMenuBar);
+    menuEdit->setObjectName(QString::fromUtf8("menuEdit"));
+    ui->mMenuBar->addAction(menuEdit->menuAction());
+
     menuSettings = new QMenu(tr("Settings"), ui->mMenuBar);
     menuSettings->setObjectName(QString::fromUtf8("menuSettings"));
     ui->mMenuBar->addAction(menuSettings->menuAction());

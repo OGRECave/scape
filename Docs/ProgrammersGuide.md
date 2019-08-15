@@ -98,18 +98,14 @@ to run it.
 ## C++ architecture
 
 The codebase is split into two major components: The Engine library and
-the Editor application. All UI-related code can be found in the Editor
-project. Everything else is in Engine. Each project is further grouped
-by functionality into subfolders. A description of the function of each
-source code file in these subfolders written in their header file.
+the qtEditor application. All UI-related code can be found in the
+qtEditor project. Everything else is in Engine. The Engine project is
+further grouped by functionality into subfolders. A functional
+description of each source code file in these subfolders can be found in
+the corresponding header file.
 
-  - */Editor* - GUI/wxWidgets-related code
-      - */Application* - 'main' function and application class
-      - */Controls* - Custom drag / spinner wxWidget implemention
-      - */PCH* - Precompiled headers
-      - */Resources* - Icons
-      - */Utils* - Miscellaneous helper functions and classes
-      - */Windows* - GUI windows, dialogs and panels
+  - */qtEditor* - GUI/Qt-related code
+      - */res* - Icons / Images
   - */Engine* - 2D/3D-related code
       - */EngineCore* - Management and control of world, sky and
         cameras, as well as (UI) properties and settings
@@ -123,8 +119,6 @@ source code file in these subfolders written in their header file.
       - */HeightfieldOperation* - Brush operation implementations
       - */HeightfieldSerializer* - Heightfield serialization/compression
       - */Input* - Mouse/Keyboard/Wacom mapping and handling
-      - */PCH* - Precompiled headers
-      - */Tinyxml* - XML parsing (third party)
       - */Utils* - Math and miscellaneous functions and classes
       - */Wintab* - Wacom driver headers
 

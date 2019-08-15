@@ -143,15 +143,13 @@ the following vertex and fragment shader code files in
 
 ## Settings
 
-Many settings are store in the following config files in /Bin/Settings.
+Many settings are stored in the following config files in /Bin/Settings.
 
-  - *ButtonDefinitions.xml* - Mouse button and keyboard key to virtual
-    'buttons' (read)
-  - *Perspective.cfg* - Current UI layout set by user (read/write)
-  - *Presets.conf* - Tool presets set by user (read/write)
-  - *Startup.conf* - Size of the heightfield to be loaded/saved/edited
-    (read-only)
-  - *UI.conf* - Names, descriptions and types of UI widgets and
+  - *config.json* - Contains the size of the heightfield to be
+    loaded/saved/edited and the mouse/keyboard mappings/shortcuts
+    (read/write)
+  - *Presets.json* - Tool presets set by user (read/write)
+  - *UI.json* - Names, descriptions and types of UI widgets and
     properties (read-only)
 
 ## License

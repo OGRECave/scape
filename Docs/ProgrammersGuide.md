@@ -131,7 +131,7 @@ for the GPU-based brushes are defined in
 the following vertex and fragment shader code files in
 /Bin/Materials/Programs.
 
-  - *GPU2DOperation.cg* - The generic 1:1 vertex shader, and aimple 1:1
+  - *GPU2DOperation.cg* - The generic 1:1 vertex shader, and simple 1:1
     'copy' pixel shader
   - *GPU2DOperationAddMask.cg* - Experimental smoothing pixel shader
   - *GPU2DOperationNoiseDrag.cg* - Directional noise pixel shader
@@ -140,6 +140,7 @@ the following vertex and fragment shader code files in
     shader
   - *HeightfieldShaderCg.cg* - Heightfield terrain and brush widget
     rendering
+  - *SkyBox.cg* - Simple shader for the sky box
 
 ## Settings
 

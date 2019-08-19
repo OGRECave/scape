@@ -4,96 +4,56 @@
 <http://www.decarpentier.nl/scape>
 June 9th, 2012
 
-## Build instructions for Microsoft Visual C++ 2008 (Express)
+## Build instructions for CMake
 
-Currently, Scape only comes with project and solution files for
-Microsoft Visual Studio C++ 2008 (Express). Follow the instructions
-below to build Scape's dependencies, to build Scape itself, and finally
-to run it.
+Scape uses CMake as its build system. You may follow the instructions
+below to build Scape.
 
-1.  Download and install a graphics driver and Microsoft DirectX 9.0, if
-    not already done so
-      - Install a recent graphics driver for your specific hardware
-      - Download and install the Microsoft DirectX 9.0c runtime from
-        <http://www.microsoft.com/en-us/download/details.aspx?id=35>
-2.  Download and install the Microsoft C++ redistributables, if not
-    already done so
-      - Download and install the Microsoft Visual C++ 2008
-        Redistributable Package (x86) package from
-        <http://www.microsoft.com/en-us/download/details.aspx?id=5582>
-3.  Extract Scape
-      - Download the Scape source package, if not already done so. See
-        <http://www.decarpentier.nl/scape> for details on how to do
-        this.
-      - Extract the ZIP to your preferred destination base folder,
-        called *\<PROJECT\>* for the remainder of this document
-4.  Install and build wxWidgets 2.8.3
-      - Download
-        <http://sourceforge.net/projects/wxwindows/files/wxAll/2.8.3/wxWidgets-2.8.3.zip/download>
-      - Extract the download to *\<PROJECT\>/Dependencies/*
-      - Copy *\<PROJECT\>/Dependencies/wxWidgets-2.8.3-overwrite/lib*
-        over the *\<PROJECT\>/Dependencies/wxWidgets-2.8.3/lib* folder
-      - Open
-        *\<PROJECT\>/Dependencies/wxWidgets-2.8.3/build/msw/wx\_dll.dsw*
-        with Visual Studio 2008 (Express) and convert all projects
-      - Set the current configuration to *DLL Debug* and only build
-        project *aui*
-      - Set the current configuration to *DLL Release* and only build
-        project *aui*
-5.  Install and build wxPropertyGrid 1.2.12
-      - Download
-        <http://sourceforge.net/projects/wxpropgrid/files/wxPropertyGrid/1.2.12/wxpropgrid-1.2.12-win.exe/download>
-      - Start the installer and set the destination folder to
-        *\<PROJECT\>/Dependencies/wxWidgets-2.8.3*. (don't worry about a
-        potential windows compatibility warning when the installer is
-        finished)
-      - Open
-        *\<PROJECT\>/Dependencies/wxWidgets-2.8.3/contrib/build/propgrid/propgrid.dsw*
-        with Visual Studio 2008 (Express) and convert project
-      - Set the current configuration to *DLL Debug* and build project
-        *propgrid*
-      - Set the current configuration to *DLL Release* and build project
-        *propgrid*
-      - Copy the following 8 built DLLs from
-        *\<PROJECT\>/Dependencies/wxWidgets-2.8.3/lib/vc\_dll/* to
-        *\<PROJECT\>/Bin/* : *wxbase28\_vc\_custom.dll,
-        wxmsw28\_aui\_vc\_custom.dll, wxmsw28\_core\_vc\_custom.dll,
-        wxmsw28\_propgrid\_vc\_custom.dll wxbase28d\_vc\_custom.dll,
-        wxmsw28d\_aui\_vc\_custom.dll, wxmsw28d\_core\_vc\_custom.dll
-        and wxmsw28d\_propgrid\_vc\_custom.dll* (so, basically every DLL
-        built in step 4 and 5 except for
-        *wxmsw28(d)\_adv\_vc\_custom.dll*)
-6.  Install Ogre3D SDK 1.8.0
-      - Download
-        <https://sourceforge.net/projects/ogre/files/ogre/1.8/1.8.0/OgreSDK_vc9_v1-8-0.exe/download>
-      - Start the install and chooise any destination folder (for
-        example, *\<PROJECT\>/Dependencies/OgreSDK*). The remainder of
-        this document will call the chosen Ogre destination folder
-        *\<OGRE\_HOME\>*, after the environment variable *OGRE\_HOME*
-        that will be set automatically by the installer.
-      - Copy *OIS\_d.dll, OgreMain\_d.dll,
-        Plugin\_CgProgramManager\_d.dll,
-        Plugin\_OctreeSceneManager\_d.dll* and
-        *RenderSystem\_Direct3D9\_d.dll* from
-        *\<OGRE\_HOME\>/bin/Debug/* to *\<PROJECT\>/Bin/*
-      - Copy *cg.dll, OIS.dll, OgreMain.dll,
-        Plugin\_CgProgramManager.dll, Plugin\_OctreeSceneManager.dll*
-        and *RenderSystem\_Direct3D9.dll* from
-        *\<OGRE\_HOME\>/bin/Release/* to *\<PROJECT\>/Bin/*
-7.  Build and Run Scape
-      - Open *\<PROJECT\>/Scape.sln*
-      - Set the current configuration to *Debug* and only build project
-        *Editor*
-      - Set the current configuration to *Release* and only build
-        project *Editor*
-      - For Debug: Run *\<PROJECT\>/Scape\_d.exe*. For Release: Run
-        *\<PROJECT\>/Scape.exe*. Alternatively, to run from within
-        Visual Studio, set the 'working directory' under 'Debugging' in
-        the 'Editor' project properties to *$(TargetDir)* and Run.
-8.  OPTIONAL: Install Windows Sysinternals DebugView, displaying all
-    (Ogre) log/debug output in real time when Scape is running
-      - Download <http://download.sysinternals.com/files/DebugView.zip>
-      - Extract the files from *DebugView.zip* and run *DbgView.exe*
+### Dependencies
+
+To build Scape you will need OGRE and Qt. You can download both as
+prebuilt packages or compile it yourself. Especially for Qt it may be
+easier to download them. For OGRE, however, it can be helpful to build
+it yourself to customize it.
+
+  - OGRE: <https://github.com/OGRECave/ogre>
+  - Qt: <https://www.qt.io/download>
+
+### Preparing the build environment
+
+To build Scape you will obviously need the source code. You can download
+it or use *git* to obtain it from [the
+repository](https://github.com/OGRECave/scape).
+
+To clone with git use the following command: `git clone
+https://github.com/OGRECave/scape.git`
+
+After obtaining the source code you have to create a build directory.
+You may create it outside of the source directory to keep it clean.
+
+### Running CMake
+
+Since there are not much options to configure it may be easier to run
+CMake from the command line. Just go into your build directory and run
+`cmake <source directory>`.
+
+You could also use cmake-gui and configure the source and build
+directories there. Afterwards you can click *Configure* followed by
+*Generate*.
+
+### Building
+
+Go to your build directory. CMake has generated a build system which can
+be used dependent on your platform. For Visual Studio you can open a
+solution `Scape.sln` and build the target *BUILD\_ALL*. For Makefile
+based generators you can just run the `make` command.
+
+### Installing
+
+Once the build is complete, you can optionally have the build system
+copy the executable and config files to a clean location. For Visual
+Studio you can build the *INSTALL* target. For Makefile based generators
+you can just run the `make install` command.
 
 ## C++ architecture
 

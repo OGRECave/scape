@@ -14,11 +14,9 @@ Follow the following steps to run Scape. Obviously, only the last step
 is needed every time. The other steps are needed only once.
 
   - Install a recent graphics driver for your specific hardware
-  - Download and install the [Microsoft DirectX 9.0c
-    runtime](http://www.microsoft.com/en-us/download/details.aspx?id=35)
-  - Download and extract the Scape binary package to any folder, if not
-    already done so. See <http://www.decarpentier.nl/scape> for details
-    on how to do this.
+  - There is currently no binary package for Scape. At the moment you
+    have to build it yourself. See `/Docs/ProgrammersGuide.md` for
+    details on how to do this.
   - Run `/Bin/Scape.exe` from this folder
 
 ## The UI Elements
@@ -38,9 +36,10 @@ The exact meaning of all these properties is very tool specific and will
 not be described in this brief user manual.
 
 The keyboard / mouse mapping used in the *3D View* is set through the
-settings file `/Bin/Settings/ButtonDefinitions.xml`, making it possible
-to fully customize the mapping using a text editor. By default, the
-following mapping is provided:
+settings file `/Bin/Settings/config.json`, making it possible to fully
+customize the mapping using a text editor. You can also use the built-in
+*Button definitions* editor to change this. By default, the following
+mapping is provided:
 
 ### Navigation
 
@@ -86,8 +85,9 @@ time being, safe your work often and restart regularly as a precaution.
 
 Currently, Scape does not allow the user to change the terrain size and
 scale from within a running instance of application. However, the
-default parameters can be altered by editing
-`/Bin/Settings/Startup.conf` and (re)starting Scape.
+default parameters can be altered by using the built-in *Startup
+settings* editor or editing `/Bin/Settings/config.json` and (re)starting
+Scape.
 
 ## Import/export
 
@@ -97,10 +97,8 @@ Consequently, importing smaller images will only load over only a part
 of the full terrain, while importing larger images will result in a
 clipped heightfield.
 
-*Note:* There’s currently no way to create new flat terrains, other than
-restarting the application, undoing all your previous editing (only in
-the case you didn’t load a map before), or saving (once) and (re)loading
-a ‘default’ flat map manually.
+*Note:* To reset the terrain to a flat one you can use the *Reset
+heightfield* menu item.
 
 The following file formats and per-channel bit depths are supported for
 both reading and writing:
@@ -155,10 +153,19 @@ both reading and writing:
   <td>&nbsp;</td>
   <td>+</td>
  </tr> 
+ <tr>
+  <th>OpenEXR<sup>2</sup></th>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>+</td>
+ </tr>
 </table>
 
 <sup>1</sup>16-bit U3 BMP: 8-bit BMP using Unreal 3’s convention to
-encode 16 bits
+encode 16 bits<br>
+<sup>2</sup>Only supported if OGRE was built with the
+corresponding support.
 
 ## License
 

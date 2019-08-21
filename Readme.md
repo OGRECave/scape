@@ -20,8 +20,8 @@ improvements.
 There are some guides available in this repository which can help you
 with building and using Scape.
 
-  - User Guide: `/Docs/UserGuide.md`
-  - Programmer's Guide: `/Docs/ProgrammersGuide.md`
+  - [User Guide](Docs/UserGuide.md)
+  - [Programmer's Guide](Docs/ProgrammersGuide.md)
 
 ## Platforms
 
@@ -31,7 +31,3 @@ This editor has been tested on Windows and Linux.
 
 [![Demo
 video](https://img.youtube.com/vi/oaAN4zSkY24/0.jpg)](https://www.youtube.com/watch?v=oaAN4zSkY24)
-
-## License
-
-See `/Docs/ScapeLicense.txt`

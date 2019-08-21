@@ -66,7 +66,7 @@ void OgreWidget::mouseReleaseEvent(QMouseEvent* e)
     }
 }
 
-static ScapeEngine::DeviceButtonId::EDeviceButtonId toButton(int key)
+static ScapeEngine::DeviceButtonId::EDeviceButtonId toButton(int key, int modifiers)
 {
     using namespace ScapeEngine::DeviceButtonId;
     switch (key)
@@ -101,7 +101,7 @@ void OgreWidget::keyPressEvent(QKeyEvent* e)
     using namespace ScapeEngine;
     if (mActive)
     {
-        DeviceButtonId::EDeviceButtonId button = toButton(e->key());
+        DeviceButtonId::EDeviceButtonId button = toButton(e->key(), e->modifiers());
         mDeviceButtonPressed[button] = true;
         mInputManager->onDeviceButtonPressed(button);
     }
@@ -111,7 +111,7 @@ void OgreWidget::keyReleaseEvent(QKeyEvent* e)
     using namespace ScapeEngine;
     if (mActive)
     {
-        DeviceButtonId::EDeviceButtonId button = toButton(e->key());
+        DeviceButtonId::EDeviceButtonId button = toButton(e->key(), e->modifiers());
         mDeviceButtonPressed[button] = false;
         mInputManager->onDeviceButtonReleased(button);
     }

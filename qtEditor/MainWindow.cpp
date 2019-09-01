@@ -33,7 +33,7 @@ MainWindow::MainWindow(QWidget* parent)
     populateToolbar();
     connectActions();
 
-    setWindowTitle("qtScape " SCAPE_VERSION_NAME);
+    setWindowTitle("Scape " SCAPE_VERSION_NAME);
 
     mOgreWidget = new OgreWidget(mEngineInterface, this);
     setCentralWidget(mOgreWidget);

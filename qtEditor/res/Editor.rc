@@ -1,20 +1,16 @@
+#include "ScapeVersion.h"
+
 IDI_ICON1               ICON    DISCARDABLE     "editor.ico"
 
 1 VERSIONINFO
-PRODUCTVERSION 15.02
-FILEVERSION 15.02
 BEGIN
   BLOCK "StringFileInfo"
   BEGIN
     BLOCK "040904B0"
     BEGIN
-      VALUE "CompanyName", "Scape Team"
       VALUE "FileDescription", "Scape Terrain Editor"
-      VALUE "FileVersion", "15.02"
-      VALUE "InternalName", "qtScape"
-      VALUE "LegalCopyright", "Copyright © 2015 Scape Team"
-      VALUE "ProductName", "qtScape"
-      VALUE "ProductVersion", "15.02"
+      VALUE "ProductName", "Scape"
+      VALUE "ProductVersion", SCAPE_VERSION_NAME
     END
   END
 

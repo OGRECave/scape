@@ -1,4 +1,5 @@
 #include "MainWindow.h"
+#include "ScapeVersion.h"
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QSplashScreen>
 #include <QtWidgets/QStyleFactory>
@@ -21,7 +22,7 @@ int main(int argc, char* argv[])
 
     a.setOrganizationName("Scape");
     a.setApplicationName("qtScape");
-    a.setApplicationVersion("15.02");
+    a.setApplicationVersion(SCAPE_VERSION_NAME);
     a.setStyle(QStyleFactory::create("Fusion"));
 
     QSplashScreen* splash;

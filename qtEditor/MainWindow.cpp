@@ -1,5 +1,6 @@
 #include "MainWindow.h"
 #include "ui_mainwindow.h"
+#include "ScapeVersion.h"
 #include "OgreWidget.h"
 #include "EngineCore/EngineInterface.h"
 #include <sstream>
@@ -32,7 +33,7 @@ MainWindow::MainWindow(QWidget* parent)
     populateToolbar();
     connectActions();
 
-    setWindowTitle("qtScape 15.02");
+    setWindowTitle("qtScape " SCAPE_VERSION_NAME);
 
     mOgreWidget = new OgreWidget(mEngineInterface, this);
     setCentralWidget(mOgreWidget);

@@ -50,6 +50,8 @@ if(WIN32)
         set(RESOURCE_SRCS ${RESOURCE_SRCS} ${RES})
 endif(WIN32)
 
+configure_file(./ScapeVersion.h.in ${CMAKE_CURRENT_BINARY_DIR}/ScapeVersion.h @ONLY)
+
 add_executable(qtEditor WIN32
     ${HEADER_FILES}
     ${SRC_FILES}

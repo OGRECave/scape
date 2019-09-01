@@ -2,10 +2,6 @@ project(qtEditor)
 
 set(CMAKE_DEBUG_POSTFIX "_d")
 set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/bin")
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY  ${CMAKE_INSTALL_PREFIX})
-# Force MSVC_IDE to not put the executable in Debug/Release directories!
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG  ${CMAKE_INSTALL_PREFIX})
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE  ${CMAKE_INSTALL_PREFIX})
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
@@ -59,6 +55,8 @@ add_executable(qtEditor WIN32
 )
 
 target_include_directories(qtEditor PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+
+set_target_properties(qtEditor PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/$<0:>")
 
 if(WIN32)
     set_target_properties(qtEditor PROPERTIES DEBUG_POSTFIX _d)

@@ -27,8 +27,6 @@ namespace DeviceButtonId
 enum EDeviceButtonId
 {
     DEVICEBUTTONID_UNKNOWN,
-//#include "DeviceButtonIdOISKeyboard.def"
-//#include "DeviceButtonIdOISMouse.def"
     ENUMID( KC_UNASSIGNED )
     ENUMID( KC_ESCAPE )
     ENUMID( KC_1 )

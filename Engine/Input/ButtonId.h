@@ -19,8 +19,7 @@ namespace ButtonId
 #define ENUMID(a) a,
 enum EButtonId
 {
-    BUTTONID_UNKNOWN,
-//#include "ButtonId.def"    
+    BUTTONID_UNKNOWN,  
     ENUMID( CAMERA_POINTERCAMPANTILT )
     ENUMID( CAMERA_POINTERGRABPANTILT )
     ENUMID( CAMERA_POINTERGRABDOLLY )

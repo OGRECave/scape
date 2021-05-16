@@ -35,7 +35,7 @@ if(WIN32)
    set(CMAKE_MODULE_PATH "$ENV{OGRE_HOME}/CMake/;${CMAKE_MODULE_PATH}")
 endif(WIN32)
   
-find_package(OGRE 1.11 REQUIRED)
+find_package(OGRE REQUIRED CONFIG)
 find_package(Qt5 COMPONENTS Core Gui Widgets REQUIRED)
 
 add_subdirectory(Engine)

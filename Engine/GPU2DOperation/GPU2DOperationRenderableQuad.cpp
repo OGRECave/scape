@@ -211,6 +211,25 @@ void GPU2DOperationRenderableQuad::setMaterialTexture(const string& aliasName,
     mAliasTextureMap[aliasName] = textureName;
 }
 
+static void applyTextureAliases(const Ogre::Technique* t, const Ogre::NameValuePairList& aliasList)
+{
+    for (auto p : t->getPasses())
+    {
+        for (auto tus : p->getTextureUnitStates())
+        {
+            auto aliasIt = aliasList.find(tus->getTextureNameAlias());
+            if (aliasIt == aliasList.end())
+                continue;
+
+            if (tus->getNumFrames() > 1)
+                tus->setAnimatedTextureName(aliasIt->second, tus->getNumFrames(),
+                                            tus->getAnimationDuration());
+            else
+                tus->setTextureName(aliasIt->second, tus->getTextureType());
+        }
+    }
+}
+
 void GPU2DOperationRenderableQuad::prepareForRender(Ogre::ushort zOrder)
 {
     mZOrder = zOrder;
@@ -231,11 +250,11 @@ void GPU2DOperationRenderableQuad::prepareForRender(Ogre::ushort zOrder)
     // Update material texture(s) if necessary
     if (newMaterial)
     {
-        technique->applyTextureAliases(mAliasTextureMap, true);
+        applyTextureAliases(technique, mAliasTextureMap);
     }
     else
     {
-        technique->applyTextureAliases(mNewAliasTextureMap, true);
+        applyTextureAliases(technique, mNewAliasTextureMap);
     }
     mNewAliasTextureMap.clear();
 

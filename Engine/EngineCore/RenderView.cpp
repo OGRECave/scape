@@ -259,7 +259,7 @@ void RenderView::update()
     }
     else
     {
-        mOverlay->hide();
+        //mOverlay->hide();
     }
 
     mRenderWindow->update();

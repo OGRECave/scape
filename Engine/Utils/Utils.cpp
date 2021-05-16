@@ -7,6 +7,10 @@
 #include "ScapeEngineStableHeaders.h"
 #include "Utils.h"
 
+#if OGRE_PLATFORM == OGRE_PLATFORM_LINUX
+#include <unistd.h>
+#endif
+
 using namespace ScapeEngine;
 
 const string Utils::emptyString = _T("");

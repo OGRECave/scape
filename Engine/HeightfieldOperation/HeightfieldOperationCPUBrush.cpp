@@ -51,7 +51,7 @@ public:
             std::min(heightfieldBuffer->getHeightfieldBufferSet()->getElementColumnCount(),
                      left + size / 2),
             std::min(heightfieldBuffer->getHeightfieldBufferSet()->getElementRowCount(), top + size / 2));
-        Ogre::Real* data = new Ogre::Real[std::max((long)1, editRect.width() * editRect.height())];
+        Ogre::Real* data = new Ogre::Real[std::max<int>(1, editRect.width() * editRect.height())];
 
         Ogre::PixelBox pixelBox(Utils::rectToBox(editRect), Ogre::PF_FLOAT32_R, data);
         heightfieldBuffer->copyTo(pixelBox);

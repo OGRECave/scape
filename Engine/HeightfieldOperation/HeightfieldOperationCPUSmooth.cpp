@@ -107,7 +107,7 @@ void HeightfieldOperationCPUSmooth::applyPrimary(const Ogre::Vector3& position, 
         std::max(0, left - size / 2), std::max(0, top - size / 2),
         std::min(heightfieldBuffer->getHeightfieldBufferSet()->getElementColumnCount(), left + size / 2),
         std::min(heightfieldBuffer->getHeightfieldBufferSet()->getElementRowCount(), top + size / 2));
-    int elementCount = std::max((long)1, editRect.width() * editRect.height());
+    int elementCount = std::max<int>(1, editRect.width() * editRect.height());
     Ogre::Real* dataIn = new Ogre::Real[3 * elementCount];
     Ogre::Real* dataOut = new Ogre::Real[3 * elementCount];
 
@@ -189,7 +189,7 @@ void HeightfieldOperationCPUSmooth::applySecondary(const Ogre::Vector3& position
         std::max(0, left - size / 2), std::max(0, top - size / 2),
         std::min(heightfieldBuffer->getHeightfieldBufferSet()->getElementColumnCount(), left + size / 2),
         std::min(heightfieldBuffer->getHeightfieldBufferSet()->getElementRowCount(), top + size / 2));
-    int elementCount = std::max((long)1, editRect.width() * editRect.height());
+    int elementCount = std::max<int>(1, editRect.width() * editRect.height());
     Ogre::Real* dataIn = new Ogre::Real[3 * elementCount];
     Ogre::Real* dataOut = new Ogre::Real[3 * elementCount];
 
